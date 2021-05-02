@@ -17,4 +17,10 @@
     <ProjectReference Include="..\Battle.Logic\Battle.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CodeCoverage.runsettings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
