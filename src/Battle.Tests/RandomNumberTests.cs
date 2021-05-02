@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Battles.Logic;
+using Battle.Logic;
 using System.Collections.Generic;
 
-namespace Battles.Test
+namespace Battle.Tests
 {
     [TestClass]
     [TestCategory("L0")]
@@ -63,7 +63,7 @@ namespace Battles.Test
             Assert.AreEqual(3, result[9]);
         }
 
-        private bool ValueIsInRange(int value, int minValue, int maxValue)
+        private static bool ValueIsInRange(int value, int minValue, int maxValue)
         {
             return (value >= minValue & value <= maxValue);
         }
