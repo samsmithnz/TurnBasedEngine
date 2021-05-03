@@ -1,6 +1,6 @@
-﻿using Battle.Logic;
+﻿using Battle.Logic.Weapons;
 
-namespace Battle.Tests
+namespace Battle.Tests.Weapons
 {
     public static class WeaponPool
     {

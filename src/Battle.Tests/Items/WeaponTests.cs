@@ -1,8 +1,7 @@
+using Battle.Logic.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Battle.Logic;
-using System.Collections.Generic;
 
-namespace Battle.Tests
+namespace Battle.Tests.Weapons
 {
     [TestClass]
     [TestCategory("L0")]

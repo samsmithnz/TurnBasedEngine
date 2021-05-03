@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic
+﻿namespace Battle.Logic.Characters
 {
     public class Character
     {

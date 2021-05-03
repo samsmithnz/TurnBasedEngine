@@ -1,6 +1,6 @@
-﻿using Battle.Logic;
+﻿using Battle.Logic.Characters;
 
-namespace Battle.Tests
+namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {

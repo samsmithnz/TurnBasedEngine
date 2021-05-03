@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic
+﻿namespace Battle.Logic.Weapons
 {
     public class Weapon
     {
