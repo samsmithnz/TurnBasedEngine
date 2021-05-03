@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Battle.Logic
+namespace Battle.Logic.Utility
 {
     public static class RandomNumber
     {

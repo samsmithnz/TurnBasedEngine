@@ -1,8 +1,8 @@
+using Battle.Logic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Battle.Logic;
 using System.Collections.Generic;
 
-namespace Battle.Tests
+namespace Battle.Tests.Utility
 {
     [TestClass]
     [TestCategory("L0")]
@@ -59,8 +59,27 @@ namespace Battle.Tests
             Assert.IsTrue(ValueIsInRange(result[0], minValue, maxValue));
 
             Assert.IsTrue(ValueIsInRange(result[9], minValue, maxValue)); Assert.AreEqual(7, result[0]);
-            Assert.IsTrue(ValueIsInRange(result[9],minValue,maxValue));
+            Assert.IsTrue(ValueIsInRange(result[9], minValue, maxValue));
             Assert.AreEqual(3, result[9]);
+        }
+
+        [TestMethod]
+        public void RandomNumberListWithOneItemSeedZeroTest()
+        {
+            //Arrange
+            int minValue = 0;
+            int maxValue = 100;
+            int listLength = 1;
+            int seed = 0;
+
+            //Act
+            List<int> result = RandomNumber.GenerateRandomNumberList(minValue, maxValue, seed, listLength);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(ValueIsInRange(result[0], minValue, maxValue));
+            Assert.AreEqual(72, result[0]);
         }
 
         private static bool ValueIsInRange(int value, int minValue, int maxValue)
