@@ -50,5 +50,23 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(12, result.TargetCharacter.HP);
         }
 
+        //Fred misses Jeff with a sword, causing zero points of damage
+        [TestMethod]
+        public void NoRandomNumberEncounterTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.ChanceToHit = 75;
+            Weapon sword = WeaponPool.CreateSword();
+            Character jeff = CharacterPool.CreateJeff();
+            List<int> randomNumbers = null;
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, sword, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result == null);
+        }
+
     }
 }
