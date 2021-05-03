@@ -12,7 +12,10 @@ namespace Battle.Tests.Characters
                 HP = 12,
                 ChanceToHit = 70,
                 Initiative = 10,
-                Modifier = 0
+                Modifier = 0,
+                Experience = 0,
+                Level = 1,
+                LevelUpIsReady = false
             };
             return fred;
         }
@@ -25,7 +28,10 @@ namespace Battle.Tests.Characters
                 HP = 12,
                 ChanceToHit = 70,
                 Initiative = 10,
-                Modifier = 0
+                Modifier = 0,
+                Experience = 0,
+                Level = 1,
+                LevelUpIsReady = false
             };
             return fred;
         }

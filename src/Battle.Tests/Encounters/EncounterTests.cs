@@ -28,6 +28,7 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(2, result.TargetCharacter.HP);
         }
 
@@ -47,12 +48,13 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
         }
 
-        //Fred misses Jeff with a sword, causing zero points of damage
+        //The encounter has no random numbers and returns null
         [TestMethod]
-        public void NoRandomNumberEncounterTest()
+        public void FredSwordJeffNoRandomNumbersEncounterTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -66,6 +68,51 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result == null);
+        }
+
+        //Fred hits Jeff with a sword, causing 10 points of damage, and killing him
+        [TestMethod]
+        public void FredSwordJeffHitAndKillEncounterTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            Weapon sword = WeaponPool.CreateSword();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 1;
+            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, sword, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+        }
+
+        //Fred hits Jeff with a sword, causing 10 points of damage, killing him, and leveling up
+        [TestMethod]
+        public void FredSwordJeffHitAndKillWithLevelUpEncounterTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.Experience = 200;
+            fred.Level = 2;
+            Weapon sword = WeaponPool.CreateSword();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 1;
+            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, sword, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(300, result.SourceCharacter.Experience);
+            Assert.AreEqual(2, result.SourceCharacter.Level);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
         }
 
     }

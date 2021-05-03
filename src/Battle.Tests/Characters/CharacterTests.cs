@@ -27,6 +27,9 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(70, fred.ChanceToHit);
             Assert.AreEqual(10, fred.Initiative);
             Assert.AreEqual(0, fred.Modifier);
+            Assert.AreEqual(0, fred.Experience);
+            Assert.AreEqual(1, fred.Level);
+            Assert.AreEqual(false, fred.LevelUpIsReady);
         }
     }
 }
