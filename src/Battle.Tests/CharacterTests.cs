@@ -12,25 +12,12 @@ namespace Battle.Tests
         public void CharacterFredTest()
         {
             //Arrange
-            Character fred = CreateFred();
+            Character fred = CharacterPool.CreateFred();
 
             //Act            
 
             //Assert
             TestFred(fred);
-        }
-
-        private static Character CreateFred()
-        {
-            Character fred = new()
-            {
-                Name = "Fred",
-                HP = 12,
-                ChanceToHit = 70,
-                Initiative = 10,
-                Modifier = 0
-            };
-            return fred;
         }
 
         private static void TestFred(Character fred)

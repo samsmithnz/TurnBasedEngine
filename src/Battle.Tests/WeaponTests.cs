@@ -12,24 +12,12 @@ namespace Battle.Tests
         public void WeaponSwordTest()
         {
             //Arrange
-            Weapon sword = CreateSword();
+            Weapon sword = WeaponPool.CreateSword();
 
             //Act            
 
             //Assert
             TestSword(sword);
-        }
-
-        private static Weapon CreateSword()
-        {
-            Weapon sword = new()
-            {
-                Name = "Sword",
-                Range = 1,
-                DamageRange = 10,
-                CriticalChance = 20
-            };
-            return sword;
         }
 
         private static void TestSword(Weapon sword)
