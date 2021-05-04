@@ -36,7 +36,7 @@ namespace Battle.Logic.Encounters
           
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomToHitNumber = randomNumberList[0];
-            if (toHit <= randomToHitNumber)
+            if (toHit >= randomToHitNumber)
             {
                 //process damage
                 targetCharacter.HP -= weapon.DamageRange;

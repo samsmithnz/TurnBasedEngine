@@ -21,7 +21,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+            List<int> randomNumbers = new() { 65 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -38,11 +38,11 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            fred.ChanceToHit = 75;
+            fred.ChanceToHit = 55;
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+            List<int> randomNumbers = new() { 65 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -80,7 +80,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+            List<int> randomNumbers=new() { 65 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -103,7 +103,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+            List<int> randomNumbers = new() { 65 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -121,10 +121,11 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
+            fred.ChanceToHit = 85;
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
-            List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+            List<int> randomNumbers = new() { 65 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -135,24 +136,24 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(2, result.TargetCharacter.HP);
         }
 
-        //[TestMethod]
-        //public void FredShootsAtJeffInFullCoverTest()
-        //{
-        //    //Arrange
-        //    Character fred = CharacterPool.CreateFred();
-        //    Weapon rifle = WeaponPool.CreateRifle();
-        //    Character jeff = CharacterPool.CreateJeff();
-        //    jeff.InFullCover = true;
-        //    List<int> randomNumbers = RandomNumber.GenerateRandomNumberList(0, 100, 0, 1);
+        [TestMethod]
+        public void FredShootsAtJeffInFullCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.InFullCover = true;
+            List<int> randomNumbers = new() { 65 };
 
-        //    //Act
-        //    EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
 
-        //    //Assert
-        //    Assert.IsTrue(result != null);
-        //    Assert.AreEqual(0, result.SourceCharacter.Experience);
-        //    Assert.AreEqual(12, result.TargetCharacter.HP);
-        //}
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(12, result.TargetCharacter.HP);
+        }
 
     }
 }
