@@ -30,20 +30,23 @@ namespace Battle.Logic.Encounters
         //private const int Level6ExperienceUp = 1560;
         //private const int Level7ExperienceUp = 2150;
 
+        private const int SuccessfulAction = 10;
+        private const int KillXP = 100;
+
         //XCOM 2 uses a kills experience system: https://gaming.stackexchange.com/questions/255057/how-can-i-tell-how-many-kills-my-soldier-is-away-from-promotion
 
-        public static int GetExperience(bool ifHit, bool ifKill = false)
+        public static int GetExperience(bool successfulAction, bool successfulKill = false)
         {
             //hit
-            if (ifHit == true)
+            if (successfulAction == true)
             {
-                if (ifKill == true)
+                if (successfulKill == true)
                 {
-                    return 100;
+                    return KillXP;
                 }
                 else
                 {
-                    return 10;
+                    return SuccessfulAction;
                 }
             }
             else

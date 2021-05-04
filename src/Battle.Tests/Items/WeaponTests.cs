@@ -8,24 +8,24 @@ namespace Battle.Tests.Weapons
     public class WeaponTests
     {
         [TestMethod]
-        public void WeaponSwordTest()
+        public void WeaponRifleTest()
         {
             //Arrange
-            Weapon sword = WeaponPool.CreateSword();
+            Weapon rifle = WeaponPool.CreateRifle();
 
             //Act            
 
             //Assert
-            TestSword(sword);
+            TestRifle(rifle);
         }
 
-        private static void TestSword(Weapon sword)
+        private static void TestRifle(Weapon rifle)
         {
-            Assert.IsNotNull(sword);
-            Assert.AreEqual("Sword", sword.Name);
-            Assert.AreEqual(1, sword.Range);
-            Assert.AreEqual(10, sword.DamageRange);
-            Assert.AreEqual(20, sword.CriticalChance);
+            Assert.IsNotNull(rifle);
+            Assert.AreEqual("Rifle", rifle.Name);
+            Assert.AreEqual(1, rifle.Range);
+            Assert.AreEqual(10, rifle.DamageRange);
+            Assert.AreEqual(20, rifle.CriticalChance);
         }
       
     }

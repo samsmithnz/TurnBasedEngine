@@ -4,16 +4,16 @@ namespace Battle.Tests.Weapons
 {
     public static class WeaponPool
     {
-        public static Weapon CreateSword()
+        public static Weapon CreateRifle()
         {
-            Weapon sword = new()
+            Weapon rifle = new()
             {
-                Name = "Sword",
+                Name = "Rifle",
                 Range = 1,
                 DamageRange = 10,
                 CriticalChance = 20
             };
-            return sword;
+            return rifle;
         }
     }
 }
