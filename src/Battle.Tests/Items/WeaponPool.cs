@@ -11,7 +11,8 @@ namespace Battle.Tests.Weapons
                 Name = "Rifle",
                 Range = 1,
                 DamageRange = 10,
-                CriticalChance = 20
+                CriticalChance = 20,
+                ChanceToHitAdjustment = 10
             };
             return rifle;
         }

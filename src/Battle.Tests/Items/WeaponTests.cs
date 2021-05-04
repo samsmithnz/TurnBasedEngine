@@ -23,6 +23,7 @@ namespace Battle.Tests.Weapons
         {
             Assert.IsNotNull(rifle);
             Assert.AreEqual("Rifle", rifle.Name);
+            Assert.AreEqual(10, rifle.ChanceToHitAdjustment);
             Assert.AreEqual(1, rifle.Range);
             Assert.AreEqual(10, rifle.DamageRange);
             Assert.AreEqual(20, rifle.CriticalChance);

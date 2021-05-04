@@ -27,6 +27,7 @@ namespace Battle.Logic.Encounters
             {
                 toHit -= 40;
             }
+            toHit += weapon.ChanceToHitAdjustment;
             return toHit;
         }
 
