@@ -15,14 +15,8 @@ namespace Battle.Logic.Encounters
 
         ////Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
 
-
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
+        public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
-            if (randomNumberList == null || randomNumberList.Count == 0)
-            {
-                return null;
-            }
-
             //Make to hit adjustments
             int toHit = sourceCharacter.ChanceToHit;
             if (targetCharacter.InHalfCover == true)
@@ -33,14 +27,25 @@ namespace Battle.Logic.Encounters
             {
                 toHit -= 40;
             }
-          
+            return toHit;
+        }
+
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
+        {
+            if (randomNumberList == null || randomNumberList.Count == 0)
+            {
+                return null;
+            }
+
+            int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
+
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomToHitNumber = randomNumberList[0];
             if (toHit >= randomToHitNumber)
             {
                 //process damage
                 targetCharacter.HP -= weapon.DamageRange;
-                
+
                 //process experience
                 if (targetCharacter.HP <= 0)
                 {

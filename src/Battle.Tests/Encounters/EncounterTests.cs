@@ -155,5 +155,25 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(12, result.TargetCharacter.HP);
         }
 
+        [TestMethod]
+        public void FredShootsAtJeffInFullCoverNegativeChanceToHitTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.ChanceToHit = 30;
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.InFullCover = true;
+            List<int> randomNumbers = new() { 65 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(12, result.TargetCharacter.HP);
+        }
+
     }
 }
