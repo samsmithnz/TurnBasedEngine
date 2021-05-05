@@ -9,7 +9,7 @@ namespace Battle.Tests.Weapons
             Weapon rifle = new()
             {
                 Name = "Rifle",
-                Range = 1,
+                Range = 18,
                 DamageRange = 10,
                 CriticalChance = 20,
                 ChanceToHitAdjustment = 10,

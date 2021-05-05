@@ -12,9 +12,8 @@ namespace Battle.Tests.Encounters
     [TestCategory("L0")]
     public class EncounterTests
     {
-        //Fred hits Jeff with a rifle, causing 10 points of damage
         [TestMethod]
-        public void FredRifleJeffHitEncounterTest()
+        public void FredAttacksJeffWithRifleAndHitsTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -31,9 +30,8 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(2, result.TargetCharacter.HP);
         }
 
-        //Fred misses Jeff with a rifle, causing zero points of damage
         [TestMethod]
-        public void FredRifleJeffMissEncounterTest()
+        public void FredAttacksJeffWithRifleAndMissesTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -52,9 +50,8 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(12, result.TargetCharacter.HP);
         }
 
-        //Fred misses Jeff with a rifle, causing zero points of damage
         [TestMethod]
-        public void FredRifleJeffHitWithAdjustmentEncounterTest()
+        public void FredAttacksJeffWithRifleModifiersAndHitsTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -76,11 +73,10 @@ namespace Battle.Tests.Encounters
 
         //The encounter has no random numbers and returns null
         [TestMethod]
-        public void FredRifleJeffNoRandomNumbersEncounterTest()
+        public void NoRandomNumbersEncounterTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            fred.ChanceToHit = 75;
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             List<int> randomNumbers = null;
@@ -92,9 +88,8 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result == null);
         }
 
-        //Fred hits Jeff with a rifle, causing 10 points of damage, and killing him
         [TestMethod]
-        public void FredRifleJeffHitAndKillEncounterTest()
+        public void FredAttacksAndKillsJeffWithRifleTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -115,7 +110,7 @@ namespace Battle.Tests.Encounters
 
         //Fred hits Jeff with a rifle, causing 10 points of damage, killing him, and leveling up
         [TestMethod]
-        public void FredRifleJeffHitAndKillWithLevelUpEncounterTest()
+        public void FredAttacksAndKillsJeffWithRifleCausingFredToLevelUpTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -138,7 +133,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void FredShootsAtJeffInHalfCoverTest()
+        public void FredAttacksJeffWithRifleWhoIsInHalfCoverAndHitsTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -158,7 +153,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void FredShootsAtJeffInFullCoverTest()
+        public void FredAttacksJeffWithRifleWhoIsInFullCoverAndHitsTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -177,7 +172,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void FredShootsAtJeffInFullCoverNegativeChanceToHitTest()
+        public void FredAttacksJeffWithRifleWhoIsInFullCoverDiagAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -199,7 +194,7 @@ namespace Battle.Tests.Encounters
 
 
         [TestMethod]
-        public void FredShootsAtJeffInFullCoverStraightOnNegativeChanceToHitTest()
+        public void FredAttacksJeffWithRifleWhoIsInFullCoverStraightOnAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
