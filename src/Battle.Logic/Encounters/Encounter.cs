@@ -13,12 +13,19 @@ namespace Battle.Logic.Encounters
         //Calculate cover for target
         //Calculate final chance to hit
 
-        ////Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
 
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
-            //Make to hit adjustments
+            //Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
+
+            //The characters base chance to hit
             int toHit = sourceCharacter.ChanceToHit;
+
+            //TODO: character modifiers            
+            //TODO: Target base defence
+            //TODO: Target modifiers
+
+            //Target cover adjustments
             if (targetCharacter.InHalfCover == true)
             {
                 toHit -= 20;
@@ -27,7 +34,14 @@ namespace Battle.Logic.Encounters
             {
                 toHit -= 40;
             }
+
+            //Weapon  modifiers
             toHit += weapon.ChanceToHitAdjustment;
+
+            //Weapon range modifiers
+            int distance = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
+            toHit += Range.GetRangeModifier(weapon, distance);
+
             return toHit;
         }
 

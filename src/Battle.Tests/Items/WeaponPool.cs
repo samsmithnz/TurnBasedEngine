@@ -12,7 +12,8 @@ namespace Battle.Tests.Weapons
                 Range = 1,
                 DamageRange = 10,
                 CriticalChance = 20,
-                ChanceToHitAdjustment = 10
+                ChanceToHitAdjustment = 10,
+                Type = WeaponEnum.Standard
             };
             return rifle;
         }

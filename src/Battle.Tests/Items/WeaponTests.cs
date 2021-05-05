@@ -27,6 +27,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(1, rifle.Range);
             Assert.AreEqual(10, rifle.DamageRange);
             Assert.AreEqual(20, rifle.CriticalChance);
+            Assert.AreEqual(WeaponEnum.Standard, rifle.Type);
         }
       
     }

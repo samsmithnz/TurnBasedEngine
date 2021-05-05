@@ -1,6 +1,5 @@
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using Battle.Tests.Characters;
 using Battle.Tests.Weapons;
@@ -120,8 +119,8 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            fred.Experience = 200;
-            fred.Level = 2;
+            fred.Experience = 0;
+            fred.Level = 1;
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
@@ -132,8 +131,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(300, result.SourceCharacter.Experience);
-            Assert.AreEqual(2, result.SourceCharacter.Level);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             Assert.AreEqual(0, result.TargetCharacter.HP);
         }
