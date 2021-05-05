@@ -12,8 +12,9 @@
 
     public enum WeaponEnum
     {
-        Standard = 0,
-        Shotgun = 1,
-        Sniper = 2
+        Unknown = 0,
+        Standard = 1,
+        Shotgun = 2,
+        Sniper = 3
     }
 }

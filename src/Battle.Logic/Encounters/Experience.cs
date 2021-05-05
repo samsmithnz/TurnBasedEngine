@@ -22,7 +22,7 @@ namespace Battle.Logic.Encounters
         //Major               2500	        
         //Colonel             3000	        
         private const int Level1ExperienceUp = 100;
-        private const int Level2ExperienceUp = 500;
+        //private const int Level2ExperienceUp = 500;
         //private const int Level3ExperienceUp = 1000;
         //private const int Level4ExperienceUp = 1500;
         //private const int Level5ExperienceUp = 2000;
@@ -63,12 +63,12 @@ namespace Battle.Logic.Encounters
                         result= true;
                     }
                     break;
-                case 2:
-                    if (experience >= Level2ExperienceUp)
-                    {
-                        result = true;
-                    }
-                    break;
+                //case 2:
+                //    if (experience >= Level2ExperienceUp)
+                //    {
+                //        result = true;
+                //    }
+                //    break;
                     //case 3:
                     //    if (experience >= 510)
                     //    {
