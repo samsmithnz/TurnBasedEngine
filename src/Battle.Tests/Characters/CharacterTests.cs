@@ -73,7 +73,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(0, harry.Experience);
             Assert.AreEqual(1, harry.Level);
             Assert.AreEqual(false, harry.LevelUpIsReady);
-            Assert.AreEqual(new System.Numerics.Vector3(5, 5, 5), harry.Location);
+            Assert.AreEqual(new System.Numerics.Vector3(5, 0, 5), harry.Location);
             Assert.AreEqual(2, harry.ActionPoints);
             Assert.AreEqual(10, harry.Range);
             Assert.AreEqual(true, harry.InHalfCover);
@@ -91,7 +91,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(0, jeff.Experience);
             Assert.AreEqual(1, jeff.Level);
             Assert.AreEqual(false, jeff.LevelUpIsReady);
-            Assert.AreEqual(new System.Numerics.Vector3(10, 10, 10), jeff.Location);
+            Assert.AreEqual(new System.Numerics.Vector3(10, 0 ,10), jeff.Location);
             Assert.AreEqual(2, jeff.ActionPoints);
             Assert.AreEqual(10, jeff.Range);
             Assert.AreEqual(false, jeff.InHalfCover);
