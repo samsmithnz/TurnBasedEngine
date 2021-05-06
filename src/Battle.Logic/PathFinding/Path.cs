@@ -11,19 +11,19 @@ namespace Battle.PathFinding
         private Tile[,] _tiles;
         private readonly Tile _startTile;
         private readonly Tile _endTile;
-        private readonly SearchParameters _searchParameters;
-
+        private readonly Point _endLocation;
+       
         /// <summary>
         /// Create a new instance of PathFinder
         /// </summary>
         /// <param name="searchParameters"></param>
-        public Path(SearchParameters searchParameters)
+        public Path(Point startingLocation, Point endLocation, string[,] map)
         {
-            _searchParameters = searchParameters;
-            InitializeTiles(searchParameters.Map);
-            _startTile = _tiles[searchParameters.StartingLocation.X, searchParameters.StartingLocation.Y];
+            InitializeTiles(map);
+            _startTile = _tiles[startingLocation.X, startingLocation.Y];
             _startTile.State = TileState.Open;
-            _endTile = _tiles[searchParameters.EndLocation.X, searchParameters.EndLocation.Y];
+            _endTile = _tiles[endLocation.X, endLocation.Y];
+            _endLocation = endLocation;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Battle.PathFinding
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, y] = new Tile(x, y, map[x, y], _searchParameters.EndLocation);
+                    _tiles[x, y] = new Tile(x, y, map[x, y], _endLocation);
                 }
             }
         }

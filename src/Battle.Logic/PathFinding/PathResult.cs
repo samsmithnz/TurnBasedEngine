@@ -9,6 +9,12 @@ namespace Battle.PathFinding
         public List<Tile> Tiles;
         public List<Point> Path;
 
+        public PathResult()
+        {
+            Tiles = new List<Tile>();
+            Path = new List<Point>();
+        }
+
         public Tile GetLastTile()
         {
             if (Tiles != null && Tiles.Count > 0)
@@ -19,12 +25,6 @@ namespace Battle.PathFinding
             {
                 return null;
             }
-        }
-
-        public PathResult()
-        {
-            Tiles = new List<Tile>();
-            Path = new List<Point>();
         }
     }
 }
