@@ -5,7 +5,21 @@ namespace Battle.PathFinding
 {
     public class Tile
     {
-        private Tile _parentTile;
+        /// <summary>
+        /// Creates a new instance of Node.
+        /// </summary>
+        /// <param name="x">The node's location along the X axis</param>
+        /// <param name="y">The node's location along the Y axis</param>
+        /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
+        /// <param name="endLocation">The location of the destination node</param>
+        public Tile(int x, int y, string tileType, Point endLocation)
+        {
+            this.Location = new Point(x, y);
+            this.State = TileState.Untested;
+            this.TileType = tileType;
+            this.H = GetTraversalCost(this.Location, endLocation);
+            this.G = 0;
+        }
 
         /// <summary>
         /// The node's location in the grid
@@ -46,34 +60,22 @@ namespace Battle.PathFinding
             get { return Convert.ToInt32(F); }
         }
 
+        private Tile _parentTile;
         /// <summary>
         /// Gets or sets the parent node. The start node's parent is always null.
         /// </summary>
         public Tile ParentTile
         {
-            get { return this._parentTile; }
+            get
+            {
+                return this._parentTile;
+            }
             set
             {
                 // When setting the parent, also calculate the traversal cost from the start node to here (the 'G' value)
                 this._parentTile = value;
                 this.G = this._parentTile.G + GetTraversalCost(this.Location, this._parentTile.Location);
             }
-        }
-
-        /// <summary>
-        /// Creates a new instance of Node.
-        /// </summary>
-        /// <param name="x">The node's location along the X axis</param>
-        /// <param name="y">The node's location along the Y axis</param>
-        /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
-        /// <param name="endLocation">The location of the destination node</param>
-        public Tile(int x, int y, string tileType, Point endLocation)
-        {
-            this.Location = new Point(x, y);
-            this.State = TileState.Untested;
-            this.TileType = tileType;
-            this.H = GetTraversalCost(this.Location, endLocation);
-            this.G = 0;
         }
 
         //public override string ToString()
