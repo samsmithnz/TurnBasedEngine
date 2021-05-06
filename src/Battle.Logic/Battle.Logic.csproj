@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="CharacterCover\" />
+    <Folder Include="FieldOfView\" />
   </ItemGroup>
 
 </Project>

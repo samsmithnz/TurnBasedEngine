@@ -17,7 +17,7 @@ namespace Battle.PathFinding
 
         public Tile GetLastTile()
         {
-            if (Tiles != null && Tiles.Count > 0)
+            if (Tiles.Count > 0)
             {
                 return Tiles[^1]; //"^1" is the same asa "Tiles.Count - 1"
             }
