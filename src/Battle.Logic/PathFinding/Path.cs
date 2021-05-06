@@ -16,21 +16,11 @@ namespace Battle.PathFinding
         /// <summary>
         /// Create a new instance of PathFinder
         /// </summary>
-        /// <param name="searchParameters"></param>
-        public Path(Point startingLocation, Point endLocation, string[,] map)
-        {
-            _startTile = _tiles[startingLocation.X, startingLocation.Y];
-            _startTile.State = TileState.Open;
-            _endTile = _tiles[endLocation.X, endLocation.Y];
-            _endLocation = endLocation; 
-            InitializeTiles(map);
-        }
-
-        public Path(Point startingLocation, Point endLocation, string[,] map)
+        public Path(Point startLocation, Point endLocation, string[,] map)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            _startTile = _tiles[startingLocation.X, startingLocation.Y];
+            _startTile = _tiles[startLocation.X, startLocation.Y];
             _startTile.State = TileState.Open;
             _endTile = _tiles[endLocation.X, endLocation.Y];
         }

@@ -15,10 +15,10 @@ namespace Battle.Tests.PathFinding
         public void Test_WithoutWalls_CanFindPath()
         {
             //Arrange
-            Point startingLocation = new(1, 2);
+            Point startLocation = new(1, 2);
             Point endLocation = new(5, 2);
-            string[,] map = InitializeMap(7, 5, startingLocation, endLocation);
-            Path path = new(startingLocation, endLocation, map);
+            string[,] map = InitializeMap(7, 5);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -41,15 +41,15 @@ namespace Battle.Tests.PathFinding
             //  □ □ □ * * □ □
 
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-            Point startingLocation = new(1, 2);
+            Point startLocation = new(1, 2);
             Point endLocation = new(5, 2);
-            string[,] map = InitializeMap(7, 5, startingLocation, endLocation);
+            string[,] map = InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
             map[3, 2] = "W";
             map[3, 1] = "W";
             map[4, 1] = "W";
-            Path path = new(startingLocation, endLocation, map);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -74,15 +74,15 @@ namespace Battle.Tests.PathFinding
             //  □ □ □ ■ □ □ □
 
             // No path
-            Point startingLocation = new(1, 2);
+            Point startLocation = new(1, 2);
             Point endLocation = new(5, 2);
-            string[,] map = InitializeMap(7, 5, startingLocation, endLocation);
+            string[,] map = InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
             map[3, 2] = "W";
             map[3, 1] = "W";
             map[3, 0] = "W";
-            Path path = new(startingLocation, endLocation, map);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -106,9 +106,9 @@ namespace Battle.Tests.PathFinding
             //  ■ □ ■ ■ ■ □ ■
 
             // long path
-            Point startingLocation = new(0, 4);
+            Point startLocation = new(0, 4);
             Point endLocation = new(6, 4);
-            string[,] map = InitializeMap(7, 5, startingLocation, endLocation);
+            string[,] map = InitializeMap(7, 5);
             map[0, 0] = "W";
             map[1, 4] = "W";
             map[1, 3] = "W";
@@ -127,7 +127,7 @@ namespace Battle.Tests.PathFinding
             map[5, 2] = "W";
             map[5, 1] = "W";
             map[6, 0] = "W";
-            Path path = new(startingLocation, endLocation, map);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -146,11 +146,10 @@ namespace Battle.Tests.PathFinding
         public void Test_GiantRandomMap_WithInefficentPath()
         {
             //Arrange
-            Point startingLocation = new(1, 2);
-            Point endLocation = new(5, 2);
-            string[,] map = InitializeMap(7, 5, startingLocation, endLocation);
-            AddGiantRandomWalls();
-            Path path = new(startingLocation, endLocation, map);
+            Point startLocation = new(0, 0);
+            Point endLocation = new(69, 39);
+            string[,] map = CreateGiantMap();
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -174,11 +173,9 @@ namespace Battle.Tests.PathFinding
             //   0 1 2 3 4 
 
             //Arrange
-            Point startingLocation = new(2, 2);
-            Point endLocation = new(2, 4);
             int height = 5;
             int width = 5;
-            string[,] map = InitializeMap(width, height, startingLocation, endLocation);
+            string[,] map = InitializeMap(width, height);
             map[1, 1] = "W";
             map[1, 2] = "W";
             map[1, 3] = "W";
@@ -187,7 +184,9 @@ namespace Battle.Tests.PathFinding
             map[3, 1] = "W";
             map[3, 2] = "W";
             map[3, 3] = "W";
-            Path path = new(startingLocation, endLocation, map);
+            Point startLocation = new(2, 2);
+            Point endLocation = new(2, 4);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -195,10 +194,10 @@ namespace Battle.Tests.PathFinding
             //Assert
             Assert.IsNotNull(pathResult);
             Assert.IsNotNull(pathResult.Path);
-            Assert.IsTrue(pathResult.Path.Count == 2);
-            Assert.IsTrue(pathResult.Tiles.Count == 2);
-            Assert.IsTrue(pathResult.GetLastTile() != null);
-            Assert.IsTrue(pathResult.GetLastTile().TraversalCost == 2);
+            Assert.IsTrue(pathResult.Path.Count == 0);
+            Assert.IsTrue(pathResult.Tiles.Count == 0);
+            Assert.IsTrue(pathResult.GetLastTile() == null);
+            //Assert.IsTrue(pathResult.GetLastTile().TraversalCost == 2);
         }
 
         [TestMethod]
@@ -212,11 +211,11 @@ namespace Battle.Tests.PathFinding
             //   0 1 2 3 4 
 
             //Arrange
-            Point startingLocation = new(2, 2);
+            Point startLocation = new(2, 2);
             Point endLocation = new(2, 2);
             int height = 5;
             int width = 5;
-            string[,] map = InitializeMap(width, height,  startingLocation, endLocation);
+            string[,] map = InitializeMap(width, height);
             map[1, 1] = "W";
             map[1, 2] = "W";
             map[1, 3] = "W";
@@ -225,7 +224,7 @@ namespace Battle.Tests.PathFinding
             map[3, 1] = "W";
             map[3, 2] = "W";
             map[3, 3] = "W";
-            Path path = new(startingLocation, endLocation, map);
+            Path path = new(startLocation, endLocation, map);
 
             //Act
             PathResult pathResult = path.FindPath();
@@ -240,7 +239,7 @@ namespace Battle.Tests.PathFinding
 
         #region "private helper functions"
 
-        private static string[,] InitializeMap(int xMax, int zMax, Point startingLocation, Point endLocation)
+        private static string[,] InitializeMap(int xMax, int zMax)
         {
             //  □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □
@@ -256,19 +255,6 @@ namespace Battle.Tests.PathFinding
                     map[x, z] = "";
                 }
             }
-
-            //if (locationsNotSet == true)
-            //{
-            //    if (startingLocation == Point.Empty)
-            //    {
-            //        startingLocation = new(1, 2);
-            //    }
-            //    if (endLocation == Point.Empty)
-            //    {
-            //        endLocation = new(5, 2);
-            //    }
-            //}
-            //this._searchParameters = new SearchParameters(startingLocation, endLocation, map);
 
             return map;
         }
@@ -323,9 +309,9 @@ namespace Battle.Tests.PathFinding
         }
 
 
-        #region "Huge random map"
+        #region "Create huge map"
 
-        private static void AddGiantRandomWalls()
+        private static string[,] CreateGiantMap()
         {
             //□ ■ □ □ □ ■ ■ □ ■ ■ ■ ■ □ □ □ ■ □ ■ □ □ □ ■ ■ □ □ ■ □ □ □ □ ■ □ □ □ ■ □ ■ □ ■ □ ■ ■ ■ ■ ■ □ ■ ■ ■ □ □ ■ ■ ■ □ □ □ □ ■ □ □ □ □ □ ■ ■ □ □ □ F
             //■ ■ □ ■ □ ■ ■ □ □ □ ■ ■ □ ■ □ □ □ □ □ ■ □ □ □ □ □ □ □ ■ □ □ □ ■ □ ■ □ □ □ ■ □ □ □ □ □ □ ■ □ □ ■ ■ □ □ □ ■ ■ ■ □ □ □ ■ □ □ ■ ** □ ■ □ □ * ■
@@ -370,7 +356,7 @@ namespace Battle.Tests.PathFinding
 
 
 
-       string[,] map= InitializeMap(70, 40, new(0, 0), new(69, 39));
+            string[,] map = InitializeMap(70, 40);
             map[6, 0] = "W";
             map[8, 0] = "W";
             map[10, 0] = "W";
@@ -1469,7 +1455,7 @@ namespace Battle.Tests.PathFinding
             map[58, 39] = "W";
             map[64, 39] = "W";
             map[65, 39] = "W";
-
+            return map;
         }
         #endregion
 

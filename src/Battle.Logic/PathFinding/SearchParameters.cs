@@ -7,13 +7,13 @@
 //    /// </summary>
 //    public class SearchParameters
 //    {
-//        public Point StartingLocation { get; set; }
+//        public Point startLocation { get; set; }
 //        public Point EndLocation { get; set; }
 //        public string[,] Map { get; set; }
 
-//        public SearchParameters(Point startingLocation, Point endLocation, string[,] map)
+//        public SearchParameters(Point startLocation, Point endLocation, string[,] map)
 //        {
-//            StartingLocation = startingLocation;
+//            startLocation = startLocation;
 //            EndLocation = endLocation;
 //            Map = map;
 //        }
