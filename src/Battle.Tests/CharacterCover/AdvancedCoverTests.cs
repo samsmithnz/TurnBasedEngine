@@ -6,6 +6,7 @@ using System.Numerics;
 namespace Battle.Tests.CharacterCover
 {
     [TestClass]
+    [TestCategory("L0")]
     public class AdvancedCoverTests
     {
 

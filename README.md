@@ -8,6 +8,7 @@ Currently supports
 - Basic pathfinding and map generation
 - Basic attacks, between two characters, with weapon abilities and range taken into account
 - Basic cover
+- Basic map generation
 
 Still to come
 - Movement 
