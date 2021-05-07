@@ -19,19 +19,73 @@ namespace Battle.Tests.Weapons
             TestRifle(rifle);
         }
 
-        private static void TestRifle(Weapon rifle)
+        [TestMethod]
+        public void WeaponShotgunTest()
         {
-            Assert.IsNotNull(rifle);
-            Assert.AreEqual("Rifle", rifle.Name);
-            Assert.AreEqual(10, rifle.ChanceToHitAdjustment);
-            Assert.AreEqual(18, rifle.Range);
-            Assert.AreEqual(3, rifle.DamageRangeLow);
-            Assert.AreEqual(5, rifle.DamageRangeHigh);
-            Assert.AreEqual(20, rifle.CriticalChance);
-            Assert.AreEqual(5, rifle.CriticalDamageLow);
-            Assert.AreEqual(7, rifle.CriticalDamageHigh);
-            Assert.AreEqual(4, rifle.ClipSize);
-            Assert.AreEqual(WeaponEnum.Standard, rifle.Type);
+            //Arrange
+            Weapon shotgun = WeaponPool.CreateShotgun();
+
+            //Act            
+
+            //Assert
+            TestShotgun(shotgun);
+        }
+
+        [TestMethod]
+        public void WeaponSniperRifleTest()
+        {
+            //Arrange
+            Weapon sniperRifle = WeaponPool.CreateSniperRifle();
+
+            //Act            
+
+            //Assert
+            TestSniperRifle(sniperRifle);
+        }
+
+        private static void TestRifle(Weapon weapon)
+        {
+            Assert.IsNotNull(weapon);
+            Assert.AreEqual("Rifle", weapon.Name);
+            Assert.AreEqual(10, weapon.ChanceToHitAdjustment);
+            Assert.AreEqual(18, weapon.Range);
+            Assert.AreEqual(3, weapon.DamageRangeLow);
+            Assert.AreEqual(5, weapon.DamageRangeHigh);
+            Assert.AreEqual(20, weapon.CriticalChance);
+            Assert.AreEqual(5, weapon.CriticalDamageLow);
+            Assert.AreEqual(7, weapon.CriticalDamageHigh);
+            Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(WeaponEnum.Standard, weapon.Type);
+        }
+
+        private static void TestShotgun(Weapon weapon)
+        {
+            Assert.IsNotNull(weapon);
+            Assert.AreEqual("Shotgun", weapon.Name);
+            Assert.AreEqual(10, weapon.ChanceToHitAdjustment);
+            Assert.AreEqual(17, weapon.Range);
+            Assert.AreEqual(3, weapon.DamageRangeLow);
+            Assert.AreEqual(5, weapon.DamageRangeHigh);
+            Assert.AreEqual(20, weapon.CriticalChance);
+            Assert.AreEqual(6, weapon.CriticalDamageLow);
+            Assert.AreEqual(8, weapon.CriticalDamageHigh);
+            Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(WeaponEnum.Shotgun, weapon.Type);
+        }
+
+        private static void TestSniperRifle(Weapon weapon)
+        {
+            Assert.IsNotNull(weapon);
+            Assert.AreEqual("Sniper Rifle", weapon.Name);
+            Assert.AreEqual(10, weapon.ChanceToHitAdjustment);
+            Assert.AreEqual(50, weapon.Range);
+            Assert.AreEqual(3, weapon.DamageRangeLow);
+            Assert.AreEqual(5, weapon.DamageRangeHigh);
+            Assert.AreEqual(25, weapon.CriticalChance);
+            Assert.AreEqual(6, weapon.CriticalDamageLow);
+            Assert.AreEqual(8, weapon.CriticalDamageHigh);
+            Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(WeaponEnum.SniperRifle, weapon.Type);
         }
       
     }

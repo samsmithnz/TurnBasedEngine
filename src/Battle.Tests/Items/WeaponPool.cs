@@ -40,5 +40,23 @@ namespace Battle.Tests.Weapons
             return shotgun;
         }
 
+        public static Weapon CreateSniperRifle()
+        {
+            Weapon shotgun = new()
+            {
+                Name = "Sniper Rifle",
+                ChanceToHitAdjustment = 10,
+                Range = 50,
+                DamageRangeLow = 3,
+                DamageRangeHigh = 5,
+                CriticalChance = 25,
+                CriticalDamageLow = 6,
+                CriticalDamageHigh = 8,
+                ClipSize = 4,
+                Type = WeaponEnum.SniperRifle
+            };
+            return shotgun;
+        }
+
     }
 }

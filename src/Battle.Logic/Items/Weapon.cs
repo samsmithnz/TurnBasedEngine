@@ -19,7 +19,7 @@
         Unknown = 0,
         Standard = 1,
         Shotgun = 2,
-        Sniper = 3,
+        SniperRifle = 3,
         Sword = 4
     }
 }

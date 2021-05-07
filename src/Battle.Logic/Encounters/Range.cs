@@ -8,68 +8,68 @@ namespace Battle.Logic.Encounters
     //But couldn't get the formulas to work, so just dumped the numbers since there is less than a dozen options per gun
     public class Range
     {
-        public static (int, bool) GetDistance(Vector3 sourceLocation, Vector3 targetLocation)
+        public static int GetDistance(Vector3 sourceLocation, Vector3 targetLocation)
         {
             int distance = (int)Vector3.Distance(sourceLocation, targetLocation);
-            bool isDiagonalDirection = true;
-            if (sourceLocation.X == targetLocation.X | sourceLocation.Z == targetLocation.Z)
-            {
-                isDiagonalDirection = false;
-            }
-            return new(distance, isDiagonalDirection);
+            //bool isDiagonalDirection = true;
+            //if (sourceLocation.X == targetLocation.X | sourceLocation.Z == targetLocation.Z)
+            //{
+            //    isDiagonalDirection = false;
+            //}
+            return distance;
         }
 
-        public static int GetRangeModifier(Weapon weapon, int distance, bool isDiagonalDirection)
+        public static int GetRangeModifier(Weapon weapon, int distance)
         {
             switch (weapon.Type)
             {
                 case WeaponEnum.Standard:
-                    return GetStandardWeaponRange(distance, isDiagonalDirection);
+                    return GetStandardWeaponRangeModifier(distance);
                 case WeaponEnum.Shotgun:
-                    return GetShotgunWeaponRange(distance);
-                case WeaponEnum.Sniper:
-                    return GetSniperWeaponRange(distance);
+                    return GetShotgunWeaponRangeModifier(distance);
+                case WeaponEnum.SniperRifle:
+                    return GetSniperWeaponRangeModifier(distance);
                 default:
                     return 0;
             }
 
         }
 
-        private static int GetStandardWeaponRange(int distance, bool isDiagonalDirection)
+        private static int GetStandardWeaponRangeModifier(int distance)//, bool isDiagonalDirection)
         {
-            //Diagonal line/direction
-            if (isDiagonalDirection == true)
+            ////Diagonal line/direction
+            //if (isDiagonalDirection == true)
+            //{
+                //switch (distance)
+                //{
+                //    case 1: return 35;
+                //    case 2: return 29;
+                //    case 3: return 23;
+                //    case 4: return 16;
+                //    case 5: return 10;
+                //    case 6: return 4;
+                //    default: return 0;
+                //}
+            //}
+            //else //Straight line/direction
+            //{
+            switch (distance)
             {
-                switch (distance)
-                {
-                    case 1: return 35;
-                    case 2: return 29;
-                    case 3: return 23;
-                    case 4: return 16;
-                    case 5: return 10;
-                    case 6: return 4;
-                    default: return 0;
-                }
+                case 1: return 37;
+                case 2: return 33;
+                case 3: return 28;
+                case 4: return 24;
+                case 5: return 19;
+                case 6: return 15;
+                case 7: return 10;
+                case 8: return 6;
+                case 9: return 1;
+                default: return 0;
             }
-            else //Straight line/direction
-            {
-                switch (distance)
-                {
-                    case 1: return 37;
-                    case 2: return 33;
-                    case 3: return 28;
-                    case 4: return 24;
-                    case 5: return 19;
-                    case 6: return 15;
-                    case 7: return 10;
-                    case 8: return 6;
-                    case 9: return 1;
-                    default: return 0;
-                }
-            }
+            //}
         }
 
-        private static int GetShotgunWeaponRange(int distance)
+        private static int GetShotgunWeaponRangeModifier(int distance)
         {
             switch (distance)
             {
@@ -94,29 +94,19 @@ namespace Battle.Logic.Encounters
             }
         }
 
-        private static int GetSniperWeaponRange(int distance)
+        private static int GetSniperWeaponRangeModifier(int distance)
         {
-            //1	-24
-            //2	-21
-            //3	-19
-            //4	-16
-            //5	-13
-            //6	-10
-            //7	-7
-            //8	-4
-            //9	-1
-            //10	0
             switch (distance)
             {
-                case 1: return 37;
-                case 2: return 33;
-                case 3: return 28;
-                case 4: return 24;
-                case 5: return 19;
-                case 6: return 15;
-                case 7: return 10;
-                case 8: return 6;
-                case 9: return 1;
+                case 1: return -24;
+                case 2: return -21;
+                case 3: return -19;
+                case 4: return -16;
+                case 5: return -13;
+                case 6: return -10;
+                case 7: return -7;
+                case 8: return -4;
+                case 9: return -1;
                 default: return 0;
             }
         }

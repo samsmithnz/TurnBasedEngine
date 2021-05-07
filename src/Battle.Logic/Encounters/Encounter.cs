@@ -41,10 +41,10 @@ namespace Battle.Logic.Encounters
             toHit += weapon.ChanceToHitAdjustment;
 
             //Weapon range modifiers
-            (int, bool) distanceAndDirection = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
-            int distance = distanceAndDirection.Item1;
-            bool isDiagonalDirection = distanceAndDirection.Item2;
-            toHit += Range.GetRangeModifier(weapon, distance, isDiagonalDirection);
+            int distance = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
+            //int distance = distanceAndDirection.Item1;
+            //bool isDiagonalDirection = distanceAndDirection.Item2;
+            toHit += Range.GetRangeModifier(weapon, distance);//, isDiagonalDirection);
 
             return toHit;
         }
