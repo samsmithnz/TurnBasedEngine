@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
+using System;
 using System.Collections.Generic;
 
 namespace Battle.Logic.Encounters
@@ -40,16 +41,19 @@ namespace Battle.Logic.Encounters
             toHit += weapon.ChanceToHitAdjustment;
 
             //Weapon range modifiers
-            (int, bool) distanceAndDirection = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
-            int distance = distanceAndDirection.Item1;
-            bool isDiagonalDirection = distanceAndDirection.Item2;
-            toHit += Range.GetRangeModifier(weapon, distance, isDiagonalDirection);
+            int distance = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
+            //int distance = distanceAndDirection.Item1;
+            //bool isDiagonalDirection = distanceAndDirection.Item2;
+            toHit += Range.GetRangeModifier(weapon, distance);//, isDiagonalDirection);
 
             return toHit;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> randomNumberList)
         {
+            int damageDealt = 0;
+            bool isCriticalHit = false;
+
             int randomNumberIndex = 0;
             if (randomNumberList == null || randomNumberList.Count == 0)
             {
@@ -58,28 +62,53 @@ namespace Battle.Logic.Encounters
             int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHitNumber = randomNumberList[randomNumberIndex];
+            int randomToHit = randomNumberList[randomNumberIndex];
             randomNumberIndex++;
-            if (toHit >= randomToHitNumber)
+            if (toHit >= randomToHit)
             {
+                //Setup damage
                 int damage = randomNumberList[randomNumberIndex];
-                //randomNumberIndex++;
-
+                randomNumberIndex++;
+                int lowDamageAdjustment = 0;
                 int highDamageAdjustment = 0;
-                if (sourceCharacter.Abilities.Count > 0)
+                highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
+
+                //Check if it was a critical hit
+                int randomToCrit = randomNumberList[randomNumberIndex];
+                int chanceToCrit = weapon.CriticalChance;
+                if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
                 {
-                    highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities,AbilityTypeEnum.Damage);
+                    //Add 50% for a flank
+                    chanceToCrit += 50;
+                }
+                chanceToCrit+= ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+                if (chanceToCrit >= randomToCrit)
+                {
+                    isCriticalHit = true;
+                    lowDamageAdjustment += weapon.CriticalDamageLow;
+                    highDamageAdjustment += weapon.CriticalDamageHigh;
+                    lowDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+                    highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
                 }
 
                 //process damage
-                targetCharacter.HP -= RandomNumber.ScaleRandomNumber(weapon.LowDamageRange,
-                        weapon.HighDamageRange + highDamageAdjustment,
+                damageDealt = RandomNumber.ScaleRandomNumber(
+                        weapon.DamageRangeLow + lowDamageAdjustment,
+                        weapon.DamageRangeHigh + highDamageAdjustment,
                         damage);
+
+                //If the damage dealt is more than the health, set damage to be equal to health
+                //if (targetCharacter.HP <= damageDealt)
+                //{
+                //    damageDealt = targetCharacter.HP;
+                //}
+                targetCharacter.HP -= damageDealt;
+
 
                 //process experience
                 if (targetCharacter.HP <= 0)
                 {
-                    targetCharacter.HP = 0;
+                    //targetCharacter.HP = 0;
                     sourceCharacter.Experience += Experience.GetExperience(true, true);
                 }
                 else
@@ -98,7 +127,9 @@ namespace Battle.Logic.Encounters
             EncounterResult result = new()
             {
                 SourceCharacter = sourceCharacter,
-                TargetCharacter = targetCharacter
+                TargetCharacter = targetCharacter,
+                DamageDealt = damageDealt,
+                IsCriticalHit = isCriticalHit
             };
             return result;
         }
@@ -114,6 +145,15 @@ namespace Battle.Logic.Encounters
                 }
             }
             return adjustment;
+        }
+
+        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,] map)
+        {
+            Console.WriteLine(map.Length);
+            Console.WriteLine(sourceCharacter.Location);
+            Console.WriteLine(targetCharacter.Location);
+            //This is where we will call the cover calculation
+            return false;
         }
 
     }
