@@ -55,7 +55,6 @@ namespace Battle.Logic.Encounters
             {
                 return null;
             }
-
             int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
@@ -64,10 +63,18 @@ namespace Battle.Logic.Encounters
             if (toHit >= randomToHitNumber)
             {
                 int damage = randomNumberList[randomNumberIndex];
-                randomNumberIndex++;
+                //randomNumberIndex++;
+
+                int highDamageAdjustment = 0;
+                if (sourceCharacter.Abilities.Count > 0)
+                {
+                    highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities,AbilityTypeEnum.Damage);
+                }
 
                 //process damage
-                targetCharacter.HP -= RandomNumber.ScaleRandomNumber(weapon.LowDamageRange, weapon.HighDamageRange, damage);
+                targetCharacter.HP -= RandomNumber.ScaleRandomNumber(weapon.LowDamageRange,
+                        weapon.HighDamageRange + highDamageAdjustment,
+                        damage);
 
                 //process experience
                 if (targetCharacter.HP <= 0)
@@ -94,6 +101,19 @@ namespace Battle.Logic.Encounters
                 TargetCharacter = targetCharacter
             };
             return result;
+        }
+
+        private static int ProcessAbilitiesByType(List<CharacterAbility> abilities, AbilityTypeEnum type)
+        {
+            int adjustment = 0;
+            foreach (CharacterAbility item in abilities)
+            {
+                if (item.Type == type)
+                {
+                    adjustment += item.Adjustment;
+                }
+            }
+            return adjustment;
         }
 
     }

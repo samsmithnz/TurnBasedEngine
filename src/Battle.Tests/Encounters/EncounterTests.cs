@@ -96,7 +96,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers=new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -119,7 +119,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = new() { 65,100 };
+            List<int> randomNumbers = new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -212,6 +212,45 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndHitsWithPlus10DamageAbilityTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 10));
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            List<int> randomNumbers = new() { 65, 100 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndHitsWithPlus5DamageTwiceAbilityTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 3));
+            fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 7));
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            List<int> randomNumbers = new() { 65, 100 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
         }
 
     }
