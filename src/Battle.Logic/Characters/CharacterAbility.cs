@@ -17,6 +17,7 @@
     public enum AbilityTypeEnum
     {
         Unknown = 0,
-        Damage = 1 //The character has skill that causes more damage
+        Damage = 1, //The character has skill that causes more damage
+        CritialDamage = 2
     }
 }

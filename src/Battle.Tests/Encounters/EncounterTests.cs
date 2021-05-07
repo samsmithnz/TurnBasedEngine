@@ -111,6 +111,28 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
+        public void FredAttacksAndKillsJeffWithRifleAndCriticalHitTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 7;
+            List<int> randomNumbers = new() { 65, 100, 0 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+        }
+
+        [TestMethod]
         public void FredAttacksAndKillsJeffWithRifleAndCritsTest()
         {
             //Arrange

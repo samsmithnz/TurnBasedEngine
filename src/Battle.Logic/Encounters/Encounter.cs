@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
+using System;
 using System.Collections.Generic;
 
 namespace Battle.Logic.Encounters
@@ -77,7 +78,13 @@ namespace Battle.Logic.Encounters
 
                 //Check if it was a critical hit
                 int randomToCrit = randomNumberList[randomNumberIndex];
-                if (weapon.CriticalChance >= randomToCrit)
+                int weaponCrit = weapon.CriticalChance;
+                if (TargetIsFlanked(sourceCharacter, targetCharacter) == true)
+                {
+                    //Add 50% for a flank
+                    weaponCrit += 50;
+                }
+                if (weaponCrit >= randomToCrit)
                 {
                     isCriticalHit = true;
                     lowDamageAdjustment += weapon.CriticalDamage;
@@ -138,6 +145,14 @@ namespace Battle.Logic.Encounters
                 }
             }
             return adjustment;
+        }
+
+        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter)
+        {
+            Console.WriteLine(sourceCharacter.Location);
+            Console.WriteLine(targetCharacter.Location);
+            //This is where we will call the cover calculation
+            return false;
         }
 
     }
