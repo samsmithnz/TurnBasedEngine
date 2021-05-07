@@ -16,12 +16,14 @@ namespace Battle.Tests.Characters
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
-                Location = new(0,0,0),
+                Location = new(0, 0, 0),
                 ActionPoints = 2,
                 Range = 10,
-                InHalfCover=false,
-                InFullCover=false
+                InHalfCover = false,
+                InFullCover = false
             };
+            fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
+
             return fred;
         }
 
@@ -58,7 +60,7 @@ namespace Battle.Tests.Characters
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
-                Location = new(5,0, 5), 
+                Location = new(5, 0, 5),
                 ActionPoints = 2,
                 Range = 10,
                 InHalfCover = true,

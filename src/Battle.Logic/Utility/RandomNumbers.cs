@@ -30,5 +30,13 @@ namespace Battle.Logic.Utility
             return result;
         }
 
+        public static int ScaleRandomNumber(int minValue, int maxValue, int value)
+        {
+            //int result = (value - minValue) / (maxValue - minValue);
+            int result = (value - 0) * (maxValue - minValue) / (100- 0) + minValue;
+
+            return result;
+        }
+
     }
 }
