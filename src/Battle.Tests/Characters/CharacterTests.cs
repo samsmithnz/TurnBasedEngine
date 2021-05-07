@@ -60,6 +60,11 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(10, fred.Range);
             Assert.AreEqual(false, fred.InHalfCover);
             Assert.AreEqual(false, fred.InFullCover);
+            Assert.IsNotNull(fred.Abilities);
+            Assert.AreEqual(1, fred.Abilities.Count);
+            Assert.AreEqual("Ability", fred.Abilities[0].Name);
+            Assert.AreEqual(AbilityTypeEnum.Unknown, fred.Abilities[0].Type);
+            Assert.AreEqual(0, fred.Abilities[0].Adjustment);
         }
 
         private static void TestHarry(Character harry)

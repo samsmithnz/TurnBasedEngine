@@ -239,7 +239,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 3));
-            fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 7));
+            fred.Abilities.Add(new("Sharp Shooter2", AbilityTypeEnum.Damage, 7));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             List<int> randomNumbers = new() { 65, 100 };
