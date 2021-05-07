@@ -75,13 +75,14 @@ namespace Battle.Logic.Encounters
 
                 //Check if it was a critical hit
                 int randomToCrit = randomNumberList[randomNumberIndex];
-                int weaponCrit = weapon.CriticalChance;
+                int chanceToCrit = weapon.CriticalChance;
                 if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
                 {
                     //Add 50% for a flank
-                    weaponCrit += 50;
+                    chanceToCrit += 50;
                 }
-                if (weaponCrit >= randomToCrit)
+                chanceToCrit+= ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+                if (chanceToCrit >= randomToCrit)
                 {
                     isCriticalHit = true;
                     lowDamageAdjustment += weapon.CriticalDamage;

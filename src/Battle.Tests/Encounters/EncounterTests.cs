@@ -313,10 +313,34 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
         }
 
+        [TestMethod]
+        public void FredAttacksAndKillsJeffWithRifleAndCriticalChanceAbilityBonusTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Platform Stability", AbilityTypeEnum.CriticalChance, 10));
+            Weapon rifle = WeaponPool.CreateRifle();
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 7;
+            string[,] map = GenerateMap(5, 5);
+            List<int> randomNumbers = new() { 65, 100, 30 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+        }
+
 
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleAndCriticalAbilityBonusTest()
+        public void FredAttacksAndKillsJeffWithRifleAndCriticalDamageAbilityBonusTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
