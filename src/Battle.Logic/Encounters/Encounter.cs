@@ -50,6 +50,9 @@ namespace Battle.Logic.Encounters
 
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
         {
+            int damageDealt = 0;
+            bool isCriticalHit = false;
+
             int randomNumberIndex = 0;
             if (randomNumberList == null || randomNumberList.Count == 0)
             {
@@ -58,26 +61,45 @@ namespace Battle.Logic.Encounters
             int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHitNumber = randomNumberList[randomNumberIndex];
+            int randomToHit = randomNumberList[randomNumberIndex];
             randomNumberIndex++;
-            if (toHit >= randomToHitNumber)
+            if (toHit >= randomToHit)
             {
+                //Setup damage
                 int damage = randomNumberList[randomNumberIndex];
-                //randomNumberIndex++;
-
+                randomNumberIndex++;
+                int lowDamageAdjustment = 0;
                 int highDamageAdjustment = 0;
                 if (sourceCharacter.Abilities.Count > 0)
                 {
                     highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities,AbilityTypeEnum.Damage);
                 }
 
+                //Check if it was a critical hit
+                int randomToCrit = randomNumberList[randomNumberIndex];
+                if (weapon.CriticalChance >= randomToCrit)
+                {
+                    isCriticalHit = true;
+                    lowDamageAdjustment += weapon.CriticalDamage;
+                    highDamageAdjustment += weapon.CriticalDamage;
+                }
+
                 //process damage
-                targetCharacter.HP -= RandomNumber.ScaleRandomNumber(weapon.LowDamageRange,
+                damageDealt = RandomNumber.ScaleRandomNumber(
+                        weapon.LowDamageRange + lowDamageAdjustment,
                         weapon.HighDamageRange + highDamageAdjustment,
                         damage);
 
+                //If the damage dealt is more than the health, set damage to be equal to health
+                if (targetCharacter.HP <= damageDealt)
+                {
+                    damageDealt = targetCharacter.HP;
+                }
+                targetCharacter.HP -= damageDealt;
+
+
                 //process experience
-                if (targetCharacter.HP <= 0)
+                if (targetCharacter.HP == 0)
                 {
                     targetCharacter.HP = 0;
                     sourceCharacter.Experience += Experience.GetExperience(true, true);
@@ -98,7 +120,9 @@ namespace Battle.Logic.Encounters
             EncounterResult result = new()
             {
                 SourceCharacter = sourceCharacter,
-                TargetCharacter = targetCharacter
+                TargetCharacter = targetCharacter,
+                DamageDealt = damageDealt,
+                IsCriticalHit = isCriticalHit
             };
             return result;
         }

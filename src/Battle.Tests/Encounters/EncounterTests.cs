@@ -19,7 +19,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -60,7 +60,7 @@ namespace Battle.Tests.Encounters
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -96,7 +96,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -105,6 +105,8 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(1, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
         }
 
@@ -119,7 +121,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -141,7 +143,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -222,7 +224,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 10));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -242,7 +244,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Sharp Shooter2", AbilityTypeEnum.Damage, 7));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            List<int> randomNumbers = new() { 65, 100 };
+            List<int> randomNumbers = new() { 65, 100,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);

@@ -6,5 +6,7 @@ namespace Battle.Logic.Encounters
     {
         public Character SourceCharacter { get; set; }
         public Character TargetCharacter { get; set; }
+        public int DamageDealt { get; set; }
+        public bool IsCriticalHit { get; set; }
     }
 }
