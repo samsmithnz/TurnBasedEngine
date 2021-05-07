@@ -10,7 +10,7 @@ namespace Battle.Tests.Encounters
     public class RangeTests
     {
         [TestMethod]
-        public void StandardWeapon1SquareAwayRangeTest()
+        public void StandardWeaponRangeTest()
         {
             //Arrange
             Weapon rifle = WeaponPool.CreateRifle();
@@ -113,7 +113,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void SniperRifle1SquareAwayRangeTest()
+        public void SniperRifleRangeTest()
         {
             //Arrange
             Weapon sniperRifle = WeaponPool.CreateSniperRifle();
@@ -161,6 +161,20 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, rangeModifier18);
             Assert.AreEqual(0, rangeModifier19);
             Assert.AreEqual(0, rangeModifier20);
+        }
+
+        [TestMethod]
+        public void UnknownWeapon1SquareAwayRangeTest()
+        {
+            //Arrange
+            Weapon unknownWeapon = new();
+            unknownWeapon.Type = WeaponEnum.Unknown;
+
+            //Act
+            int rangeModifier1 = Range.GetRangeModifier(unknownWeapon, 1);
+
+            //Assert
+            Assert.AreEqual(0, rangeModifier1);
 
         }
 
