@@ -72,7 +72,7 @@ namespace Battle.Logic.Encounters
                 int highDamageAdjustment = 0;
                 if (sourceCharacter.Abilities.Count > 0)
                 {
-                    highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities,AbilityTypeEnum.Damage);
+                    highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
                 }
 
                 //Check if it was a critical hit
