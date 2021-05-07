@@ -85,30 +85,30 @@ namespace Battle.Logic.Encounters
                 if (chanceToCrit >= randomToCrit)
                 {
                     isCriticalHit = true;
-                    lowDamageAdjustment += weapon.CriticalDamage;
-                    highDamageAdjustment += weapon.CriticalDamage;
+                    lowDamageAdjustment += weapon.CriticalDamageLow;
+                    highDamageAdjustment += weapon.CriticalDamageHigh;
                     lowDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
                     highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
                 }
 
                 //process damage
                 damageDealt = RandomNumber.ScaleRandomNumber(
-                        weapon.LowDamageRange + lowDamageAdjustment,
-                        weapon.HighDamageRange + highDamageAdjustment,
+                        weapon.DamageRangeLow + lowDamageAdjustment,
+                        weapon.DamageRangeHigh + highDamageAdjustment,
                         damage);
 
                 //If the damage dealt is more than the health, set damage to be equal to health
-                if (targetCharacter.HP <= damageDealt)
-                {
-                    damageDealt = targetCharacter.HP;
-                }
+                //if (targetCharacter.HP <= damageDealt)
+                //{
+                //    damageDealt = targetCharacter.HP;
+                //}
                 targetCharacter.HP -= damageDealt;
 
 
                 //process experience
-                if (targetCharacter.HP == 0)
+                if (targetCharacter.HP <= 0)
                 {
-                    targetCharacter.HP = 0;
+                    //targetCharacter.HP = 0;
                     sourceCharacter.Experience += Experience.GetExperience(true, true);
                 }
                 else

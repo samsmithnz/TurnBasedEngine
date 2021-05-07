@@ -27,8 +27,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(7, result.TargetCharacter.HP);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -48,8 +48,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -70,8 +70,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(7, result.TargetCharacter.HP);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
         }
 
         //The encounter has no random numbers and returns null
@@ -108,11 +108,11 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 7;
+            jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
@@ -131,11 +131,11 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
-            Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 7;
+            jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
@@ -154,11 +154,11 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
-            Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
         //Fred hits Jeff with a rifle, causing 10 points of damage, killing him, and leveling up
@@ -171,7 +171,7 @@ namespace Battle.Tests.Encounters
             fred.Level = 1;
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 1;
+            jeff.HP = 5;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
@@ -180,10 +180,10 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
-            Assert.AreEqual(0, result.TargetCharacter.HP);
         }
 
         [TestMethod]
@@ -203,8 +203,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(7, result.TargetCharacter.HP);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -223,8 +223,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -244,8 +244,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
         }
 
 
@@ -268,8 +268,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(12, result.TargetCharacter.HP);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -280,6 +280,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 10));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
@@ -288,8 +289,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -301,6 +302,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Sharp Shooter2", AbilityTypeEnum.Damage, 7));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
@@ -309,8 +311,8 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
         }
 
         [TestMethod]
@@ -321,7 +323,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Platform Stability", AbilityTypeEnum.CriticalChance, 10));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 7;
+            jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 30 };
 
@@ -330,11 +332,11 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
-            Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
 
@@ -347,7 +349,7 @@ namespace Battle.Tests.Encounters
             fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 10;
+            jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
@@ -356,11 +358,11 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
-            Assert.AreEqual(10, result.DamageDealt);
+            Assert.AreEqual(    15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
 

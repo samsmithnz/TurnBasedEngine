@@ -9,16 +9,36 @@ namespace Battle.Tests.Weapons
             Weapon rifle = new()
             {
                 Name = "Rifle",
-                Range = 18,
-                LowDamageRange = 3,
-                HighDamageRange = 5,
-                CriticalChance = 20,
-                CriticalDamage = 2,
-                ClipSize = 4,
                 ChanceToHitAdjustment = 10,
+                Range = 18,
+                DamageRangeLow = 3,
+                DamageRangeHigh = 5,
+                CriticalChance = 20,
+                CriticalDamageLow = 5,
+                CriticalDamageHigh = 7,
+                ClipSize = 4,
                 Type = WeaponEnum.Standard
             };
             return rifle;
         }
+
+        public static Weapon CreateShotgun()
+        {
+            Weapon shotgun = new()
+            {
+                Name = "Shotgun",
+                ChanceToHitAdjustment = 10,
+                Range = 17,
+                DamageRangeLow = 3,
+                DamageRangeHigh = 5,
+                CriticalChance = 20,
+                CriticalDamageLow = 6,
+                CriticalDamageHigh = 8,
+                ClipSize = 4,
+                Type = WeaponEnum.Shotgun
+            };
+            return shotgun;
+        }
+
     }
 }
