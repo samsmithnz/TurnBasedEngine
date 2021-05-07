@@ -18,6 +18,6 @@
     {
         Unknown = 0,
         Damage = 1, //The character has skill that causes more damage
-        CritialDamage = 2
+        CriticalDamage = 2
     }
 }

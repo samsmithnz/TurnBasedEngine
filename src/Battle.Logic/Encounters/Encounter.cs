@@ -49,7 +49,7 @@ namespace Battle.Logic.Encounters
             return toHit;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> randomNumberList)
         {
             int damageDealt = 0;
             bool isCriticalHit = false;
@@ -71,15 +71,12 @@ namespace Battle.Logic.Encounters
                 randomNumberIndex++;
                 int lowDamageAdjustment = 0;
                 int highDamageAdjustment = 0;
-                if (sourceCharacter.Abilities.Count > 0)
-                {
-                    highDamageAdjustment = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
-                }
+                highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
 
                 //Check if it was a critical hit
                 int randomToCrit = randomNumberList[randomNumberIndex];
                 int weaponCrit = weapon.CriticalChance;
-                if (TargetIsFlanked(sourceCharacter, targetCharacter) == true)
+                if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
                 {
                     //Add 50% for a flank
                     weaponCrit += 50;
@@ -89,6 +86,8 @@ namespace Battle.Logic.Encounters
                     isCriticalHit = true;
                     lowDamageAdjustment += weapon.CriticalDamage;
                     highDamageAdjustment += weapon.CriticalDamage;
+                    lowDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+                    highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
                 }
 
                 //process damage
@@ -147,8 +146,9 @@ namespace Battle.Logic.Encounters
             return adjustment;
         }
 
-        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter)
+        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,] map)
         {
+            Console.WriteLine(map.Length);
             Console.WriteLine(sourceCharacter.Location);
             Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
