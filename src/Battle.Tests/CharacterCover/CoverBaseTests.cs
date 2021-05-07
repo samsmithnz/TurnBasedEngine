@@ -30,7 +30,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, null);
+            string[,] map = CoverUtility.InitializeMap(width, height,  null);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
@@ -52,7 +52,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, null);
+            string[,] map = CoverUtility.InitializeMap(width, height,  null);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
@@ -79,7 +79,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, coverLocations);
+            string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
@@ -105,7 +105,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, coverLocations);
+            string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
@@ -131,7 +131,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, coverLocations);
+            string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
@@ -157,7 +157,7 @@ namespace Battle.Tests.CharacterCover
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,] map = CoverUtility.InitializeMap(width, height, startingLocation, coverLocations);
+            string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
             CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert

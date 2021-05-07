@@ -5,7 +5,7 @@ namespace Battle.Tests.CharacterCover
 {
     public class CoverUtility
     {
-        public static string[,] InitializeMap(int xMax, int zMax, Vector3 startingLocation, List<Vector3> coverLocations)
+        public static string[,] InitializeMap(int xMax, int zMax, List<Vector3> coverLocations)
         {
             string[,] map = new string[xMax, zMax];
             

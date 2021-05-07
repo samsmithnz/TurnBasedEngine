@@ -10,8 +10,11 @@ namespace Battle.Tests.Weapons
             {
                 Name = "Rifle",
                 Range = 18,
-                DamageRange = 10,
+                LowDamageRange = 3,
+                HighDamageRange = 5,
                 CriticalChance = 20,
+                CriticalDamage = 2,
+                ClipSize = 4,
                 ChanceToHitAdjustment = 10,
                 Type = WeaponEnum.Standard
             };

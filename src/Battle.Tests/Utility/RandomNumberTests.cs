@@ -82,6 +82,81 @@ namespace Battle.Tests.Utility
             Assert.AreEqual(72, result[0]);
         }
 
+        [TestMethod]
+        public void RandomNumberScale90to9Test()
+        {
+            //Arrange
+            int minValue = 0;
+            int maxValue = 10;
+            int value = 90;
+
+            //Act
+            int result = RandomNumber.ScaleRandomNumber(minValue, maxValue, value);
+
+            //Assert
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void RandomNumberScale100to10Test()
+        {
+            //Arrange
+            int minValue = 0;
+            int maxValue = 10;
+            int value = 100;
+
+            //Act
+            int result = RandomNumber.ScaleRandomNumber(minValue, maxValue, value);
+
+            //Assert
+            Assert.AreEqual(10, result);
+        }
+
+        [TestMethod]
+        public void RandomNumberScale30to3Test()
+        {
+            //Arrange
+            int minValue = 0;
+            int maxValue = 10;
+            int value = 30;
+
+            //Act
+            int result = RandomNumber.ScaleRandomNumber(minValue, maxValue, value);
+
+            //Assert
+            Assert.AreEqual(3, result);
+        }
+
+        [TestMethod]
+        public void RandomNumberScale2to0Test()
+        {
+            //Arrange
+            int minValue = 0;
+            int maxValue = 10;
+            int value = 2;
+
+            //Act
+            int result = RandomNumber.ScaleRandomNumber(minValue, maxValue, value);
+
+            //Assert
+            Assert.AreEqual(0, result);
+        }
+
+        [TestMethod]
+        public void RandomNumberScale100to5Test()
+        {
+            //Arrange
+            int minValue = 3;
+            int maxValue = 5;
+            int value = 100;
+
+            //Act
+            int result = RandomNumber.ScaleRandomNumber(minValue, maxValue, value);
+
+            //Assert
+            Assert.AreEqual(5, result);
+        }
+
         private static bool ValueIsInRange(int value, int minValue, int maxValue)
         {
             return (value >= minValue & value <= maxValue);

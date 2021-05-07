@@ -19,7 +19,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
-            List<int> randomNumbers = new() { 65 };
+            List<int> randomNumbers = new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -27,7 +27,7 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
-            Assert.AreEqual(2, result.TargetCharacter.HP);
+            Assert.AreEqual(7, result.TargetCharacter.HP);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Battle.Tests.Encounters
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            List<int> randomNumbers = new() { 65 };
+            List<int> randomNumbers = new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -68,7 +68,7 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
-            Assert.AreEqual(2, result.TargetCharacter.HP);
+            Assert.AreEqual(7, result.TargetCharacter.HP);
         }
 
         //The encounter has no random numbers and returns null
@@ -96,7 +96,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers=new() { 65 };
+            List<int> randomNumbers=new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -119,7 +119,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 1;
-            List<int> randomNumbers = new() { 65 };
+            List<int> randomNumbers = new() { 65,100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -141,7 +141,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = WeaponPool.CreateRifle();
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
-            List<int> randomNumbers = new() { 65 };
+            List<int> randomNumbers = new() { 65, 100 };
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, randomNumbers);
@@ -149,7 +149,7 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
-            Assert.AreEqual(2, result.TargetCharacter.HP);
+            Assert.AreEqual(7, result.TargetCharacter.HP);
         }
 
         [TestMethod]

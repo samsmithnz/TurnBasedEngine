@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System.Collections.Generic;
 
@@ -49,6 +50,7 @@ namespace Battle.Logic.Encounters
 
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, List<int> randomNumberList)
         {
+            int randomNumberIndex = 0;
             if (randomNumberList == null || randomNumberList.Count == 0)
             {
                 return null;
@@ -57,11 +59,15 @@ namespace Battle.Logic.Encounters
             int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHitNumber = randomNumberList[0];
+            int randomToHitNumber = randomNumberList[randomNumberIndex];
+            randomNumberIndex++;
             if (toHit >= randomToHitNumber)
             {
+                int damage = randomNumberList[randomNumberIndex];
+                randomNumberIndex++;
+
                 //process damage
-                targetCharacter.HP -= weapon.DamageRange;
+                targetCharacter.HP -= RandomNumber.ScaleRandomNumber(weapon.LowDamageRange, weapon.HighDamageRange, damage);
 
                 //process experience
                 if (targetCharacter.HP <= 0)

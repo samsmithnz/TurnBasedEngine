@@ -25,8 +25,11 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual("Rifle", rifle.Name);
             Assert.AreEqual(10, rifle.ChanceToHitAdjustment);
             Assert.AreEqual(18, rifle.Range);
-            Assert.AreEqual(10, rifle.DamageRange);
+            Assert.AreEqual(3, rifle.LowDamageRange);
+            Assert.AreEqual(5, rifle.HighDamageRange);
             Assert.AreEqual(20, rifle.CriticalChance);
+            Assert.AreEqual(2, rifle.CriticalDamage);
+            Assert.AreEqual(4, rifle.ClipSize);
             Assert.AreEqual(WeaponEnum.Standard, rifle.Type);
         }
       
