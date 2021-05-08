@@ -2,13 +2,14 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Weapons;
 using Battle.Tests.Characters;
-using Battle.Tests.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
     public class EncounterTests
@@ -21,7 +22,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 80, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -42,7 +43,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65 };
+            List<int> diceRolls = new() { 44 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -64,7 +65,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -102,7 +103,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 20 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -125,7 +126,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -146,17 +147,17 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 12;
+            jeff.HP = 5;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(12, result.DamageDealt);
-            Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(5, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
@@ -174,14 +175,14 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(-7, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
@@ -197,7 +198,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -209,7 +210,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWhoIsInFullCoverAndHitsTest()
+        public void FredAttacksJeffWithRifleWhoIsInFullCoverAndMissesTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -217,7 +218,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65 };
+            List<int> diceRolls = new() { 55 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -238,7 +239,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65 };
+            List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -262,7 +263,7 @@ namespace Battle.Tests.Encounters
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65 };
+            List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -283,14 +284,14 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(-7, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
         }
 
@@ -305,14 +306,14 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(-7, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
         }
 
@@ -326,7 +327,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 30 };
+            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -352,14 +353,14 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(    15, result.DamageDealt);
+            Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
@@ -388,7 +389,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.HP = 15;
-            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -436,6 +437,41 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+        }
+
+        [TestMethod]
+        public void FredAttacksPlayerWhoIsOffMapTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //            E
+            //  □ □ □ □ □
+            //  □ □ ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = GenerateMap(5, 5);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.Location = new Vector3(2, 0, 0);
+            Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(5, 0, 5);
+            List<int> diceRolls = new() { 65, 65, 0 }; //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            try
+            {
+                EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            }
+            catch (Exception ex)
+            {
+                //Assert
+                Assert.AreEqual("The character is off the map", ex.Message);
+            }
         }
 
 

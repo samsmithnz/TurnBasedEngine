@@ -49,12 +49,12 @@ namespace Battle.Logic.Encounters
             {
                 return null;
             }
-            int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
+            int toHitPercent = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomToHit = diceRolls[diceRollIndex];
             diceRollIndex++;
-            if (toHit >= randomToHit)
+            if ((100 - toHitPercent) <= randomToHit)
             {
                 //Setup damage
                 int damagePercent = diceRolls[diceRollIndex];
@@ -72,7 +72,7 @@ namespace Battle.Logic.Encounters
                     chanceToCrit += 50;
                 }
                 chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
-                if (chanceToCrit >= randomToCrit)
+                if ((100 - chanceToCrit) <= randomToCrit)
                 {
                     isCriticalHit = true;
                     lowDamageAdjustment += weapon.CriticalDamageLow;
@@ -93,7 +93,6 @@ namespace Battle.Logic.Encounters
                 //    damageDealt = targetCharacter.HP;
                 //}
                 targetCharacter.HP -= damageDealt;
-
 
                 //process experience
                 if (targetCharacter.HP <= 0)
