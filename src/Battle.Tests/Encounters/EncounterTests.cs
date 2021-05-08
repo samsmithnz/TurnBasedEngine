@@ -367,7 +367,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void BFredAttacksWithRifleJeffBehindCoverAndKillsHimTest()
+        public void FredAttacksWithRifleJeffBehindCoverAndInjuriesHimTest()
         {
             //Arrange
             //  "P" = player/fred
@@ -400,6 +400,42 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(10, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+        }
+
+        [TestMethod]
+        public void FredAttacksWithRifleJeffWhoIsFlankedAndKillsHimTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □
+            //  □ E ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = GenerateMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.Location = new Vector3(2, 0, 0);
+            fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
+            Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.HP = 15;
+            List<int> diceRolls = new() { 65, 100, 70 }; //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(15, result.DamageDealt);
+            Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
         }
 
 
