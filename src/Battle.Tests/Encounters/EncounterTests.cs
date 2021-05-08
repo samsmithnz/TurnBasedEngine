@@ -21,10 +21,10 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -42,10 +42,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65 };
+            List<int> diceRolls = new() { 65 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -64,10 +64,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -77,17 +77,17 @@ namespace Battle.Tests.Encounters
 
         //The encounter has no random numbers and returns null
         [TestMethod]
-        public void NoRandomNumbersEncounterTest()
+        public void NoDiceRollsEncounterTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = null;
+            List<int> diceRolls = null;
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -102,10 +102,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -125,10 +125,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 0 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -148,10 +148,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 0 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -174,10 +174,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -197,10 +197,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -217,10 +217,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65 };
+            List<int> diceRolls = new() { 65 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -238,10 +238,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65 };
+            List<int> diceRolls = new() { 65 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -262,10 +262,10 @@ namespace Battle.Tests.Encounters
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65 };
+            List<int> diceRolls = new() { 65 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -283,10 +283,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -305,10 +305,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 100 };
+            List<int> diceRolls = new() { 65, 100, 100 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -326,10 +326,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 30 };
+            List<int> diceRolls = new() { 65, 100, 30 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -352,10 +352,10 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(10, 10);
-            List<int> randomNumbers = new() { 65, 100, 0 };
+            List<int> diceRolls = new() { 65, 100, 0 };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -388,18 +388,18 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.HP = 15;
-            List<int> randomNumbers = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(15, result.DamageDealt);
-            Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.HP);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
-            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            Assert.AreEqual(5, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(10, result.TargetCharacter.HP);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
         }
 
 

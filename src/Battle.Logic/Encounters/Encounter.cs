@@ -39,32 +39,32 @@ namespace Battle.Logic.Encounters
             return toHit;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> randomNumberList)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls)
         {
             int damageDealt = 0;
             bool isCriticalHit = false;
 
-            int randomNumberIndex = 0;
-            if (randomNumberList == null || randomNumberList.Count == 0)
+            int diceRollIndex = 0;
+            if (diceRolls == null || diceRolls.Count == 0)
             {
                 return null;
             }
             int toHit = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHit = randomNumberList[randomNumberIndex];
-            randomNumberIndex++;
+            int randomToHit = diceRolls[diceRollIndex];
+            diceRollIndex++;
             if (toHit >= randomToHit)
             {
                 //Setup damage
-                int damagePercent = randomNumberList[randomNumberIndex];
-                randomNumberIndex++;
+                int damagePercent = diceRolls[diceRollIndex];
+                diceRollIndex++;
                 int lowDamageAdjustment = 0;
                 int highDamageAdjustment = 0;
                 highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
 
                 //Check if it was a critical hit
-                int randomToCrit = randomNumberList[randomNumberIndex];
+                int randomToCrit = diceRolls[diceRollIndex];
                 int chanceToCrit = weapon.CriticalChance;
                 if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
                 {
