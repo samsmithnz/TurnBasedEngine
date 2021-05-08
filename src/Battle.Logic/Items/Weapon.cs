@@ -11,6 +11,7 @@
         public int CriticalDamageLow { get; set; }
         public int CriticalDamageHigh { get; set; }
         public int ClipSize { get; set; }
+        public int ActionPointsRequired { get; set; }
         public WeaponEnum Type { get; set; }
     }
 

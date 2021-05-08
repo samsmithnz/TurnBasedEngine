@@ -17,6 +17,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 5,
                 CriticalDamageHigh = 7,
                 ClipSize = 4,
+                ActionPointsRequired = 1,
                 Type = WeaponEnum.Standard
             };
             return rifle;
@@ -35,6 +36,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
                 ClipSize = 4,
+                ActionPointsRequired = 1,
                 Type = WeaponEnum.Shotgun
             };
             return shotgun;
@@ -53,6 +55,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
                 ClipSize = 4,
+                ActionPointsRequired = 2,
                 Type = WeaponEnum.SniperRifle
             };
             return shotgun;

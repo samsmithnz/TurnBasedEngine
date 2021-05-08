@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Tests.Weapons;
 
 namespace Battle.Tests.Characters
 {
@@ -11,14 +12,13 @@ namespace Battle.Tests.Characters
                 Name = "Fred",
                 HP = 12,
                 ChanceToHit = 70,
-                Initiative = 10,
-                Modifier = 0,
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
                 Location = new(0, 0, 0),
                 ActionPoints = 2,
                 Range = 10,
+                WeaponEquiped = WeaponPool.CreateRifle(),
                 InHalfCover = false,
                 InFullCover = false
             };
@@ -34,14 +34,13 @@ namespace Battle.Tests.Characters
                 Name = "Jeff",
                 HP = 12,
                 ChanceToHit = 70,
-                Initiative = 10,
-                Modifier = 0,
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
-                Location = new(10, 0, 10),
+                Location = new(8, 0, 8),
                 ActionPoints = 2,
                 Range = 10,
+                WeaponEquiped = WeaponPool.CreateShotgun(),
                 InHalfCover = false,
                 InFullCover = false
             };
@@ -55,14 +54,13 @@ namespace Battle.Tests.Characters
                 Name = "Harry",
                 HP = 12,
                 ChanceToHit = 70,
-                Initiative = 5,
-                Modifier = 0,
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
                 Location = new(5, 0, 5),
                 ActionPoints = 2,
                 Range = 10,
+                WeaponEquiped = WeaponPool.CreateSniperRifle(),
                 InHalfCover = true,
                 InFullCover = false
             };
