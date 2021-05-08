@@ -1,10 +1,11 @@
-using Battle.Logic.Characters;
+﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Weapons;
 using Battle.Tests.Characters;
 using Battle.Tests.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {
@@ -17,7 +18,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = new() { 65, 100, 100 };
@@ -37,7 +38,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 45;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = GenerateMap(5, 5);
@@ -58,7 +59,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 45;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
@@ -80,7 +81,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = GenerateMap(5, 5);
             List<int> randomNumbers = null;
@@ -97,7 +98,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(5, 5);
@@ -120,7 +121,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
@@ -143,7 +144,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
@@ -169,7 +170,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             fred.Experience = 0;
             fred.Level = 1;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = GenerateMap(5, 5);
@@ -192,7 +193,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 85;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
             string[,] map = GenerateMap(5, 5);
@@ -212,7 +213,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(5, 5);
@@ -233,7 +234,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 30;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = GenerateMap(5, 5);
@@ -256,7 +257,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 30;
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
@@ -278,7 +279,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 10));
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
@@ -300,7 +301,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 3));
             fred.Abilities.Add(new("Sharp Shooter2", AbilityTypeEnum.Damage, 7));
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
@@ -321,7 +322,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.Abilities.Add(new("Platform Stability", AbilityTypeEnum.CriticalChance, 10));
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = GenerateMap(5, 5);
@@ -347,7 +348,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
-            Weapon rifle = WeaponPool.CreateRifle();
+            Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = GenerateMap(5, 5);
@@ -359,6 +360,42 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(    15, result.DamageDealt);
+            Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(0, result.TargetCharacter.HP);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+        }
+
+        [TestMethod]
+        public void FredAttacksWithRifleJeffBehindCoverAndKillsHimTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ E □ □
+            //  □ □ ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = GenerateMap(5, 5);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.Location = new Vector3(2, 0, 0);
+            fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
+            Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(2, 0, 4);
+            jeff.HP = 15;
+            List<int> randomNumbers = new() { 65, 100, 0 };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);

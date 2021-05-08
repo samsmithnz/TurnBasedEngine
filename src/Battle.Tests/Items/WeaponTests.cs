@@ -55,6 +55,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(5, weapon.CriticalDamageLow);
             Assert.AreEqual(7, weapon.CriticalDamageHigh);
             Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponEnum.Standard, weapon.Type);
         }
 
@@ -70,6 +71,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(6, weapon.CriticalDamageLow);
             Assert.AreEqual(8, weapon.CriticalDamageHigh);
             Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponEnum.Shotgun, weapon.Type);
         }
 
@@ -85,6 +87,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(6, weapon.CriticalDamageLow);
             Assert.AreEqual(8, weapon.CriticalDamageHigh);
             Assert.AreEqual(4, weapon.ClipSize);
+            Assert.AreEqual(2, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponEnum.SniperRifle, weapon.Type);
         }
       

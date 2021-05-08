@@ -8,13 +8,6 @@ namespace Battle.Logic.Encounters
 {
     public class Encounter
     {
-        //source character attacks target
-        //Calculate change to hit
-        //Calculate critical change
-        //Add to hit and critical modifiers
-        //Calculate cover for target
-        //Calculate final chance to hit
-
 
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
@@ -22,10 +15,6 @@ namespace Battle.Logic.Encounters
 
             //The characters base chance to hit
             int toHit = sourceCharacter.ChanceToHit;
-
-            //TODO: character modifiers            
-            //TODO: Target base defence
-            //TODO: Target modifiers
 
             //Target cover adjustments
             if (targetCharacter.InHalfCover == true)
