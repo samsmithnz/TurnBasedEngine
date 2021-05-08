@@ -20,7 +20,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -41,7 +41,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65 };
 
             //Act
@@ -63,7 +63,7 @@ namespace Battle.Tests.Encounters
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -83,7 +83,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = null;
 
             //Act
@@ -101,7 +101,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -124,7 +124,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
             //Act
@@ -147,7 +147,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
             //Act
@@ -173,7 +173,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -196,7 +196,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -216,7 +216,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65 };
 
             //Act
@@ -237,7 +237,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65 };
 
             //Act
@@ -261,7 +261,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65 };
 
             //Act
@@ -282,7 +282,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -304,7 +304,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 100 };
 
             //Act
@@ -325,7 +325,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 30 };
 
             //Act
@@ -351,7 +351,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             List<int> randomNumbers = new() { 65, 100, 0 };
 
             //Act
@@ -367,7 +367,7 @@ namespace Battle.Tests.Encounters
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindCoverAndKillsHimTest()
+        public void BFredAttacksWithRifleJeffBehindCoverAndKillsHimTest()
         {
             //Arrange
             //  "P" = player/fred
@@ -379,7 +379,7 @@ namespace Battle.Tests.Encounters
             //  □ □ □ □ □ 
             //  □ □ □ □ □
             //  □ □ P □ □
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = GenerateMap(10, 10);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFred();
             fred.Location = new Vector3(2, 0, 0);
@@ -388,7 +388,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.HP = 15;
-            List<int> randomNumbers = new() { 65, 100, 0 };
+            List<int> randomNumbers = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, randomNumbers);

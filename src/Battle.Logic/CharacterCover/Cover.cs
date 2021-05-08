@@ -10,10 +10,11 @@ namespace Battle.Logic.CharacterCover
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverState CalculateCover(Vector3 currentPosition, int width, int height, string[,] validTiles, List<Vector3> enemyLocations)
+        public static CoverState CalculateCover(Vector3 defenderPosition, int width, int height, string[,] validTiles, List<Vector3> attackerLocations) 
         {
+            //TODO: Why is attackerpositions a list?
             CoverState result = new();
-            List<Vector3> coverTiles = FindAdjacentCover(currentPosition, width, height, validTiles);
+            List<Vector3> coverTiles = FindAdjacentCover(defenderPosition, width, height, validTiles);
             int coverLineNorth = -1;
             int coverLineEast = -1;
             int coverLineSouth = -1;
@@ -30,22 +31,22 @@ namespace Battle.Logic.CharacterCover
                 // Work out where the cover is relative to the player
                 foreach (Vector3 coverTileItem in coverTiles)
                 {
-                    if (currentPosition.X < coverTileItem.X)
+                    if (defenderPosition.X < coverTileItem.X)
                     {
                         result.InEastCover = true;
                         coverLineEast = Convert.ToInt32(coverTileItem.X) - 0;
                     }
-                    if (currentPosition.X > coverTileItem.X)
+                    if (defenderPosition.X > coverTileItem.X)
                     {
                         result.InWestCover = true;
                         coverLineWest = Convert.ToInt32(coverTileItem.X) + 0;
                     }
-                    if (currentPosition.Z < coverTileItem.Z)
+                    if (defenderPosition.Z < coverTileItem.Z)
                     {
                         result.InNorthCover = true;
                         coverLineNorth = Convert.ToInt32(coverTileItem.Z) - 0;
                     }
-                    if (currentPosition.Z > coverTileItem.Z)
+                    if (defenderPosition.Z > coverTileItem.Z)
                     {
                         result.InSouthCover = true;
                         coverLineSouth = Convert.ToInt32(coverTileItem.Z) + 0;
@@ -53,7 +54,7 @@ namespace Battle.Logic.CharacterCover
                 }
             }
 
-            if (enemyLocations == null || enemyLocations.Count == 0)
+            if (attackerLocations == null || attackerLocations.Count == 0)
             {
                 result.IsInCover = true;
                 return result;
@@ -61,16 +62,16 @@ namespace Battle.Logic.CharacterCover
             else
             {
                 //Work out where the enemy is relative to the cover
-                foreach (Vector3 enemyItem in enemyLocations)
+                foreach (Vector3 enemyItem in attackerLocations)
                 {
                     //NOTE: I don't think I need this now that I have cover lines
                     //Check to see if Enemy is right on top of the player, neutralizing each others cover and causing a flank
-                    int xPosition = Convert.ToInt32(currentPosition.X - enemyItem.X);
+                    int xPosition = Convert.ToInt32(defenderPosition.X - enemyItem.X);
                     if (xPosition < 0)
                     {
                         xPosition *= -1;
                     }
-                    int zPosition = Convert.ToInt32(currentPosition.Z - enemyItem.Z);
+                    int zPosition = Convert.ToInt32(defenderPosition.Z - enemyItem.Z);
                     if (zPosition < 0)
                     {
                         zPosition *= -1;
@@ -79,7 +80,7 @@ namespace Battle.Logic.CharacterCover
                     //Now check over all of the levels of cover
 
                     //Enemy is located NorthEast
-                    if (enemyItem.Z >= currentPosition.Z && enemyItem.X >= currentPosition.X)
+                    if (enemyItem.Z >= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
                         if (result.InNorthCover == false && result.InEastCover == false) //No cover in North or East = always flanked by Northeast Enenmy
                         {
@@ -104,7 +105,7 @@ namespace Battle.Logic.CharacterCover
                     }
 
                     //Enemy is located NorthWest
-                    if (enemyItem.Z >= currentPosition.Z && enemyItem.X <= currentPosition.X)
+                    if (enemyItem.Z >= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
                         if (result.InNorthCover == false && result.InWestCover == false)
                         {
@@ -129,7 +130,7 @@ namespace Battle.Logic.CharacterCover
                     }
 
                     //Enemy is located SouthEast
-                    if (enemyItem.Z <= currentPosition.Z && enemyItem.X >= currentPosition.X)
+                    if (enemyItem.Z <= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
                         if (result.InSouthCover == false && result.InEastCover == false)
                         {
@@ -154,7 +155,7 @@ namespace Battle.Logic.CharacterCover
                     }
 
                     //Enemy is located SouthWest
-                    if (enemyItem.Z <= currentPosition.Z && enemyItem.X <= currentPosition.X)
+                    if (enemyItem.Z <= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
                         if (result.InSouthCover == false && result.InWestCover == false)
                         {
@@ -192,6 +193,11 @@ namespace Battle.Logic.CharacterCover
         private static List<Vector3> FindAdjacentCover(Vector3 currentLocation, int width, int height, string[,] validTiles)
         {
             List<Vector3> result = new();
+            if (currentLocation.X > width| currentLocation.Z>height)
+            {
+                throw new Exception("The character is off the map");
+            }
+
             //Make adjustments to ensure that the search doesn't go off the edges of the map
             int xMin = Convert.ToInt32(currentLocation.X) - 1;
             if (xMin < 0)

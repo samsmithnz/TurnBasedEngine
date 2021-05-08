@@ -37,7 +37,7 @@ namespace Battle.Tests.Characters
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
-                Location = new(10, 0, 10),
+                Location = new(8, 0, 8),
                 ActionPoints = 2,
                 Range = 10,
                 WeaponEquiped = WeaponPool.CreateShotgun(),

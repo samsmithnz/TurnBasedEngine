@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.CharacterCover;
+using Battle.Logic.Characters;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System;
@@ -56,7 +57,7 @@ namespace Battle.Logic.Encounters
             if (toHit >= randomToHit)
             {
                 //Setup damage
-                int damage = randomNumberList[randomNumberIndex];
+                int damagePercent = randomNumberList[randomNumberIndex];
                 randomNumberIndex++;
                 int lowDamageAdjustment = 0;
                 int highDamageAdjustment = 0;
@@ -70,7 +71,7 @@ namespace Battle.Logic.Encounters
                     //Add 50% for a flank
                     chanceToCrit += 50;
                 }
-                chanceToCrit+= ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+                chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
                 if (chanceToCrit >= randomToCrit)
                 {
                     isCriticalHit = true;
@@ -84,7 +85,7 @@ namespace Battle.Logic.Encounters
                 damageDealt = RandomNumber.ScaleRandomNumber(
                         weapon.DamageRangeLow + lowDamageAdjustment,
                         weapon.DamageRangeHigh + highDamageAdjustment,
-                        damage);
+                        damagePercent);
 
                 //If the damage dealt is more than the health, set damage to be equal to health
                 //if (targetCharacter.HP <= damageDealt)
@@ -142,7 +143,9 @@ namespace Battle.Logic.Encounters
             Console.WriteLine(sourceCharacter.Location);
             Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
-            return false;
+            CoverState coverState = Cover.CalculateCover(targetCharacter.Location, map.GetLength(0), map.GetLength(1), map, new() { sourceCharacter.Location });
+
+            return !coverState.IsInCover;
         }
 
     }

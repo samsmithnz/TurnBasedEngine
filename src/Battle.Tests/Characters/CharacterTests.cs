@@ -1,5 +1,6 @@
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -53,7 +54,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(1, fred.Level);
             Assert.AreEqual(false, fred.LevelUpIsReady);
-            Assert.AreEqual(new System.Numerics.Vector3(0,0, 0), fred.Location);
+            Assert.AreEqual(new Vector3(0,0, 0), fred.Location);
             Assert.AreEqual(2, fred.ActionPoints);
             Assert.AreEqual(10, fred.Range);
             Assert.AreEqual(false, fred.InHalfCover);
@@ -74,7 +75,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(0, harry.Experience);
             Assert.AreEqual(1, harry.Level);
             Assert.AreEqual(false, harry.LevelUpIsReady);
-            Assert.AreEqual(new System.Numerics.Vector3(5, 0, 5), harry.Location);
+            Assert.AreEqual(new Vector3(5, 0, 5), harry.Location);
             Assert.AreEqual(2, harry.ActionPoints);
             Assert.AreEqual(10, harry.Range);
             Assert.AreEqual(true, harry.InHalfCover);
@@ -90,7 +91,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(0, jeff.Experience);
             Assert.AreEqual(1, jeff.Level);
             Assert.AreEqual(false, jeff.LevelUpIsReady);
-            Assert.AreEqual(new System.Numerics.Vector3(10, 0 ,10), jeff.Location);
+            Assert.AreEqual(new Vector3(8, 0, 8), jeff.Location);
             Assert.AreEqual(2, jeff.ActionPoints);
             Assert.AreEqual(10, jeff.Range);
             Assert.AreEqual(false, jeff.InHalfCover);
