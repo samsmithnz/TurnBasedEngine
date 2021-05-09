@@ -32,11 +32,46 @@ namespace Battle.Logic.Encounters
 
             //Weapon range modifiers
             int distance = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
-            //int distance = distanceAndDirection.Item1;
-            //bool isDiagonalDirection = distanceAndDirection.Item2;
-            toHit += Range.GetRangeModifier(weapon, distance);//, isDiagonalDirection);
+            toHit += Range.GetRangeModifier(weapon, distance);
 
             return toHit;
+        }
+
+        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map)
+        {
+            int chanceToCrit = weapon.CriticalChance;
+            if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
+            {
+                //Add 50% for a flank
+                chanceToCrit += 50;
+            }
+            chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+            return chanceToCrit;
+        }
+
+        public static DamageOptions GetDamageRange(Character sourceCharacter, Weapon weapon)
+        {
+            DamageOptions damageOptions = new();
+            int lowDamageAdjustment = 0;
+            int highDamageAdjustment = 0;
+
+            //Add abilities
+            highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
+
+            //Normal damage
+            damageOptions.DamageLow = weapon.DamageRangeLow + lowDamageAdjustment;
+            damageOptions.DamageHigh = weapon.DamageRangeHigh + highDamageAdjustment;
+
+            //Critical damage
+            damageOptions.CriticalDamageLow = damageOptions.DamageLow;
+            damageOptions.CriticalDamageHigh = damageOptions.DamageHigh;
+
+            damageOptions.CriticalDamageLow += weapon.CriticalDamageLow;
+            damageOptions.CriticalDamageLow += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+            damageOptions.CriticalDamageHigh += weapon.CriticalDamageHigh;
+            damageOptions.CriticalDamageHigh += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+
+            return damageOptions;
         }
 
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls)
@@ -56,36 +91,27 @@ namespace Battle.Logic.Encounters
             diceRollIndex++;
             if ((100 - toHitPercent) <= randomToHit)
             {
-                //Setup damage
-                int damagePercent = diceRolls[diceRollIndex];
+                //Get damage 
+                int damageRollPercent = diceRolls[diceRollIndex];
                 diceRollIndex++;
-                int lowDamageAdjustment = 0;
-                int highDamageAdjustment = 0;
-                highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
-
+                DamageOptions damageOptions = GetDamageRange(sourceCharacter, weapon);
+                int lowDamage = damageOptions.DamageLow;
+                int highDamage = damageOptions.DamageHigh;
+         
                 //Check if it was a critical hit
                 int randomToCrit = diceRolls[diceRollIndex];
-                int chanceToCrit = weapon.CriticalChance;
-                if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
-                {
-                    //Add 50% for a flank
-                    chanceToCrit += 50;
-                }
-                chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+                int chanceToCrit = GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);
                 if ((100 - chanceToCrit) <= randomToCrit)
                 {
                     isCriticalHit = true;
-                    lowDamageAdjustment += weapon.CriticalDamageLow;
-                    highDamageAdjustment += weapon.CriticalDamageHigh;
-                    lowDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
-                    highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+                    lowDamage = damageOptions.CriticalDamageLow;
+                    highDamage = damageOptions.CriticalDamageHigh;
                 }
 
                 //process damage
                 damageDealt = RandomNumber.ScaleRandomNumber(
-                        weapon.DamageRangeLow + lowDamageAdjustment,
-                        weapon.DamageRangeHigh + highDamageAdjustment,
-                        damagePercent);
+                        lowDamage, highDamage,
+                        damageRollPercent);
 
                 //If the damage dealt is more than the health, set damage to be equal to health
                 //if (targetCharacter.HP <= damageDealt)

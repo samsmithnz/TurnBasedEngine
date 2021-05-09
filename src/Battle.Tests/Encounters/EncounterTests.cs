@@ -25,10 +25,20 @@ namespace Battle.Tests.Encounters
             List<int> diceRolls = new() { 80, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
+            int chanceToHit = Encounter.GetChanceToHit(fred, rifle, jeff);
+            int chanceToCrit = Encounter.GetChanceToCrit(fred, rifle, jeff, map);
+            DamageOptions damageOptions = Encounter.GetDamageRange(fred, rifle);
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
+            Assert.AreEqual(80, chanceToHit);
+            Assert.AreEqual(70, chanceToCrit);
+            Assert.IsNotNull(damageOptions);
+            Assert.AreEqual(3, damageOptions.DamageLow);
+            Assert.AreEqual(5, damageOptions.DamageHigh);
+            Assert.AreEqual(8, damageOptions.CriticalDamageLow);
+            Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
             Assert.AreEqual(7, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
         }
