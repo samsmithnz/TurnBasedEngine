@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
+using System.Numerics;
 
 namespace Battle.PathFinding
 {
-
     public class Path
     {
         private int _width;
@@ -11,18 +10,18 @@ namespace Battle.PathFinding
         private Tile[,] _tiles;
         private readonly Tile _startTile;
         private readonly Tile _endTile;
-        private readonly Point _endLocation;
-       
+        private readonly Vector3 _endLocation;
+
         /// <summary>
         /// Create a new instance of PathFinder
         /// </summary>
-        public Path(Point startLocation, Point endLocation, string[,] map)
+        public Path(Vector3 startLocation, Vector3 endLocation, string[,] map)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            _startTile = _tiles[startLocation.X, startLocation.Y];
+            _startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
             _startTile.State = TileState.Open;
-            _endTile = _tiles[endLocation.X, endLocation.Y];
+            _endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
         }
 
         /// <summary>
@@ -113,20 +112,20 @@ namespace Battle.PathFinding
         private List<Tile> GetAdjacentWalkableTiles(Tile fromTile)
         {
             List<Tile> walkableTiles = new();
-            IEnumerable<Point> nextLocations = GetAdjacentLocations(fromTile.Location);
+            IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
 
             foreach (var location in nextLocations)
             {
-                int x = location.X;
-                int y = location.Y;
+                int x = (int)location.X;
+                int z = (int)location.Z;
 
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || y < 0 || y >= _height)
+                if (x < 0 || x >= _width || z < 0 || z >= _height)
                 {
                     continue;
                 }
 
-                Tile tile = _tiles[x, y];
+                Tile tile = _tiles[x, z];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
@@ -167,18 +166,18 @@ namespace Battle.PathFinding
         /// </summary>
         /// <param name="fromLocation">The location from which to return all adjacent points</param>
         /// <returns>The locations as an IEnumerable of Points</returns>
-        private static IEnumerable<Point> GetAdjacentLocations(Point fromLocation)
+        private static IEnumerable<Vector3> GetAdjacentLocations(Vector3 fromLocation)
         {
-            return new Point[]
+            return new Vector3[]
             {
-                new Point(fromLocation.X - 1, fromLocation.Y - 1),
-                new Point(fromLocation.X - 1, fromLocation.Y  ),
-                new Point(fromLocation.X - 1, fromLocation.Y + 1),
-                new Point(fromLocation.X,   fromLocation.Y + 1),
-                new Point(fromLocation.X + 1, fromLocation.Y + 1),
-                new Point(fromLocation.X + 1, fromLocation.Y  ),
-                new Point(fromLocation.X + 1, fromLocation.Y - 1),
-                new Point(fromLocation.X,   fromLocation.Y - 1)
+                new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
+                new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
+                new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
+                new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
+                new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
             };
         }
     }
