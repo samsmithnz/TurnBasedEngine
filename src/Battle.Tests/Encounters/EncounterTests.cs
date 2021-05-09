@@ -2,6 +2,7 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Weapons;
 using Battle.Tests.Characters;
+using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 80, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -52,7 +53,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 44 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -74,7 +75,7 @@ namespace Battle.Tests.Encounters
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -94,7 +95,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFred();
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = null;
 
             //Act
@@ -112,7 +113,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 20 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -135,7 +136,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -158,7 +159,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -184,7 +185,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -207,7 +208,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -227,7 +228,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 55 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -248,7 +249,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -272,7 +273,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -293,7 +294,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -315,7 +316,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -336,7 +337,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -362,7 +363,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -390,7 +391,7 @@ namespace Battle.Tests.Encounters
             //  □ □ □ □ □ 
             //  □ □ □ □ □
             //  □ □ P □ □
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFred();
             fred.Location = new Vector3(2, 0, 0);
@@ -426,7 +427,7 @@ namespace Battle.Tests.Encounters
             //  □ □ □ □ □ 
             //  □ □ □ □ □
             //  □ □ P □ □
-            string[,] map = GenerateMap(10, 10);
+            string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFred();
             fred.Location = new Vector3(2, 0, 0);
@@ -463,7 +464,7 @@ namespace Battle.Tests.Encounters
             //  □ □ □ □ □ 
             //  □ □ □ □ □
             //  □ □ P □ □
-            string[,] map = GenerateMap(5, 5);
+            string[,] map = MapUtility.InitializeMap(5, 5);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFred();
             fred.Location = new Vector3(2, 0, 0);
@@ -482,23 +483,6 @@ namespace Battle.Tests.Encounters
                 //Assert
                 Assert.AreEqual("The character is off the map", ex.Message);
             }
-        }
-
-
-        private static string[,] GenerateMap(int xMax, int zMax)
-        {
-            string[,] map = new string[xMax, zMax];
-
-            //Initialize the map
-            for (int z = 0; z < zMax; z++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    map[x, z] = "";
-                }
-            }
-
-            return map;
         }
 
     }
