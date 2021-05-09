@@ -114,7 +114,7 @@ namespace Battle.Logic.FieldOfView
             for (int x = x0; x <= x1; x++)
             {
                 yield return new((steep ? y : x), 0, (steep ? x : y));
-                error = error - dy;
+                error -= dy;
                 if (error < 0)
                 {
                     y += ystep;

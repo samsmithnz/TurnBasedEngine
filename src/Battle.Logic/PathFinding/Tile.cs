@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Battle.PathFinding
+namespace Battle.Logic.PathFinding
 {
     public class Tile
     {

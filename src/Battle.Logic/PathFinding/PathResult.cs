@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.PathFinding
+namespace Battle.Logic.PathFinding
 {
     public class PathResult
     {
