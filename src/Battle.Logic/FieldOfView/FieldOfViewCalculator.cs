@@ -19,7 +19,7 @@ namespace Battle.Logic.FieldOfView
             int maxX = startingX + range;
             if (maxX > map.GetLength(0) - 1)
             {
-                maxX = map.GetLength(0)-1;
+                maxX = map.GetLength(0) - 1;
             }
             int minZ = startingZ - range;
             if (minZ < 0)
@@ -52,6 +52,14 @@ namespace Battle.Logic.FieldOfView
             foreach (Vector3 borderItem in borderTiles)
             {
                 List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
+                if (singleLineCheck.Count > 0)
+                {
+                    if (singleLineCheck[^1].X == startingX && singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
+                    {
+                        //Reverse the list
+                        singleLineCheck.Reverse();
+                    }
+                }
                 foreach (Vector3 fovItem in singleLineCheck)
                 {
                     //If we find an object, stop adding tiles
@@ -61,34 +69,16 @@ namespace Battle.Logic.FieldOfView
                     }
                     else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
                     {
-                        //Don't add this one, it's the origin
+                        //Don't add this one, it's the origin/ where the character is looking from
                     }
                     else
-                    { 
+                    {
                         results.Add(fovItem);
                     }
                 }
             }
 
             return results.ToList();
-
-            //Create a list of results for each boundry
-            //Filter the list for items in the way.
-
-            //List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
-            //List<Vector3> newResults = new();
-            //foreach (Vector3 item in results)
-            //{
-            //    if (map[(int)item.X, (int)item.Z] != "")
-            //    {
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        newResults.Add(item);
-            //    }
-            //}
-            //return newResults;
         }
 
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html

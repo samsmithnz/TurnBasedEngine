@@ -23,7 +23,7 @@ namespace Battle.Tests.FieldOfView
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(4, results.Count);
-            Assert.AreEqual(new Vector3(1,0,3), results[0]);
+            Assert.AreEqual(new Vector3(1, 0, 3), results[0]);
             Assert.AreEqual(new Vector3(2, 0, 3), results[1]);
             Assert.AreEqual(new Vector3(3, 0, 2), results[2]);
             Assert.AreEqual(new Vector3(4, 0, 2), results[3]);
@@ -58,7 +58,7 @@ namespace Battle.Tests.FieldOfView
             List<Vector3> newResults = new();
             foreach (Vector3 item in results)
             {
-                if (map[(int)item.X, (int)item.Z] != "" )
+                if (map[(int)item.X, (int)item.Z] != "")
                 {
                     break;
                 }
@@ -76,7 +76,7 @@ namespace Battle.Tests.FieldOfView
         }
 
         [TestMethod]
-        public void FieldOfViewWithoutCoverRange1Test()
+        public void FieldOfViewRange1NNoCoverTest()
         {
             //Arrange            
             //  "P" = player/fred
@@ -107,7 +107,7 @@ namespace Battle.Tests.FieldOfView
 
 
         [TestMethod]
-        public void FieldOfViewWithCoverRange1Test()
+        public void FieldOfViewRange1WithCoverTest()
         {
             //Arrange            
             //  "P" = player/fred
@@ -141,7 +141,7 @@ namespace Battle.Tests.FieldOfView
         }
 
         [TestMethod]
-        public void FieldOfViewWithoutCoverRange12Test()
+        public void FieldOfViewRange12NoCoverTest()
         {
             //Arrange            
             //  "P" = player/fred
@@ -167,6 +167,42 @@ namespace Battle.Tests.FieldOfView
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(99, results.Count);
+        }
+
+        [TestMethod]
+        public void FieldOfViewRange5WithCoverTest()
+        {
+            //Arrange            
+            //  "P" = player/fred
+            //  "■" = cover
+            //  "□" = open ground
+
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □ 
+            //  □ ■ P ■ □ 
+            //  □ ■ ■ ■ □ 
+            //  □ □ □ □ □ 
+            string[,] map = MapUtility.InitializeMap(5, 5);
+            int range = 10;
+            Vector3 startingLocation = new(2, 0, 2);
+            map[1, 2] = "W";
+            map[1, 1] = "W";
+            map[2, 1] = "W";
+            map[3, 1] = "W";
+            map[3, 2] = "W";
+
+            //Act
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.AreEqual(9, results.Count);
+            foreach (Vector3 item in results)
+            {
+                Assert.AreNotEqual(0, item.Z);
+                Assert.AreNotEqual(1, item.Z);
+                Assert.AreNotEqual(2, item.Z);
+            }
         }
 
     }
