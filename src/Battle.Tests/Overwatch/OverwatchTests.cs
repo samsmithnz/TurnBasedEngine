@@ -17,17 +17,16 @@ namespace Battle.Tests.Overwatch
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
-            Weapon rifle = fred.WeaponEquiped;
+            //Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(7, 0, 7);
 
             //Act
-            //Path path = new(jeff.Location, destination, map);
-
+            Path path = new(jeff.Location, destination, map);
 
             //Assert
-
+            Assert.IsTrue(path != null);
         }
     }
 }
