@@ -95,8 +95,6 @@ namespace Battle.Tests.FieldOfView
             string[,] map = MapUtility.InitializeMap(10, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
-            //map[3, 2] = "W";
-            //4,4
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
@@ -104,8 +102,6 @@ namespace Battle.Tests.FieldOfView
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(8, results.Count);
-            //Assert.AreEqual(new Vector3(1, 0, 3), newResults[0]);
-            //Assert.AreEqual(new Vector3(2, 0, 3), newResults[1]);
         }
 
 
@@ -142,8 +138,35 @@ namespace Battle.Tests.FieldOfView
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(3, results.Count);
-            //Assert.AreEqual(new Vector3(1, 0, 3), newResults[0]);
-            //Assert.AreEqual(new Vector3(2, 0, 3), newResults[1]);
+        }
+
+        [TestMethod]
+        public void FieldOfViewWithoutCoverRange12Test()
+        {
+            //Arrange            
+            //  "P" = player/fred
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ P □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □ □ □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            int range = 12;
+            Vector3 startingLocation = new(4, 0, 4);
+
+            //Act
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.AreEqual(99, results.Count);
         }
 
     }

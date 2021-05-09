@@ -51,17 +51,21 @@ namespace Battle.Logic.FieldOfView
             HashSet<Vector3> results = new();
             foreach (Vector3 borderItem in borderTiles)
             {
-                List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, 4, 2).ToList<Vector3>();
+                List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
                 foreach (Vector3 fovItem in singleLineCheck)
                 {
                     //If we find an object, stop adding tiles
-                    if (map[(int)borderItem.X, (int)borderItem.Z] != "")
+                    if (map[(int)fovItem.X, (int)fovItem.Z] != "")
                     {
                         break;
                     }
-                    else
+                    else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
                     {
-                        results.Add(borderItem);
+                        //Don't add this one, it's the origin
+                    }
+                    else
+                    { 
+                        results.Add(fovItem);
                     }
                 }
             }
