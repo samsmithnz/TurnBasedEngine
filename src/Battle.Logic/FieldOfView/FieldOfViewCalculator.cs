@@ -8,28 +8,84 @@ namespace Battle.Logic.FieldOfView
     public class FieldOfViewCalculator
     {
 
-        //public static List<Vector3> GetFieldOfView(string[,] map, int startingX, int startingZ, int range)
-        //{
-        //    //Count out to each square based on range in each primary direction from the starting location
-        //    //Get a list of all border squares
-        //    //Create a list of results for each boundry
-        //    //Filter the list for items in the way.
+        public static List<Vector3> GetFieldOfView(string[,] map, int startingX, int startingZ, int range)
+        {
+            //Use the range to find the borders in each primary direction from the starting location
+            int minX = startingX - range;
+            if (minX < 0)
+            {
+                minX = 0;
+            }
+            int maxX = startingX + range;
+            if (maxX > map.GetLength(0) - 1)
+            {
+                maxX = map.GetLength(0)-1;
+            }
+            int minZ = startingZ - range;
+            if (minZ < 0)
+            {
+                minZ = 0;
+            }
+            int maxZ = startingZ + range;
+            if (maxZ > map.GetLength(0) - 1)
+            {
+                maxZ = map.GetLength(0) - 1;
+            }
 
-        //    List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
-        //    List<Vector3> newResults = new();
-        //    foreach (Vector3 item in results)
-        //    {
-        //        if (map[(int)item.X, (int)item.Z] != "" )
-        //        {
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            newResults.Add(item);
-        //        }
-        //    }
-        //    return newResults;
-        //}
+            //Get a list of all border squares
+            HashSet<Vector3> borderTiles = new();
+            //Add the top and bottom rows
+            for (int i = minX; i <= maxX; i++)
+            {
+                borderTiles.Add(new(i, 0, minZ));
+                borderTiles.Add(new(i, 0, maxZ));
+            }
+            //Add the left and right sides
+            for (int i = minZ; i < maxZ; i++)
+            {
+                borderTiles.Add(new(minX, 0, i));
+                borderTiles.Add(new(maxX, 0, i));
+            }
+
+            //For each border tile, draw a line from the starting point to the border
+            HashSet<Vector3> results = new();
+            foreach (Vector3 borderItem in borderTiles)
+            {
+                List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, 4, 2).ToList<Vector3>();
+                foreach (Vector3 fovItem in singleLineCheck)
+                {
+                    //If we find an object, stop adding tiles
+                    if (map[(int)borderItem.X, (int)borderItem.Z] != "")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        results.Add(borderItem);
+                    }
+                }
+            }
+
+            return results.ToList();
+
+            //Create a list of results for each boundry
+            //Filter the list for items in the way.
+
+            //List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
+            //List<Vector3> newResults = new();
+            //foreach (Vector3 item in results)
+            //{
+            //    if (map[(int)item.X, (int)item.Z] != "")
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        newResults.Add(item);
+            //    }
+            //}
+            //return newResults;
+        }
 
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html
         //https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
