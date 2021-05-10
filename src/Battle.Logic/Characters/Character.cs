@@ -25,5 +25,6 @@ namespace Battle.Logic.Characters
 
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }
+        public bool InOverwatch { get; set; }
     }
 }

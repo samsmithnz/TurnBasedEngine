@@ -59,6 +59,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(10, fred.Range);
             Assert.AreEqual(false, fred.InHalfCover);
             Assert.AreEqual(false, fred.InFullCover);
+            Assert.AreEqual(false, fred.InOverwatch);
             Assert.IsNotNull(fred.Abilities);
             Assert.AreEqual(1, fred.Abilities.Count);
             Assert.AreEqual("Ability", fred.Abilities[0].Name);
@@ -80,6 +81,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(10, harry.Range);
             Assert.AreEqual(true, harry.InHalfCover);
             Assert.AreEqual(false, harry.InFullCover);
+            Assert.AreEqual(false, harry.InOverwatch);
         }
 
         private static void TestJeff(Character jeff)
@@ -96,6 +98,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(10, jeff.Range);
             Assert.AreEqual(false, jeff.InHalfCover);
             Assert.AreEqual(true, jeff.InFullCover);
+            Assert.AreEqual(false, jeff.InOverwatch);
         }
     }
 }

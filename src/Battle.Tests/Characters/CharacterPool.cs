@@ -20,7 +20,8 @@ namespace Battle.Tests.Characters
                 Range = 10,
                 WeaponEquiped = WeaponPool.CreateRifle(),
                 InHalfCover = false,
-                InFullCover = false
+                InFullCover = false,
+                InOverwatch = false
             };
             fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
 
@@ -42,7 +43,8 @@ namespace Battle.Tests.Characters
                 Range = 10,
                 WeaponEquiped = WeaponPool.CreateShotgun(),
                 InHalfCover = false,
-                InFullCover = false
+                InFullCover = false,
+                InOverwatch = false
             };
             return fred;
         }
@@ -62,7 +64,8 @@ namespace Battle.Tests.Characters
                 Range = 10,
                 WeaponEquiped = WeaponPool.CreateSniperRifle(),
                 InHalfCover = true,
-                InFullCover = false
+                InFullCover = false,
+                InOverwatch = false
             };
             return harry;
         }
