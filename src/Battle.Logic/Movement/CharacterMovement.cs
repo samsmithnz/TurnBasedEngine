@@ -19,7 +19,9 @@ namespace Battle.Logic.Movement
                         {
                             if (fov == character.Location)
                             {
+                                //Currently lethal
                                 character.HP = 0;
+                                //TODO: add attacks
                                 break;
                             }
                         }
