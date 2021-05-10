@@ -143,11 +143,12 @@ namespace Battle.Logic.PathFinding
                 {
                     float traversalCost = Tile.GetTraversalCost(tile.Location, tile.ParentTile.Location);
                     float gTemp = fromTile.G + traversalCost;
-                    if (gTemp < tile.G)
-                    {
-                        tile.ParentTile = fromTile;
-                        walkableTiles.Add(tile);
-                    }
+                    //Commented out 10-May-2021. Code coverage never hit it. Do I need it?
+                    //if (gTemp < tile.G)
+                    //{
+                    //    tile.ParentTile = fromTile;
+                    //    walkableTiles.Add(tile);
+                    //}
                 }
                 else
                 {
