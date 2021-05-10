@@ -97,7 +97,7 @@ namespace Battle.Tests.FieldOfView
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -133,7 +133,7 @@ namespace Battle.Tests.FieldOfView
             map[5, 4] = "W";
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -162,7 +162,7 @@ namespace Battle.Tests.FieldOfView
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -192,7 +192,7 @@ namespace Battle.Tests.FieldOfView
             map[3, 2] = "W";
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);

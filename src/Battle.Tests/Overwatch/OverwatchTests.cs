@@ -26,7 +26,7 @@ namespace Battle.Tests.Overwatch
             Vector3 destination = new(6, 0, 0);
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, (int)fred.Location.X, (int)fred.Location.Z, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
             Path jeffPath = new(jeff.Location, destination, map);
