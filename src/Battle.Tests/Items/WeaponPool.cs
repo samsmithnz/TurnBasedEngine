@@ -60,6 +60,25 @@ namespace Battle.Tests.Weapons
             };
             return shotgun;
         }
+        public static Weapon CreateGrenade()
+        {
+            Weapon grenade = new()
+            {
+                Name = "Grenade",
+                ChanceToHitAdjustment = 0,
+                Range = 10,
+                AreaEffectRadius = 3,
+                DamageRangeLow = 3,
+                DamageRangeHigh = 4,
+                CriticalChance = 0,
+                CriticalDamageLow = 0,
+                CriticalDamageHigh = 0,
+                ClipSize = 1,
+                ActionPointsRequired = 1,
+                Type = WeaponEnum.Grenade
+            };
+            return grenade;
+        }
 
     }
 }
