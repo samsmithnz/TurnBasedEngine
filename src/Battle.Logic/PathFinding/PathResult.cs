@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
+using System.Numerics;
 
-namespace Battle.PathFinding
+namespace Battle.Logic.PathFinding
 {
     public class PathResult
     {
 
         public List<Tile> Tiles;
-        public List<Point> Path;
+        public List<Vector3> Path;
 
         public PathResult()
         {
-            Tiles = new List<Tile>();
-            Path = new List<Point>();
+            Tiles = new();
+            Path = new ();
         }
 
         public Tile GetLastTile()

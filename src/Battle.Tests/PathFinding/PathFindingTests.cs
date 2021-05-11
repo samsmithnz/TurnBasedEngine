@@ -1,8 +1,8 @@
-﻿using Battle.PathFinding;
+﻿using Battle.Logic.PathFinding;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Numerics;
 
 namespace Battle.Tests.PathFinding
 {
@@ -15,8 +15,8 @@ namespace Battle.Tests.PathFinding
         public void Test_WithoutWalls_CanFindPath()
         {
             //Arrange
-            Point startLocation = new(1, 2);
-            Point endLocation = new(5, 2);
+            Vector3 startLocation = new(1,0, 2);
+            Vector3 endLocation = new(5,0, 2);
             string[,] map = InitializeMap(7, 5);
             Path path = new(startLocation, endLocation, map);
 
@@ -41,8 +41,8 @@ namespace Battle.Tests.PathFinding
             //  □ □ □ * * □ □
 
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-            Point startLocation = new(1, 2);
-            Point endLocation = new(5, 2);
+            Vector3 startLocation = new(1,0, 2);
+            Vector3 endLocation = new(5,0, 2);
             string[,] map = InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
@@ -74,8 +74,8 @@ namespace Battle.Tests.PathFinding
             //  □ □ □ ■ □ □ □
 
             // No path
-            Point startLocation = new(1, 2);
-            Point endLocation = new(5, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,] map = InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
@@ -106,8 +106,8 @@ namespace Battle.Tests.PathFinding
             //  ■ □ ■ ■ ■ □ ■
 
             // long path
-            Point startLocation = new(0, 4);
-            Point endLocation = new(6, 4);
+            Vector3 startLocation = new(0, 0, 4);
+            Vector3 endLocation = new(6, 0, 4);
             string[,] map = InitializeMap(7, 5);
             map[0, 0] = "W";
             map[1, 4] = "W";
@@ -146,8 +146,8 @@ namespace Battle.Tests.PathFinding
         public void Test_GiantRandomMap_WithInefficentPath()
         {
             //Arrange
-            Point startLocation = new(0, 0);
-            Point endLocation = new(69, 39);
+            Vector3 startLocation = new(0, 0, 0);
+            Vector3 endLocation = new(69, 0, 39);
             string[,] map = CreateGiantMap();
             Path path = new(startLocation, endLocation, map);
 
@@ -184,8 +184,8 @@ namespace Battle.Tests.PathFinding
             map[3, 1] = "W";
             map[3, 2] = "W";
             map[3, 3] = "W";
-            Point startLocation = new(2, 2);
-            Point endLocation = new(2, 4);
+            Vector3 startLocation = new(2, 0, 2);
+            Vector3 endLocation = new(2, 0, 4);
             Path path = new(startLocation, endLocation, map);
 
             //Act
@@ -211,8 +211,8 @@ namespace Battle.Tests.PathFinding
             //   0 1 2 3 4 
 
             //Arrange
-            Point startLocation = new(2, 2);
-            Point endLocation = new(2, 2);
+            Vector3 startLocation = new(2, 0, 2);
+            Vector3 endLocation = new(2, 0, 2);
             int height = 5;
             int width = 5;
             string[,] map = InitializeMap(width, height);
@@ -260,7 +260,7 @@ namespace Battle.Tests.PathFinding
         }
 
 
-        private static void CreateDebugPictureOfMapAndRoute(int xMax, int zMax, List<Point> path, string[,] map)
+        private static void CreateDebugPictureOfMapAndRoute(int xMax, int zMax, List<Vector3> path, string[,] map)
         {
             string[,] mapDebug = new string[xMax, zMax];
             for (int z = 0; z < zMax; z++)
@@ -279,7 +279,7 @@ namespace Battle.Tests.PathFinding
             }
 
             int i = 0;
-            foreach (Point item in path)
+            foreach (Vector3 item in path)
             {
                 if (i == 0)
                 {
@@ -287,11 +287,11 @@ namespace Battle.Tests.PathFinding
                 }
                 if (i == path.Count - 1)
                 {
-                    mapDebug[item.X, item.Y] = " F";
+                    mapDebug[(int)item.X, (int)item.Z] = " F";
                 }
                 else
                 {
-                    mapDebug[item.X, item.Y] = " *";
+                    mapDebug[(int)item.X, (int)item.Z] = " *";
                 }
                 i++;
             }

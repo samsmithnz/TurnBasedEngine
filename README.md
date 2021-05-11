@@ -9,9 +9,8 @@ Currently supports
 - Basic attacks, between two characters, with weapon abilities and range taken into account
 - Basic cover
 - Basic map generation
+- Basic Field of view
 
 Still to come
 - Movement 
-- More attacks, abilities, weapons, etc
-- Field of view
 - Reactions/ overwatch

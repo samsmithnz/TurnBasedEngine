@@ -15,7 +15,7 @@ namespace Battle.Tests.FieldOfView
         public void BasicShallowLineWithNoCoverTest()
         {
             //Arrange
-            string[,] map = MapUtility.InitializeMap(5, 5);
+            //string[,] map = MapUtility.InitializeMap(5, 5);
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
@@ -33,7 +33,7 @@ namespace Battle.Tests.FieldOfView
         public void BasicSteepLineWithNoCoverTest()
         {
             //Arrange
-            string[,] map = MapUtility.InitializeMap(5, 5);
+            //string[,] map = MapUtility.InitializeMap(5, 5);
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 3, 1).ToList<Vector3>();
@@ -97,7 +97,7 @@ namespace Battle.Tests.FieldOfView
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -133,7 +133,7 @@ namespace Battle.Tests.FieldOfView
             map[5, 4] = "W";
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -162,7 +162,7 @@ namespace Battle.Tests.FieldOfView
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -192,7 +192,7 @@ namespace Battle.Tests.FieldOfView
             map[3, 2] = "W";
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, (int)startingLocation.X, (int)startingLocation.Z, range);
+            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);

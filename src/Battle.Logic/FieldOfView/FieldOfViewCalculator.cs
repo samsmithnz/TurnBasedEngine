@@ -8,8 +8,10 @@ namespace Battle.Logic.FieldOfView
     public class FieldOfViewCalculator
     {
 
-        public static List<Vector3> GetFieldOfView(string[,] map, int startingX, int startingZ, int range)
+        public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
         {
+            int startingX = (int)location.X;
+            int startingZ = (int)location.Z;
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
             if (minX < 0)
@@ -114,7 +116,7 @@ namespace Battle.Logic.FieldOfView
             for (int x = x0; x <= x1; x++)
             {
                 yield return new((steep ? y : x), 0, (steep ? x : y));
-                error = error - dy;
+                error -= dy;
                 if (error < 0)
                 {
                     y += ystep;

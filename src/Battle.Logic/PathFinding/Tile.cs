@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Drawing;
+using System.Numerics;
 
-namespace Battle.PathFinding
+namespace Battle.Logic.PathFinding
 {
     public class Tile
     {
@@ -12,9 +12,9 @@ namespace Battle.PathFinding
         /// <param name="y">The node's location along the Y axis</param>
         /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
         /// <param name="endLocation">The location of the destination node</param>
-        public Tile(int x, int y, string tileType, Point endLocation)
+        public Tile(int x, int z, string tileType, Vector3 endLocation)
         {
-            this.Location = new Point(x, y);
+            this.Location = new Vector3(x, 0,z);
             this.State = TileState.Untested;
             this.TileType = tileType;
             this.H = GetTraversalCost(this.Location, endLocation);
@@ -24,7 +24,7 @@ namespace Battle.PathFinding
         /// <summary>
         /// The node's location in the grid
         /// </summary>
-        public Point Location { get; private set; }
+        public Vector3 Location { get; private set; }
 
         /// <summary>
         /// True when the node may be traversed, otherwise false
@@ -86,11 +86,11 @@ namespace Battle.PathFinding
         /// <summary>
         /// Gets the distance between two points
         /// </summary>
-        internal static float GetTraversalCost(Point location, Point otherLocation)
+        internal static float GetTraversalCost(Vector3 location, Vector3 otherLocation)
         {
             float deltaX = otherLocation.X - location.X;
-            float deltaY = otherLocation.Y - location.Y;
-            return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+            float deltaZ = otherLocation.Z - location.Z;
+            return (float)Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
         }
     }
 
