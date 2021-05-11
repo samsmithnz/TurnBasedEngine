@@ -21,7 +21,7 @@ namespace Battle.Logic.Characters
         public Vector3 Location { get; set; }
         public int ActionPoints { get; set; }
         public int Range { get; set; }
-        public Weapon WeaponEquiped { get; set; }
+        public Weapon WeaponEquipped { get; set; }
 
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }

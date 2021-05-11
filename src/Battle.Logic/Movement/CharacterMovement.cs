@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Encounters;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -6,30 +7,43 @@ namespace Battle.Logic.Movement
 {
     public class CharacterMovement
     {
-        public static Character MoveCharacter(Character character, List<Vector3> path, List<KeyValuePair<Character, List<Vector3>>> overWatchedLocations = null)
+        public static Character MoveCharacter(Character characterMoving, string[,] map, List<Vector3> path, List<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedLocations = null)
         {
             foreach (Vector3 step in path)
             {
-                character.Location = step;
+                characterMoving.Location = step;
                 if (overWatchedLocations != null)
                 {
-                    foreach (KeyValuePair<Character, List<Vector3>> characterFOV in overWatchedLocations)
+                    bool targetIsStillAlive = Overwatch(characterMoving, map, diceRolls, overWatchedLocations);
+                    if (targetIsStillAlive == false)
                     {
-                        foreach (Vector3 fov in characterFOV.Value)
-                        {
-                            if (fov == character.Location)
-                            {
-                                //Currently lethal
-                                character.HP = 0;
-                                //TODO: add attacks
-                                break;
-                            }
-                        }
+                        break;
                     }
                 }
             }
 
-            return character;
+            return characterMoving;
+        }
+
+        private static bool Overwatch(Character characterMoving, string[,] map, List<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedLocations = null)
+        {
+            foreach (KeyValuePair<Character, List<Vector3>> characterFOV in overWatchedLocations)
+            {
+                foreach (Vector3 fovLocation in characterFOV.Value)
+                {
+                    if (characterFOV.Key.ActionPoints > 0 && fovLocation == characterMoving.Location)
+                    {
+                        //Act
+                        EncounterResult result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
+
+                        if (result.TargetCharacter.HP <= 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
     }
 }

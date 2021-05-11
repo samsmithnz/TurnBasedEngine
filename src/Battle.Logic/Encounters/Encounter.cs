@@ -130,6 +130,9 @@ namespace Battle.Logic.Encounters
                 {
                     sourceCharacter.Experience += Experience.GetExperience(true);
                 }
+
+                //Consume source characters action points
+                sourceCharacter.ActionPoints = 0;
             }
             else
             {

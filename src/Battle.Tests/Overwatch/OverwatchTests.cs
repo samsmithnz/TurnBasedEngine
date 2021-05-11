@@ -24,6 +24,7 @@ namespace Battle.Tests.Overwatch
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
+            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
@@ -31,12 +32,14 @@ namespace Battle.Tests.Overwatch
 
             Path jeffPath = new(jeff.Location, destination, map);
             PathResult pathResult = jeffPath.FindPath();
-            jeff = CharacterMovement.MoveCharacter(jeff, pathResult.Path, new() { fredFOV });
+            jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
             Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
-            Assert.AreEqual(0, jeff.HP  );
+            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(new(8, 0, 7), jeff.Location);
+            Assert.AreEqual(100, fred.Experience);
         }
     }
 }

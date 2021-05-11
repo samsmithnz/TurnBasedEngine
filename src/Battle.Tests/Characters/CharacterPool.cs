@@ -18,7 +18,7 @@ namespace Battle.Tests.Characters
                 Location = new(0, 0, 0),
                 ActionPoints = 2,
                 Range = 10,
-                WeaponEquiped = WeaponPool.CreateRifle(),
+                WeaponEquipped = WeaponPool.CreateRifle(),
                 InHalfCover = false,
                 InFullCover = false,
                 InOverwatch = false
@@ -41,7 +41,7 @@ namespace Battle.Tests.Characters
                 Location = new(8, 0, 8),
                 ActionPoints = 2,
                 Range = 10,
-                WeaponEquiped = WeaponPool.CreateShotgun(),
+                WeaponEquipped = WeaponPool.CreateShotgun(),
                 InHalfCover = false,
                 InFullCover = false,
                 InOverwatch = false
@@ -62,7 +62,7 @@ namespace Battle.Tests.Characters
                 Location = new(5, 0, 5),
                 ActionPoints = 2,
                 Range = 10,
-                WeaponEquiped = WeaponPool.CreateSniperRifle(),
+                WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 InHalfCover = true,
                 InFullCover = false,
                 InOverwatch = false
