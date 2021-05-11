@@ -4,12 +4,12 @@ using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.Encounters
 {
     public class Encounter
     {
-
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
             //Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
@@ -74,7 +74,7 @@ namespace Battle.Logic.Encounters
             return damageOptions;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls, Vector3? throwingTargetLocation)
         {
             int damageDealt = 0;
             bool isCriticalHit = false;
@@ -89,7 +89,57 @@ namespace Battle.Logic.Encounters
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomToHit = diceRolls[diceRollIndex];
             diceRollIndex++;
-            if ((100 - toHitPercent) <= randomToHit)
+
+            //Throws always hit, process this before tohit        
+            if (throwingTargetLocation != null)
+            {
+                //Get the targets in the area affected
+                List<Character> areaEffectTargets = new() { targetCharacter }; //GetTargetsInArea(throwingTargetLocation, weapon.AreaEffectRadius);
+
+                //Get damage 
+                int damageRollPercent = diceRolls[diceRollIndex];
+                diceRollIndex++;
+                DamageOptions damageOptions = GetDamageRange(sourceCharacter, weapon);
+                int lowDamage = damageOptions.DamageLow;
+                int highDamage = damageOptions.DamageHigh;
+
+                //Check if it was a critical hit
+                int randomToCrit = diceRolls[diceRollIndex];
+                int chanceToCrit = GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);
+                if ((100 - chanceToCrit) <= randomToCrit)
+                {
+                    isCriticalHit = true;
+                    lowDamage = damageOptions.CriticalDamageLow;
+                    highDamage = damageOptions.CriticalDamageHigh;
+                }
+
+                //process damage
+                damageDealt = RandomNumber.ScaleRandomNumber(
+                        lowDamage, highDamage,
+                        damageRollPercent);
+
+                //Deal damage to each target
+                foreach (Character character in areaEffectTargets)
+                {
+                    //Deal the damage
+                    character.HP -= damageDealt;
+
+                    //process experience
+                    if (character.HP <= 0)
+                    {
+                        //targetCharacter.HP = 0;
+                        sourceCharacter.Experience += Experience.GetExperience(true, true);
+                    }
+                    else
+                    {
+                        sourceCharacter.Experience += Experience.GetExperience(true);
+                    }
+                }
+
+                //Consume source characters action points
+                sourceCharacter.ActionPoints = 0;
+            }
+            else if ((100 - toHitPercent) <= randomToHit)
             {
                 //Get damage 
                 int damageRollPercent = diceRolls[diceRollIndex];
@@ -97,7 +147,7 @@ namespace Battle.Logic.Encounters
                 DamageOptions damageOptions = GetDamageRange(sourceCharacter, weapon);
                 int lowDamage = damageOptions.DamageLow;
                 int highDamage = damageOptions.DamageHigh;
-         
+
                 //Check if it was a critical hit
                 int randomToCrit = diceRolls[diceRollIndex];
                 int chanceToCrit = GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);

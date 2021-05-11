@@ -34,7 +34,7 @@ namespace Battle.Logic.Movement
                     if (characterFOV.Key.ActionPoints > 0 & fovLocation == characterMoving.Location)
                     {
                         //Act
-                        EncounterResult result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
+                        EncounterResult result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls, null);
 
                         if (result.TargetCharacter.HP <= 0)
                         {
