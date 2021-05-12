@@ -41,6 +41,7 @@ namespace Battle.Tests.Overwatch
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
         }
+
         [TestMethod]
         public void FredInOverwatchMissesWhileJeffMoves()
         {
@@ -51,7 +52,7 @@ namespace Battle.Tests.Overwatch
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
-            List<int> diceRolls = new() { 0, 0, 0}; //Chance to hit roll, damage roll, critical chance roll
+            List<int> diceRolls = new() { 0, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
@@ -67,6 +68,69 @@ namespace Battle.Tests.Overwatch
             Assert.AreEqual(12, jeff.HP);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
+        }
+
+        [TestMethod]
+        public void FredAndHarryInOverwatchKillsWhileJeffMoves()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.InOverwatch = true;
+            Character harry = CharacterPool.CreateHarry();
+            harry.InOverwatch = true;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.HP = 25;
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Vector3 destination = new(6, 0, 0);
+            List<int> diceRolls = new() { 65, 100, 100, 65, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fovFred);
+            List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.Range);
+            KeyValuePair<Character, List<Vector3>> harryFOV = new(harry, fovHarry);
+
+            Path jeffPath = new(jeff.Location, destination, map);
+            PathResult pathResult = jeffPath.FindPath();
+            jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV, harryFOV });
+
+            //Assert
+            Assert.IsTrue(jeffPath != null);
+            Assert.IsTrue(pathResult != null);
+            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(new(8, 0, 7), jeff.Location);
+            Assert.AreEqual(100, fred.Experience);
+            Assert.AreEqual(10, harry.Experience);
+        }
+
+        [TestMethod]
+        public void FredAndHarryInOverwatchMissesWhileJeffMoves()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.InOverwatch = true;
+            Character harry = CharacterPool.CreateHarry();
+            harry.InOverwatch = true;
+            Character jeff = CharacterPool.CreateJeff();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Vector3 destination = new(6, 0, 0);
+            List<int> diceRolls = new() { 0, 0, 0, 0, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+
+            Path jeffPath = new(jeff.Location, destination, map);
+            PathResult pathResult = jeffPath.FindPath();
+            jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
+
+            //Assert
+            Assert.IsTrue(jeffPath != null);
+            Assert.IsTrue(pathResult != null);
+            Assert.AreEqual(12, jeff.HP);
+            Assert.AreEqual(destination, jeff.Location);
+            Assert.AreEqual(0, fred.Experience);
+            Assert.AreEqual(0, harry.Experience);
         }
     }
 }

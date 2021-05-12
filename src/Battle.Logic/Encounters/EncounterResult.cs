@@ -1,14 +1,23 @@
 ﻿using Battle.Logic.Characters;
+using System;
 using System.Collections.Generic;
 
 namespace Battle.Logic.Encounters
 {
     public class EncounterResult
     {
+        public EncounterResult()
+        {
+            AllCharacters = new();
+            Log = new();
+        }
+
         public Character SourceCharacter { get; set; }
         private Character _targetCharacter;
-        public Character TargetCharacter { get
-            { 
+        public Character TargetCharacter
+        {
+            get
+            {
                 if (_targetCharacter == null)
                 {
                     _targetCharacter = AllCharacters[0];
@@ -18,10 +27,23 @@ namespace Battle.Logic.Encounters
             set
             {
                 _targetCharacter = value;
-            } 
+            }
         }
         public List<Character> AllCharacters { get; set; }
         public int DamageDealt { get; set; }
         public bool IsCriticalHit { get; set; }
+        public List<string> Log { get; set; }
+        public string LogString
+        {
+            get
+            {
+                string result = Environment.NewLine;
+                foreach (string item in Log)
+                {
+                    result += item + Environment.NewLine;
+                }
+                return result;
+            }
+        }
     }
 }
