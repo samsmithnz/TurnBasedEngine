@@ -14,7 +14,7 @@ namespace Battle.Tests.Encounters
     [TestCategory("L0")]
     public class AreaAttackTests
     {
- 
+
 
         [TestMethod]
         public void FredThrowsGrenadeAndKillsJeffTest()
@@ -209,12 +209,35 @@ namespace Battle.Tests.Encounters
 
             //Assert
             Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AllCharacters != null);
             Assert.AreEqual(6, result.DamageDealt);
             //Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HP);
             Assert.AreEqual(-2, harry.HP);
+            Assert.IsTrue(result.TargetCharacter != null);
+            Assert.IsTrue(result.AllCharacters.Count > 0);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+        }
+
+        //The encounter has no random numbers and returns null
+        [TestMethod]
+        public void NoDiceRollsEncounterTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character jeff = CharacterPool.CreateJeff();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            List<int> diceRolls = null;
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result == null);
         }
 
     }
