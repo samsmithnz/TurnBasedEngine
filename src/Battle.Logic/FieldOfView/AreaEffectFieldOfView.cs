@@ -1,17 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using Battle.Logic.Characters;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Logic.FieldOfView
 {
     public class AreaEffectFieldOfView
     {
+        public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int radius)
+        {
+            List<Character> results = new();
+            List<Vector3> area = GetAreaOfEffect(map, location, radius);
+            foreach (Character character in characters)
+            {
+                foreach (Vector3 item in area)
+                {
+                    if (character.Location == item)
+                    {
+                        results.Add(character);
+                    }
+                }
+            }
+            return results;
+        }
+
         //I started down a path of implementing bresenhams-circle-algorithm, but it's complex and there wasn't an open source version to lift
         //Practically, most range will be 3 squares - for now, I'm just going to hardcode the 31 tiles involved
         public static List<Vector3> GetAreaOfEffect(string[,] map, Vector3 location, int radius)
         {
             int offsetX = (int)location.X - 4;
             int offsetZ = (int)location.Z - 4;
-          
+
             List<Vector3> results = new() { location };
             if (radius >= 1)
             {
