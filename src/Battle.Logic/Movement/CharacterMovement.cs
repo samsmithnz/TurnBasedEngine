@@ -31,7 +31,7 @@ namespace Battle.Logic.Movement
             {
                 foreach (Vector3 fovLocation in characterFOV.Value)
                 {
-                    if (characterFOV.Key.ActionPoints > 0 && fovLocation == characterMoving.Location)
+                    if (characterFOV.Key.ActionPoints > 0 & fovLocation == characterMoving.Location)
                     {
                         //Act
                         EncounterResult result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);

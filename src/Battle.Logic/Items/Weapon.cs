@@ -5,6 +5,7 @@
         public string Name { get; set; }
         public int ChanceToHitAdjustment { get; set; }
         public int Range { get; set; }
+        public int AreaEffectRadius { get; set; }
         public int DamageRangeLow { get; set; }
         public int DamageRangeHigh { get; set; }
         public int CriticalChance { get; set; }
@@ -21,6 +22,7 @@
         Standard = 1,
         Shotgun = 2,
         SniperRifle = 3,
-        Sword = 4
+        Sword = 4,
+        Grenade = 5
     }
 }

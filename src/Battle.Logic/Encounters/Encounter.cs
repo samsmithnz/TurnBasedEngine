@@ -1,15 +1,16 @@
 ﻿using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
+using Battle.Logic.FieldOfView;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.Encounters
 {
     public class Encounter
     {
-
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
             //Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
@@ -40,7 +41,7 @@ namespace Battle.Logic.Encounters
         public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map)
         {
             int chanceToCrit = weapon.CriticalChance;
-            if (TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
+            if (targetCharacter != null && TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
             {
                 //Add 50% for a flank
                 chanceToCrit += 50;
@@ -74,6 +75,85 @@ namespace Battle.Logic.Encounters
             return damageOptions;
         }
 
+
+        public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,] map, List<int> diceRolls, Vector3 throwingTargetLocation)
+        {
+            int damageDealt;
+            bool isCriticalHit = false;
+
+            int diceRollIndex = 0;
+            if (diceRolls == null || diceRolls.Count == 0)
+            {
+                return null;
+            }
+            //int toHitPercent = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
+
+            //If the number rolled is higher than the chance to hit, the attack was successful!
+            //int randomToHit = diceRolls[diceRollIndex];
+            diceRollIndex++;
+
+            ////Throws always hit, process this before tohit        
+            //if (throwingTargetLocation != null)
+
+            //Get the targets in the area affected
+            List<Character> areaEffectTargets = AreaEffectFieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
+
+            //Get damage 
+            int damageRollPercent = diceRolls[diceRollIndex];
+            diceRollIndex++;
+            DamageOptions damageOptions = GetDamageRange(sourceCharacter, weapon);
+            int lowDamage = damageOptions.DamageLow;
+            int highDamage = damageOptions.DamageHigh;
+
+            //Check if it was a critical hit
+            int randomToCrit = diceRolls[diceRollIndex];
+            int chanceToCrit = GetChanceToCrit(sourceCharacter, weapon, null, map);
+            if ((100 - chanceToCrit) <= randomToCrit)
+            {
+                isCriticalHit = true;
+                lowDamage = damageOptions.CriticalDamageLow;
+                highDamage = damageOptions.CriticalDamageHigh;
+            }
+
+            //process damage
+            damageDealt = RandomNumber.ScaleRandomNumber(
+                    lowDamage, highDamage,
+                    damageRollPercent);
+
+            //Deal damage to each target
+            foreach (Character character in areaEffectTargets)
+            {
+                //Deal the damage
+                character.HP -= damageDealt;
+
+                //process experience
+                if (character.HP <= 0)
+                {
+                    //targetCharacter.HP = 0;
+                    sourceCharacter.Experience += Experience.GetExperience(true, true);
+                }
+                else
+                {
+                    sourceCharacter.Experience += Experience.GetExperience(true);
+                }
+            }
+
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
+
+            //Check if the character has enough experience to level up
+            sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
+
+            EncounterResult result = new()
+            {
+                SourceCharacter = sourceCharacter,
+                AllCharacters = allCharacters,
+                DamageDealt = damageDealt,
+                IsCriticalHit = isCriticalHit
+            };
+            return result;
+        }
+
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls)
         {
             int damageDealt = 0;
@@ -89,6 +169,7 @@ namespace Battle.Logic.Encounters
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomToHit = diceRolls[diceRollIndex];
             diceRollIndex++;
+
             if ((100 - toHitPercent) <= randomToHit)
             {
                 //Get damage 
@@ -97,7 +178,7 @@ namespace Battle.Logic.Encounters
                 DamageOptions damageOptions = GetDamageRange(sourceCharacter, weapon);
                 int lowDamage = damageOptions.DamageLow;
                 int highDamage = damageOptions.DamageHigh;
-         
+
                 //Check if it was a critical hit
                 int randomToCrit = diceRolls[diceRollIndex];
                 int chanceToCrit = GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);

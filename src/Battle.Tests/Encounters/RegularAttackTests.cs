@@ -13,7 +13,7 @@ namespace Battle.Tests.Encounters
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
-    public class EncounterTests
+    public class RegularAttackTests
     {
         [TestMethod]
         public void FredAttacksJeffWithRifleAndHitsTest()

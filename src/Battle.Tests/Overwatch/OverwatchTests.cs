@@ -15,7 +15,7 @@ namespace Battle.Tests.Overwatch
     public class OverwatchTests
     {
         [TestMethod]
-        public void FredInOverwatchWhileJeffMoves()
+        public void FredInOverwatchKillsWhileJeffMoves()
         {
             //Arrange
             Character fred = CharacterPool.CreateFred();
@@ -40,6 +40,33 @@ namespace Battle.Tests.Overwatch
             Assert.AreEqual(0, jeff.HP);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
+        }
+        [TestMethod]
+        public void FredInOverwatchMissesWhileJeffMoves()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.InOverwatch = true;
+            //Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeff();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Vector3 destination = new(6, 0, 0);
+            List<int> diceRolls = new() { 0, 0, 0}; //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+
+            Path jeffPath = new(jeff.Location, destination, map);
+            PathResult pathResult = jeffPath.FindPath();
+            jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
+
+            //Assert
+            Assert.IsTrue(jeffPath != null);
+            Assert.IsTrue(pathResult != null);
+            Assert.AreEqual(12, jeff.HP);
+            Assert.AreEqual(destination, jeff.Location);
+            Assert.AreEqual(0, fred.Experience);
         }
     }
 }
