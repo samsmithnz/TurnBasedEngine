@@ -23,7 +23,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 80, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);
@@ -63,7 +63,7 @@ Critical chance: 70, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 44 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -91,7 +91,7 @@ Missed: Chance to hit: 45, (dice roll: 44)
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = false;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -120,7 +120,7 @@ Critical chance: 70, (dice roll: 0)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = null;
+            Queue<int> diceRolls = null;
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -138,7 +138,7 @@ Critical chance: 70, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 20 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -171,7 +171,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -205,7 +205,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -241,7 +241,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -275,7 +275,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.InHalfCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -304,7 +304,7 @@ Critical chance: 70, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 55 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 55 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -331,7 +331,7 @@ Missed: Chance to hit: 60, (dice roll: 55)
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -362,7 +362,7 @@ Missed: Chance to hit: 100, (dice roll: 65)
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -389,7 +389,7 @@ Missed: Chance to hit: 81, (dice roll: 65)
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -422,7 +422,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -454,7 +454,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 12;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -491,7 +491,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.HP = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = new() { 65, 100, 30 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -538,7 +538,7 @@ Jeff is killed
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.HP = 15;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -583,7 +583,7 @@ Critical chance: 20, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.HP = 15;
-            List<int> diceRolls = new() { 65, 100, 70 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -629,7 +629,7 @@ Jeff is killed
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(5, 0, 5);
-            List<int> diceRolls = new() { 65, 65, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             try

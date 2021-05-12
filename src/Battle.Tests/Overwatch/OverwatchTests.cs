@@ -24,7 +24,7 @@ namespace Battle.Tests.Overwatch
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
-            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
@@ -52,7 +52,7 @@ namespace Battle.Tests.Overwatch
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
-            List<int> diceRolls = new() { 0, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
@@ -82,7 +82,7 @@ namespace Battle.Tests.Overwatch
             jeff.HP = 25;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
-            List<int> diceRolls = new() { 65, 100, 100, 65, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
@@ -114,7 +114,7 @@ namespace Battle.Tests.Overwatch
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
-            List<int> diceRolls = new() { 0, 0, 0, 0, 0, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);

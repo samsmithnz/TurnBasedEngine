@@ -17,7 +17,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             if (diceRolls == null || diceRolls.Count == 0)
-            {
+            { 
                 return null;
             }
             //throws always hit, process this before tohit        
@@ -114,14 +114,13 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, List<int> diceRolls)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, Queue<int> diceRolls)
         {
             int damageDealt = 0;
             bool isCriticalHit = false;
             List<string> log = new();
             log.Add(sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString());
 
-            int diceRollIndex = 0;
             if (diceRolls == null || diceRolls.Count == 0)
             {
                 return null;
@@ -129,23 +128,21 @@ namespace Battle.Logic.Encounters
             int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHit = diceRolls[diceRollIndex];
-            diceRollIndex++;
+            int randomToHit = diceRolls.Dequeue();
 
             if ((100 - toHitPercent) <= randomToHit)
             {
                 log.Add("Hit: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
                
                 //Get damage 
-                int damageRollPercent = diceRolls[diceRollIndex];
-                diceRollIndex++;
+                int damageRollPercent = diceRolls.Dequeue();
                 DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
                 int lowDamage = damageOptions.DamageLow;
                 int highDamage = damageOptions.DamageHigh;
                 log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
 
                 //Check if it was a critical hit
-                int randomToCrit = diceRolls[diceRollIndex];
+                int randomToCrit = diceRolls.Dequeue();
                 int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);
                 if ((100 - chanceToCrit) <= randomToCrit)
                 {

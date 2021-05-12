@@ -8,7 +8,7 @@ namespace Battle.Logic.Movement
 {
     public class CharacterMovement
     {
-        public static Character MoveCharacter(Character characterMoving, string[,] map, List<Vector3> path, List<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        public static Character MoveCharacter(Character characterMoving, string[,] map, List<Vector3> path, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             foreach (Vector3 step in path)
             {
@@ -26,7 +26,7 @@ namespace Battle.Logic.Movement
             return characterMoving;
         }
 
-        private static bool Overwatch(Character characterMoving, string[,] map, List<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        private static bool Overwatch(Character characterMoving, string[,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             overWatchedCharacters = overWatchedCharacters.OrderByDescending(o => o.Key.Speed).ToList();
             foreach (KeyValuePair<Character, List<Vector3>> characterFOV in overWatchedCharacters)
