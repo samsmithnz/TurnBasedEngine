@@ -26,9 +26,9 @@ namespace Battle.Tests.Encounters
             List<int> diceRolls = new() { 80, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            int chanceToHit = Encounter.GetChanceToHit(fred, rifle, jeff);
-            int chanceToCrit = Encounter.GetChanceToCrit(fred, rifle, jeff, map);
-            DamageOptions damageOptions = Encounter.GetDamageRange(fred, rifle);
+            int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jeff, map);
+            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, rifle);
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
             //Assert
