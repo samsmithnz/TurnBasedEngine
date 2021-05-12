@@ -71,6 +71,16 @@ namespace Battle.Logic.Encounters
                 }
             }
 
+            //Remove cover
+            List<Vector3> area = AreaEffectFieldOfView.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
+            foreach (Vector3 item in area)
+            {
+                if (map[(int)item.X, (int)item.Z] == "W")
+                {
+                    map[(int)item.X, (int)item.Z]="";
+                }
+            }
+
             //Consume source characters action points
             sourceCharacter.ActionPoints = 0;
 
