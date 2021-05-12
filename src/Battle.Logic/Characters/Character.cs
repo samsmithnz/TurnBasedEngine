@@ -17,6 +17,7 @@ namespace Battle.Logic.Characters
         public int Experience { get; set; }
         public int Level { get; set; }
         public bool LevelUpIsReady { get; set; }
+        public int Speed { get; set; }
         public List<CharacterAbility> Abilities { get; set; }
         public Vector3 Location { get; set; }
         public int ActionPoints { get; set; }
