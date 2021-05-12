@@ -42,6 +42,15 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
             Assert.AreEqual(7, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 80)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, character HP is now 7
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -63,6 +72,12 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.TargetCharacter.HP);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 45, (dice roll: 44)
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -85,6 +100,15 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 35, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, character HP is now 7
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         //The encounter has no random numbers and returns null
@@ -126,6 +150,16 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 20)
+5 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -149,6 +183,17 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 30)
+Critical damage range: 8-12, (dice roll: 100)
+12 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -172,6 +217,16 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         //Fred hits Jeff with a rifle, causing 10 points of damage, killing him, and leveling up
@@ -197,6 +252,17 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 30)
+Critical damage range: 8-12, (dice roll: 100)
+12 damage dealt to character Jeff, character HP is now -7
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -218,6 +284,15 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 25, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, character HP is now 7
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -238,6 +313,12 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.TargetCharacter.HP);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 60, (dice roll: 55)
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -259,6 +340,12 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.TargetCharacter.HP);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 100, (dice roll: 65)
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
 
@@ -269,6 +356,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             Character fred = CharacterPool.CreateFred();
             fred.ChanceToHit = 30;
+            fred.Experience = 50;
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeff();
             jeff.InFullCover = true;
@@ -282,7 +370,13 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.TargetCharacter.HP);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(50, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 81, (dice roll: 65)
+0 XP added to character Fred, for a total of 50 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -304,6 +398,17 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-15, (dice roll: 100)
+Critical chance: 70, (dice roll: 100)
+Critical damage range: 8-22, (dice roll: 100)
+22 damage dealt to character Jeff, character HP is now -7
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -326,6 +431,17 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-15, (dice roll: 100)
+Critical chance: 70, (dice roll: 100)
+Critical damage range: 8-22, (dice roll: 100)
+22 damage dealt to character Jeff, character HP is now -7
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -350,6 +466,17 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 80, (dice roll: 30)
+Critical damage range: 8-12, (dice roll: 100)
+12 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
 
@@ -376,6 +503,17 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 30)
+Critical damage range: 11-15, (dice roll: 100)
+15 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -412,6 +550,15 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(10, result.TargetCharacter.HP);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: -4, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 20, (dice roll: 0)
+5 damage dealt to character Jeff, character HP is now 10
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
@@ -448,6 +595,17 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(0, result.TargetCharacter.HP);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: -8, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 70)
+Critical damage range: 11-15, (dice roll: 100)
+15 damage dealt to character Jeff, character HP is now 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
