@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.Characters;
 using Battle.Logic.FieldOfView;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;

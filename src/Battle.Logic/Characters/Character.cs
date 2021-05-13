@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Weapons;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.Weapons;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -19,7 +20,8 @@ namespace Battle.Logic.Characters
         public int Level { get; set; }
         public bool LevelUpIsReady { get; set; }
         public int Speed { get; set; }
-        public List<CharacterAbility> Abilities { get; set; }
+        public List<Ability> Abilities { get; set; }
+        public List<Effect> Effects { get; set; }
         public Vector3 Location { get; set; }
         public int ActionPoints { get; set; }
         public int Range { get; set; }

@@ -1,11 +1,9 @@
-﻿using Battle.Logic.CharacterCover;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Battle.Logic.Encounters
 {
@@ -75,10 +73,10 @@ namespace Battle.Logic.Encounters
             return damageOptions;
         }
 
-        public static int ProcessAbilitiesByType(List<CharacterAbility> abilities, AbilityTypeEnum type)
+        public static int ProcessAbilitiesByType(List<Ability> abilities, AbilityTypeEnum type)
         {
             int adjustment = 0;
-            foreach (CharacterAbility item in abilities)
+            foreach (Ability item in abilities)
             {
                 if (item.Type == type)
                 {

@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.Characters;
 using Battle.Tests.Weapons;
 
 namespace Battle.Tests.Characters
