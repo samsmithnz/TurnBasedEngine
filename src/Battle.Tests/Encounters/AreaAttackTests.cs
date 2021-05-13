@@ -37,7 +37,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.HP = 4;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
 
@@ -85,7 +85,7 @@ Cover removed from <2, 0, 3>
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.HP = 5;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
 
@@ -136,7 +136,7 @@ Cover removed from <2, 0, 3>
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
             harry.HP = 4;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -192,7 +192,7 @@ Cover removed from <2, 0, 3>
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
             harry.HP = 4;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -248,7 +248,7 @@ Cover removed from <2, 0, 3>
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
             harry.HP = 4;
-            List<int> diceRolls = new() { 65, 100, 80 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 80 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -304,13 +304,13 @@ Cover removed from <2, 0, 3>
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.HP = 5;
-            List<int> diceRolls = new() { 65, 100, 0 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
 
             //Act 1: get the FOV
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, 10);
-            
+
             //Assert: check the initial FOV
             Assert.AreEqual(22, results.Count);
             bool foundItem = false;
@@ -336,7 +336,7 @@ Cover removed from <2, 0, 3>
             //Act 2: Now destroy the cover
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
             results = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, 10);
-            
+
             //Assert 2: Check the FOV now
             Assert.AreEqual(24, results.Count);
             foundItem = false;
@@ -386,7 +386,7 @@ Cover removed from <2, 0, 3>
             fred.WeaponEquipped = WeaponPool.CreateGrenade();
             Character jeff = CharacterPool.CreateJeff();
             string[,] map = MapUtility.InitializeMap(10, 10);
-            List<int> diceRolls = null;
+            Queue<int> diceRolls = null;
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
 

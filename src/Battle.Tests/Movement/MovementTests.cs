@@ -20,7 +20,7 @@ namespace Battle.Tests.Movement
             Character fred = CharacterPool.CreateFred();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(8, 0, 0);
-            List<int> diceRolls = new() { 65, 100, 100 }; //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             Path path = new(fred.Location, destination, map);

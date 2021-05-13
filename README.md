@@ -7,10 +7,9 @@ A POC to codify a game idea I have, into a battle simulator.
 Currently supports
 - Basic pathfinding and map generation
 - Basic attacks, between two characters, with weapon abilities and range taken into account
-- Basic cover
+- Basic cover 
+- Grenades + cover destruction
 - Basic map generation
 - Basic Field of view
-
-Still to come
 - Movement 
 - Reactions/ overwatch
