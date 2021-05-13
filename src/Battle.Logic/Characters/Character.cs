@@ -12,7 +12,8 @@ namespace Battle.Logic.Characters
         }
 
         public string Name { get; set; }
-        public int HP { get; set; }
+        public int Hitpoints { get; set; }
+        public int ArmorPoints { get; set; }
         public int ChanceToHit { get; set; }
         public int Experience { get; set; }
         public int Level { get; set; }

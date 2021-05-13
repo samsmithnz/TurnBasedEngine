@@ -17,7 +17,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             if (diceRolls == null || diceRolls.Count == 0)
-            { 
+            {
                 return null;
             }
             //throws always hit, process this before tohit        
@@ -67,12 +67,27 @@ namespace Battle.Logic.Encounters
             foreach (Character character in areaEffectTargets)
             {
                 //Deal the damage
-                character.HP -= damageDealt;
-                log.Add(damageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.HP.ToString());
+                int characterDamageDealt = damageDealt - character.ArmorPoints;
+                character.Hitpoints -= characterDamageDealt;
+
+                //Process armor shredding
+                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+                character.ArmorPoints -= armorShredderDamage;
+
+                //Update log
+                if (armorShredderDamage > 0)
+                {
+                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
+                }
+                if (character.ArmorPoints > 0)
+                {
+                    log.Add("Armor prevented " + character.ArmorPoints.ToString() + " damage to character " + character.Name);
+                }
+                log.Add(characterDamageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.Hitpoints.ToString());
 
                 //process experience
                 int xp;
-                if (character.HP <= 0)
+                if (character.Hitpoints <= 0)
                 {
                     //targetCharacter.HP = 0;
                     log.Add(character.Name + " is killed");
@@ -133,7 +148,7 @@ namespace Battle.Logic.Encounters
             if ((100 - toHitPercent) <= randomToHit)
             {
                 log.Add("Hit: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
-               
+
                 //Get damage 
                 int damageRollPercent = diceRolls.Dequeue();
                 DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
@@ -166,12 +181,27 @@ namespace Battle.Logic.Encounters
                 //{
                 //    damageDealt = targetCharacter.HP;
                 //}
-                targetCharacter.HP -= damageDealt;
-                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.HP.ToString());
+                damageDealt -= targetCharacter.ArmorPoints;
+                targetCharacter.Hitpoints -= damageDealt;
+
+                //Process armor shredding
+                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+                targetCharacter.ArmorPoints -= armorShredderDamage;
+
+                //Update log
+                if (armorShredderDamage > 0)
+                {
+                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
+                }
+                if (targetCharacter.ArmorPoints > 0)
+                {
+                    log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
+                }
+                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.Hitpoints.ToString());
 
                 //process experience
                 int xp;
-                if (targetCharacter.HP <= 0)
+                if (targetCharacter.Hitpoints <= 0)
                 {
                     //targetCharacter.HP = 0;
                     log.Add(targetCharacter.Name + " is killed");
@@ -190,7 +220,7 @@ namespace Battle.Logic.Encounters
             else
             {
                 log.Add("Missed: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
-  
+
                 int xp = Experience.GetExperience(false);
                 sourceCharacter.Experience += xp;
                 log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");

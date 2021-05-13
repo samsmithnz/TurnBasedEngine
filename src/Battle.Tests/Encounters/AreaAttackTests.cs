@@ -36,7 +36,7 @@ namespace Battle.Tests.Encounters
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 4;
+            jeff.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -48,7 +48,7 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -59,6 +59,161 @@ Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Jeff, HP is now: 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Cover removed from <2, 0, 3>
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredThrowsGrenadeAndKillsJeffWearingArmorTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □
+            //  □ E ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            fred.Location = new Vector3(2, 0, 0);
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.Hitpoints = 2;
+            jeff.ArmorPoints = 2;
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(2, jeff.ArmorPoints);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <2, 0, 4>
+Characters in affected area: Jeff
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+Armor prevented 2 damage to character Jeff
+2 damage dealt to character Jeff, HP is now: 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+Cover removed from <2, 0, 3>
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredThrowsGrenadeAndKillsJeffWearingArmorThisShreddedTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □
+            //  □ E ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
+            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            fred.Location = new Vector3(2, 0, 0);
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.Hitpoints = 2;
+            jeff.ArmorPoints = 2;
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(0, jeff.ArmorPoints);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <2, 0, 4>
+Characters in affected area: Jeff
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+2 armor points shredded
+2 damage dealt to character Jeff, HP is now: 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+Cover removed from <2, 0, 3>
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredThrowsGrenadeAndHurtsJeffWearingArmorWithShreddedTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □
+            //  □ E ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
+            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            fred.Location = new Vector3(2, 0, 0);
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.Hitpoints = 2;
+            jeff.ArmorPoints = 3;
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(1, jeff.Hitpoints);
+            Assert.AreEqual(1, jeff.ArmorPoints);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <2, 0, 4>
+Characters in affected area: Jeff
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+2 armor points shredded
+Armor prevented 1 damage to character Jeff
+1 damage dealt to character Jeff, HP is now: 1
+10 XP added to character Fred, for a total of 10 XP
 Cover removed from <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
@@ -84,7 +239,7 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 5;
+            jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -96,7 +251,7 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HP);
+            Assert.AreEqual(1, jeff.Hitpoints);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -132,10 +287,11 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 4;
+            jeff.Hitpoints = 4;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
+            harry.ArmorPoints = 0;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -147,8 +303,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
-            Assert.AreEqual(0, harry.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(0, harry.Hitpoints);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -162,6 +318,63 @@ Jeff is killed
 4 damage dealt to character Harry, HP is now: 0
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
+Cover removed from <2, 0, 3>
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredThrowsGrenadeAndKillsJeffAndHarryIsSavedByArmorTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "H" = enemy/harry
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ □ □ □
+            //  □ E ■ H □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFred();
+            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            fred.Location = new Vector3(2, 0, 0);
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.Hitpoints = 4;
+            Character harry = CharacterPool.CreateHarry();
+            harry.Location = new Vector3(3, 0, 3);
+            harry.Hitpoints = 4;
+            harry.ArmorPoints = 1;
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff, harry };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(1, harry.Hitpoints);
+            Assert.AreEqual(110, result.SourceCharacter.Experience);
+            Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <2, 0, 4>
+Characters in affected area: Jeff,  Harry
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+4 damage dealt to character Jeff, HP is now: 0
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+Armor prevented 1 damage to character Harry
+3 damage dealt to character Harry, HP is now: 1
+10 XP added to character Fred, for a total of 110 XP
 Cover removed from <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
@@ -188,10 +401,11 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 15;
+            jeff.Hitpoints = 15;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
+            harry.ArmorPoints = 0;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -203,8 +417,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(12, fred.HP);
-            Assert.AreEqual(0, harry.HP);
+            Assert.AreEqual(12, fred.Hitpoints);
+            Assert.AreEqual(0, harry.Hitpoints);
             Assert.AreEqual(110, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -244,10 +458,11 @@ Cover removed from <2, 0, 3>
             fred.WeaponEquipped = WeaponPool.CreateGrenade();
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 6;
+            jeff.Hitpoints = 6;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
+            harry.ArmorPoints = 0;
             Queue<int> diceRolls = new(new List<int> { 100, 80 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -260,8 +475,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result.AllCharacters != null);
             Assert.AreEqual(6, result.DamageDealt);
             //Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
-            Assert.AreEqual(-2, harry.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(-2, harry.Hitpoints);
             Assert.IsTrue(result.TargetCharacter != null);
             Assert.IsTrue(result.AllCharacters.Count > 0);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
@@ -303,7 +518,7 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
-            jeff.HP = 5;
+            jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -362,7 +577,7 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HP);
+            Assert.AreEqual(1, jeff.Hitpoints);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"

@@ -37,7 +37,7 @@ namespace Battle.Tests.Overwatch
             //Assert
             Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
-            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
         }
@@ -65,7 +65,7 @@ namespace Battle.Tests.Overwatch
             //Assert
             Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
-            Assert.AreEqual(12, jeff.HP);
+            Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
         }
@@ -79,7 +79,7 @@ namespace Battle.Tests.Overwatch
             Character harry = CharacterPool.CreateHarry();
             harry.InOverwatch = true;
             Character jeff = CharacterPool.CreateJeff();
-            jeff.HP = 25;
+            jeff.Hitpoints = 25;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -97,7 +97,7 @@ namespace Battle.Tests.Overwatch
             //Assert
             Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
-            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
@@ -127,7 +127,7 @@ namespace Battle.Tests.Overwatch
             //Assert
             Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
-            Assert.AreEqual(12, jeff.HP);
+            Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(0, harry.Experience);

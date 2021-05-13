@@ -39,7 +39,7 @@ namespace Battle.Logic.Movement
                         EncounterResult result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
                         //The character uses their overwatch charge
                         characterFOV.Key.InOverwatch = false;
-                        if (result.TargetCharacter.HP <= 0)
+                        if (result.TargetCharacter.Hitpoints <= 0)
                         {
                             return false;
                         }
