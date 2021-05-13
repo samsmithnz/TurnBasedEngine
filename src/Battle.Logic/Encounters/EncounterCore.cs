@@ -75,7 +75,7 @@ namespace Battle.Logic.Encounters
             return damageOptions;
         }
 
-        private static int ProcessAbilitiesByType(List<CharacterAbility> abilities, AbilityTypeEnum type)
+        public static int ProcessAbilitiesByType(List<CharacterAbility> abilities, AbilityTypeEnum type)
         {
             int adjustment = 0;
             foreach (CharacterAbility item in abilities)

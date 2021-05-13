@@ -67,12 +67,23 @@ namespace Battle.Logic.Encounters
             foreach (Character character in areaEffectTargets)
             {
                 //Deal the damage
-                character.Hitpoints -= (damageDealt - character.ArmorPoints);
+                int characterDamageDealt = damageDealt - character.ArmorPoints;
+                character.Hitpoints -= characterDamageDealt;
+
+                //Process armor shredding
+                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+                character.ArmorPoints -= armorShredderDamage;
+
+                //Update log
+                if (armorShredderDamage > 0)
+                {
+                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
+                }
                 if (character.ArmorPoints > 0)
                 {
                     log.Add("Armor prevented " + character.ArmorPoints.ToString() + " damage to character " + character.Name);
                 }
-                log.Add((damageDealt - character.ArmorPoints).ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.Hitpoints.ToString());
+                log.Add(characterDamageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.Hitpoints.ToString());
 
                 //process experience
                 int xp;
@@ -170,12 +181,23 @@ namespace Battle.Logic.Encounters
                 //{
                 //    damageDealt = targetCharacter.HP;
                 //}
-                targetCharacter.Hitpoints -= (damageDealt - targetCharacter.ArmorPoints);
+                damageDealt -= targetCharacter.ArmorPoints;
+                targetCharacter.Hitpoints -= damageDealt;
+
+                //Process armor shredding
+                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+                targetCharacter.ArmorPoints -= armorShredderDamage;
+
+                //Update log
+                if (armorShredderDamage > 0)
+                {
+                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
+                }
                 if (targetCharacter.ArmorPoints > 0)
                 {
                     log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
                 }
-                log.Add((damageDealt - targetCharacter.ArmorPoints).ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.Hitpoints.ToString());
+                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.Hitpoints.ToString());
 
                 //process experience
                 int xp;
