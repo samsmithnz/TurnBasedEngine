@@ -36,7 +36,7 @@ namespace Battle.Tests.Encounters
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 4;
+            jeff.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -48,7 +48,7 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -84,7 +84,7 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 5;
+            jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -96,7 +96,7 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HP);
+            Assert.AreEqual(1, jeff.Hitpoints);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -132,10 +132,10 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 4;
+            jeff.Hitpoints = 4;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -147,8 +147,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
-            Assert.AreEqual(0, harry.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(0, harry.Hitpoints);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -188,10 +188,10 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 15;
+            jeff.Hitpoints = 15;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -203,8 +203,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(12, fred.HP);
-            Assert.AreEqual(0, harry.HP);
+            Assert.AreEqual(12, fred.Hitpoints);
+            Assert.AreEqual(0, harry.Hitpoints);
             Assert.AreEqual(110, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -244,10 +244,10 @@ Cover removed from <2, 0, 3>
             fred.WeaponEquipped = WeaponPool.CreateGrenade();
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HP = 6;
+            jeff.Hitpoints = 6;
             Character harry = CharacterPool.CreateHarry();
             harry.Location = new Vector3(3, 0, 3);
-            harry.HP = 4;
+            harry.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 80 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
@@ -260,8 +260,8 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result.AllCharacters != null);
             Assert.AreEqual(6, result.DamageDealt);
             //Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HP);
-            Assert.AreEqual(-2, harry.HP);
+            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(-2, harry.Hitpoints);
             Assert.IsTrue(result.TargetCharacter != null);
             Assert.IsTrue(result.AllCharacters.Count > 0);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
@@ -303,7 +303,7 @@ Cover removed from <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeff();
             jeff.Location = new Vector3(2, 0, 4);
-            jeff.HP = 5;
+            jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
@@ -362,7 +362,7 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HP);
+            Assert.AreEqual(1, jeff.Hitpoints);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"

@@ -67,12 +67,12 @@ namespace Battle.Logic.Encounters
             foreach (Character character in areaEffectTargets)
             {
                 //Deal the damage
-                character.HP -= damageDealt;
-                log.Add(damageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.HP.ToString());
+                character.Hitpoints -= damageDealt;
+                log.Add(damageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.Hitpoints.ToString());
 
                 //process experience
                 int xp;
-                if (character.HP <= 0)
+                if (character.Hitpoints <= 0)
                 {
                     //targetCharacter.HP = 0;
                     log.Add(character.Name + " is killed");
@@ -166,12 +166,12 @@ namespace Battle.Logic.Encounters
                 //{
                 //    damageDealt = targetCharacter.HP;
                 //}
-                targetCharacter.HP -= damageDealt;
-                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.HP.ToString());
+                targetCharacter.Hitpoints -= damageDealt;
+                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.Hitpoints.ToString());
 
                 //process experience
                 int xp;
-                if (targetCharacter.HP <= 0)
+                if (targetCharacter.Hitpoints <= 0)
                 {
                     //targetCharacter.HP = 0;
                     log.Add(targetCharacter.Name + " is killed");

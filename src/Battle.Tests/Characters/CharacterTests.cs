@@ -49,7 +49,7 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(fred);
             Assert.AreEqual("Fred", fred.Name);
-            Assert.AreEqual(12, fred.HP);
+            Assert.AreEqual(12, fred.Hitpoints);
             Assert.AreEqual(70, fred.ChanceToHit);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(1, fred.Level);
@@ -72,7 +72,7 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(harry);
             Assert.AreEqual("Harry", harry.Name);
-            Assert.AreEqual(12, harry.HP);
+            Assert.AreEqual(12, harry.Hitpoints);
             Assert.AreEqual(70, harry.ChanceToHit);
             Assert.AreEqual(0, harry.Experience);
             Assert.AreEqual(1, harry.Level);
@@ -90,7 +90,7 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(jeff);
             Assert.AreEqual("Jeff", jeff.Name);
-            Assert.AreEqual(12, jeff.HP);
+            Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(70, jeff.ChanceToHit);
             Assert.AreEqual(0, jeff.Experience);
             Assert.AreEqual(1, jeff.Level);

@@ -10,7 +10,7 @@ namespace Battle.Tests.Characters
             Character fred = new()
             {
                 Name = "Fred",
-                HP = 12,
+                Hitpoints = 12,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
@@ -34,7 +34,7 @@ namespace Battle.Tests.Characters
             Character fred = new()
             {
                 Name = "Jeff",
-                HP = 12,
+                Hitpoints = 12,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
@@ -56,7 +56,7 @@ namespace Battle.Tests.Characters
             Character harry = new()
             {
                 Name = "Harry",
-                HP = 12,
+                Hitpoints = 12,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
