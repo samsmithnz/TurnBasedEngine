@@ -45,63 +45,66 @@ namespace Battle.Tests.Characters
             TestJeff(jeff);
         }
 
-        private static void TestFred(Character fred)
+        private static void TestFred(Character character)
         {
-            Assert.IsNotNull(fred);
-            Assert.AreEqual("Fred", fred.Name);
-            Assert.AreEqual(12, fred.Hitpoints);
-            Assert.AreEqual(70, fred.ChanceToHit);
-            Assert.AreEqual(0, fred.Experience);
-            Assert.AreEqual(1, fred.Level);
-            Assert.AreEqual(false, fred.LevelUpIsReady);
-            Assert.AreEqual(10, fred.Speed);
-            Assert.AreEqual(new Vector3(0,0, 0), fred.Location);
-            Assert.AreEqual(2, fred.ActionPoints);
-            Assert.AreEqual(10, fred.Range);
-            Assert.AreEqual(false, fred.InHalfCover);
-            Assert.AreEqual(false, fred.InFullCover);
-            Assert.AreEqual(false, fred.InOverwatch);
-            Assert.IsNotNull(fred.Abilities);
-            Assert.AreEqual(1, fred.Abilities.Count);
-            Assert.AreEqual("Ability", fred.Abilities[0].Name);
-            Assert.AreEqual(AbilityTypeEnum.Unknown, fred.Abilities[0].Type);
-            Assert.AreEqual(0, fred.Abilities[0].Adjustment);
+            Assert.IsNotNull(character);
+            Assert.AreEqual("Fred", character.Name);
+            Assert.AreEqual(12, character.Hitpoints);
+            Assert.AreEqual(0, character.ArmorPoints);
+            Assert.AreEqual(70, character.ChanceToHit);
+            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(1, character.Level);
+            Assert.AreEqual(false, character.LevelUpIsReady);
+            Assert.AreEqual(10, character.Speed);
+            Assert.AreEqual(new Vector3(0,0, 0), character.Location);
+            Assert.AreEqual(2, character.ActionPoints);
+            Assert.AreEqual(10, character.Range);
+            Assert.AreEqual(false, character.InHalfCover);
+            Assert.AreEqual(false, character.InFullCover);
+            Assert.AreEqual(false, character.InOverwatch);
+            Assert.IsNotNull(character.Abilities);
+            Assert.AreEqual(1, character.Abilities.Count);
+            Assert.AreEqual("Ability", character.Abilities[0].Name);
+            Assert.AreEqual(AbilityTypeEnum.Unknown, character.Abilities[0].Type);
+            Assert.AreEqual(0, character.Abilities[0].Adjustment);
         }
 
-        private static void TestHarry(Character harry)
+        private static void TestJeff(Character character)
         {
-            Assert.IsNotNull(harry);
-            Assert.AreEqual("Harry", harry.Name);
-            Assert.AreEqual(12, harry.Hitpoints);
-            Assert.AreEqual(70, harry.ChanceToHit);
-            Assert.AreEqual(0, harry.Experience);
-            Assert.AreEqual(1, harry.Level);
-            Assert.AreEqual(false, harry.LevelUpIsReady);
-            Assert.AreEqual(12, harry.Speed);
-            Assert.AreEqual(new Vector3(5, 0, 5), harry.Location);
-            Assert.AreEqual(2, harry.ActionPoints);
-            Assert.AreEqual(10, harry.Range);
-            Assert.AreEqual(true, harry.InHalfCover);
-            Assert.AreEqual(false, harry.InFullCover);
-            Assert.AreEqual(false, harry.InOverwatch);
+            Assert.IsNotNull(character);
+            Assert.AreEqual("Jeff", character.Name);
+            Assert.AreEqual(12, character.Hitpoints);
+            Assert.AreEqual(0, character.ArmorPoints);
+            Assert.AreEqual(70, character.ChanceToHit);
+            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(1, character.Level);
+            Assert.AreEqual(false, character.LevelUpIsReady);
+            Assert.AreEqual(11, character.Speed);
+            Assert.AreEqual(new Vector3(8, 0, 8), character.Location);
+            Assert.AreEqual(2, character.ActionPoints);
+            Assert.AreEqual(10, character.Range);
+            Assert.AreEqual(false, character.InHalfCover);
+            Assert.AreEqual(true, character.InFullCover);
+            Assert.AreEqual(false, character.InOverwatch);
         }
 
-        private static void TestJeff(Character jeff)
+        private static void TestHarry(Character character)
         {
-            Assert.IsNotNull(jeff);
-            Assert.AreEqual("Jeff", jeff.Name);
-            Assert.AreEqual(12, jeff.Hitpoints);
-            Assert.AreEqual(70, jeff.ChanceToHit);
-            Assert.AreEqual(0, jeff.Experience);
-            Assert.AreEqual(1, jeff.Level);
-            Assert.AreEqual(false, jeff.LevelUpIsReady);
-            Assert.AreEqual(11, jeff.Speed);
-            Assert.AreEqual(new Vector3(8, 0, 8), jeff.Location);
-            Assert.AreEqual(2, jeff.ActionPoints);
-            Assert.AreEqual(10, jeff.Range);
-            Assert.AreEqual(false, jeff.InHalfCover);
-            Assert.AreEqual(true, jeff.InFullCover);
-            Assert.AreEqual(false, jeff.InOverwatch);
+            Assert.IsNotNull(character);
+            Assert.AreEqual("Harry", character.Name);
+            Assert.AreEqual(12, character.Hitpoints);
+            Assert.AreEqual(1, character.ArmorPoints);
+            Assert.AreEqual(70, character.ChanceToHit);
+            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(1, character.Level);
+            Assert.AreEqual(false, character.LevelUpIsReady);
+            Assert.AreEqual(12, character.Speed);
+            Assert.AreEqual(new Vector3(5, 0, 5), character.Location);
+            Assert.AreEqual(2, character.ActionPoints);
+            Assert.AreEqual(10, character.Range);
+            Assert.AreEqual(true, character.InHalfCover);
+            Assert.AreEqual(false, character.InFullCover);
+            Assert.AreEqual(false, character.InOverwatch);
         }
     }
 }

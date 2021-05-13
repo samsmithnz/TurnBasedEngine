@@ -11,6 +11,7 @@ namespace Battle.Tests.Characters
             {
                 Name = "Fred",
                 Hitpoints = 12,
+                ArmorPoints = 0,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
@@ -35,6 +36,7 @@ namespace Battle.Tests.Characters
             {
                 Name = "Jeff",
                 Hitpoints = 12,
+                ArmorPoints = 0,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
@@ -57,6 +59,7 @@ namespace Battle.Tests.Characters
             {
                 Name = "Harry",
                 Hitpoints = 12,
+                ArmorPoints = 1,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
