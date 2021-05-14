@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battle.Logic.AbilitiesAndEffects
+﻿namespace Battle.Logic.AbilitiesAndEffects
 {
-  public  class Effect
+    public class Effect
     {
+        public string Name { get; set; }
+        public AbilityTypeEnum Type { get; set; }
+        public int Adjustment { get; set; }
     }
 }

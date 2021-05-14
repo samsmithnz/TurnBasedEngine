@@ -10,6 +10,7 @@ namespace Battle.Logic.Characters
         public Character()
         {
             Abilities = new();
+            Effects = new();
         }
 
         public string Name { get; set; }
@@ -26,9 +27,19 @@ namespace Battle.Logic.Characters
         public int ActionPoints { get; set; }
         public int Range { get; set; }
         public Weapon WeaponEquipped { get; set; }
-
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
+
+        //public void ProcessEffects()
+        //{
+        //    foreach (Effect effect in Effects)
+        //    {
+        //        switch  (effect)
+        //        {
+                    
+        //        }
+        //    }
+        //}
     }
 }

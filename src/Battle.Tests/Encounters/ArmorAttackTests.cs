@@ -5,9 +5,7 @@ using Battle.Logic.Weapons;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {
@@ -143,6 +141,73 @@ Critical chance: 70, (dice roll: 0)
 Armor prevented 1 damage to character Jeff
 2 damage dealt to character Jeff, character HP is now 1
 10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndSuperHighArmorTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            //fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Hitpoints = 3;
+            jeff.ArmorPoints = 10;
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(3, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.TargetCharacter.ArmorPoints);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 80)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+Armor prevented 10 damage to character Jeff
+0 damage dealt to character Jeff, character HP is now 3
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndSuperHighArmorAndArmorPiercingTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFred();
+            fred.Abilities.Add(new("Armor Piercing", AbilityTypeEnum.ArmorPiercing, 10));
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeff();
+            jeff.Hitpoints = 3;
+            jeff.ArmorPoints = 10;
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(-2, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.TargetCharacter.ArmorPoints);
+            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 20, (dice roll: 80)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+Armor was ignored due to 'armor piercing' ability
+5 damage dealt to character Jeff, character HP is now -2
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }

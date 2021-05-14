@@ -65,10 +65,25 @@ namespace Battle.Logic.Encounters
                     damageRollPercent);
 
             //Deal damage to each target
+            int characterDamageDealt;
             foreach (Character character in areaEffectTargets)
             {
                 //Deal the damage
-                int characterDamageDealt = damageDealt - character.ArmorPoints;
+                int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
+                if (armorPiercing > 0)
+                {
+                    log.Add("Armor was ignored due to 'armor piercing' ability");
+                    characterDamageDealt = damageDealt;
+                }
+                else
+                {
+                    characterDamageDealt = damageDealt - character.ArmorPoints;
+                }
+                //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
+                if (characterDamageDealt < 0)
+                {
+                    characterDamageDealt = 0;
+                }
                 character.Hitpoints -= characterDamageDealt;
 
                 //Process armor shredding
@@ -80,7 +95,7 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add(armorShredderDamage.ToString() + " armor points shredded");
                 }
-                if (character.ArmorPoints > 0)
+                if (character.ArmorPoints > 0 & armorPiercing == 0)
                 {
                     log.Add("Armor prevented " + character.ArmorPoints.ToString() + " damage to character " + character.Name);
                 }
@@ -182,7 +197,20 @@ namespace Battle.Logic.Encounters
                 //{
                 //    damageDealt = targetCharacter.HP;
                 //}
-                damageDealt -= targetCharacter.ArmorPoints;
+                int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
+                if (armorPiercing > 0)
+                {
+                    log.Add("Armor was ignored due to 'armor piercing' ability");
+                }
+                else
+                {
+                    damageDealt -= targetCharacter.ArmorPoints;
+                }
+                //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
+                if (damageDealt < 0)
+                {
+                    damageDealt = 0;
+                }
                 targetCharacter.Hitpoints -= damageDealt;
 
                 //Process armor shredding
@@ -194,7 +222,7 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add(armorShredderDamage.ToString() + " armor points shredded");
                 }
-                if (targetCharacter.ArmorPoints > 0)
+                if (targetCharacter.ArmorPoints > 0 & armorPiercing == 0)
                 {
                     log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
                 }
