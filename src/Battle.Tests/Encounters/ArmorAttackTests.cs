@@ -40,7 +40,7 @@ Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 5 damage to character Jeff
-0 damage dealt to character Jeff, character HP is now 5
+0 damage dealt to character Jeff, HP is now 5
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -71,7 +71,7 @@ Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 2 damage to character Jeff
-3 damage dealt to character Jeff, character HP is now 1
+3 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -104,7 +104,7 @@ Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
-3 damage dealt to character Jeff, character HP is now 0
+3 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -139,7 +139,7 @@ Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
 Armor prevented 1 damage to character Jeff
-2 damage dealt to character Jeff, character HP is now 1
+2 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -172,7 +172,7 @@ Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 10 damage to character Jeff
-0 damage dealt to character Jeff, character HP is now 3
+0 damage dealt to character Jeff, HP is now 3
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -205,7 +205,7 @@ Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor was ignored due to 'armor piercing' ability
-5 damage dealt to character Jeff, character HP is now -2
+5 damage dealt to character Jeff, HP is now -2
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";

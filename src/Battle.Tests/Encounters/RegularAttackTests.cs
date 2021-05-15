@@ -28,7 +28,7 @@ namespace Battle.Tests.Encounters
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);
-            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jeff, map);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jeff, map, false);
             DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, rifle);
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
 
@@ -48,7 +48,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 20, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, character HP is now 7
+5 damage dealt to character Jeff, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -106,7 +106,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 35, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, character HP is now 7
+5 damage dealt to character Jeff, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -156,7 +156,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 20)
-5 damage dealt to character Jeff, character HP is now 0
+5 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -190,7 +190,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, character HP is now 0
+12 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -223,7 +223,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, character HP is now 0
+5 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -259,7 +259,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, character HP is now -7
+12 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -290,7 +290,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 25, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, character HP is now 7
+5 damage dealt to character Jeff, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -405,7 +405,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-15, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-22, (dice roll: 100)
-22 damage dealt to character Jeff, character HP is now -7
+22 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -438,7 +438,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-15, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-22, (dice roll: 100)
-22 damage dealt to character Jeff, character HP is now -7
+22 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -473,7 +473,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 80, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, character HP is now 0
+12 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -510,7 +510,7 @@ Hit: Chance to hit: 20, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 11-15, (dice roll: 100)
-15 damage dealt to character Jeff, character HP is now 0
+15 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";
@@ -556,7 +556,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: -4, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 20, (dice roll: 0)
-5 damage dealt to character Jeff, character HP is now 10
+5 damage dealt to character Jeff, HP is now 10
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -602,7 +602,7 @@ Hit: Chance to hit: -8, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 70)
 Critical damage range: 11-15, (dice roll: 100)
-15 damage dealt to character Jeff, character HP is now 0
+15 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 ";

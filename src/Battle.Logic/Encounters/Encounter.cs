@@ -37,84 +37,18 @@ namespace Battle.Logic.Encounters
             names = names[1..^2]; //remove the first " " and last two characters: ", "
             log.Add("Characters in affected area: " + names);
 
-            //Get damage 
-            int damageRollPercent = diceRolls.Dequeue();
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
-            int lowDamage = damageOptions.DamageLow;
-            int highDamage = damageOptions.DamageHigh;
-            log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
-
-            //Check if it was a critical hit
-            int randomToCrit = diceRolls.Dequeue();
-            int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, null, map);
-            if ((100 - chanceToCrit) <= randomToCrit)
-            {
-                isCriticalHit = true;
-                lowDamage = damageOptions.CriticalDamageLow;
-                highDamage = damageOptions.CriticalDamageHigh;
-            }
-            log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
-            if (isCriticalHit == true)
-            {
-                log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
-            }
-
-            //process damage
-            damageDealt = RandomNumber.ScaleRandomNumber(
-                    lowDamage, highDamage,
-                    damageRollPercent);
-
             //Deal damage to each target
-            int characterDamageDealt;
-            foreach (Character character in areaEffectTargets)
+            int totalDamageDealt = 0;
+            //int characterDamageDealt;
+            foreach (Character targetCharacter in areaEffectTargets)
             {
-                //Deal the damage
-                int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
-                if (armorPiercing > 0)
-                {
-                    log.Add("Armor was ignored due to 'armor piercing' ability");
-                    characterDamageDealt = damageDealt;
-                }
-                else
-                {
-                    characterDamageDealt = damageDealt - character.ArmorPoints;
-                }
-                //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
-                if (characterDamageDealt < 0)
-                {
-                    characterDamageDealt = 0;
-                }
-                character.Hitpoints -= characterDamageDealt;
-
-                //Process armor shredding
-                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
-                character.ArmorPoints -= armorShredderDamage;
-
-                //Update log
-                if (armorShredderDamage > 0)
-                {
-                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
-                }
-                if (character.ArmorPoints > 0 & armorPiercing == 0)
-                {
-                    log.Add("Armor prevented " + character.ArmorPoints.ToString() + " damage to character " + character.Name);
-                }
-                log.Add(characterDamageDealt.ToString() + " damage dealt to character " + character.Name + ", HP is now: " + character.Hitpoints.ToString());
-
-                //process experience
-                int xp;
-                if (character.Hitpoints <= 0)
-                {
-                    //targetCharacter.HP = 0;
-                    log.Add(character.Name + " is killed");
-                    xp = Experience.GetExperience(true, true);
-                }
-                else
-                {
-                    xp = Experience.GetExperience(true);
-                }
-                sourceCharacter.Experience += xp;
-                log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+                EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, true);
+                sourceCharacter = tempResult.SourceCharacter;
+                //targetCharacter = tempResult.TargetCharacter;
+                damageDealt = tempResult.DamageDealt;
+                totalDamageDealt += damageDealt;
+                isCriticalHit = tempResult.IsCriticalHit;
+                log = tempResult.Log;
             }
 
             //Remove cover
@@ -138,7 +72,8 @@ namespace Battle.Logic.Encounters
             {
                 SourceCharacter = sourceCharacter,
                 AllCharacters = allCharacters,
-                DamageDealt = damageDealt,
+                DamageDealt = totalDamageDealt,
+                //DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
                 Log = log
             };
@@ -165,86 +100,12 @@ namespace Battle.Logic.Encounters
             {
                 log.Add("Hit: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
-                //Get damage 
-                int damageRollPercent = diceRolls.Dequeue();
-                DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
-                int lowDamage = damageOptions.DamageLow;
-                int highDamage = damageOptions.DamageHigh;
-                log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
-
-                //Check if it was a critical hit
-                int randomToCrit = diceRolls.Dequeue();
-                int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map);
-                if ((100 - chanceToCrit) <= randomToCrit)
-                {
-                    isCriticalHit = true;
-                    lowDamage = damageOptions.CriticalDamageLow;
-                    highDamage = damageOptions.CriticalDamageHigh;
-                }
-                log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
-                if (isCriticalHit == true)
-                {
-                    log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
-                }
-
-                //process damage
-                damageDealt = RandomNumber.ScaleRandomNumber(
-                        lowDamage, highDamage,
-                        damageRollPercent);
-
-                //If the damage dealt is more than the health, set damage to be equal to health
-                //if (targetCharacter.HP <= damageDealt)
-                //{
-                //    damageDealt = targetCharacter.HP;
-                //}
-                int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
-                if (armorPiercing > 0)
-                {
-                    log.Add("Armor was ignored due to 'armor piercing' ability");
-                }
-                else
-                {
-                    damageDealt -= targetCharacter.ArmorPoints;
-                }
-                //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
-                if (damageDealt < 0)
-                {
-                    damageDealt = 0;
-                }
-                targetCharacter.Hitpoints -= damageDealt;
-
-                //Process armor shredding
-                int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
-                targetCharacter.ArmorPoints -= armorShredderDamage;
-
-                //Update log
-                if (armorShredderDamage > 0)
-                {
-                    log.Add(armorShredderDamage.ToString() + " armor points shredded");
-                }
-                if (targetCharacter.ArmorPoints > 0 & armorPiercing == 0)
-                {
-                    log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
-                }
-                log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", character HP is now " + targetCharacter.Hitpoints.ToString());
-
-                //process experience
-                int xp;
-                if (targetCharacter.Hitpoints <= 0)
-                {
-                    //targetCharacter.HP = 0;
-                    log.Add(targetCharacter.Name + " is killed");
-                    xp = Experience.GetExperience(true, true);
-                }
-                else
-                {
-                    xp = Experience.GetExperience(true);
-                }
-                sourceCharacter.Experience += xp;
-                log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
-
-                //Consume source characters action points
-                sourceCharacter.ActionPoints = 0;
+                EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
+                sourceCharacter = tempResult.SourceCharacter;
+                targetCharacter = tempResult.TargetCharacter;
+                damageDealt = tempResult.DamageDealt;
+                isCriticalHit = tempResult.IsCriticalHit;
+                log = tempResult.Log;
             }
             else
             {
@@ -269,5 +130,100 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
+
+        private static EncounterResult ProcessCharacterDamageAndExperience(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, Queue<int> diceRolls, List<string> log, bool isAreaEffectAttack)
+        {
+            //Get damage 
+            int damageRollPercent = diceRolls.Dequeue();
+            DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
+            int lowDamage = damageOptions.DamageLow;
+            int highDamage = damageOptions.DamageHigh;
+            log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
+
+            //Check if it was a critical hit
+            int randomToCrit = diceRolls.Dequeue();
+            int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map, isAreaEffectAttack);
+            bool isCriticalHit = false;
+            if ((100 - chanceToCrit) <= randomToCrit)
+            {
+                isCriticalHit = true;
+                lowDamage = damageOptions.CriticalDamageLow;
+                highDamage = damageOptions.CriticalDamageHigh;
+            }
+            log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
+            if (isCriticalHit == true)
+            {
+                log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
+            }
+
+            //process damage
+            int damageDealt = RandomNumber.ScaleRandomNumber(
+                        lowDamage, highDamage,
+                        damageRollPercent);
+
+            //If the damage dealt is more than the health, set damage to be equal to health
+            //if (targetCharacter.HP <= damageDealt)
+            //{
+            //    damageDealt = targetCharacter.HP;
+            //}
+            int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
+            if (armorPiercing > 0)
+            {
+                log.Add("Armor was ignored due to 'armor piercing' ability");
+            }
+            else
+            {
+                damageDealt -= targetCharacter.ArmorPoints;
+            }
+            //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
+            if (damageDealt < 0)
+            {
+                damageDealt = 0;
+            }
+            targetCharacter.Hitpoints -= damageDealt;
+
+            //Process armor shredding
+            int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+            targetCharacter.ArmorPoints -= armorShredderDamage;
+
+            //Update log
+            if (armorShredderDamage > 0)
+            {
+                log.Add(armorShredderDamage.ToString() + " armor points shredded");
+            }
+            if (targetCharacter.ArmorPoints > 0 & armorPiercing == 0)
+            {
+                log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
+            }
+            log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", HP is now " + targetCharacter.Hitpoints.ToString());
+
+            //process experience
+            int xp;
+            if (targetCharacter.Hitpoints <= 0)
+            {
+                //targetCharacter.HP = 0;
+                log.Add(targetCharacter.Name + " is killed");
+                xp = Experience.GetExperience(true, true);
+            }
+            else
+            {
+                xp = Experience.GetExperience(true);
+            }
+            sourceCharacter.Experience += xp;
+            log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
+
+            EncounterResult result = new()
+            {
+                SourceCharacter = sourceCharacter,
+                TargetCharacter = targetCharacter,
+                DamageDealt = damageDealt,
+                IsCriticalHit = isCriticalHit,
+                Log = log
+            };
+            return result;
+        }
     }
 }
