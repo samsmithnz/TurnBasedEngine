@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.FieldOfView;
 using Battle.Tests.Characters;
@@ -56,7 +57,7 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 0
+4 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Cover removed from <2, 0, 3>
@@ -95,7 +96,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(2, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(2, jeff.ArmorPoints);
@@ -107,7 +108,7 @@ Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 Armor prevented 2 damage to character Jeff
-2 damage dealt to character Jeff, HP is now: 0
+2 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Cover removed from <2, 0, 3>
@@ -147,7 +148,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(2, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(0, jeff.ArmorPoints);
@@ -159,7 +160,7 @@ Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
-2 damage dealt to character Jeff, HP is now: 0
+2 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Cover removed from <2, 0, 3>
@@ -199,7 +200,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(1, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.Hitpoints);
             Assert.AreEqual(1, jeff.ArmorPoints);
@@ -212,7 +213,7 @@ Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
 Armor prevented 1 damage to character Jeff
-1 damage dealt to character Jeff, HP is now: 1
+1 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 Cover removed from <2, 0, 3>
 ";
@@ -259,7 +260,7 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 1
+4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 Cover removed from <2, 0, 3>
 ";
@@ -292,7 +293,7 @@ Cover removed from <2, 0, 3>
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
-            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -301,7 +302,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(8, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(0, harry.Hitpoints);
@@ -312,10 +313,12 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 0
+4 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
-4 damage dealt to character Harry, HP is now: 0
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
 Cover removed from <2, 0, 3>
@@ -349,7 +352,7 @@ Cover removed from <2, 0, 3>
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 1;
-            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0,100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -358,7 +361,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(7, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(1, harry.Hitpoints);
@@ -369,11 +372,13 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 0
+4 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
 Armor prevented 1 damage to character Harry
-3 damage dealt to character Harry, HP is now: 1
+3 damage dealt to character Harry, HP is now 1
 10 XP added to character Fred, for a total of 110 XP
 Cover removed from <2, 0, 3>
 ";
@@ -406,7 +411,7 @@ Cover removed from <2, 0, 3>
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
-            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -415,7 +420,7 @@ Cover removed from <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(8, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(12, fred.Hitpoints);
             Assert.AreEqual(0, harry.Hitpoints);
@@ -426,9 +431,11 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 11
+4 damage dealt to character Jeff, HP is now 11
 10 XP added to character Fred, for a total of 10 XP
-4 damage dealt to character Harry, HP is now: 0
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 0, (dice roll: 0)
+4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 110 XP
 Cover removed from <2, 0, 3>
@@ -463,7 +470,7 @@ Cover removed from <2, 0, 3>
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
-            Queue<int> diceRolls = new(new List<int> { 100, 80 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff, harry };
 
@@ -473,10 +480,10 @@ Cover removed from <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.AllCharacters != null);
-            Assert.AreEqual(6, result.DamageDealt);
+            Assert.AreEqual(10, result.DamageDealt);
             //Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.Hitpoints);
-            Assert.AreEqual(-2, harry.Hitpoints);
+            Assert.AreEqual(0, harry.Hitpoints);
             Assert.IsTrue(result.TargetCharacter != null);
             Assert.IsTrue(result.AllCharacters.Count > 0);
             Assert.AreEqual(200, result.SourceCharacter.Experience);
@@ -487,10 +494,12 @@ Characters in affected area: Jeff,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 20, (dice roll: 80)
 Critical damage range: 5-6, (dice roll: 100)
-6 damage dealt to character Jeff, HP is now: 0
+6 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
-6 damage dealt to character Harry, HP is now: -2
+Damage range: 3-4, (dice roll: 100)
+Critical chance: 20, (dice roll: 0)
+4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
 Cover removed from <2, 0, 3>
@@ -585,7 +594,7 @@ Fred is attacking with area effect Grenade aimed at <2, 0, 4>
 Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now: 1
+4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 Cover removed from <2, 0, 3>
 ";

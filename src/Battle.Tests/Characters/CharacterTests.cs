@@ -1,3 +1,4 @@
+using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
@@ -67,6 +68,12 @@ namespace Battle.Tests.Characters
             Assert.AreEqual("Ability", character.Abilities[0].Name);
             Assert.AreEqual(AbilityTypeEnum.Unknown, character.Abilities[0].Type);
             Assert.AreEqual(0, character.Abilities[0].Adjustment);
+            Assert.IsNotNull(character.Effects);
+            Assert.AreEqual(1, character.Effects.Count);
+            Assert.AreEqual("Fire", character.Effects[0].Name);
+            Assert.AreEqual(AbilityTypeEnum.FireDamage , character.Effects[0].Type);
+            Assert.AreEqual(1, character.Effects[0].Adjustment);
+            Assert.AreEqual(2, character.Effects[0].TurnExpiration);
         }
 
         private static void TestJeff(Character character)

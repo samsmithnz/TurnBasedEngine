@@ -1,11 +1,10 @@
-﻿using Battle.Logic.CharacterCover;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace Battle.Logic.Encounters
 {
@@ -38,10 +37,10 @@ namespace Battle.Logic.Encounters
             return toHit;
         }
 
-        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map)
+        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, bool isAreaEffectAttack)
         {
             int chanceToCrit = weapon.CriticalChance;
-            if (targetCharacter != null && TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
+            if (isAreaEffectAttack == false && targetCharacter != null && TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
             {
                 //Add 50% for a flank
                 chanceToCrit += 50;
@@ -75,10 +74,10 @@ namespace Battle.Logic.Encounters
             return damageOptions;
         }
 
-        public static int ProcessAbilitiesByType(List<CharacterAbility> abilities, AbilityTypeEnum type)
+        public static int ProcessAbilitiesByType(List<Ability> abilities, AbilityTypeEnum type)
         {
             int adjustment = 0;
-            foreach (CharacterAbility item in abilities)
+            foreach (Ability item in abilities)
             {
                 if (item.Type == type)
                 {
