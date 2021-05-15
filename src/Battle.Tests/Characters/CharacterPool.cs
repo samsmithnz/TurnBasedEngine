@@ -27,6 +27,15 @@ namespace Battle.Tests.Characters
                 InOverwatch = false
             };
             fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
+            fred.Effects.Add(
+                new()
+                {
+                    Name = "Fire",
+                    Type = AbilityTypeEnum.FireDamage,
+                    Adjustment = 1,
+                    TurnExpiration = 2
+                }
+             );
 
             return fred;
         }

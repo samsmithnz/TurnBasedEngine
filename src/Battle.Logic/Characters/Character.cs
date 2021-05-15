@@ -31,15 +31,31 @@ namespace Battle.Logic.Characters
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
 
-        //public void ProcessEffects()
-        //{
-        //    foreach (Effect effect in Effects)
-        //    {
-        //        switch  (effect)
-        //        {
-                    
-        //        }
-        //    }
-        //}
+        public void ProcessEffects(int currentTurn)
+        {
+            List<int> itemIndexesToRemove = new();
+            for (int i = 0; i < Effects.Count; i++)
+            {
+                Effect effect = Effects[i];
+                //If the effect is expiring this turn ,remove it
+                if (effect.TurnExpiration <= currentTurn)
+                {
+                    itemIndexesToRemove.Add(i);
+                }
+                else //the effect is still active, process it
+                {
+                    switch (effect.Type)
+                    {
+                        case AbilityTypeEnum.FireDamage:
+                            Hitpoints -= effect.Adjustment;
+                            break;
+                    }
+                }
+            }
+            for (int i = itemIndexesToRemove.Count - 1; i >= 0; i--)
+            {
+                Effects.RemoveAt(i);
+            }
+        }
     }
 }
