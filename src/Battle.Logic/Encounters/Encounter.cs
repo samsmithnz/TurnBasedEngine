@@ -16,7 +16,7 @@ namespace Battle.Logic.Encounters
             bool isCriticalHit = false;
             List<string> log = new();
 
-            if (diceRolls == null || diceRolls.Count == 0 || weapon == null)
+            if (diceRolls == null || diceRolls.Count == 0 || weapon == null|| weapon.ClipRemaining <= 0)
             {
                 return null;
             }

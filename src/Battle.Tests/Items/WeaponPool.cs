@@ -17,6 +17,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 5,
                 CriticalDamageHigh = 7,
                 ClipSize = 4,
+                ClipRemaining = 4,
                 ActionPointsRequired = 1,
                 Type = WeaponEnum.Standard
             };
@@ -36,6 +37,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
                 ClipSize = 4,
+                ClipRemaining = 4,
                 ActionPointsRequired = 1,
                 Type = WeaponEnum.Shotgun
             };
@@ -55,6 +57,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
                 ClipSize = 4,
+                ClipRemaining = 4,
                 ActionPointsRequired = 2,
                 Type = WeaponEnum.SniperRifle
             };
@@ -74,6 +77,7 @@ namespace Battle.Tests.Weapons
                 CriticalDamageLow = 0,
                 CriticalDamageHigh = 0,
                 ClipSize = 1,
+                ClipRemaining = 1,
                 ActionPointsRequired = 1,
                 Type = WeaponEnum.Grenade
             };

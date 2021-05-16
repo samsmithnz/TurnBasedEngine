@@ -25,7 +25,8 @@ namespace Battle.Tests.Characters
                 UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = false,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
             fred.Effects.Add(
@@ -60,7 +61,8 @@ namespace Battle.Tests.Characters
                 UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = false,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             return fred;
         }
@@ -84,7 +86,8 @@ namespace Battle.Tests.Characters
                 UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = true,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             return harry;
         }

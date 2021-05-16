@@ -63,6 +63,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(false, character.InHalfCover);
             Assert.AreEqual(false, character.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
+            Assert.AreEqual(false, character.HunkeredDown);
             Assert.IsNotNull(character.Abilities);
             Assert.AreEqual(1, character.Abilities.Count);
             Assert.AreEqual("Ability", character.Abilities[0].Name);
@@ -93,6 +94,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(false, character.InHalfCover);
             Assert.AreEqual(true, character.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
+            Assert.AreEqual(false, character.HunkeredDown);
         }
 
         private static void TestHarry(Character character)
@@ -112,6 +114,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(true, character.InHalfCover);
             Assert.AreEqual(false, character.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
+            Assert.AreEqual(false, character.HunkeredDown);
         }
     }
 }
