@@ -1,6 +1,7 @@
 using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Tests.Characters
@@ -15,10 +16,11 @@ namespace Battle.Tests.Characters
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
 
-            //Act            
+            //Act
+            List<CharacterAction> actions = fred.GetCurrentMoveOptions();
 
             //Assert
-            TestFred(fred);
+            TestFred(fred, actions);
         }
 
         [TestMethod]
@@ -46,7 +48,7 @@ namespace Battle.Tests.Characters
             TestJeff(jeff);
         }
 
-        private static void TestFred(Character character)
+        private static void TestFred(Character character, List<CharacterAction> actions)
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Fred", character.Name);
@@ -57,7 +59,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(10, character.Speed);
-            Assert.AreEqual(new Vector3(0,0, 0), character.Location);
+            Assert.AreEqual(new Vector3(0, 0, 0), character.Location);
             Assert.AreEqual(2, character.ActionPoints);
             Assert.AreEqual(10, character.Range);
             Assert.AreEqual(false, character.InHalfCover);
@@ -72,9 +74,13 @@ namespace Battle.Tests.Characters
             Assert.IsNotNull(character.Effects);
             Assert.AreEqual(1, character.Effects.Count);
             Assert.AreEqual("Fire", character.Effects[0].Name);
-            Assert.AreEqual(AbilityTypeEnum.FireDamage , character.Effects[0].Type);
+            Assert.AreEqual(AbilityTypeEnum.FireDamage, character.Effects[0].Type);
             Assert.AreEqual(1, character.Effects[0].Adjustment);
             Assert.AreEqual(2, character.Effects[0].TurnExpiration);
+
+            Assert.IsTrue(actions != null);
+            Assert.AreEqual(4, actions.Count);
+            Assert.AreEqual("1", actions[0].KeyBinding);
         }
 
         private static void TestJeff(Character character)
