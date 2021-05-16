@@ -27,6 +27,7 @@ namespace Battle.Logic.Characters
         public int ActionPoints { get; set; }
         public int Range { get; set; }
         public Weapon WeaponEquipped { get; set; }
+        public Weapon UtilityItemEquipped { get; set; }
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
@@ -56,6 +57,20 @@ namespace Battle.Logic.Characters
             {
                 Effects.RemoveAt(i);
             }
+        }
+
+        public List<CharacterAction> GetCurrentMoveOptions()
+        {
+            List<CharacterAction> options = new(); 
+            if (ActionPoints > 0)
+            {
+                options.Add(new() { Name = "Shoot", KeyBinding = "1" });
+                options.Add(new() { Name = "Overwatch", KeyBinding = "2" });
+                options.Add(new() { Name = "Throw grenade", KeyBinding = "3" });
+                options.Add(new() { Name = "Hunker down", KeyBinding = "4" });
+            }
+
+            return options;
         }
     }
 }

@@ -19,9 +19,9 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndArmorBlocksKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 5;
             jeff.ArmorPoints = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -50,9 +50,9 @@ Armor prevented 5 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorSavesAKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 4;
             jeff.ArmorPoints = 2;
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -81,10 +81,10 @@ Armor prevented 2 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorShreddingAllowsAKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 2;
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -115,10 +115,10 @@ Jeff is killed
         public void FredAttacksJeffWithRifleAndHighArmorShreddingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 3;
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -149,10 +149,10 @@ Armor prevented 1 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             //fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 10;
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -182,10 +182,10 @@ Armor prevented 10 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorAndArmorPiercingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Armor Piercing", AbilityTypeEnum.ArmorPiercing, 10));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 10;
             string[,] map = MapUtility.InitializeMap(10, 10);

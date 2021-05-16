@@ -13,7 +13,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
 
             //Act            
 
@@ -25,7 +25,7 @@ namespace Battle.Tests.Characters
         public void CharacterHarryTest()
         {
             //Arrange
-            Character harry = CharacterPool.CreateHarry();
+            Character harry = CharacterPool.CreateHarryHeroSidekick();
 
             //Act            
 
@@ -37,7 +37,7 @@ namespace Battle.Tests.Characters
         public void CharacterJeffTest()
         {
             //Arrange
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = true;
 
             //Act            

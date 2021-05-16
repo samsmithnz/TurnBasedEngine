@@ -17,7 +17,7 @@ namespace Battle.Tests.Movement
         public void MovementTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(8, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll

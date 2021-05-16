@@ -20,9 +20,9 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndHitsTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -58,10 +58,10 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksJeffWithRifleAndMissesTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = false;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
@@ -85,11 +85,11 @@ Missed: Chance to hit: 45, (dice roll: 44)
         public void FredAttacksJeffWithRifleModifiersAndHitsTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             rifle.ChanceToHitAdjustment = 20;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = false;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -117,9 +117,9 @@ Critical chance: 70, (dice roll: 0)
         public void NoDiceRollsEncounterTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = null;
 
@@ -134,9 +134,9 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksAndKillsJeffWithRifleTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
@@ -167,9 +167,9 @@ Jeff is killed
         public void FredAttacksAndKillsJeffWithRifleAndCriticalHitTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 12;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
@@ -201,9 +201,9 @@ Jeff is killed
         public void FredAttacksAndKillsJeffWithRifleAndCritsTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -235,11 +235,11 @@ Jeff is killed
         public void FredAttacksAndKillsJeffWithRifleCausingFredToLevelUpTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Experience = 0;
             fred.Level = 1;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 5;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
@@ -270,10 +270,10 @@ Jeff is killed
         public void FredAttacksJeffWithRifleWhoIsInHalfCoverAndHitsTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.ChanceToHit = 85;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InHalfCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -300,9 +300,9 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverAndMissesTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
@@ -326,10 +326,10 @@ Missed: Chance to hit: 60, (dice roll: 55)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverDiagAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.ChanceToHit = 30;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = true;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
@@ -355,11 +355,11 @@ Missed: Chance to hit: 100, (dice roll: 65)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverStraightOnAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.ChanceToHit = 30;
             fred.Experience = 50;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = true;
             jeff.Location = new System.Numerics.Vector3(5, 0, 0);
             string[,] map = MapUtility.InitializeMap(10, 10);
@@ -384,10 +384,10 @@ Missed: Chance to hit: 81, (dice roll: 65)
         public void FredAttacksJeffWithRifleAndHitsWithPlus10DamageAbilityTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 10));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -416,11 +416,11 @@ Jeff is killed
         public void FredAttacksJeffWithRifleAndHitsWithPlus5DamageTwiceAbilityTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Sharp Shooter", AbilityTypeEnum.Damage, 3));
             fred.Abilities.Add(new("Sharp Shooter2", AbilityTypeEnum.Damage, 7));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -449,10 +449,10 @@ Jeff is killed
         public void FredAttacksAndKillsJeffWithRifleAndCriticalChanceAbilityBonusTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Platform Stability", AbilityTypeEnum.CriticalChance, 10));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 12;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
@@ -486,10 +486,10 @@ Jeff is killed
         public void FredAttacksAndKillsJeffWithRifleAndCriticalDamageAbilityBonusTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 15;
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
@@ -532,11 +532,11 @@ Jeff is killed
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.Hitpoints = 15;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -577,11 +577,11 @@ Critical chance: 20, (dice roll: 0)
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Bring em on", AbilityTypeEnum.CriticalDamage, 3));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 15;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
@@ -625,10 +625,10 @@ Jeff is killed
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(5, 5);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(5, 0, 5);
             Queue<int> diceRolls = new(new List<int> { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
