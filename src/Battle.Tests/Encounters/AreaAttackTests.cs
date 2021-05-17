@@ -32,10 +32,9 @@ namespace Battle.Tests.Encounters
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 4;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -43,7 +42,7 @@ namespace Battle.Tests.Encounters
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -80,10 +79,9 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 2;
             jeff.ArmorPoints = 2;
@@ -92,7 +90,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -131,11 +129,10 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 2;
             jeff.ArmorPoints = 2;
@@ -144,7 +141,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -183,11 +180,10 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 2;
             jeff.ArmorPoints = 3;
@@ -196,7 +192,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -235,10 +231,9 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -246,7 +241,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -283,13 +278,12 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 4;
-            Character harry = CharacterPool.CreateHarry();
+            Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
@@ -298,7 +292,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -342,13 +336,12 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 4;
-            Character harry = CharacterPool.CreateHarry();
+            Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 1;
@@ -357,7 +350,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -401,13 +394,12 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 15;
-            Character harry = CharacterPool.CreateHarry();
+            Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
@@ -416,7 +408,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -458,15 +450,14 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Biggest Booms", AbilityTypeEnum.CriticalDamage, 2));
             fred.Abilities.Add(new("Biggest Booms", AbilityTypeEnum.CriticalChance, 20));
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 6;
-            Character harry = CharacterPool.CreateHarry();
+            Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.Location = new Vector3(3, 0, 3);
             harry.Hitpoints = 4;
             harry.ArmorPoints = 0;
@@ -475,7 +466,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -522,10 +513,9 @@ Cover removed from <2, 0, 3>
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(5, 5);
             map[2, 3] = "W"; //Add cover 
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
+            Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            Character jeff = CharacterPool.CreateJeff();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
             jeff.Hitpoints = 5;
             Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -558,7 +548,7 @@ Cover removed from <2, 0, 3>
             //Assert.AreEqual(new Vector3(1, 0, 3), results[0]);
 
             //Act 2: Now destroy the cover
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
             results = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
@@ -606,16 +596,39 @@ Cover removed from <2, 0, 3>
         public void NoDiceRollsEncounterTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFred();
-            fred.WeaponEquipped = WeaponPool.CreateGrenade();
-            Character jeff = CharacterPool.CreateJeff();
+            Character fred = CharacterPool.CreateFredHero();
+            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Queue<int> diceRolls = null;
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.WeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result == null);
+        }
+
+        //The encounter has no random numbers and returns null
+        [TestMethod]
+        public void NoItemAvailableToThrowTest()
+        {
+            //Arrange
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new Vector3(2, 0, 0);
+            fred.UtilityItemEquipped = null;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new Vector3(1, 0, 3);
+            jeff.Hitpoints = 4;
+            Queue<int> diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result == null);

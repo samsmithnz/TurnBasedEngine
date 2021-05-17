@@ -27,9 +27,11 @@ namespace Battle.Logic.Characters
         public int ActionPoints { get; set; }
         public int Range { get; set; }
         public Weapon WeaponEquipped { get; set; }
+        public Weapon UtilityItemEquipped { get; set; }
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
+        public bool HunkeredDown { get; set; }
 
         public void ProcessEffects(int currentTurn)
         {
@@ -56,6 +58,30 @@ namespace Battle.Logic.Characters
             {
                 Effects.RemoveAt(i);
             }
+        }
+
+        public List<CharacterAction> GetCurrentActions()
+        {
+            List<CharacterAction> options = new();
+            if (ActionPoints > 0)
+            {
+                if (WeaponEquipped.ClipRemaining > 0)
+                {
+                    options.Add(new() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
+                    options.Add(new() { Name = "_overwatch", Caption = "Overwatch", KeyBinding = "2" });
+                }
+                else
+                {
+                    options.Add(new() { Name = "_reload", Caption = "Reload", KeyBinding = "1" });
+                }
+                if (UtilityItemEquipped != null)
+                {
+                    options.Add(new() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
+                }
+                options.Add(new() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "4" });
+            }
+
+            return options;
         }
     }
 }

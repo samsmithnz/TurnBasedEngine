@@ -6,7 +6,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFred()
+        public static Character CreateFredHero()
         {
             Character fred = new()
             {
@@ -22,9 +22,11 @@ namespace Battle.Tests.Characters
                 ActionPoints = 2,
                 Range = 10,
                 WeaponEquipped = WeaponPool.CreateRifle(),
+                UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = false,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
             fred.Effects.Add(
@@ -40,7 +42,7 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJeff()
+        public static Character CreateJeffBaddie()
         {
             Character fred = new()
             {
@@ -56,14 +58,16 @@ namespace Battle.Tests.Characters
                 ActionPoints = 2,
                 Range = 10,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
+                UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = false,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             return fred;
         }
 
-        public static Character CreateHarry()
+        public static Character CreateHarryHeroSidekick()
         {
             Character harry = new()
             {
@@ -79,9 +83,11 @@ namespace Battle.Tests.Characters
                 ActionPoints = 2,
                 Range = 10,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
+                UtilityItemEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = true,
                 InFullCover = false,
-                InOverwatch = false
+                InOverwatch = false,
+                HunkeredDown = false
             };
             return harry;
         }

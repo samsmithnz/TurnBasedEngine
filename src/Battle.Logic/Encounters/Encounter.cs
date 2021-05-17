@@ -15,17 +15,12 @@ namespace Battle.Logic.Encounters
             int damageDealt;
             bool isCriticalHit = false;
             List<string> log = new();
-            log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
-            if (diceRolls == null || diceRolls.Count == 0)
+            if (diceRolls == null || diceRolls.Count == 0 || weapon == null|| weapon.ClipRemaining <= 0)
             {
                 return null;
             }
-            //throws always hit, process this before tohit        
-            //int toHitPercent = GetChanceToHit(sourceCharacter, weapon, targetCharacter);
-
-            //If the number rolled is higher than the chance to hit, the attack was successful!
-            //int randomToHit = diceRolls.Dequeue();
+            log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             //Get the targets in the area affected
             List<Character> areaEffectTargets = AreaEffectFieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
