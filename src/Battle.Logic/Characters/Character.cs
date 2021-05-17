@@ -60,7 +60,7 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<CharacterAction> GetCurrentMoveOptions()
+        public List<CharacterAction> GetCurrentActions()
         {
             List<CharacterAction> options = new();
             if (ActionPoints > 0)

@@ -17,7 +17,7 @@ namespace Battle.Tests.Characters
             Character fred = CharacterPool.CreateFredHero();
 
             //Act
-            List<CharacterAction> actions = fred.GetCurrentMoveOptions();
+            List<CharacterAction> actions = fred.GetCurrentActions();
 
             //Assert
             TestFred(fred, actions);
