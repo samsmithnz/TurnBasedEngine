@@ -6,8 +6,7 @@ using System.Numerics;
 namespace Battle.Logic.FieldOfView
 {
     public class FieldOfViewCalculator
-    {
-
+    {    
         public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
         {
             int startingX = (int)location.X;

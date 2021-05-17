@@ -1,4 +1,6 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.FieldOfView;
+using Battle.Logic.MainGame;
 using Battle.Logic.Weapons;
 using System.Collections.Generic;
 using System.Numerics;
@@ -82,6 +84,29 @@ namespace Battle.Logic.Characters
             }
 
             return options;
+        }
+
+        public List<Character> GetCharactersInView(string[,] map, List<Team> teams)
+        {
+            List<Character> results = new();
+
+            List<Vector3> fovVectors = FieldOfViewCalculator.GetFieldOfView(map, Location, Range);
+            foreach (Team team in teams)
+            {
+                foreach (Character character in team.Characters)
+                {
+                    foreach (Vector3 location in fovVectors)
+                    {
+                        if (character.Location == location)
+                        {
+                            results.Add(character);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return results;
         }
     }
 }
