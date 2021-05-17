@@ -51,6 +51,13 @@ namespace Battle.Tests.Scenarios
             //Act
 
             //Assert
+            Assert.AreEqual(1, game.TurnNumber);
+            Assert.AreEqual(2, game.Teams.Count);
+            Assert.AreEqual(50 * 50, game.Map.Length);
+            Assert.AreEqual("Player", game.Teams[0].Name);
+            Assert.AreEqual(1, game.Teams[0].Characters.Count);
+            Assert.AreEqual("Enemy", game.Teams[1].Name);
+            Assert.AreEqual(1, game.Teams[1].Characters.Count);
         }
 
         private static string[,] GenerateMap(int xMax, int zMax)
