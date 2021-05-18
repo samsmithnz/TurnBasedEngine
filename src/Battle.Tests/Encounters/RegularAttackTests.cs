@@ -14,7 +14,7 @@ namespace Battle.Tests.Encounters
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
-    public class CharacterFieldOfViewTests
+    public class RegularAttackTests
     {
         [TestMethod]
         public void FredAttacksJeffWithRifleAndHitsTest()
@@ -651,6 +651,51 @@ Fred is ready to level up
                 //Assert
                 Assert.AreEqual("The character is off the map", ex.Message);
             }
+        }
+
+        [TestMethod]
+        public void FredAttacksWithRifleJeffBehindCoverAndHunkeredDownInjuriesHimTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  "■" = cover
+            //  "□" = open ground
+            //  □ □ E □ □
+            //  □ □ ■ □ □ 
+            //  □ □ □ □ □ 
+            //  □ □ □ □ □
+            //  □ □ P □ □
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 3] = "W"; //Add cover 
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new Vector3(2, 0, 0);
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new Vector3(2, 0, 4);
+            jeff.Hitpoints = 15;
+            jeff.HunkeredDown = true;
+            Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(5, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(10, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 104, (dice roll: 65)
+Damage range: 3-5, (dice roll: 100)
+Critical change: 0, Hunkered down
+5 damage dealt to character Jeff, HP is now 10
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
     }

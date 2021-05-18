@@ -16,7 +16,7 @@ namespace Battle.Logic.Encounters
             bool isCriticalHit = false;
             List<string> log = new();
 
-            if (diceRolls == null || diceRolls.Count == 0 || weapon == null|| weapon.ClipRemaining <= 0)
+            if (diceRolls == null || diceRolls.Count == 0 || weapon == null || weapon.ClipRemaining <= 0)
             {
                 return null;
             }
@@ -137,19 +137,26 @@ namespace Battle.Logic.Encounters
             log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
 
             //Check if it was a critical hit
-            int randomToCrit = diceRolls.Dequeue();
-            int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map, isAreaEffectAttack);
             bool isCriticalHit = false;
-            if ((100 - chanceToCrit) <= randomToCrit)
+            if (targetCharacter.HunkeredDown == false) // player can't be critically hit if hunkered down
             {
-                isCriticalHit = true;
-                lowDamage = damageOptions.CriticalDamageLow;
-                highDamage = damageOptions.CriticalDamageHigh;
+                int randomToCrit = diceRolls.Dequeue();
+                int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map, isAreaEffectAttack);
+                if ((100 - chanceToCrit) <= randomToCrit)
+                {
+                    isCriticalHit = true;
+                    lowDamage = damageOptions.CriticalDamageLow;
+                    highDamage = damageOptions.CriticalDamageHigh;
+                }
+                log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
+                if (isCriticalHit == true)
+                {
+                    log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
+                }
             }
-            log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
-            if (isCriticalHit == true)
+            else
             {
-                log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
+                log.Add("Critical change: 0, Hunkered down");
             }
 
             //process damage
