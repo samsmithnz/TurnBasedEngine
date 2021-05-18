@@ -76,7 +76,7 @@ namespace Battle.Tests.Scenarios
                     diceRolls);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 100)
+Hit: Chance to hit: 80, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 5 damage dealt to character Jeff, HP is now 7
@@ -104,7 +104,7 @@ Critical chance: 70, (dice roll: 0)
                     diceRolls);
             string log2 = @"
 Jeff is attacking with Shotgun, targeted on Fred
-Missed: Chance to hit: 28, (dice roll: 0)
+Missed: Chance to hit: 72, (dice roll: 0)
 0 XP added to character Jeff, for a total of 0 XP
 ";
             Assert.AreEqual(log2, encounter2.LogString);
@@ -128,7 +128,7 @@ Missed: Chance to hit: 28, (dice roll: 0)
                     diceRolls);
             string log3 = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 100)
+Hit: Chance to hit: 80, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
