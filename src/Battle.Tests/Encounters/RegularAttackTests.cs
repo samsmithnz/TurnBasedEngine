@@ -691,7 +691,7 @@ Fred is ready to level up
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 104, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
-Critical change: 0, Hunkered down
+Critical chance: 0, hunkered down
 5 damage dealt to character Jeff, HP is now 10
 10 XP added to character Fred, for a total of 10 XP
 ";

@@ -156,7 +156,7 @@ namespace Battle.Logic.Encounters
             }
             else
             {
-                log.Add("Critical change: 0, Hunkered down");
+                log.Add("Critical chance: 0, hunkered down");
             }
 
             //process damage
