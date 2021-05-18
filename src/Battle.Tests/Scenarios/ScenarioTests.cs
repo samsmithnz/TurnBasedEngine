@@ -53,8 +53,7 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            Path path = new(team1.Characters[0].Location, new(9, 0, 10), game.Map);
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(team1.Characters[0].Location, new(9, 0, 10), game.Map);
             CharacterMovement.MoveCharacter(team1.Characters[0], game.Map, pathResult.Path, diceRolls, null);
 
             //Fred shoots at Jeff, who is behind high cover. He hits him. 
