@@ -36,7 +36,7 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 5 damage to character Jeff
@@ -67,7 +67,7 @@ Armor prevented 5 damage to character Jeff
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 2 damage to character Jeff
@@ -100,7 +100,7 @@ Armor prevented 2 damage to character Jeff
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
@@ -134,7 +134,7 @@ Jeff is killed
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
@@ -168,7 +168,7 @@ Armor prevented 1 damage to character Jeff
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 10 damage to character Jeff
@@ -201,7 +201,7 @@ Armor prevented 10 damage to character Jeff
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 20, (dice roll: 80)
+Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor was ignored due to 'armor piercing' ability

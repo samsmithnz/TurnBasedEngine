@@ -3,33 +3,27 @@ using System.Numerics;
 
 namespace Battle.Logic.PathFinding
 {
-    public class Path
+    public static class Path
     {
-        private int _width;
-        private int _height;
-        private Tile[,] _tiles;
-        private readonly Tile _startTile;
-        private readonly Tile _endTile;
-        private readonly Vector3 _endLocation;
+        private static int _width;
+        private static int _height;
+        private static Tile[,] _tiles;
+        private static Tile _startTile;
+        private static Tile _endTile;
+        private static Vector3 _endLocation;
 
         /// <summary>
-        /// Create a new instance of PathFinder
+        /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
-        public Path(Vector3 startLocation, Vector3 endLocation, string[,] map)
+        /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
+        public static PathResult FindPath(Vector3 startLocation, Vector3 endLocation, string[,] map)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
             _startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
             _startTile.State = TileState.Open;
             _endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
-        }
 
-        /// <summary>
-        /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
-        /// </summary>
-        /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public PathResult FindPath()
-        {
             // The start tile is the first entry in the 'open' list
             PathResult result = new();
             bool success = Search(_startTile);
@@ -56,7 +50,7 @@ namespace Battle.Logic.PathFinding
         /// Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
         /// </summary>
         /// <param name="map">A boolean representation of a grid in which true = walkable and false = not walkable</param>
-        private void InitializeTiles(string[,] map)
+        private static void InitializeTiles(string[,] map)
         {
             _width = map.GetLength(0);
             _height = map.GetLength(1);
@@ -75,7 +69,7 @@ namespace Battle.Logic.PathFinding
         /// </summary>
         /// <param name="currentTile">The tile from which to find a path</param>
         /// <returns>True if a path to the destination has been found, otherwise false</returns>
-        private bool Search(Tile currentTile)
+        private static bool Search(Tile currentTile)
         {
             // Set the current tile to Closed since it cannot be traversed more than once
             currentTile.State = TileState.Closed;
@@ -109,7 +103,7 @@ namespace Battle.Logic.PathFinding
         /// </summary>
         /// <param name="fromTile">The tile from which to return the next possible tiles in the path</param>
         /// <returns>A list of next possible tiles in the path</returns>
-        private List<Tile> GetAdjacentWalkableTiles(Tile fromTile)
+        private static List<Tile> GetAdjacentWalkableTiles(Tile fromTile)
         {
             List<Tile> walkableTiles = new();
             IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);

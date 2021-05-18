@@ -23,12 +23,10 @@ namespace Battle.Tests.Movement
             Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            Path path = new(fred.Location, destination, map);
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(fred.Location, destination, map);
             fred = CharacterMovement.MoveCharacter(fred, map, pathResult.Path, diceRolls);
 
             //Assert
-            Assert.IsTrue(path != null);
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(destination, fred.Location);
             Assert.AreEqual(8, pathResult.Path.Count);

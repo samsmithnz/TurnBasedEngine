@@ -93,7 +93,7 @@ namespace Battle.Logic.Encounters
 
             if ((100 - toHitPercent) <= randomToHit)
             {
-                log.Add("Hit: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
+                log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
                 EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
                 sourceCharacter = tempResult.SourceCharacter;
@@ -104,7 +104,7 @@ namespace Battle.Logic.Encounters
             }
             else
             {
-                log.Add("Missed: Chance to hit: " + (100 - toHitPercent).ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
+                log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
                 int xp = Experience.GetExperience(false);
                 sourceCharacter.Experience += xp;

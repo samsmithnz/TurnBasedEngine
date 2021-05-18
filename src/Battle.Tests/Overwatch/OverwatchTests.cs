@@ -30,12 +30,10 @@ namespace Battle.Tests.Overwatch
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            Path jeffPath = new(jeff.Location, destination, map);
-            PathResult pathResult = jeffPath.FindPath();
+            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
             jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
@@ -58,12 +56,10 @@ namespace Battle.Tests.Overwatch
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            Path jeffPath = new(jeff.Location, destination, map);
-            PathResult pathResult = jeffPath.FindPath();
+            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
             jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);
@@ -90,12 +86,10 @@ namespace Battle.Tests.Overwatch
             List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.Range);
             KeyValuePair<Character, List<Vector3>> harryFOV = new(harry, fovHarry);
 
-            Path jeffPath = new(jeff.Location, destination, map);
-            PathResult pathResult = jeffPath.FindPath();
+            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
             jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV, harryFOV });
 
             //Assert
-            Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
@@ -120,12 +114,10 @@ namespace Battle.Tests.Overwatch
             List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            Path jeffPath = new(jeff.Location, destination, map);
-            PathResult pathResult = jeffPath.FindPath();
+            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
             jeff = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(jeffPath != null);
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);

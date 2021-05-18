@@ -18,10 +18,9 @@ namespace Battle.Tests.PathFinding
             Vector3 startLocation = new(1,0, 2);
             Vector3 endLocation = new(5,0, 2);
             string[,] map = InitializeMap(7, 5);
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -49,10 +48,9 @@ namespace Battle.Tests.PathFinding
             map[3, 2] = "W";
             map[3, 1] = "W";
             map[4, 1] = "W";
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -82,10 +80,9 @@ namespace Battle.Tests.PathFinding
             map[3, 2] = "W";
             map[3, 1] = "W";
             map[3, 0] = "W";
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -127,10 +124,9 @@ namespace Battle.Tests.PathFinding
             map[5, 2] = "W";
             map[5, 1] = "W";
             map[6, 0] = "W";
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -149,10 +145,9 @@ namespace Battle.Tests.PathFinding
             Vector3 startLocation = new(0, 0, 0);
             Vector3 endLocation = new(69, 0, 39);
             string[,] map = CreateGiantMap();
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -186,10 +181,9 @@ namespace Battle.Tests.PathFinding
             map[3, 3] = "W";
             Vector3 startLocation = new(2, 0, 2);
             Vector3 endLocation = new(2, 0, 4);
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
@@ -224,10 +218,9 @@ namespace Battle.Tests.PathFinding
             map[3, 1] = "W";
             map[3, 2] = "W";
             map[3, 3] = "W";
-            Path path = new(startLocation, endLocation, map);
 
             //Act
-            PathResult pathResult = path.FindPath();
+            PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
 
             //Assert
             Assert.IsNotNull(pathResult);
