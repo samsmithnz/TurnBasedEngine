@@ -159,6 +159,7 @@ Critical chance: 70, (dice roll: 20)
 5 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -193,6 +194,7 @@ Critical damage range: 8-12, (dice roll: 100)
 12 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -226,6 +228,7 @@ Critical chance: 70, (dice roll: 0)
 5 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -262,6 +265,7 @@ Critical damage range: 8-12, (dice roll: 100)
 12 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -408,6 +412,7 @@ Critical damage range: 8-22, (dice roll: 100)
 22 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -441,6 +446,7 @@ Critical damage range: 8-22, (dice roll: 100)
 22 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -476,6 +482,7 @@ Critical damage range: 8-12, (dice roll: 100)
 12 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -513,6 +520,7 @@ Critical damage range: 11-15, (dice roll: 100)
 15 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -605,6 +613,7 @@ Critical damage range: 11-15, (dice roll: 100)
 15 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }

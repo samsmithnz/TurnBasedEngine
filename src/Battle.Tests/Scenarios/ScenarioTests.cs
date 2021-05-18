@@ -135,6 +135,7 @@ Critical damage range: 8-12, (dice roll: 100)
 12 damage dealt to character Jeff, HP is now -5
 Jeff is killed
 100 XP added to character Fred, for a total of 110 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log3, encounter3.LogString);
 
