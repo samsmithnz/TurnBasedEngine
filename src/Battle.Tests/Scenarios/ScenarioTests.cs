@@ -20,22 +20,23 @@ namespace Battle.Tests.Scenarios
             Game game = new();
             game.TurnNumber = 1;
             game.Map = GenerateMap(50, 50);
-            game.Map[10, 10] = "W";
-            game.Map[20, 10] = "W";
+            game.Map[6, 5] = "W";
+            game.Map[20, 11] = "W";
+            Character fred = CharacterPool.CreateFredHero();
             Team team1 = new()
             {
                 Name = "Player",
-                Characters = new() { CharacterPool.CreateFredHero() }
+                Characters = new() { fred }
             };
-            team1.Characters[0].Location = new(5, 0, 5);
+            fred.Location = new(5, 0, 5);
             game.Teams.Add(team1);
-
+            Character jeff = CharacterPool.CreateJeffBaddie();
             Team team2 = new()
             {
                 Name = "Enemy",
-                Characters = new() { CharacterPool.CreateJeffBaddie() }
+                Characters = new() { jeff }
             };
-            team2.Characters[0].Location = new(20, 0, 11);
+            jeff.Location = new(20, 0, 10);
             game.Teams.Add(team2);
             Queue<int> diceRolls = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -53,14 +54,24 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            PathResult pathResult = Path.FindPath(team1.Characters[0].Location, new(9, 0, 10), game.Map);
-            CharacterMovement.MoveCharacter(team1.Characters[0], game.Map, pathResult.Path, diceRolls, null);
+            PathResult pathResult = Path.FindPath(fred.Location, new(9, 0, 10), game.Map);
+            CharacterMovement.MoveCharacter(fred, game.Map, pathResult.Path, diceRolls, null);
+
+            //Fred aims at Jeff, who is behind high cover. 
+            List<Character> characters = fred.GetCharactersInView(game.Map, new List<Team>() { team2 });       
+            Assert.AreEqual(characters[0], jeff);
+            int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, game.Map, false);
+            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            Assert.AreEqual(80, chanceToHit);
+            Assert.AreEqual(70, chanceToCrit);
+            Assert.AreEqual(3, damageOptions.DamageLow);
+            Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jeff, who is behind high cover. He hits him. 
-            List<Character> characters = game.Teams[0].Characters[0].GetCharactersInView(game.Map, new List<Team>() { team2 });
-            EncounterResult encounter1 = Encounter.AttackCharacter(game.Teams[0].Characters[0],
-                    game.Teams[0].Characters[0].WeaponEquipped,
-                    game.Teams[1].Characters[0],
+            EncounterResult encounter1 = Encounter.AttackCharacter(fred,
+                    fred.WeaponEquipped,
+                    jeff,
                     game.Map,
                     diceRolls);
             string log1 = @"
@@ -74,11 +85,21 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(log1, encounter1.LogString);
 
             //Turn 1 - Team 2 starts
+            //Jeff aims back and misses
+            List<Character> characters2 = jeff.GetCharactersInView(game.Map, new List<Team>() { team1 });
+            Assert.AreEqual(characters2[0], fred);
+            int chanceToHit2 = EncounterCore.GetChanceToHit(jeff, jeff.WeaponEquipped, fred);
+            int chanceToCrit2 = EncounterCore.GetChanceToCrit(jeff, jeff.WeaponEquipped, jeff, game.Map, false);
+            DamageOptions damageOptions2 = EncounterCore.GetDamageRange(jeff, jeff.WeaponEquipped);
+            Assert.AreEqual(72, chanceToHit2);
+            Assert.AreEqual(70, chanceToCrit2);
+            Assert.AreEqual(3, damageOptions2.DamageLow);
+            Assert.AreEqual(5, damageOptions2.DamageHigh);
+
             //Jeff shoots back and misses
-            List<Character> characters2 = game.Teams[1].Characters[0].GetCharactersInView(game.Map, new List<Team>() { team1 });
-            EncounterResult encounter2 = Encounter.AttackCharacter(game.Teams[1].Characters[0],
-                    game.Teams[1].Characters[0].WeaponEquipped,
-                    game.Teams[0].Characters[0],
+            EncounterResult encounter2 = Encounter.AttackCharacter(jeff,
+                    jeff.WeaponEquipped,
+                    fred,
                     game.Map,
                     diceRolls);
             string log2 = @"
@@ -90,10 +111,19 @@ Missed: Chance to hit: 28, (dice roll: 0)
 
             //Turn 2 - Team 1 starts
             //Fred shoots again, and kills Jeff.
-            List<Character> characters3 = game.Teams[0].Characters[0].GetCharactersInView(game.Map, new List<Team>() { team2 });
-            EncounterResult encounter3 = Encounter.AttackCharacter(game.Teams[0].Characters[0],
-                    game.Teams[0].Characters[0].WeaponEquipped,
-                    game.Teams[1].Characters[0],
+            List<Character> characters3 = fred.GetCharactersInView(game.Map, new List<Team>() { team2 });
+            Assert.AreEqual(characters3[0], jeff);
+            int chanceToHit3 = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
+            int chanceToCrit3 = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, game.Map, false);
+            DamageOptions damageOptions3 = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            Assert.AreEqual(80, chanceToHit3);
+            Assert.AreEqual(70, chanceToCrit3);
+            Assert.AreEqual(3, damageOptions3.DamageLow);
+            Assert.AreEqual(5, damageOptions3.DamageHigh);
+
+            EncounterResult encounter3 = Encounter.AttackCharacter(fred,
+                    fred.WeaponEquipped,
+                    jeff,
                     game.Map,
                     diceRolls);
             string log3 = @"
@@ -111,7 +141,7 @@ Jeff is killed
             //End of of battle
 
             //Assert
-            Assert.AreEqual(-5,game.Teams[1].Characters[0].Hitpoints);
+            Assert.AreEqual(-5,jeff.Hitpoints);
         }
 
         private static string[,] GenerateMap(int xMax, int zMax)
