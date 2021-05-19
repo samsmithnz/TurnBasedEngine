@@ -4,7 +4,6 @@ using Battle.Logic.Characters;
 using Battle.Logic.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Logic.Encounters
 {

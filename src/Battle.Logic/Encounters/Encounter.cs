@@ -23,7 +23,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             //Get the targets in the area affected
-            List<Character> areaEffectTargets = AreaEffectFieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Character> areaEffectTargets = FieldOfViewAreaEffectCalculator.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
             string names = "";
             foreach (Character item in areaEffectTargets)
             {
@@ -47,7 +47,7 @@ namespace Battle.Logic.Encounters
             }
 
             //Remove cover
-            List<Vector3> area = AreaEffectFieldOfView.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Vector3> area = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
             foreach (Vector3 item in area)
             {
                 if (map[(int)item.X, (int)item.Z] == "W")
