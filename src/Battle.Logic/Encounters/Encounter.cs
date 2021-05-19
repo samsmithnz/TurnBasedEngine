@@ -57,6 +57,9 @@ namespace Battle.Logic.Encounters
                 }
             }
 
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
+
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
 
@@ -107,6 +110,9 @@ namespace Battle.Logic.Encounters
                 sourceCharacter.Experience += xp;
                 log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
             }
+
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
 
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
@@ -214,9 +220,6 @@ namespace Battle.Logic.Encounters
             }
             sourceCharacter.Experience += xp;
             log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
-
-            //Consume source characters action points
-            sourceCharacter.ActionPoints = 0;
 
             EncounterResult result = new()
             {

@@ -22,6 +22,7 @@ namespace Battle.Logic.Encounters
             {
                 if (targetCharacter.HunkeredDown == true)
                 {
+                    //When hunkered down, cover is worth double
                     toHit -= 40;
                 }
                 else
@@ -33,6 +34,7 @@ namespace Battle.Logic.Encounters
             {
                 if (targetCharacter.HunkeredDown == true)
                 {
+                    //When hunkered down, cover is worth double
                     toHit -= 80;
                 }
                 else
@@ -41,13 +43,19 @@ namespace Battle.Logic.Encounters
                 }
             }
 
-
             //Weapon  modifiers
             toHit += weapon.ChanceToHitAdjustment;
 
             //Weapon range modifiers
             int distance = Range.GetDistance(sourceCharacter.Location, targetCharacter.Location);
             toHit += Range.GetRangeModifier(weapon, distance);
+
+            //Overwatch
+            if (sourceCharacter.InOverwatch == true)
+            {
+                //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70 % of normal
+                toHit = (int)((float)toHit * 0.7f);
+            }
 
             return toHit;
         }
@@ -61,6 +69,11 @@ namespace Battle.Logic.Encounters
                 chanceToCrit += 50;
             }
             chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+            //reaction shots has a 0% Critical chance
+            if (sourceCharacter.InOverwatch == true)
+            {
+                chanceToCrit = 0;
+            }
             return chanceToCrit;
         }
 
