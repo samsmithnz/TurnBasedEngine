@@ -4,6 +4,7 @@ using Battle.Logic.MainGame;
 using Battle.Logic.Movement;
 using Battle.Logic.PathFinding;
 using Battle.Tests.Characters;
+using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -19,13 +20,13 @@ namespace Battle.Tests.Scenarios
             //Arrange
             Game game = new();
             game.TurnNumber = 1;
-            game.Map = GenerateMap(50, 50);
+            game.Map = MapUtility.InitializeMap(50, 50);
             game.Map[6, 5] = "W";
             game.Map[20, 11] = "W";
             Character fred = CharacterPool.CreateFredHero();
             Team team1 = new()
             {
-                Name = "Player",
+                Name = "Good guys",
                 Characters = new() { fred }
             };
             fred.Location = new(5, 0, 5);
@@ -33,7 +34,7 @@ namespace Battle.Tests.Scenarios
             Character jeff = CharacterPool.CreateJeffBaddie();
             Team team2 = new()
             {
-                Name = "Enemy",
+                Name = "Bad guys",
                 Characters = new() { jeff }
             };
             jeff.Location = new(20, 0, 10);
@@ -45,9 +46,9 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, game.TurnNumber);
             Assert.AreEqual(2, game.Teams.Count);
             Assert.AreEqual(50 * 50, game.Map.Length);
-            Assert.AreEqual("Player", game.Teams[0].Name);
+            Assert.AreEqual("Good guys", game.Teams[0].Name);
             Assert.AreEqual(1, game.Teams[0].Characters.Count);
-            Assert.AreEqual("Enemy", game.Teams[1].Name);
+            Assert.AreEqual("Bad guys", game.Teams[1].Name);
             Assert.AreEqual(1, game.Teams[1].Characters.Count);
 
             //Act
@@ -143,22 +144,6 @@ Fred is ready to level up
 
             //Assert
             Assert.AreEqual(-5,jeff.Hitpoints);
-        }
-
-        private static string[,] GenerateMap(int xMax, int zMax)
-        {
-            string[,] map = new string[xMax, zMax];
-
-            //Initialize the map
-            for (int z = 0; z < zMax; z++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    map[x, z] = "";
-                }
-            }
-
-            return map;
         }
 
     }

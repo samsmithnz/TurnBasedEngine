@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Encounters;
 using Battle.Logic.Movement;
 using Battle.Logic.PathFinding;
 using Battle.Tests.Characters;
@@ -14,7 +15,7 @@ namespace Battle.Tests.Movement
     public class MovementTests
     {
         [TestMethod]
-        public void MovementTest()
+        public void MovementWithNoOverwatchTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
@@ -24,12 +25,13 @@ namespace Battle.Tests.Movement
 
             //Act
             PathResult pathResult = Path.FindPath(fred.Location, destination, map);
-            fred = CharacterMovement.MoveCharacter(fred, map, pathResult.Path, diceRolls);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathResult.Path, diceRolls);
 
             //Assert
             Assert.IsTrue(pathResult != null);
             Assert.AreEqual(destination, fred.Location);
             Assert.AreEqual(8, pathResult.Path.Count);
+            Assert.AreEqual(0, movementResults.Count); 
         }
     }
 }

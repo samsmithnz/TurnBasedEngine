@@ -23,7 +23,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             //Get the targets in the area affected
-            List<Character> areaEffectTargets = AreaEffectFieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Character> areaEffectTargets = FieldOfViewAreaEffectCalculator.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
             string names = "";
             foreach (Character item in areaEffectTargets)
             {
@@ -47,7 +47,7 @@ namespace Battle.Logic.Encounters
             }
 
             //Remove cover
-            List<Vector3> area = AreaEffectFieldOfView.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Vector3> area = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
             foreach (Vector3 item in area)
             {
                 if (map[(int)item.X, (int)item.Z] == "W")
@@ -56,6 +56,9 @@ namespace Battle.Logic.Encounters
                     log.Add("Cover removed from " + item.ToString());
                 }
             }
+
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
 
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
@@ -107,6 +110,9 @@ namespace Battle.Logic.Encounters
                 sourceCharacter.Experience += xp;
                 log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
             }
+
+            //Consume source characters action points
+            sourceCharacter.ActionPoints = 0;
 
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
@@ -214,9 +220,6 @@ namespace Battle.Logic.Encounters
             }
             sourceCharacter.Experience += xp;
             log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
-
-            //Consume source characters action points
-            sourceCharacter.ActionPoints = 0;
 
             EncounterResult result = new()
             {

@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.PathFinding;
+using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Battle.Tests.PathFinding
             //Arrange
             Vector3 startLocation = new(1,0, 2);
             Vector3 endLocation = new(5,0, 2);
-            string[,] map = InitializeMap(7, 5);
+            string[,] map = MapUtility.InitializeMap(7, 5);
 
             //Act
             PathResult pathResult = Path.FindPath(startLocation, endLocation, map);
@@ -42,7 +43,7 @@ namespace Battle.Tests.PathFinding
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
             Vector3 startLocation = new(1,0, 2);
             Vector3 endLocation = new(5,0, 2);
-            string[,] map = InitializeMap(7, 5);
+            string[,] map = MapUtility.InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
             map[3, 2] = "W";
@@ -74,7 +75,7 @@ namespace Battle.Tests.PathFinding
             // No path
             Vector3 startLocation = new(1, 0, 2);
             Vector3 endLocation = new(5, 0, 2);
-            string[,] map = InitializeMap(7, 5);
+            string[,] map = MapUtility.InitializeMap(7, 5);
             map[3, 4] = "W";
             map[3, 3] = "W";
             map[3, 2] = "W";
@@ -105,7 +106,7 @@ namespace Battle.Tests.PathFinding
             // long path
             Vector3 startLocation = new(0, 0, 4);
             Vector3 endLocation = new(6, 0, 4);
-            string[,] map = InitializeMap(7, 5);
+            string[,] map = MapUtility.InitializeMap(7, 5);
             map[0, 0] = "W";
             map[1, 4] = "W";
             map[1, 3] = "W";
@@ -170,7 +171,7 @@ namespace Battle.Tests.PathFinding
             //Arrange
             int height = 5;
             int width = 5;
-            string[,] map = InitializeMap(width, height);
+            string[,] map = MapUtility.InitializeMap(width, height);
             map[1, 1] = "W";
             map[1, 2] = "W";
             map[1, 3] = "W";
@@ -209,7 +210,7 @@ namespace Battle.Tests.PathFinding
             Vector3 endLocation = new(2, 0, 2);
             int height = 5;
             int width = 5;
-            string[,] map = InitializeMap(width, height);
+            string[,] map = MapUtility.InitializeMap(width, height);
             map[1, 1] = "W";
             map[1, 2] = "W";
             map[1, 3] = "W";
@@ -231,27 +232,6 @@ namespace Battle.Tests.PathFinding
         }
 
         #region "private helper functions"
-
-        private static string[,] InitializeMap(int xMax, int zMax)
-        {
-            //  □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □
-            //  □ S □ □ □ F □
-            //  □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □
-
-            string[,] map = new string[xMax, zMax];
-            for (int z = 0; z < zMax; z++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    map[x, z] = "";
-                }
-            }
-
-            return map;
-        }
-
 
         private static void CreateDebugPictureOfMapAndRoute(int xMax, int zMax, List<Vector3> path, string[,] map)
         {
@@ -349,7 +329,7 @@ namespace Battle.Tests.PathFinding
 
 
 
-            string[,] map = InitializeMap(70, 40);
+            string[,] map = MapUtility.InitializeMap(70, 40);
             map[6, 0] = "W";
             map[8, 0] = "W";
             map[10, 0] = "W";
