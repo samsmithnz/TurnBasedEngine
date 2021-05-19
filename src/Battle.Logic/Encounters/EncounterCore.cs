@@ -56,6 +56,10 @@ namespace Battle.Logic.Encounters
                 //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70 % of normal
                 toHit = (int)((float)toHit * 0.7f);
             }
+            if (toHit > 100)
+            {
+                toHit = 100;
+            }
 
             return toHit;
         }
@@ -74,6 +78,10 @@ namespace Battle.Logic.Encounters
             {
                 chanceToCrit = 0;
             }
+            //if (chanceToCrit > 100)
+            //{
+            //    chanceToCrit = 100;
+            //}
             return chanceToCrit;
         }
 
