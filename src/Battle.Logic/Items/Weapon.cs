@@ -14,10 +14,10 @@
         public int ClipSize { get; set; }
         public int ClipRemaining { get; set; }
         public int ActionPointsRequired { get; set; }
-        public WeaponEnum Type { get; set; }
+        public WeaponType Type { get; set; }
     }
 
-    public enum WeaponEnum
+    public enum WeaponType
     {
         Unknown = 0,
         Standard = 1,

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Battle.Logic.Encounters
 {
-    public class EncounterCore
+    public static class EncounterCore
     {
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
@@ -71,7 +71,7 @@ namespace Battle.Logic.Encounters
                 //Add 50% for a flank
                 chanceToCrit += 50;
             }
-            chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalChance);
+            chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
             if (sourceCharacter.InOverwatch == true)
             {
@@ -91,7 +91,7 @@ namespace Battle.Logic.Encounters
             int highDamageAdjustment = 0;
 
             //Add abilities
-            highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.Damage);
+            highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.Damage);
 
             //Normal damage
             damageOptions.DamageLow = weapon.DamageRangeLow + lowDamageAdjustment;
@@ -102,14 +102,14 @@ namespace Battle.Logic.Encounters
             damageOptions.CriticalDamageHigh = damageOptions.DamageHigh;
 
             damageOptions.CriticalDamageLow += weapon.CriticalDamageLow;
-            damageOptions.CriticalDamageLow += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+            damageOptions.CriticalDamageLow += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
             damageOptions.CriticalDamageHigh += weapon.CriticalDamageHigh;
-            damageOptions.CriticalDamageHigh += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.CriticalDamage);
+            damageOptions.CriticalDamageHigh += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
 
             return damageOptions;
         }
 
-        public static int ProcessAbilitiesByType(List<Ability> abilities, AbilityTypeEnum type)
+        public static int ProcessAbilitiesByType(List<Ability> abilities, AbilityType type)
         {
             int adjustment = 0;
             foreach (Ability item in abilities)

@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace Battle.Logic.Movement
 {
-    public class CharacterMovement
+    public static class CharacterMovement
     {
         public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,] map, List<Vector3> path, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
@@ -42,7 +42,7 @@ namespace Battle.Logic.Movement
             {
                 foreach (Vector3 fovLocation in characterFOV.Value)
                 {
-                    if (characterFOV.Key.ActionPoints > 0 & fovLocation == characterMoving.Location)
+                    if (characterFOV.Key.ActionPoints > 0 && fovLocation == characterMoving.Location)
                     {
                         //Act
                         result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);

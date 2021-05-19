@@ -130,7 +130,7 @@ Cover removed from <2, 0, 3>
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
+            fred.Abilities.Add(new("Shredder", AbilityType.ArmorShredding, 2));
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
@@ -181,7 +181,7 @@ Cover removed from <2, 0, 3>
             string[,] map = MapUtility.InitializeMap(10, 10);
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
+            fred.Abilities.Add(new("Shredder", AbilityType.ArmorShredding, 2));
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
@@ -452,8 +452,8 @@ Cover removed from <2, 0, 3>
             map[2, 3] = "W"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            fred.Abilities.Add(new("Biggest Booms", AbilityTypeEnum.CriticalDamage, 2));
-            fred.Abilities.Add(new("Biggest Booms", AbilityTypeEnum.CriticalChance, 20));
+            fred.Abilities.Add(new("Biggest Booms", AbilityType.CriticalDamage, 2));
+            fred.Abilities.Add(new("Biggest Booms", AbilityType.CriticalChance, 20));
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 6;

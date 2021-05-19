@@ -8,8 +8,6 @@ namespace Battle.Logic.PathFinding
         private static int _width;
         private static int _height;
         private static Tile[,] _tiles;
-        private static Tile _startTile;
-        private static Tile _endTile;
         private static Vector3 _endLocation;
 
         /// <summary>
@@ -20,17 +18,17 @@ namespace Battle.Logic.PathFinding
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            _startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
-            _startTile.State = TileState.Open;
-            _endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
+            Tile startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
+            startTile.State = TileState.Open;
+            Tile endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list
             PathResult result = new();
-            bool success = Search(_startTile);
+            bool success = Search(startTile, endTile);
             if (success)
             {
                 // If a path was found, follow the parents from the end tile to build a list of locations
-                Tile tile = _endTile;
+                Tile tile = endTile;
                 while (tile.ParentTile != null)
                 {
                     result.Tiles.Add(tile);
@@ -69,7 +67,7 @@ namespace Battle.Logic.PathFinding
         /// </summary>
         /// <param name="currentTile">The tile from which to find a path</param>
         /// <returns>True if a path to the destination has been found, otherwise false</returns>
-        private static bool Search(Tile currentTile)
+        private static bool Search(Tile currentTile, Tile endTile)
         {
             // Set the current tile to Closed since it cannot be traversed more than once
             currentTile.State = TileState.Closed;
@@ -80,14 +78,14 @@ namespace Battle.Logic.PathFinding
             foreach (var nextTile in nextTiles)
             {
                 // Check whether the end tile has been reached
-                if (nextTile.Location == _endTile.Location)
+                if (nextTile.Location == endTile.Location)
                 {
                     return true;
                 }
                 else
                 {
                     // If not, check the next set of tiles
-                    if (Search(nextTile)) // Note: Recurses back into Search(Tile)
+                    if (Search(nextTile, endTile)) // Note: Recurses back into Search(Tile)
                     {
                         return true;
                     }
@@ -146,10 +144,10 @@ namespace Battle.Logic.PathFinding
                 }
                 else
                 {
-                // If it's untested, set the parent and flag it as 'Open' for consideration
-                tile.ParentTile = fromTile;
-                tile.State = TileState.Open;
-                walkableTiles.Add(tile);
+                    // If it's untested, set the parent and flag it as 'Open' for consideration
+                    tile.ParentTile = fromTile;
+                    tile.State = TileState.Open;
+                    walkableTiles.Add(tile);
                 }
             }
 

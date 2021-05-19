@@ -2,7 +2,7 @@
 {
     public class Ability
     {
-        public Ability(string name, AbilityTypeEnum type, int adjustment)
+        public Ability(string name, AbilityType type, int adjustment)
         {
             Name = name;
             Type = type;
@@ -10,7 +10,7 @@
         }
 
         public string Name { get; set; }
-        public AbilityTypeEnum Type { get; set; }
+        public AbilityType Type { get; set; }
         public int Adjustment { get; set; }
     }
 

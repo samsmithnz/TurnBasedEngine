@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Characters;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Battle.Logic.Encounters
 {
@@ -37,12 +38,14 @@ namespace Battle.Logic.Encounters
         {
             get
             {
-                string result = Environment.NewLine;
+                StringBuilder result = new();
+                result.Append(Environment.NewLine);
                 foreach (string item in Log)
                 {
-                    result += item + Environment.NewLine;
+                    result.Append(item);
+                    result.Append(Environment.NewLine);
                 }
-                return result;
+                return result.ToString();
             }
         }
     }

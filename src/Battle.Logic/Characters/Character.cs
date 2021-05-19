@@ -50,7 +50,7 @@ namespace Battle.Logic.Characters
                 {
                     switch (effect.Type)
                     {
-                        case AbilityTypeEnum.FireDamage:
+                        case AbilityType.FireDamage:
                             Hitpoints -= effect.Adjustment;
                             break;
                     }
