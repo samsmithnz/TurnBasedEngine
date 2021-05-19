@@ -63,9 +63,12 @@ namespace Battle.Logic.Movement
         private static int TotalOverwatchActionPoints(List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters)
         {
             int total = 0;
-            foreach (KeyValuePair<Character, List<Vector3>> item in overWatchedCharacters)
+            if (overWatchedCharacters != null)
             {
-                total += item.Key.ActionPoints;
+                foreach (KeyValuePair<Character, List<Vector3>> item in overWatchedCharacters)
+                {
+                    total += item.Key.ActionPoints;
+                }
             }
             return total;
         }
