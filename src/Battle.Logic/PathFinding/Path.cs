@@ -132,23 +132,24 @@ namespace Battle.Logic.PathFinding
                     continue;
                 }
 
-                // Already-open tiles are only added to the list if their G-value is lower going via this route.
+                //// Already-open tiles are only added to the list if their G-value is lower going via this route.
                 if (tile.State == TileState.Open)
                 {
-                    float traversalCost = Tile.GetTraversalCost(tile.Location, tile.ParentTile.Location);
-                    float gTemp = fromTile.G + traversalCost;
-                    if (gTemp < tile.G)
-                    {
-                        tile.ParentTile = fromTile;
-                        walkableTiles.Add(tile);
-                    }
+                    //TODO: Review this later - as of now, this path finding is never hit.
+                    //float traversalCost = Tile.GetTraversalCost(tile.Location, tile.ParentTile.Location);
+                    //float gTemp = fromTile.G + traversalCost;
+                    //if (gTemp < tile.G)
+                    //{
+                    //    tile.ParentTile = fromTile;
+                    //    walkableTiles.Add(tile);
+                    //}
                 }
                 else
                 {
-                    // If it's untested, set the parent and flag it as 'Open' for consideration
-                    tile.ParentTile = fromTile;
-                    tile.State = TileState.Open;
-                    walkableTiles.Add(tile);
+                // If it's untested, set the parent and flag it as 'Open' for consideration
+                tile.ParentTile = fromTile;
+                tile.State = TileState.Open;
+                walkableTiles.Add(tile);
                 }
             }
 

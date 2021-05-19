@@ -20,12 +20,27 @@ namespace Battle.Logic.Encounters
             //Target cover adjustments
             if (targetCharacter.InHalfCover == true)
             {
-                toHit -= 20;
+                if (targetCharacter.HunkeredDown == true)
+                {
+                    toHit -= 40;
+                }
+                else
+                {
+                    toHit -= 20;
+                }
             }
             else if (targetCharacter.InFullCover == true)
             {
-                toHit -= 40;
+                if (targetCharacter.HunkeredDown == true)
+                {
+                    toHit -= 80;
+                }
+                else
+                {
+                    toHit -= 40;
+                }
             }
+
 
             //Weapon  modifiers
             toHit += weapon.ChanceToHitAdjustment;

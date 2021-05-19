@@ -107,6 +107,7 @@ Critical chance: 70, (dice roll: 0)
 3 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -208,6 +209,7 @@ Armor was ignored due to 'armor piercing' ability
 5 damage dealt to character Jeff, HP is now -2
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
