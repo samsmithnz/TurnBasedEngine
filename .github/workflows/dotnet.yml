@@ -26,7 +26,7 @@ jobs:
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
 
   sonarCloud:
-    name: Build
+    name: sonarCloud
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
