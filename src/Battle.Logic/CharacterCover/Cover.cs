@@ -197,11 +197,6 @@ namespace Battle.Logic.CharacterCover
             {
                 throw new Exception("The character is off the map");
             }
-            if (currentLocation.X == 1000)
-            {
-                int i = 2;
-                int j = 3 + i;
-            }
 
             //Make adjustments to ensure that the search doesn't go off the edges of the map
             int xMin = Convert.ToInt32(currentLocation.X) - 1;
