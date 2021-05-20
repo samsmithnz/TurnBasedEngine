@@ -28,12 +28,12 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.Abilities.Add(new("Ability", AbilityTypeEnum.Unknown, 0));
+            fred.Abilities.Add(new("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new()
                 {
                     Name = "Fire",
-                    Type = AbilityTypeEnum.FireDamage,
+                    Type = AbilityType.FireDamage,
                     Adjustment = 1,
                     TurnExpiration = 2
                 }

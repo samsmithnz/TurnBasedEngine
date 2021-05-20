@@ -5,8 +5,8 @@ using System.Numerics;
 
 namespace Battle.Logic.FieldOfView
 {
-    public class FieldOfViewCalculator
-    {    
+    public static class FieldOfViewCalculator
+    {
         public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
         {
             int startingX = (int)location.X;
@@ -53,13 +53,13 @@ namespace Battle.Logic.FieldOfView
             foreach (Vector3 borderItem in borderTiles)
             {
                 List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
-                if (singleLineCheck.Count > 0)
+                if (singleLineCheck.Count > 0 &&
+                    singleLineCheck[^1].X == startingX &&
+                    singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
                 {
-                    if (singleLineCheck[^1].X == startingX && singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
-                    {
-                        //Reverse the list
-                        singleLineCheck.Reverse();
-                    }
+                    //Reverse the list
+                    singleLineCheck.Reverse();
+
                 }
                 foreach (Vector3 fovItem in singleLineCheck)
                 {

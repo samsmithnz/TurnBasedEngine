@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Battle.Logic.CharacterCover
 {
-    public class Cover
+    public static class Cover
     {
         /// <summary>
         /// Calculate if the player is in cover. 

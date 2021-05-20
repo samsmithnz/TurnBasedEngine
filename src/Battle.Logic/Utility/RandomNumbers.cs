@@ -32,7 +32,7 @@ namespace Battle.Logic.Utility
 
         public static int ScaleRandomNumber(int minValue, int maxValue, int value)
         {
-            //int result = (value - minValue) / (maxValue - minValue);
+            //The scale formula is: =(value - minValue) / (maxValue - minValue);
             int result = (value - 0) * (maxValue - minValue) / (100- 0) + minValue;
 
             return result;

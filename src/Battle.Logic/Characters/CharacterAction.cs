@@ -7,17 +7,5 @@ namespace Battle.Logic.Characters
         public string Name { get; set; }
         public string Caption { get; set; }
         public string KeyBinding { get; set; }
-        ////Get a list of current actions the character can take
-        //public List<string> GetActions(Character character)
-        //{
-        //    if (character.ActionPoints <= 0)
-        //    {
-        //        return new ();
-        //    }
-        //    else
-        //    {
-        //        return new();
-        //    }
-        //}
     }
 }

@@ -70,7 +70,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(4, weapon.ClipSize);
             Assert.AreEqual(4, weapon.ClipRemaining);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
-            Assert.AreEqual(WeaponEnum.Standard, weapon.Type);
+            Assert.AreEqual(WeaponType.Standard, weapon.Type);
         }
 
         private static void TestShotgun(Weapon weapon)
@@ -88,7 +88,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(4, weapon.ClipSize);
             Assert.AreEqual(4, weapon.ClipRemaining);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
-            Assert.AreEqual(WeaponEnum.Shotgun, weapon.Type);
+            Assert.AreEqual(WeaponType.Shotgun, weapon.Type);
         }
         
         private static void TestSniperRifle(Weapon weapon)
@@ -106,7 +106,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(4, weapon.ClipSize);
             Assert.AreEqual(4, weapon.ClipRemaining);
             Assert.AreEqual(2, weapon.ActionPointsRequired);
-            Assert.AreEqual(WeaponEnum.SniperRifle, weapon.Type);
+            Assert.AreEqual(WeaponType.SniperRifle, weapon.Type);
         }
 
         private static void TestGrenade(Weapon weapon)
@@ -124,7 +124,7 @@ namespace Battle.Tests.Weapons
             Assert.AreEqual(1, weapon.ClipSize);
             Assert.AreEqual(1, weapon.ClipRemaining);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
-            Assert.AreEqual(WeaponEnum.Grenade, weapon.Type);
+            Assert.AreEqual(WeaponType.Grenade, weapon.Type);
         }
       
     }

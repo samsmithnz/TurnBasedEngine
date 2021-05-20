@@ -45,7 +45,7 @@ namespace Battle.Tests.CharacterEffects
             Character fred = CharacterPool.CreateFredHero();
             fred.Effects.Add(new()
             {
-                Type = AbilityTypeEnum.Unknown,
+                Type = AbilityType.Unknown,
                 TurnExpiration = 3
             });
 

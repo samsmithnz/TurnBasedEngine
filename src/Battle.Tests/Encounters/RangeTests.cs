@@ -168,7 +168,7 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             Weapon unknownWeapon = new();
-            unknownWeapon.Type = WeaponEnum.Unknown;
+            unknownWeapon.Type = WeaponType.Unknown;
 
             //Act
             int rangeModifier1 = Range.GetRangeModifier(unknownWeapon, 1);

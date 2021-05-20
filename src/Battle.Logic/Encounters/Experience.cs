@@ -1,6 +1,6 @@
 ﻿namespace Battle.Logic.Encounters
 {
-    public class Experience
+    public static class Experience
     {
         //Experience
         // 10xp for hit

@@ -1,6 +1,6 @@
 ﻿namespace Battle.Logic.AbilitiesAndEffects
 {
-    public enum AbilityTypeEnum
+    public enum AbilityType
     {
         Unknown = 0,
         Damage = 1, //The character causes more regular damage

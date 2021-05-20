@@ -5,10 +5,11 @@ using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Text;
 
 namespace Battle.Logic.Encounters
 {
-    public class Encounter
+    public static class Encounter
     {
         public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,] map, Queue<int> diceRolls, Vector3 throwingTargetLocation)
         {
@@ -24,13 +25,14 @@ namespace Battle.Logic.Encounters
 
             //Get the targets in the area affected
             List<Character> areaEffectTargets = FieldOfViewAreaEffectCalculator.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
-            string names = "";
+            StringBuilder names = new();
             foreach (Character item in areaEffectTargets)
             {
-                names += " " + item.Name + ", ";
+                names.Append(' ');
+                names.Append(item.Name);
+                names.Append(", ");
             }
-            names = names[1..^2]; //remove the first " " and last two characters: ", "
-            log.Add("Characters in affected area: " + names);
+            log.Add("Characters in affected area: " + names.ToString()[1..^2]);//remove the first " " and last two characters: ", "
 
             //Deal damage to each target
             int totalDamageDealt = 0;
@@ -175,7 +177,7 @@ namespace Battle.Logic.Encounters
             //{
             //    damageDealt = targetCharacter.HP;
             //}
-            int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorPiercing);
+            int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
             if (armorPiercing > 0)
             {
                 log.Add("Armor was ignored due to 'armor piercing' ability");
@@ -192,7 +194,7 @@ namespace Battle.Logic.Encounters
             targetCharacter.Hitpoints -= damageDealt;
 
             //Process armor shredding
-            int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityTypeEnum.ArmorShredding);
+            int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
             targetCharacter.ArmorPoints -= armorShredderDamage;
 
             //Update log

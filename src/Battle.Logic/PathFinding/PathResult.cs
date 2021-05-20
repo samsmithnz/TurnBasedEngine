@@ -6,14 +6,14 @@ namespace Battle.Logic.PathFinding
     public class PathResult
     {
 
-        public List<Tile> Tiles;
-        public List<Vector3> Path;
-
         public PathResult()
         {
             Tiles = new();
             Path = new ();
         }
+
+        public List<Tile> Tiles { get; set; }
+        public List<Vector3> Path { get; set; }
 
         public Tile GetLastTile()
         {

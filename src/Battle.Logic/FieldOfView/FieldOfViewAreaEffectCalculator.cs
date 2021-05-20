@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Battle.Logic.FieldOfView
 {
-    public class FieldOfViewAreaEffectCalculator
+    public static class FieldOfViewAreaEffectCalculator
     {
         public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int radius)
         {

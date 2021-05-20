@@ -6,7 +6,7 @@ namespace Battle.Logic.Encounters
 
     //Largely sourced from here: https://www.ufopaedia.org/index.php/Chance_to_Hit_(EU2012)#Weapon_Range
     //But couldn't get the formulas to work, so just dumped the numbers since there is less than a dozen options per gun
-    public class Range
+    public static class Range
     {
         public static int GetDistance(Vector3 sourceLocation, Vector3 targetLocation)
         {
@@ -23,11 +23,11 @@ namespace Battle.Logic.Encounters
         {
             switch (weapon.Type)
             {
-                case WeaponEnum.Standard:
+                case WeaponType.Standard:
                     return GetStandardWeaponRangeModifier(distance);
-                case WeaponEnum.Shotgun:
+                case WeaponType.Shotgun:
                     return GetShotgunWeaponRangeModifier(distance);
-                case WeaponEnum.SniperRifle:
+                case WeaponType.SniperRifle:
                     return GetSniperWeaponRangeModifier(distance);
                 default:
                     return 0;
