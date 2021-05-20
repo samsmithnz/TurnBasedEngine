@@ -11,11 +11,6 @@ namespace Battle.Logic.Encounters
         public static int GetDistance(Vector3 sourceLocation, Vector3 targetLocation)
         {
             int distance = (int)Vector3.Distance(sourceLocation, targetLocation);
-            //bool isDiagonalDirection = true;
-            //if (sourceLocation.X == targetLocation.X | sourceLocation.Z == targetLocation.Z)
-            //{
-            //    isDiagonalDirection = false;
-            //}
             return distance;
         }
 
@@ -37,22 +32,6 @@ namespace Battle.Logic.Encounters
 
         private static int GetStandardWeaponRangeModifier(int distance)//, bool isDiagonalDirection)
         {
-            ////Diagonal line/direction
-            //if (isDiagonalDirection == true)
-            //{
-                //switch (distance)
-                //{
-                //    case 1: return 35;
-                //    case 2: return 29;
-                //    case 3: return 23;
-                //    case 4: return 16;
-                //    case 5: return 10;
-                //    case 6: return 4;
-                //    default: return 0;
-                //}
-            //}
-            //else //Straight line/direction
-            //{
             switch (distance)
             {
                 case 1: return 37;
@@ -66,7 +45,6 @@ namespace Battle.Logic.Encounters
                 case 9: return 1;
                 default: return 0;
             }
-            //}
         }
 
         private static int GetShotgunWeaponRangeModifier(int distance)

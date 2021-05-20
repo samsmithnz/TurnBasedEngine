@@ -104,7 +104,7 @@ namespace Battle.Logic.FieldOfView
             List<Vector3> filteredResults = new();
             foreach (Vector3 item in results)
             {
-                if (item.X >= minX & item.X <= maxX & item.Z >= minZ & item.Z <= maxZ)
+                if (item.X >= minX && item.X <= maxX && item.Z >= minZ && item.Z <= maxZ)
                 {
                     filteredResults.Add(item);
                 }
@@ -112,56 +112,6 @@ namespace Battle.Logic.FieldOfView
 
             return filteredResults;
         }
-
-        /// <summary>
-        /// Draws a circle.
-        /// </summary>
-        /// <param name="image">
-        /// The destination image.
-        /// </param>
-        /// <param name="centerX">
-        /// The x center position of the circle.
-        /// </param>
-        /// <param name="centerY">
-        /// The y center position of the circle.
-        /// </param>
-        /// <param name="radius">
-        /// The radius of the circle.
-        /// </param>  
-        /// <param name="color">
-        /// The color to use.
-        /// </param>    
-        //private static void DrawCircle(this GenericImage image, int centerX, int centerY, int radius)
-        //{
-        //    //The center of the circle and its radius.
-        //    int x = 100;
-        //    int y = 100;
-        //    int r = 50;
-        //    //This here is sin(45) but i just hard-coded it.
-        //    float sinus = 0.70710678118;
-        //    //This is the distance on the axis from sin(90) to sin(45). 
-        //    int range = r / (2 * sinus);
-        //    for (int i = r; i >= range; --i)
-        //    {
-        //        int j = sqrt(r * r - i * i);
-        //        for (int k = -j; k <= j; k++)
-        //        {
-        //            //We draw all the 4 sides at the same time.
-        //            PutPixel(x - k, y + i);
-        //            PutPixel(x - k, y - i);
-        //            PutPixel(x + i, y + k);
-        //            PutPixel(x - i, y - k);
-        //        }
-        //    }
-        //    //To fill the circle we draw the circumscribed square.
-        //    range = r * sinus;
-        //    for (int i = x - range + 1; i < x + range; i++)
-        //    {
-        //        for (int j = y - range + 1; j < y + range; j++)
-        //        {
-        //            PutPixel(i, j);
-        //        }
-        //    }
-        //}
+       
     }
 }

@@ -1,12 +1,10 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
+﻿using Battle.Logic.Characters;
+using Battle.Logic.FieldOfView;
 using Battle.Logic.MainGame;
-using Battle.Logic.Weapons;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -28,12 +26,71 @@ namespace Battle.Tests.FieldOfView
             teamBaddie.Characters.Add(jeff);
 
             //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
             List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
             Assert.AreEqual("Jeff", characters[0].Name);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o P o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+P o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+        [TestMethod]
+        public void FredCanSeeJeffInAngleTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[7, 7] = "■";
+            map[8, 7] = "■";
+            map[9, 7] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(93, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o □ 
+o o o o o o o o P □ 
+o o o o o o o ■ ■ ■ 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+P o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
         [TestMethod]
@@ -41,20 +98,293 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(8, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[7, 7] = "W";
-            map[8, 7] = "W";
-            map[9, 7] = "W";
+            map[7, 7] = "■";
+            map[8, 7] = "■";
+            map[9, 7] = "■";
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
             //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
             List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
 
             //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(90, fov.Count);
             Assert.IsTrue(characters != null);
             Assert.AreEqual(0, characters.Count);
+            string mapResult = @"
+o o o o o o o □ □ □ 
+o o o o o o o □ P □ 
+o o o o o o o ■ ■ ■ 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o P o 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+        [TestMethod]
+        public void FredCanSeeJeffInNorthCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(8, 0, 0);
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[8, 7] = "■";
+            map[9, 7] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(93, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o □ □ 
+o o o o o o o o P □ 
+o o o o o o o o ■ ■ 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o P o 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+
+
+        [TestMethod]
+        public void FredCanSeeJeffInSouthCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(8, 0, 8);
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new(8, 0, 1);
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[8, 2] = "■";
+            map[9, 2] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(93, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o P o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o ■ ■ 
+o o o o o o o o P □ 
+o o o o o o o o □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+
+
+        [TestMethod]
+        public void FredCanSeeJeffInEastCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(1, 0, 7);
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new(9, 0, 7);
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[8, 7] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(97, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o o o 
+o P o o o o o o ■ P 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+
+        [TestMethod]
+        public void FredCanSeeJeffInWestCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(9, 0, 7); 
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new(0, 0, 7);
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[1, 7] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(97, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o o o 
+P ■ o o o o o o o P 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+        [TestMethod]
+        public void JeffCannotSeeFredTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[7, 7] = "■";
+            map[8, 7] = "■";
+            map[9, 7] = "■";
+            Team teamGood = new();
+            teamGood.Characters.Add(fred);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, jeff.Location, jeff.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = jeff.GetCharactersInView(map, new List<Team> { teamGood });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(33, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(0, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o P o 
+o o o o o o o ■ ■ ■ 
+o o o o o □ □ □ □ □ 
+o o □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+P □ □ □ □ □ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+        [TestMethod]
+        public void FredShouldSeeJeffInCoverTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new Vector3(2, 0, 2);
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new Vector3(2, 0, 6);
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[2, 5] = "■";
+            Team teamBaddie = new();
+            teamBaddie.Characters.Add(jeff);
+
+            //Act
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            string[,] mapFov = MapGeneration.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)jeff.Location.X, (int)jeff.Location.Z] = "P";
+            mapFov[(int)fred.Location.X, (int)fred.Location.Z] = "P";
+            string mapString = MapGeneration.GetMapString(mapFov, 10, 10);
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(fov != null);
+            Assert.AreEqual(90, fov.Count);
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o □ □ □ o o o o o o 
+o □ □ □ o o o o o o 
+o o □ o o o o o o o 
+o o P o o o o o o o 
+o o ■ o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o P o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
     }

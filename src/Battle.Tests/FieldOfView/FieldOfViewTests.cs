@@ -51,7 +51,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange
             string[,] map = MapUtility.InitializeMap(5, 5);
-            map[3, 2] = "W";
+            map[3, 2] = "■";
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
@@ -126,11 +126,11 @@ namespace Battle.Tests.FieldOfView
             string[,] map = MapUtility.InitializeMap(10, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
-            map[3, 4] = "W";
-            map[3, 3] = "W";
-            map[4, 3] = "W";
-            map[5, 3] = "W";
-            map[5, 4] = "W";
+            map[3, 4] = "■";
+            map[3, 3] = "■";
+            map[4, 3] = "■";
+            map[5, 3] = "■";
+            map[5, 4] = "■";
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
@@ -185,11 +185,11 @@ namespace Battle.Tests.FieldOfView
             string[,] map = MapUtility.InitializeMap(5, 5);
             int range = 10;
             Vector3 startingLocation = new(2, 0, 2);
-            map[1, 2] = "W";
-            map[1, 1] = "W";
-            map[2, 1] = "W";
-            map[3, 1] = "W";
-            map[3, 2] = "W";
+            map[1, 2] = "■";
+            map[1, 1] = "■";
+            map[2, 1] = "■";
+            map[3, 1] = "■";
+            map[3, 2] = "■";
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);

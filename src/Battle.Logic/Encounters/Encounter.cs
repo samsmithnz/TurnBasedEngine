@@ -36,12 +36,10 @@ namespace Battle.Logic.Encounters
 
             //Deal damage to each target
             int totalDamageDealt = 0;
-            //int characterDamageDealt;
             foreach (Character targetCharacter in areaEffectTargets)
             {
                 EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, true);
                 sourceCharacter = tempResult.SourceCharacter;
-                //targetCharacter = tempResult.TargetCharacter;
                 damageDealt = tempResult.DamageDealt;
                 totalDamageDealt += damageDealt;
                 isCriticalHit = tempResult.IsCriticalHit;
@@ -52,7 +50,7 @@ namespace Battle.Logic.Encounters
             List<Vector3> area = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
             foreach (Vector3 item in area)
             {
-                if (map[(int)item.X, (int)item.Z] == "W")
+                if (map[(int)item.X, (int)item.Z] == "■")
                 {
                     map[(int)item.X, (int)item.Z] = "";
                     log.Add("Cover removed from " + item.ToString());
@@ -172,11 +170,6 @@ namespace Battle.Logic.Encounters
                         lowDamage, highDamage,
                         damageRollPercent);
 
-            //If the damage dealt is more than the health, set damage to be equal to health
-            //if (targetCharacter.HP <= damageDealt)
-            //{
-            //    damageDealt = targetCharacter.HP;
-            //}
             int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
             if (armorPiercing > 0)
             {
@@ -202,7 +195,7 @@ namespace Battle.Logic.Encounters
             {
                 log.Add(armorShredderDamage.ToString() + " armor points shredded");
             }
-            if (targetCharacter.ArmorPoints > 0 & armorPiercing == 0)
+            if (targetCharacter.ArmorPoints > 0 && armorPiercing == 0)
             {
                 log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
             }
@@ -212,7 +205,6 @@ namespace Battle.Logic.Encounters
             int xp;
             if (targetCharacter.Hitpoints <= 0)
             {
-                //targetCharacter.HP = 0;
                 log.Add(targetCharacter.Name + " is killed");
                 xp = Experience.GetExperience(true, true);
             }

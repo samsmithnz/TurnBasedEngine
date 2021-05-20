@@ -539,7 +539,7 @@ Fred is ready to level up
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "W"; //Add cover 
+            map[2, 3] = "■"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
@@ -584,7 +584,7 @@ Critical chance: 20, (dice roll: 0)
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "W"; //Add cover 
+            map[2, 3] = "■"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
@@ -633,7 +633,7 @@ Fred is ready to level up
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(5, 5);
-            map[2, 3] = "W"; //Add cover 
+            map[2, 3] = "■"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Weapon rifle = fred.WeaponEquipped;
@@ -667,7 +667,7 @@ Fred is ready to level up
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "W"; //Add cover 
+            map[2, 3] = "■"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Weapon rifle = fred.WeaponEquipped;
@@ -710,7 +710,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "W"; //Add cover 
+            map[2, 3] = "■"; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Weapon rifle = fred.WeaponEquipped;

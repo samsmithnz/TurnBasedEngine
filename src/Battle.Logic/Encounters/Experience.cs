@@ -57,18 +57,7 @@
                         result= true;
                     }
                     break;
-                //case 2:
-                //    if (experience >= Level2ExperienceUp)
-                //    {
-                //        result = true;
-                //    }
-                //    break;
-                    //case 3:
-                    //    if (experience >= 510)
-                    //    {
-                    //        result = true;
-                    //    }
-                    //    break;  
+
             }
             return result;
         }

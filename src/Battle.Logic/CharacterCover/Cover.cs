@@ -12,7 +12,6 @@ namespace Battle.Logic.CharacterCover
         /// <returns>True if the player is in cover</returns>
         public static CoverState CalculateCover(Vector3 defenderPosition, int width, int height, string[,] validTiles, List<Vector3> attackerLocations)
         {
-            //TODO: Why is attackerpositions a list?
             CoverState result = new();
             List<Vector3> coverTiles = FindAdjacentCover(defenderPosition, width, height, validTiles);
             int coverLineNorth = -1;
@@ -87,11 +86,6 @@ namespace Battle.Logic.CharacterCover
                             currentLocationIsFlanked = true;
                             break;
                         }
-                        //else if (result.InNorthCover == true && enemyItem.Y < coverLineNorth && result.InEastCover == true && enemyItem.X < coverLineEast)
-                        //{
-                        //    currentLocationIsFlanked = true;
-                        //    break;
-                        //}
                         else if (result.InNorthCover == true && enemyItem.Z <= coverLineNorth && result.InEastCover == false) //There is cover in the North, but the enemy is past it + no East cover
                         {
                             currentLocationIsFlanked = true;
@@ -112,11 +106,6 @@ namespace Battle.Logic.CharacterCover
                             currentLocationIsFlanked = true;
                             break;
                         }
-                        //else if (result.InNorthCover != true && enemyItem.Y <= coverLineNorth && result.InWestCover != true && enemyItem.X >= coverLineWest)
-                        //{
-                        //    currentLocationIsFlanked = true;
-                        //    break;
-                        //}
                         else if (result.InNorthCover == true && enemyItem.Z <= coverLineNorth && result.InWestCover == false)
                         {
                             currentLocationIsFlanked = true;
@@ -137,11 +126,6 @@ namespace Battle.Logic.CharacterCover
                             currentLocationIsFlanked = true;
                             break;
                         }
-                        //else if (result.InSouthCover != true && enemyItem.Y >= coverLineSouth && result.InEastCover != true && enemyItem.X <= coverLineEast)
-                        //{
-                        //    currentLocationIsFlanked = true;
-                        //    break;
-                        //}
                         else if (result.InSouthCover == true && enemyItem.Z >= coverLineSouth && result.InEastCover == false)
                         {
                             currentLocationIsFlanked = true;
@@ -162,11 +146,6 @@ namespace Battle.Logic.CharacterCover
                             currentLocationIsFlanked = true;
                             break;
                         }
-                        //else if (result.InSouthCover != true && enemyItem.Y >= coverLineSouth && result.InWestCover != true && enemyItem.X >= coverLineWest)
-                        //{
-                        //    currentLocationIsFlanked = true;
-                        //    break;
-                        //}
                         else if (result.InSouthCover == true && enemyItem.Z >= coverLineSouth && result.InWestCover == false)
                         {
                             currentLocationIsFlanked = true;
@@ -221,19 +200,19 @@ namespace Battle.Logic.CharacterCover
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMax)] == "W")
+            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMax)] == "■")
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (validTiles[Convert.ToInt32(xMax), Convert.ToInt32(currentLocation.Z)] == "W")
+            if (validTiles[Convert.ToInt32(xMax), Convert.ToInt32(currentLocation.Z)] == "■")
             {
                 result.Add(new Vector3(xMax, 0f, currentLocation.Z));
             }
-            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMin)] == "W")
+            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMin)] == "■")
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMin));
             }
-            if (validTiles[Convert.ToInt32(xMin), Convert.ToInt32(currentLocation.Z)] == "W")
+            if (validTiles[Convert.ToInt32(xMin), Convert.ToInt32(currentLocation.Z)] == "■")
             {
                 result.Add(new Vector3(xMin, 0f, currentLocation.Z));
             }
