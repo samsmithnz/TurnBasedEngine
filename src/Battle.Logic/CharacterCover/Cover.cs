@@ -193,7 +193,7 @@ namespace Battle.Logic.CharacterCover
         private static List<Vector3> FindAdjacentCover(Vector3 currentLocation, int width, int height, string[,] validTiles)
         {
             List<Vector3> result = new();
-            if (currentLocation.X > width - 1 | currentLocation.Z > height - 1)
+            if (currentLocation.X > width - 1 || currentLocation.Z > height - 1)
             {
                 throw new Exception("The character is off the map");
             }
