@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 
 namespace Battle.Logic.FieldOfView
 {
@@ -123,6 +124,42 @@ namespace Battle.Logic.FieldOfView
                 }
             }
             yield break;
+        }
+
+
+        public static string GetMapString(string[,] map, int xMax, int zMax)
+        {
+            StringBuilder sb = new();
+            sb.Append(Environment.NewLine);
+            for (int z = zMax - 1; z >= 0; z--)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    if (map[x, z] != "")
+                    {
+                        sb.Append(map[x, z] + " ");
+                    }
+                    else
+                    {
+                        sb.Append("□ ");
+                    }
+                }
+                sb.Append(Environment.NewLine);
+            }
+            return sb.ToString();
+        }
+
+        public static string[,] ApplyListToMap(string[,] map, List<Vector3> list, string tile)
+        {
+            foreach (Vector3 item in list)
+            {
+                if (map[(int)item.X, (int)item.Z] == "")
+                {
+                    map[(int)item.X, (int)item.Z] = tile;
+                }
+            }
+
+            return map;
         }
     }
 }

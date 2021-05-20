@@ -115,6 +115,23 @@ namespace Battle.Logic.Characters
             return results;
         }
 
+        public string GetCharactersInViewMapString(string[,] map, List<Team> teams)
+        {
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, Location, Range);
+            string[,] mapFov = FieldOfViewCalculator.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            mapFov[(int)Location.X, (int)Location.Z] = "P";
+            foreach (Team team in teams)
+            {
+                foreach (Character character in team.Characters)
+                {
+                    mapFov[(int)character.Location.X, (int)character.Location.Z] = "P";
+                }
+            }
+            string mapString = FieldOfViewCalculator.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));
+
+            return mapString;
+        }
+
         private static bool LocationIsAdjacentToList(Vector3 location, List<Vector3> list)
         {
             foreach (Vector3 item in list)
@@ -127,7 +144,7 @@ namespace Battle.Logic.Characters
                 {
                     return true;
                 }
-                else if (item.X == location.X && item.Z - 1 == location.Z )
+                else if (item.X == location.X && item.Z - 1 == location.Z)
                 {
                     return true;
                 }
