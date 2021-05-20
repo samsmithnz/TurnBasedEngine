@@ -284,6 +284,22 @@ namespace Battle.Tests.PathFinding
         }
 
 
+
+        [TestMethod]
+        public void TileTest()
+        {
+            //Arrange
+            Tile tile = new(3,3,"", new Vector3(6, 0, 6));
+
+            //Act
+            string result = tile.ToString();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("3, 0: Untested", result);
+        }
+
+
         #region "Create huge map"
 
         private static string[,] CreateGiantMap()

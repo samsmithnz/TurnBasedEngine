@@ -57,5 +57,26 @@ namespace Battle.Tests.FieldOfView
             Assert.AreEqual(0, characters.Count);
         }
 
+        //[TestMethod]
+        //public void FredShouldSeeJeffInCoverTest()
+        //{
+        //    //Arrange
+        //    Character fred = CharacterPool.CreateFredHero();
+        //    fred.Location = new Vector3(2, 0, 2);
+        //    Character jeff = CharacterPool.CreateJeffBaddie();
+        //    jeff.Location = new Vector3(2, 0, 6);
+        //    string[,] map = MapUtility.InitializeMap(10, 10);
+        //    map[2, 5] = "W";
+        //    Team teamBaddie = new();
+        //    teamBaddie.Characters.Add(jeff);
+
+        //    //Act
+        //    List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+        //    //Assert
+        //    Assert.IsTrue(characters != null);
+        //    Assert.AreEqual(1, characters.Count);
+        //}
+
     }
 }
