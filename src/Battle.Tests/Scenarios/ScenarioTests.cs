@@ -1,4 +1,4 @@
-using Battle.Logic.Characters;
+﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.MainGame;
 using Battle.Logic.Movement;
@@ -21,8 +21,8 @@ namespace Battle.Tests.Scenarios
             Game game = new();
             game.TurnNumber = 1;
             game.Map = MapUtility.InitializeMap(50, 50);
-            game.Map[6, 5] = "W";
-            game.Map[20, 11] = "W";
+            game.Map[6, 5] = "■";
+            game.Map[20, 11] = "■";
             Character fred = CharacterPool.CreateFredHero();
             Team team1 = new()
             {

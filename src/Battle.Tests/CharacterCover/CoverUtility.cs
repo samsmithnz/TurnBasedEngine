@@ -18,12 +18,12 @@ namespace Battle.Tests.CharacterCover
                 }
             }
 
-            //assign cover locations, (currently just "W", for "wall")
+            //assign cover locations, (currently just "■", for "wall")
             if (coverLocations != null && coverLocations.Count > 0)
             {
                 foreach (Vector3 item in coverLocations)
                 {
-                    map[(int)item.X, (int)item.Z] = "W";
+                    map[(int)item.X, (int)item.Z] = "■";
                 }
             }
 

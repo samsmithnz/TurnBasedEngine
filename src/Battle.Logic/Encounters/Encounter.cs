@@ -50,7 +50,7 @@ namespace Battle.Logic.Encounters
             List<Vector3> area = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
             foreach (Vector3 item in area)
             {
-                if (map[(int)item.X, (int)item.Z] == "W")
+                if (map[(int)item.X, (int)item.Z] == "■")
                 {
                     map[(int)item.X, (int)item.Z] = "";
                     log.Add("Cover removed from " + item.ToString());

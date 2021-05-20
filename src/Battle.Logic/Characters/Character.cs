@@ -95,18 +95,48 @@ namespace Battle.Logic.Characters
             {
                 foreach (Character character in team.Characters)
                 {
+                    bool addedCharacter = false;
                     foreach (Vector3 location in fovVectors)
                     {
                         if (character.Location == location)
                         {
+                            addedCharacter = true;
                             results.Add(character);
                             break;
                         }
+                    }
+                    if (addedCharacter == false && LocationIsAdjacentToList(character.Location, fovVectors) == true)
+                    {
+                        results.Add(character);
                     }
                 }
             }
 
             return results;
+        }
+
+        private static bool LocationIsAdjacentToList(Vector3 location, List<Vector3> list)
+        {
+            foreach (Vector3 item in list)
+            {
+                if (item.X - 1 == location.X && item.Z == location.Z)
+                {
+                    return true;
+                }
+                else if (item.X + 1 == location.X && item.Z == location.Z)
+                {
+                    return true;
+                }
+                else if (item.X == location.X && item.Z - 1 == location.Z )
+                {
+                    return true;
+                }
+                else if (item.X == location.X && item.Z + 1 == location.Z)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
