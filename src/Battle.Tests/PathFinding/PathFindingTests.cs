@@ -28,6 +28,8 @@ namespace Battle.Tests.PathFinding
             Assert.IsNotNull(pathResult.Path);
             Assert.IsTrue(pathResult.Path.Any());
             Assert.AreEqual(4, pathResult.Path.Count);
+            Assert.AreEqual("<2, 0, 2>", pathResult.Path[0].ToString());
+            Assert.AreEqual("<5, 0, 2>", pathResult.Path[3].ToString());
         }
 
         [TestMethod]

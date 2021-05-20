@@ -77,10 +77,6 @@ namespace Battle.Logic.Encounters
             {
                 chanceToCrit = 0;
             }
-            //if (chanceToCrit > 100)
-            //{
-            //    chanceToCrit = 100;
-            //}
             return chanceToCrit;
         }
 

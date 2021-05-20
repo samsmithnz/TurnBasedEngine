@@ -78,10 +78,10 @@ namespace Battle.Logic.PathFinding
             }
         }
 
-        //public override string ToString()
-        //{
-        //    return string.Format("{0}, {1}: {2}", this.Location.X, this.Location.Y, this.State);
-        //}
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}: {2}", this.Location.X, this.Location.Y, this.State);
+        }
 
         /// <summary>
         /// Gets the distance between two points
