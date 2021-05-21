@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Battle.Logic.CharacterCover;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Tests.CharacterCover
@@ -23,7 +24,7 @@ namespace Battle.Tests.CharacterCover
             {
                 foreach (Vector3 item in coverLocations)
                 {
-                    map[(int)item.X, (int)item.Z] = "■";
+                    map[(int)item.X, (int)item.Z] = CoverType.FullCover;
                 }
             }
 

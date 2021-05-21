@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.FieldOfView;
@@ -23,7 +24,7 @@ namespace Battle.Tests.Encounters
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -31,7 +32,7 @@ namespace Battle.Tests.Encounters
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -70,7 +71,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -78,7 +79,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -120,7 +121,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -128,7 +129,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityType.ArmorShredding, 2));
             fred.Location = new Vector3(2, 0, 0);
@@ -171,7 +172,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -179,7 +180,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Abilities.Add(new("Shredder", AbilityType.ArmorShredding, 2));
             fred.Location = new Vector3(2, 0, 0);
@@ -222,7 +223,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -230,7 +231,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -269,7 +270,7 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ H □ 
@@ -277,7 +278,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -327,7 +328,7 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ H □ 
@@ -335,7 +336,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -385,7 +386,7 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ H □ 
@@ -393,7 +394,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -441,7 +442,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □
             //  □ E ■ □ □ 
@@ -449,7 +450,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.Abilities.Add(new("Biggest Booms", AbilityType.CriticalDamage, 2));
@@ -504,7 +505,7 @@ Cover removed from <2, 0, 3>
             //Arrange
             //  "P" = player/fred
             //  "E" = enemy/jeff
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ E □ □
             //  □ □ ■ □ □ 
@@ -512,7 +513,7 @@ Cover removed from <2, 0, 3>
             //  □ □ □ □ □
             //  □ □ P □ □
             string[,] map = MapUtility.InitializeMap(5, 5);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -616,7 +617,7 @@ Cover removed from <2, 0, 3>
         {
             //Arrange
             string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 3] = "■"; //Add cover 
+            map[2, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
             fred.UtilityItemEquipped = null;

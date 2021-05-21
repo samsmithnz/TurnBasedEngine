@@ -1,4 +1,5 @@
-﻿using Battle.Logic.FieldOfView;
+﻿using Battle.Logic.CharacterCover;
+using Battle.Logic.FieldOfView;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ namespace Battle.Tests.FieldOfView
         public void BasicShallowLineWithNoCoverTest()
         {
             //Arrange
-            //string[,] map = MapUtility.InitializeMap(5, 5);
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
@@ -33,7 +33,6 @@ namespace Battle.Tests.FieldOfView
         public void BasicSteepLineWithNoCoverTest()
         {
             //Arrange
-            //string[,] map = MapUtility.InitializeMap(5, 5);
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 3, 1).ToList<Vector3>();
@@ -51,7 +50,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange
             string[,] map = MapUtility.InitializeMap(5, 5);
-            map[3, 2] = "■";
+            map[3, 2] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
@@ -80,7 +79,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange            
             //  "P" = player/fred
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
@@ -111,7 +110,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange            
             //  "P" = player/fred
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
@@ -126,11 +125,11 @@ namespace Battle.Tests.FieldOfView
             string[,] map = MapUtility.InitializeMap(10, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
-            map[3, 4] = "■";
-            map[3, 3] = "■";
-            map[4, 3] = "■";
-            map[5, 3] = "■";
-            map[5, 4] = "■";
+            map[3, 4] = CoverType.FullCover;
+            map[3, 3] = CoverType.FullCover;
+            map[4, 3] = CoverType.FullCover;
+            map[5, 3] = CoverType.FullCover;
+            map[5, 4] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
@@ -145,7 +144,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange            
             //  "P" = player/fred
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
@@ -174,7 +173,7 @@ namespace Battle.Tests.FieldOfView
         {
             //Arrange            
             //  "P" = player/fred
-            //  "■" = cover
+            //  CoverType.FullCover = cover
             //  "□" = open ground
 
             //  □ □ □ □ □ 
@@ -185,11 +184,11 @@ namespace Battle.Tests.FieldOfView
             string[,] map = MapUtility.InitializeMap(5, 5);
             int range = 10;
             Vector3 startingLocation = new(2, 0, 2);
-            map[1, 2] = "■";
-            map[1, 1] = "■";
-            map[2, 1] = "■";
-            map[3, 1] = "■";
-            map[3, 2] = "■";
+            map[1, 2] = CoverType.FullCover;
+            map[1, 1] = CoverType.FullCover;
+            map[2, 1] = CoverType.FullCover;
+            map[3, 1] = CoverType.FullCover;
+            map[3, 2] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
@@ -203,6 +202,30 @@ namespace Battle.Tests.FieldOfView
                 Assert.AreNotEqual(1, item.Z);
                 Assert.AreNotEqual(2, item.Z);
             }
+        }
+
+        [TestMethod]
+        public void LineLengthTest()
+        {
+            //Arrange            
+            Vector3 start = new(4, 0, 4);
+            Vector3 end1 = new(7, 0, 4);
+            Vector3 end2 = new(7, 0, 5);
+            Vector3 end3 = new(7, 0, 6);
+            Vector3 end4 = new(7, 0, 7);
+            int decimals = 1;
+
+            //Act
+            double result1 = FieldOfViewCalculator.GetLengthOfLine(start, end1, decimals);
+            double result2 = FieldOfViewCalculator.GetLengthOfLine(start, end2, decimals);
+            double result3 = FieldOfViewCalculator.GetLengthOfLine(start, end3, decimals);
+            double result4 = FieldOfViewCalculator.GetLengthOfLine(start, end4, decimals);
+
+            //Assert
+            Assert.AreEqual(3, result1);
+            Assert.AreEqual(3.2, result2);
+            Assert.AreEqual(3.6, result3);
+            Assert.AreEqual(4.2, result4);
         }
 
     }
