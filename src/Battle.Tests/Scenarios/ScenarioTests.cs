@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.CharacterCover;
+using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.MainGame;
 using Battle.Logic.Movement;
@@ -21,8 +22,8 @@ namespace Battle.Tests.Scenarios
             Game game = new();
             game.TurnNumber = 1;
             game.Map = MapUtility.InitializeMap(50, 50);
-            game.Map[6, 5] = "■";
-            game.Map[20, 11] = "■";
+            game.Map[6, 5] = CoverType.FullCover;
+            game.Map[20, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero();
             Team team1 = new()
             {
@@ -59,8 +60,63 @@ namespace Battle.Tests.Scenarios
             CharacterMovement.MoveCharacter(fred, game.Map, pathResult.Path, diceRolls, null);
 
             //Fred aims at Jeff, who is behind high cover. 
-            List<Character> characters = fred.GetCharactersInView(game.Map, new List<Team>() { team2 });       
+            string mapString1 = fred.GetCharactersInViewMapString(game.Map, new List<Team> { team2 });
+            List<Character> characters = fred.GetCharactersInView(game.Map, new List<Team>() { team2 });
             Assert.AreEqual(characters[0], jeff);
+            string mapResult1 = @"
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+□ □ o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o ■ □ □ □ □ o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o P o o o o o o o o o o P o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o ■ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o o □ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o o □ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ 
+o o o o □ □ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o o □ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+o o o □ □ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o □ □ □ □ □ □ □ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult1, mapString1);
+
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, game.Map, false);
             DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
@@ -143,7 +199,7 @@ Fred is ready to level up
             //End of of battle
 
             //Assert
-            Assert.AreEqual(-5,jeff.Hitpoints);
+            Assert.AreEqual(-5, jeff.Hitpoints);
         }
 
     }

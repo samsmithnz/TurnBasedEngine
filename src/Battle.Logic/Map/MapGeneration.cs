@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using Battle.Logic.CharacterCover;
 using Battle.Logic.Utility;
 
 namespace Battle.Logic.Map
@@ -16,7 +17,7 @@ namespace Battle.Logic.Map
                 {
                     if (((x != 0 && z != 0) || (x != xMax - 1 && z != zMax - 1)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(1, 100))
                     {
-                        map[x, z] = "■";
+                        map[x, z] = CoverType.FullCover;
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.FieldOfView;
 using Battle.Logic.Utility;
@@ -50,7 +51,7 @@ namespace Battle.Logic.Encounters
             List<Vector3> area = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
             foreach (Vector3 item in area)
             {
-                if (map[(int)item.X, (int)item.Z] == "■")
+                if (map[(int)item.X, (int)item.Z] == CoverType.FullCover)
                 {
                     map[(int)item.X, (int)item.Z] = "";
                     log.Add("Cover removed from " + item.ToString());

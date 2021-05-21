@@ -62,8 +62,13 @@ namespace Battle.Logic.FieldOfView
                     singleLineCheck.Reverse();
 
                 }
-                foreach (Vector3 fovItem in singleLineCheck)
+                double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[^1], 1);
+                double lineSegment = lineLength / singleLineCheck.Count;
+                double currentLength = 0;
+                for (int i = 0; i < singleLineCheck.Count; i++)
                 {
+                    currentLength += lineSegment;
+                    Vector3 fovItem = singleLineCheck[i];
                     //If we find an object, stop adding tiles
                     if (map[(int)fovItem.X, (int)fovItem.Z] != "")
                     {
@@ -76,6 +81,11 @@ namespace Battle.Logic.FieldOfView
                     else
                     {
                         results.Add(fovItem);
+                    }
+                    //We don't round, so this will extend the range a tiny part - but I think that is ok.
+                    if (currentLength >= range)
+                    {
+                        break;
                     }
                 }
             }
@@ -160,6 +170,12 @@ namespace Battle.Logic.FieldOfView
             }
 
             return map;
+        }
+
+        public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = 0)
+        {
+            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Z - start.Z), 2));
+            return Math.Round(lineLength, decimals);
         }
     }
 }

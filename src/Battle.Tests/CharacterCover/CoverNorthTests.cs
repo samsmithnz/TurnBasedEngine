@@ -11,7 +11,7 @@ namespace Battle.Tests.CharacterCover
     {
         // In the diagrams
         // "□" is open space
-        // "■" is cover/an object
+        // CoverType.FullCover is cover/an object
         // "S" is the player
         // "E" is the enemy/opponent
         // "E" will look at "S", and the cover system will determine if "S" is in cover or not
