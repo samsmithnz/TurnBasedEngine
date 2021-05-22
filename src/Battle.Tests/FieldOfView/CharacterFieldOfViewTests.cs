@@ -302,6 +302,41 @@ P □ □ □ □ □ □ □ □ □
         }
 
         [TestMethod]
+        public void JeffCanSeeFredTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            map[7, 7] = CoverType.HalfCover;
+            map[8, 7] = CoverType.FullCover;
+            map[9, 7] = CoverType.FullCover;
+            Team teamGood = new();
+            teamGood.Characters.Add(fred);
+
+            //Act
+            string mapString = jeff.GetCharactersInViewMapString(map, new List<Team> { teamGood });
+            List<Character> characters = jeff.GetCharactersInView(map, new List<Team> { teamGood });
+
+            //Assert
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o P o 
+o o o o o o o ▪ ■ ■ 
+o o o o o o o o □ □ 
+o o o o o o o □ □ □ 
+o o o o o o o □ □ □ 
+o o o o o o □ □ □ □ 
+o o o o o o □ □ □ □ 
+o o o o o □ □ □ □ □ 
+P o o o o □ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
+        }
+
+        [TestMethod]
         public void FredShouldSeeJeffInCoverTest()
         {
             //Arrange
