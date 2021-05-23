@@ -200,19 +200,19 @@ namespace Battle.Logic.CharacterCover
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMax)] == CoverType.FullCover)
+            if (validTiles[Convert.ToInt32(currentLocation.X), zMax] == CoverType.FullCover || validTiles[Convert.ToInt32(currentLocation.X), zMax] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (validTiles[Convert.ToInt32(xMax), Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover)
+            if (validTiles[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || validTiles[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMax, 0f, currentLocation.Z));
             }
-            if (validTiles[Convert.ToInt32(currentLocation.X), Convert.ToInt32(zMin)] == CoverType.FullCover)
+            if (validTiles[Convert.ToInt32(currentLocation.X), zMin] == CoverType.FullCover|| validTiles[Convert.ToInt32(currentLocation.X), zMin] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMin));
             }
-            if (validTiles[Convert.ToInt32(xMin), Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover)
+            if (validTiles[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover|| validTiles[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMin, 0f, currentLocation.Z));
             }

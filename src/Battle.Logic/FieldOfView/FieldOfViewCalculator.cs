@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Battle.Logic.CharacterCover;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -70,7 +71,7 @@ namespace Battle.Logic.FieldOfView
                     currentLength += lineSegment;
                     Vector3 fovItem = singleLineCheck[i];
                     //If we find an object, stop adding tiles
-                    if (map[(int)fovItem.X, (int)fovItem.Z] != "")
+                    if (map[(int)fovItem.X, (int)fovItem.Z] == CoverType.FullCover)
                     {
                         break;
                     }
