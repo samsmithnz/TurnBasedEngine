@@ -377,7 +377,7 @@ o o o o o o o o o o
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(5, 0, 5);
-            fred.Range = 3;
+            fred.ShootingRange = 3;
             string[,] map = MapUtility.InitializeMap(11, 11);
 
             //Act

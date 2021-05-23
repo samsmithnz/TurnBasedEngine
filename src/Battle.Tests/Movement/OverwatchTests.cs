@@ -28,7 +28,7 @@ namespace Battle.Tests.Overwatch
             Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
             PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
@@ -67,7 +67,7 @@ Fred is ready to level up
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
             PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
@@ -102,9 +102,9 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fovFred);
-            List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.Range);
+            List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.ShootingRange);
             KeyValuePair<Character, List<Vector3>> harryFOV = new(harry, fovHarry);
 
             PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
@@ -145,7 +145,7 @@ Fred is ready to level up
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
             PathResult pathResult = Path.FindPath(jeff.Location, destination, map);

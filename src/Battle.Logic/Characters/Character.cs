@@ -27,7 +27,8 @@ namespace Battle.Logic.Characters
         public List<Effect> Effects { get; set; }
         public Vector3 Location { get; set; }
         public int ActionPoints { get; set; }
-        public int Range { get; set; }
+        public int MovementRange { get; set; }
+        public int ShootingRange { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityItemEquipped { get; set; }
         public bool InHalfCover { get; set; }
@@ -90,7 +91,7 @@ namespace Battle.Logic.Characters
         {
             List<Character> results = new();
 
-            List<Vector3> fovVectors = FieldOfViewCalculator.GetFieldOfView(map, Location, Range);
+            List<Vector3> fovVectors = FieldOfViewCalculator.GetFieldOfView(map, Location, ShootingRange);
             foreach (Team team in teams)
             {
                 foreach (Character character in team.Characters)
@@ -117,7 +118,7 @@ namespace Battle.Logic.Characters
 
         public string GetCharactersInViewMapString(string[,] map, List<Team> teams)
         {
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, Location, Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, Location, ShootingRange);
             string[,] mapFov = FieldOfViewCalculator.ApplyListToMap((string[,])map.Clone(), fov, "o");
             mapFov[(int)Location.X, (int)Location.Z] = "P";
             foreach (Team team in teams)

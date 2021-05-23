@@ -9,6 +9,7 @@ namespace Battle.Logic.PathFinding
         private static int _height;
         private static Tile[,] _tiles;
         private static Vector3 _endLocation;
+        private static double _diagonalDistance = 1.414213562;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
