@@ -1,11 +1,9 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.FieldOfView;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
-using Battle.Tests.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;

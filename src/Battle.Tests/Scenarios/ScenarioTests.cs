@@ -1,9 +1,7 @@
-﻿using Battle.Logic.CharacterCover;
-using Battle.Logic.Characters;
+﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.MainGame;
-using Battle.Logic.Movement;
-using Battle.Logic.PathFinding;
+using Battle.Logic.GameController;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -57,8 +55,8 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            PathResult pathResult = Path.FindPath(fred.Location, new(9, 0, 10), game.Map);
-            CharacterMovement.MoveCharacter(fred, game.Map, pathResult.Path, diceRolls, null);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(fred.Location, new(9, 0, 10), game.Map);
+            CharacterMovement.MoveCharacter(fred, game.Map, PathFindingResult.Path, diceRolls, null);
 
             //Fred aims at Jeff, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(game.Map, new List<Team> { team2 });

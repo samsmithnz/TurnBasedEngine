@@ -1,8 +1,8 @@
-﻿using Battle.Logic.CharacterCover;
+﻿using Battle.Logic.Characters;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.CharacterCover
+namespace Battle.Tests.Characters
 {
     public class CoverUtility
     {

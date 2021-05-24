@@ -1,10 +1,9 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
+﻿using Battle.Logic.Encounters;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Battle.Logic.Movement
+namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {

@@ -1,34 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.PathFinding
+namespace Battle.Logic.Map
 {
-    public static class Path
+    public static class PathFinding
     {
         private static int _width;
         private static int _height;
-        private static Tile[,] _tiles;
+        private static MapTile[,] _tiles;
         private static Vector3 _endLocation;
+        //private static double _diagonalDistance = 1.414213562;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathResult FindPath(Vector3 startLocation, Vector3 endLocation, string[,] map)
+        public static PathFindingResult FindPath(Vector3 startLocation, Vector3 endLocation, string[,] map)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            Tile startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
+            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Z];
             startTile.State = TileState.Open;
-            Tile endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list
-            PathResult result = new();
+            PathFindingResult result = new();
             bool success = Search(startTile, endTile);
             if (success)
             {
                 // If a path was found, follow the parents from the end tile to build a list of locations
-                Tile tile = endTile;
+                MapTile tile = endTile;
                 while (tile.ParentTile != null)
                 {
                     result.Tiles.Add(tile);
@@ -52,12 +53,12 @@ namespace Battle.Logic.PathFinding
         {
             _width = map.GetLength(0);
             _height = map.GetLength(1);
-            _tiles = new Tile[_width, _height];
+            _tiles = new MapTile[_width, _height];
             for (int y = 0; y < _height; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, y] = new Tile(x, y, map[x, y], _endLocation);
+                    _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
                 }
             }
         }
@@ -67,11 +68,11 @@ namespace Battle.Logic.PathFinding
         /// </summary>
         /// <param name="currentTile">The tile from which to find a path</param>
         /// <returns>True if a path to the destination has been found, otherwise false</returns>
-        private static bool Search(Tile currentTile, Tile endTile)
+        private static bool Search(MapTile currentTile, MapTile endTile)
         {
             // Set the current tile to Closed since it cannot be traversed more than once
             currentTile.State = TileState.Closed;
-            List<Tile> nextTiles = GetAdjacentWalkableTiles(currentTile);
+            List<MapTile> nextTiles = GetAdjacentWalkableTiles(currentTile);
 
             // Sort by F-value so that the shortest possible routes are considered first
             nextTiles.Sort((tile1, tile2) => tile1.F.CompareTo(tile2.F));
@@ -101,9 +102,9 @@ namespace Battle.Logic.PathFinding
         /// </summary>
         /// <param name="fromTile">The tile from which to return the next possible tiles in the path</param>
         /// <returns>A list of next possible tiles in the path</returns>
-        private static List<Tile> GetAdjacentWalkableTiles(Tile fromTile)
+        private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
-            List<Tile> walkableTiles = new();
+            List<MapTile> walkableTiles = new();
             IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
 
             foreach (var location in nextLocations)
@@ -117,7 +118,7 @@ namespace Battle.Logic.PathFinding
                     continue;
                 }
 
-                Tile tile = _tiles[x, z];
+                MapTile tile = _tiles[x, z];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {

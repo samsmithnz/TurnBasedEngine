@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
-using Battle.Logic.CharacterCover;
+using Battle.Logic.Characters;
 using Battle.Logic.Utility;
 
 namespace Battle.Logic.Map

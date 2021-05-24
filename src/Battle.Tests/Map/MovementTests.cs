@@ -1,14 +1,12 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.Movement;
-using Battle.Logic.PathFinding;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.Movement
+namespace Battle.Tests.Map
 {
     [TestClass]
     [TestCategory("L0")]
@@ -21,17 +19,17 @@ namespace Battle.Tests.Movement
             Character fred = CharacterPool.CreateFredHero();
             string[,] map = MapUtility.InitializeMap(10, 10);
             Vector3 destination = new(8, 0, 0);
-            Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathResult pathResult = Path.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathResult.Path, diceRolls);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, PathFindingResult.Path, diceRolls);
 
             //Assert
-            Assert.IsTrue(pathResult != null);
+            Assert.IsTrue(PathFindingResult != null);
             Assert.AreEqual(destination, fred.Location);
-            Assert.AreEqual(8, pathResult.Path.Count);
-            Assert.AreEqual(0, movementResults.Count); 
+            Assert.AreEqual(8, PathFindingResult.Path.Count);
+            Assert.AreEqual(0, movementResults.Count);
         }
     }
 }

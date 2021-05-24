@@ -1,12 +1,11 @@
-﻿using Battle.Logic.CharacterCover;
-using Battle.Logic.FieldOfView;
-using Battle.Tests.Map;
+﻿using Battle.Logic.Characters;
+using Battle.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Battle.Tests.FieldOfView
+namespace Battle.Tests.Map
 {
     [TestClass]
     [TestCategory("L0")]

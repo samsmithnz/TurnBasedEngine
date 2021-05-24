@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Battle.Logic.PathFinding
+namespace Battle.Logic.Map
 {
-    public class Tile
+    public class MapTile
     {
         /// <summary>
         /// Creates a new instance of Node.
@@ -12,7 +12,7 @@ namespace Battle.Logic.PathFinding
         /// <param name="y">The node's location along the Y axis</param>
         /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
         /// <param name="endLocation">The location of the destination node</param>
-        public Tile(int x, int z, string tileType, Vector3 endLocation)
+        public MapTile(int x, int z, string tileType, Vector3 endLocation)
         {
             this.Location = new Vector3(x, 0,z);
             this.State = TileState.Untested;
@@ -60,11 +60,11 @@ namespace Battle.Logic.PathFinding
             get { return Convert.ToInt32(F); }
         }
 
-        private Tile _parentTile;
+        private MapTile _parentTile;
         /// <summary>
         /// Gets or sets the parent node. The start node's parent is always null.
         /// </summary>
-        public Tile ParentTile
+        public MapTile ParentTile
         {
             get
             {

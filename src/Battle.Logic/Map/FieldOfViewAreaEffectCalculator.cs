@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.FieldOfView
+namespace Battle.Logic.Map
 {
     public static class FieldOfViewAreaEffectCalculator
     {

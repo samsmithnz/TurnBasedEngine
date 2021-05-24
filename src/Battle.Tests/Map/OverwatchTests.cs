@@ -1,15 +1,12 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.FieldOfView;
-using Battle.Logic.Movement;
-using Battle.Logic.PathFinding;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.Overwatch
+namespace Battle.Tests.Map
 {
     [TestClass]
     [TestCategory("L0")]
@@ -28,14 +25,14 @@ namespace Battle.Tests.Overwatch
             Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
+            PathFindingResult PathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, PathFindingResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(pathResult != null);
+            Assert.IsTrue(PathFindingResult != null);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience); 
@@ -67,14 +64,14 @@ Fred is ready to level up
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
+            PathFindingResult PathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, PathFindingResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(pathResult != null);
+            Assert.IsTrue(PathFindingResult != null);
             Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
@@ -102,16 +99,16 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fovFred = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fovFred);
-            List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.Range);
+            List<Vector3> fovHarry = FieldOfViewCalculator.GetFieldOfView(map, harry.Location, harry.ShootingRange);
             KeyValuePair<Character, List<Vector3>> harryFOV = new(harry, fovHarry);
 
-            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV, harryFOV });
+            PathFindingResult PathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, PathFindingResult.Path, diceRolls, new() { fredFOV, harryFOV });
 
             //Assert
-            Assert.IsTrue(pathResult != null);
+            Assert.IsTrue(PathFindingResult != null);
             Assert.AreEqual(0, jeff.Hitpoints);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
@@ -145,14 +142,14 @@ Fred is ready to level up
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.Range);
+            List<Vector3> fov = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, fred.ShootingRange);
             KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
 
-            PathResult pathResult = Path.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathResult.Path, diceRolls, new() { fredFOV });
+            PathFindingResult PathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, PathFindingResult.Path, diceRolls, new() { fredFOV });
 
             //Assert
-            Assert.IsTrue(pathResult != null);
+            Assert.IsTrue(PathFindingResult != null);
             Assert.AreEqual(12, jeff.Hitpoints);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);

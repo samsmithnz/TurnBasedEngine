@@ -1,7 +1,6 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
-using Battle.Logic.FieldOfView;
+using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using Battle.Logic.Weapons;
 using System.Collections.Generic;
