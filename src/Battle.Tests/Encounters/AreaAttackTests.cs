@@ -522,7 +522,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act 1: get the FOV
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, 10);
+            List<Vector3> results = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert: check the initial FOV
             Assert.AreEqual(22, results.Count);
@@ -548,7 +548,7 @@ Cover removed from <2, 0, 3>
 
             //Act 2: Now destroy the cover
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
-            results = FieldOfViewCalculator.GetFieldOfView(map, fred.Location, 10);
+            results = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
             Assert.AreEqual(24, results.Count);

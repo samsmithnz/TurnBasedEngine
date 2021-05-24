@@ -18,7 +18,7 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -37,7 +37,7 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -58,7 +58,7 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -78,7 +78,7 @@ namespace Battle.Tests.Map
             int radius = 3;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -98,7 +98,7 @@ namespace Battle.Tests.Map
             int radius = 3;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffectCalculator.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
 
             //Assert
             Assert.IsTrue(results != null);

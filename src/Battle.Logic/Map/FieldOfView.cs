@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Battle.Logic.Map
 {
-    public static class FieldOfViewCalculator
+    public static class FieldOfView
     {
         public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
         {
@@ -54,7 +54,7 @@ namespace Battle.Logic.Map
             HashSet<Vector3> results = new();
             foreach (Vector3 borderItem in borderTiles)
             {
-                List<Vector3> singleLineCheck = FieldOfViewCalculator.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
+                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
                 if (singleLineCheck.Count > 0 &&
                     singleLineCheck[^1].X == startingX &&
                     singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
