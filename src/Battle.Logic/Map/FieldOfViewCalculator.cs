@@ -1,11 +1,11 @@
-﻿using Battle.Logic.CharacterCover;
+﻿using Battle.Logic.Characters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace Battle.Logic.FieldOfView
+namespace Battle.Logic.Map
 {
     public static class FieldOfViewCalculator
     {

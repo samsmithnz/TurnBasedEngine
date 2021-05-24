@@ -1,15 +1,11 @@
-﻿using Battle.Logic.CharacterCover;
-using Battle.Logic.Characters;
-using Battle.Logic.FieldOfView;
-using Battle.Logic.MainGame;
-using Battle.Logic.Map;
+﻿using Battle.Logic.Characters;
+using Battle.Logic.GameController;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.FieldOfView
+namespace Battle.Tests.Map
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]

@@ -1,5 +1,4 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.CharacterCover;
 using Battle.Logic.Characters;
 using Battle.Logic.Weapons;
 using System;
@@ -124,7 +123,7 @@ namespace Battle.Logic.Encounters
             Console.WriteLine(sourceCharacter.Location);
             Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
-            CoverState coverState = Cover.CalculateCover(targetCharacter.Location, map.GetLength(0), map.GetLength(1), map, new() { sourceCharacter.Location });
+            CoverState coverState = Characters.Characters.CalculateCover(targetCharacter.Location, map.GetLength(0), map.GetLength(1), map, new() { sourceCharacter.Location });
 
             return !coverState.IsInCover;
         }

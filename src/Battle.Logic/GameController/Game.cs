@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Battle.Logic.MainGame
+namespace Battle.Logic.GameController
 {
     public class Game
     {

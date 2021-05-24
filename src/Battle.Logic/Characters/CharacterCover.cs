@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.CharacterCover
+namespace Battle.Logic.Characters
 {
-    public static class Cover
+    public static class Characters
     {
         /// <summary>
         /// Calculate if the player is in cover. 

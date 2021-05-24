@@ -1,9 +1,9 @@
-﻿using Battle.Logic.CharacterCover;
+﻿using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.CharacterCover
+namespace Battle.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]
@@ -31,7 +31,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  null);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == false);
@@ -53,7 +53,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  null);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == false);
@@ -80,7 +80,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == true);
@@ -106,7 +106,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == true);
@@ -132,7 +132,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == true);
@@ -158,7 +158,7 @@ namespace Battle.Tests.CharacterCover
 
             // Act
             string[,] map = CoverUtility.InitializeMap(width, height,  coverLocations);
-            CoverState coverResult = Cover.CalculateCover(startingLocation, width, height, map, enemyLocations);
+            CoverState coverResult = Logic.Characters.Characters.CalculateCover(startingLocation, width, height, map, enemyLocations);
 
             // Assert
             Assert.IsTrue(coverResult.IsInCover == true);

@@ -4,7 +4,7 @@ using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace Battle.Tests.CharacterEffects
+namespace Battle.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]

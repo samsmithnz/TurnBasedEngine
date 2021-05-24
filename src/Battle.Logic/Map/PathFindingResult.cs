@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.PathFinding
+namespace Battle.Logic.Map
 {
-    public class PathResult
+    public class PathFindingResult
     {
 
-        public PathResult()
+        public PathFindingResult()
         {
             Tiles = new();
             Path = new ();
         }
 
-        public List<Tile> Tiles { get; set; }
+        public List<MapTile> Tiles { get; set; }
         public List<Vector3> Path { get; set; }
 
-        public Tile GetLastTile()
+        public MapTile GetLastTile()
         {
             if (Tiles.Count > 0)
             {
