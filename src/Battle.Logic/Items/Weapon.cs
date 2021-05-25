@@ -15,6 +15,11 @@
         public int ClipRemaining { get; set; }
         public int ActionPointsRequired { get; set; }
         public WeaponType Type { get; set; }
+
+        public void Reload()
+        {
+            ClipRemaining = ClipSize;
+        }
     }
 
     public enum WeaponType
