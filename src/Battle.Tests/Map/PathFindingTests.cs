@@ -16,8 +16,8 @@ namespace Battle.Tests.Map
         public void Test_WithoutWalls_CanFindPath()
         {
             //Arrange
-            Vector3 startLocation = new(1,0, 2);
-            Vector3 endLocation = new(5,0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,] map = MapUtility.InitializeMap(7, 5);
 
             //Act
@@ -43,8 +43,8 @@ namespace Battle.Tests.Map
             //  □ □ □ * * □ □
 
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-            Vector3 startLocation = new(1,0, 2);
-            Vector3 endLocation = new(5,0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,] map = MapUtility.InitializeMap(7, 5);
             map[3, 4] = CoverType.FullCover;
             map[3, 3] = CoverType.FullCover;
@@ -60,8 +60,8 @@ namespace Battle.Tests.Map
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.IsTrue(PathFindingResult.GetLastTile() != null);
-            Assert.IsTrue(PathFindingResult.GetLastTile().TraversalCost == 6);
-            Assert.IsTrue(PathFindingResult.Path.Count == 5);
+            Assert.AreEqual(7, PathFindingResult.GetLastTile().TraversalCost);
+            Assert.AreEqual(5, PathFindingResult.Path.Count);
         }
 
         [TestMethod]
@@ -136,7 +136,7 @@ namespace Battle.Tests.Map
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.IsTrue(PathFindingResult.GetLastTile() != null);
-            Assert.IsTrue(PathFindingResult.GetLastTile().TraversalCost == 18);
+            Assert.AreEqual(19, PathFindingResult.GetLastTile().TraversalCost);
             Assert.AreEqual(16, PathFindingResult.Path.Count);
         }
 
@@ -194,7 +194,6 @@ namespace Battle.Tests.Map
             Assert.IsTrue(PathFindingResult.Path.Count == 0);
             Assert.IsTrue(PathFindingResult.Tiles.Count == 0);
             Assert.IsTrue(PathFindingResult.GetLastTile() == null);
-            //Assert.IsTrue(PathFindingResult.GetLastTile().TraversalCost == 2);
         }
 
         [TestMethod]
@@ -289,7 +288,7 @@ namespace Battle.Tests.Map
         public void TileTest()
         {
             //Arrange
-            MapTile tile = new(3,3,"", new Vector3(6, 0, 6));
+            MapTile tile = new(3, 3, "", new Vector3(6, 0, 6));
 
             //Act
             string result = tile.ToString();

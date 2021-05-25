@@ -215,10 +215,10 @@ namespace Battle.Tests.Map
             int decimals = 1;
 
             //Act
-            double result1 = FieldOfView.GetLengthOfLine(start, end1, decimals);
-            double result2 = FieldOfView.GetLengthOfLine(start, end2, decimals);
-            double result3 = FieldOfView.GetLengthOfLine(start, end3, decimals);
-            double result4 = FieldOfView.GetLengthOfLine(start, end4, decimals);
+            double result1 = MapCore.GetLengthOfLine(start, end1, decimals);
+            double result2 = MapCore.GetLengthOfLine(start, end2, decimals);
+            double result3 = MapCore.GetLengthOfLine(start, end3, decimals);
+            double result4 = MapCore.GetLengthOfLine(start, end4, decimals);
 
             //Assert
             Assert.AreEqual(3, result1);

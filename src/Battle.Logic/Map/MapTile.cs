@@ -6,7 +6,7 @@ namespace Battle.Logic.Map
     public class MapTile
     {
         /// <summary>
-        /// Creates a new instance of Node.
+        /// Creates a new instance of MapTile.
         /// </summary>
         /// <param name="x">The node's location along the X axis</param>
         /// <param name="y">The node's location along the Y axis</param>
@@ -57,7 +57,7 @@ namespace Battle.Logic.Map
 
         public int TraversalCost
         {
-            get { return Convert.ToInt32(F); }
+            get { return Convert.ToInt32(Math.Ceiling(F)); }
         }
 
         private MapTile _parentTile;
@@ -90,7 +90,9 @@ namespace Battle.Logic.Map
         {
             float deltaX = otherLocation.X - location.X;
             float deltaZ = otherLocation.Z - location.Z;
-            return (float)Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
+            float result = (float)Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
+            //System.Diagnostics.Debug.WriteLine("GetTraversalCost:" + result);
+            return result;
         }
     }
 

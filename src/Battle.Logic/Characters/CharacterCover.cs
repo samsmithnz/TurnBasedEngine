@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Battle.Logic.Map;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -10,9 +11,9 @@ namespace Battle.Logic.Characters
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverState CalculateCover(Vector3 defenderPosition, int width, int height, string[,] validTiles, List<Vector3> attackerLocations)
+        public static CoverStateResult CalculateCover(Vector3 defenderPosition, int width, int height, string[,] validTiles, List<Vector3> attackerLocations)
         {
-            CoverState result = new();
+            CoverStateResult result = new();
             List<Vector3> coverTiles = FindAdjacentCover(defenderPosition, width, height, validTiles);
             int coverLineNorth = -1;
             int coverLineEast = -1;
