@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Battle.Logic.Map
 {
-    public class MapCore
+    public static class MapCore
     {
         public static List<Vector3> GetMapArea(string[,] map, Vector3 sourceLocation, int range, bool lookingForFOV=true)
         {
