@@ -55,7 +55,17 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            PathFindingResult PathFindingResult = PathFinding.FindPath(fred.Location, new(9, 0, 10), game.Map);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(game.Map, fred.Location, fred.MovementRange);
+            Vector3 destination = Vector3.Zero;
+            foreach (Vector3 item in movementPossibileTiles)
+            {
+                if (item == new Vector3(9, 0, 10))
+                {
+                    destination = item;
+                }
+            }
+            Assert.AreEqual(new Vector3(9, 0, 10),destination);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(fred.Location, destination, game.Map);
             CharacterMovement.MoveCharacter(fred, game.Map, PathFindingResult.Path, diceRolls, null);
 
             //Fred aims at Jeff, who is behind high cover. 

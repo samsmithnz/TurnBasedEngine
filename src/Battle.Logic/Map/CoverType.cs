@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.Characters
+﻿namespace Battle.Logic.Map
 {
     public static class CoverType
     {

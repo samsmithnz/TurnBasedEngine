@@ -1,4 +1,4 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.Map;
 using System.Collections.Generic;
 using System.Numerics;
 

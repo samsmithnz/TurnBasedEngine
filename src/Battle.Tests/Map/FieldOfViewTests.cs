@@ -17,7 +17,7 @@ namespace Battle.Tests.Map
             //Arrange
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
 
             //Assert
             Assert.IsTrue(results != null);
@@ -34,7 +34,7 @@ namespace Battle.Tests.Map
             //Arrange
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 3, 1).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 3, 1).ToList<Vector3>();
 
             //Assert
             Assert.IsTrue(results != null);
@@ -52,7 +52,7 @@ namespace Battle.Tests.Map
             map[3, 2] = CoverType.FullCover;
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
             List<Vector3> newResults = new();
             foreach (Vector3 item in results)
             {
@@ -95,7 +95,7 @@ namespace Battle.Tests.Map
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
+            List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -131,7 +131,7 @@ namespace Battle.Tests.Map
             map[5, 4] = CoverType.FullCover;
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
+            List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -160,7 +160,7 @@ namespace Battle.Tests.Map
             Vector3 startingLocation = new(4, 0, 4);
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
+            List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -190,7 +190,7 @@ namespace Battle.Tests.Map
             map[3, 2] = CoverType.FullCover;
 
             //Act
-            List<Vector3> results = FieldOfViewCalculator.GetFieldOfView(map, startingLocation, range);
+            List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -215,10 +215,10 @@ namespace Battle.Tests.Map
             int decimals = 1;
 
             //Act
-            double result1 = FieldOfViewCalculator.GetLengthOfLine(start, end1, decimals);
-            double result2 = FieldOfViewCalculator.GetLengthOfLine(start, end2, decimals);
-            double result3 = FieldOfViewCalculator.GetLengthOfLine(start, end3, decimals);
-            double result4 = FieldOfViewCalculator.GetLengthOfLine(start, end4, decimals);
+            double result1 = MapCore.GetLengthOfLine(start, end1, decimals);
+            double result2 = MapCore.GetLengthOfLine(start, end2, decimals);
+            double result3 = MapCore.GetLengthOfLine(start, end3, decimals);
+            double result4 = MapCore.GetLengthOfLine(start, end4, decimals);
 
             //Assert
             Assert.AreEqual(3, result1);
