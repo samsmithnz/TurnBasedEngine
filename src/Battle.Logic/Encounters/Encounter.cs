@@ -47,7 +47,7 @@ namespace Battle.Logic.Encounters
             }
 
             //Remove cover
-            List<Vector3> area = FieldOfViewAreaEffect.GetAreaOfEffect(map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Vector3> area = MapCore.GetMapArea(map, throwingTargetLocation, weapon.AreaEffectRadius, false, true);
             foreach (Vector3 item in area)
             {
                 if (map[(int)item.X, (int)item.Z] == CoverType.FullCover || map[(int)item.X, (int)item.Z] == CoverType.HalfCover)

@@ -18,14 +18,24 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
+            string mapString = MapCore.GetMapStringWithItems(map, location, results);
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(3, results.Count);
-            Assert.AreEqual(new Vector3(4, 0, 4), results[0]);
+            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(new Vector3(3, 0, 3), results[0]);
             Assert.AreEqual(new Vector3(3, 0, 4), results[1]);
             Assert.AreEqual(new Vector3(4, 0, 3), results[2]);
+            Assert.AreEqual(location, results[3]);
+            string mapResult = @"
+□ □ □ o o 
+□ □ □ o o 
+□ □ □ □ □ 
+□ □ □ □ □ 
+□ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
         [TestMethod]
@@ -37,16 +47,26 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
+            string mapString = MapCore.GetMapStringWithItems(map, location, results);
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(5, results.Count);
-            Assert.AreEqual(new Vector3(1, 0, 1), results[0]);
-            Assert.AreEqual(new Vector3(0, 0, 1), results[1]);
+            Assert.AreEqual(9, results.Count);
+            Assert.AreEqual(new Vector3(0, 0, 0), results[0]);
+            Assert.AreEqual(new Vector3(0, 0, 2), results[1]);
             Assert.AreEqual(new Vector3(1, 0, 0), results[2]);
             Assert.AreEqual(new Vector3(1, 0, 2), results[3]);
-            Assert.AreEqual(new Vector3(2, 0, 1), results[4]);
+            Assert.AreEqual(new Vector3(2, 0, 0), results[4]);
+            Assert.AreEqual(location, results[8]);
+            string mapResult = @"
+□ □ □ □ □ 
+□ □ □ □ □ 
+o o o □ □ 
+o o o □ □ 
+o o o □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
         [TestMethod]
@@ -58,14 +78,24 @@ namespace Battle.Tests.Map
             int radius = 1;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
+            string mapString = MapCore.GetMapStringWithItems(map, location, results);
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(3, results.Count);
-            Assert.AreEqual(new Vector3(0, 0, 0), results[0]);
-            Assert.AreEqual(new Vector3(0, 0, 1), results[1]);
-            Assert.AreEqual(new Vector3(1, 0, 0), results[2]);
+            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(new Vector3(0, 0, 1), results[0]);
+            Assert.AreEqual(new Vector3(1, 0, 0), results[1]);
+            Assert.AreEqual(new Vector3(1, 0, 1), results[2]);
+            Assert.AreEqual(location, results[3]);
+            string mapResult = @"
+□ □ □ □ □ 
+□ □ □ □ □ 
+□ □ □ □ □ 
+o o □ □ □ 
+o o □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
 
@@ -78,15 +108,28 @@ namespace Battle.Tests.Map
             int radius = 3;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
+            string mapString = MapCore.GetMapStringWithItems(map, location, results);
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(37, results.Count);
-            Assert.AreEqual(new Vector3(4, 0, 4), results[0]);
-            Assert.AreEqual(new Vector3(3, 0, 4), results[1]);
-            Assert.AreEqual(new Vector3(4, 0, 3), results[2]);
-            Assert.AreEqual(new Vector3(7, 0, 5), results[36]);
+            Assert.AreEqual(45, results.Count);
+            Assert.AreEqual(new Vector3(3, 0, 3), results[0]);
+            Assert.AreEqual(new Vector3(7, 0, 6), results[43]);
+            Assert.AreEqual(location, results[44]);
+            string mapResult = @"
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ o o o o o □ □ □ 
+□ o o o o o o o □ □ 
+□ o o o o o o o □ □ 
+□ o o o o o o o □ □ 
+□ o o o o o o o □ □ 
+□ o o o o o o o □ □ 
+□ □ o o o o o □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
         [TestMethod]
@@ -98,13 +141,28 @@ namespace Battle.Tests.Map
             int radius = 3;
 
             //Act
-            List<Vector3> results = FieldOfViewAreaEffect.GetAreaOfEffect(map, location, radius);
+            List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
+            string mapString = MapCore.GetMapStringWithItems(map, location, results);
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(13, results.Count);
-            Assert.AreEqual(new Vector3(0, 0, 0), results[0]);
-            Assert.AreEqual(new Vector3(3, 0, 1), results[12]);
+            Assert.AreEqual(15, results.Count);
+            Assert.AreEqual(new Vector3(0, 0, 1), results[0]);
+            Assert.AreEqual(new Vector3(3, 0, 2), results[13]);
+            Assert.AreEqual(location, results[14]);
+            string mapResult = @"
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+□ □ □ □ □ □ □ □ □ □ 
+o o o □ □ □ □ □ □ □ 
+o o o o □ □ □ □ □ □ 
+o o o o □ □ □ □ □ □ 
+o o o o □ □ □ □ □ □ 
+";
+            Assert.AreEqual(mapResult, mapString);
         }
 
 

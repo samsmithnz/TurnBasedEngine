@@ -119,7 +119,7 @@ namespace Battle.Logic.Characters
         public string GetCharactersInViewMapString(string[,] map, List<Team> teams)
         {
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
-            string[,] mapFov = FieldOfView.ApplyListToMap((string[,])map.Clone(), fov, "o");
+            string[,] mapFov = MapCore.ApplyListToMap((string[,])map.Clone(), fov, "o");
             mapFov[(int)Location.X, (int)Location.Z] = "P";
             foreach (Team team in teams)
             {
@@ -128,7 +128,7 @@ namespace Battle.Logic.Characters
                     mapFov[(int)character.Location.X, (int)character.Location.Z] = "P";
                 }
             }
-            string mapString = FieldOfView.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));
+            string mapString = MapCore.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));
 
             return mapString;
         }

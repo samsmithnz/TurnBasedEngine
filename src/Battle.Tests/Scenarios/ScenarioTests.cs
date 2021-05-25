@@ -331,13 +331,13 @@ Critical chance: 0, (dice roll: 100)
 Critical damage range: 3-4, (dice roll: 100)
 4 damage dealt to character Jeff, HP is now 8
 10 XP added to character Fred, for a total of 10 XP
-Cover removed from <14, 0, 10>
 Cover removed from <14, 0, 8>
+Cover removed from <14, 0, 7>
+Cover removed from <14, 0, 12>
+Cover removed from <14, 0, 13>
 Cover removed from <14, 0, 9>
 Cover removed from <14, 0, 11>
-Cover removed from <14, 0, 12>
-Cover removed from <14, 0, 7>
-Cover removed from <14, 0, 13>
+Cover removed from <14, 0, 10>
 ";
             Assert.AreEqual(log1, encounter1.LogString);
 
