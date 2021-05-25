@@ -157,5 +157,6 @@ namespace Battle.Logic.Characters
             }
             return false;
         }
+
     }
 }

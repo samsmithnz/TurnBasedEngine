@@ -743,5 +743,62 @@ Critical chance: 0, hunkered down
             Assert.AreEqual(log, result.LogString);
         }
 
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleWithNoAmmoTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Weapon rifle = fred.WeaponEquipped;
+            rifle.ClipRemaining = 0;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            //Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            //Assert.AreEqual(10, result.SourceCharacter.Experience);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Rifle has no ammo remaining and the attack cannot be completed
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleWithNoAmmoAndReloadsFirstTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Weapon rifle = fred.WeaponEquipped;
+            rifle.ClipRemaining = 0;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            string[,] map = MapUtility.InitializeMap(10, 10);
+            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            fred.WeaponEquipped.Reload();
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(3, result.SourceCharacter.WeaponEquipped.ClipRemaining);            
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 80, (dice roll: 80)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, HP is now 7
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
     }
 }

@@ -77,48 +77,59 @@ namespace Battle.Logic.Encounters
 
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, Queue<int> diceRolls)
         {
+            if (diceRolls == null || diceRolls.Count == 0)
+            {
+                return null;
+            }
+
             int damageDealt = 0;
             bool isCriticalHit = false;
             List<string> log = new();
             log.Add(sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString());
 
-            if (diceRolls == null || diceRolls.Count == 0)
+            //Don't attack if the clip is empty
+            if (weapon.ClipRemaining > 0)
             {
-                return null;
-            }
-            int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
+                int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
-            //If the number rolled is higher than the chance to hit, the attack was successful!
-            int randomToHit = diceRolls.Dequeue();
+                //If the number rolled is higher than the chance to hit, the attack was successful!
+                int randomToHit = diceRolls.Dequeue();
 
-            if ((100 - toHitPercent) <= randomToHit)
-            {
-                log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
+                if ((100 - toHitPercent) <= randomToHit)
+                {
+                    log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
-                EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
-                sourceCharacter = tempResult.SourceCharacter;
-                targetCharacter = tempResult.TargetCharacter;
-                damageDealt = tempResult.DamageDealt;
-                isCriticalHit = tempResult.IsCriticalHit;
-                log = tempResult.Log;
+                    EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
+                    sourceCharacter = tempResult.SourceCharacter;
+                    targetCharacter = tempResult.TargetCharacter;
+                    damageDealt = tempResult.DamageDealt;
+                    isCriticalHit = tempResult.IsCriticalHit;
+                    log = tempResult.Log;
+                }
+                else
+                {
+                    log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
+
+                    int xp = Experience.GetExperience(false);
+                    sourceCharacter.Experience += xp;
+                    log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+                }
+
+                //Consume source characters action points
+                sourceCharacter.ActionPoints = 0;
+                //Consume weapon ammo
+                weapon.ClipRemaining--;
+
+                //Check if the character has enough experience to level up
+                sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
+                if (sourceCharacter.LevelUpIsReady == true)
+                {
+                    log.Add(sourceCharacter.Name + " is ready to level up");
+                }
             }
             else
             {
-                log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
-
-                int xp = Experience.GetExperience(false);
-                sourceCharacter.Experience += xp;
-                log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
-            }
-
-            //Consume source characters action points
-            sourceCharacter.ActionPoints = 0;
-
-            //Check if the character has enough experience to level up
-            sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
-            if (sourceCharacter.LevelUpIsReady == true)
-            {
-                log.Add(sourceCharacter.Name + " is ready to level up");
+                log.Add(weapon.Name + " has no ammo remaining and the attack cannot be completed");
             }
 
             EncounterResult result = new()
