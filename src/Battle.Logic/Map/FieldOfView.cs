@@ -12,10 +12,10 @@ namespace Battle.Logic.Map
             return MapCore.GetMapArea(map, location, range, true);
         }
 
-        public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int radius)
+        public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int range)
         {
             List<Character> results = new();
-            List<Vector3> area = MapCore.GetMapArea(map, location, radius, false, true);
+            List<Vector3> area = MapCore.GetMapArea(map, location, range, false, true);
             foreach (Character character in characters)
             {
                 foreach (Vector3 item in area)
