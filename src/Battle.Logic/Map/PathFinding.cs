@@ -9,7 +9,6 @@ namespace Battle.Logic.Map
         private static int _height;
         private static MapTile[,] _tiles;
         private static Vector3 _endLocation;
-        //private static double _diagonalDistance = 1.414213562;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
@@ -134,8 +133,8 @@ namespace Battle.Logic.Map
                 //// Already-open tiles are only added to the list if their G-value is lower going via this route.
                 if (tile.State == TileState.Open)
                 {
-                    float traversalCost = MapTile.GetTraversalCost(tile.Location, tile.ParentTile.Location);
-                    float gTemp = fromTile.G + traversalCost;
+                    //float traversalCost = MapTile.GetTraversalCost(tile.Location, tile.ParentTile.Location);
+                    //float gTemp = fromTile.G + traversalCost;
                     //if (gTemp < tile.G)
                     //{
                     //    tile.ParentTile = fromTile;
