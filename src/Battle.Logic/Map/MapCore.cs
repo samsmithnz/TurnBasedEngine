@@ -141,7 +141,7 @@ namespace Battle.Logic.Map
             return map;
         }
 
-        public static string GetMapStringWithItems(string[,] map, Vector3 sourceLocation, List<Vector3> list)
+        public static string GetMapStringWithItems(string[,] map, List<Vector3> list)
         {
             string[,] mapFov = MapCore.ApplyListToMap((string[,])map.Clone(), list, "o");
             string mapString = MapCore.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));

@@ -24,7 +24,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             //Get the targets in the area affected
-            List<Character> areaEffectTargets = FieldOfViewAreaEffect.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Character> areaEffectTargets = FieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
             StringBuilder names = new();
             foreach (Character item in areaEffectTargets)
             {

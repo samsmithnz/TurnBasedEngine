@@ -19,7 +19,7 @@ namespace Battle.Tests.Map
 
             //Act
             List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
-            string mapString = MapCore.GetMapStringWithItems(map, location, results);
+            string mapString = MapCore.GetMapStringWithItems(map, results);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -48,7 +48,7 @@ namespace Battle.Tests.Map
 
             //Act
             List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
-            string mapString = MapCore.GetMapStringWithItems(map, location, results);
+            string mapString = MapCore.GetMapStringWithItems(map, results);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -79,7 +79,7 @@ o o o □ □
 
             //Act
             List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
-            string mapString = MapCore.GetMapStringWithItems(map, location, results);
+            string mapString = MapCore.GetMapStringWithItems(map, results);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -109,7 +109,7 @@ o o □ □ □
 
             //Act
             List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
-            string mapString = MapCore.GetMapStringWithItems(map, location, results);
+            string mapString = MapCore.GetMapStringWithItems(map, results);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -142,7 +142,7 @@ o o □ □ □
 
             //Act
             List<Vector3> results = MapCore.GetMapArea(map, location, radius, false, true);
-            string mapString = MapCore.GetMapStringWithItems(map, location, results);
+            string mapString = MapCore.GetMapStringWithItems(map, results);
 
             //Assert
             Assert.IsTrue(results != null);
