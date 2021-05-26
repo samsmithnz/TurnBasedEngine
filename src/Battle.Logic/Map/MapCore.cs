@@ -1,10 +1,8 @@
-﻿using Battle.Logic.Characters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Battle.Logic.Map
 {
@@ -106,8 +104,10 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,] map, int xMax, int zMax)
+        public static string GetMapString(string[,] map)
         {
+            int xMax = map.GetLength(0);
+            int zMax = map.GetLength(1);
             StringBuilder sb = new();
             sb.Append(Environment.NewLine);
             for (int z = zMax - 1; z >= 0; z--)
@@ -144,7 +144,7 @@ namespace Battle.Logic.Map
         public static string GetMapStringWithItems(string[,] map, List<Vector3> list)
         {
             string[,] mapFov = MapCore.ApplyListToMap((string[,])map.Clone(), list, "o");
-            string mapString = MapCore.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));
+            string mapString = MapCore.GetMapString(mapFov);
             return mapString;
         }
     }

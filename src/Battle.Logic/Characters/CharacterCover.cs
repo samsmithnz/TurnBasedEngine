@@ -11,10 +11,10 @@ namespace Battle.Logic.Characters
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverStateResult CalculateCover(Vector3 defenderPosition, int width, int height, string[,] validTiles, List<Vector3> attackerLocations)
+        public static CoverStateResult CalculateCover(string[,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
             CoverStateResult result = new();
-            List<Vector3> coverTiles = FindAdjacentCover(defenderPosition, width, height, validTiles);
+            List<Vector3> coverTiles = FindAdjacentCover(map, defenderPosition);
             int coverLineNorth = -1;
             int coverLineEast = -1;
             int coverLineSouth = -1;
@@ -170,8 +170,10 @@ namespace Battle.Logic.Characters
         /// Look at adjacent squares for cover
         /// </summary>
         /// <returns>A List of Vector3 objects for each item of cover</returns>
-        private static List<Vector3> FindAdjacentCover(Vector3 currentLocation, int width, int height, string[,] validTiles)
+        private static List<Vector3> FindAdjacentCover(string[,] map, Vector3 currentLocation)
         {
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
             List<Vector3> result = new();
             if (currentLocation.X > width - 1 || currentLocation.Z > height - 1)
             {
@@ -201,19 +203,19 @@ namespace Battle.Logic.Characters
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (validTiles[Convert.ToInt32(currentLocation.X), zMax] == CoverType.FullCover || validTiles[Convert.ToInt32(currentLocation.X), zMax] == CoverType.HalfCover)
+            if (map[Convert.ToInt32(currentLocation.X), zMax] == CoverType.FullCover || map[Convert.ToInt32(currentLocation.X), zMax] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (validTiles[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || validTiles[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
+            if (map[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || map[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMax, 0f, currentLocation.Z));
             }
-            if (validTiles[Convert.ToInt32(currentLocation.X), zMin] == CoverType.FullCover|| validTiles[Convert.ToInt32(currentLocation.X), zMin] == CoverType.HalfCover)
+            if (map[Convert.ToInt32(currentLocation.X), zMin] == CoverType.FullCover|| map[Convert.ToInt32(currentLocation.X), zMin] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMin));
             }
-            if (validTiles[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover|| validTiles[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
+            if (map[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover|| map[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMin, 0f, currentLocation.Z));
             }

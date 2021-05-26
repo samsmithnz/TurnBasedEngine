@@ -17,8 +17,8 @@ namespace Battle.Tests.Map
             string[,] map = MapUtility.InitializeMap(xMax, zMax);
 
             //Act
-            map = MapGeneration.GenerateRandomMap(map, xMax, zMax, probability);
-            MapGeneration.DebugPrintOutMap(map, xMax, zMax);
+            map = MapGeneration.GenerateRandomMap(map, probability);
+            MapGeneration.DebugPrintOutMap(map);
 
             //Assert
             Assert.AreEqual(100, map.Length);

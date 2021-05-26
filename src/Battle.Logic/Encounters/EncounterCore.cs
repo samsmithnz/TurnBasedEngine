@@ -49,9 +49,10 @@ namespace Battle.Logic.Encounters
             toHit += Range.GetRangeModifier(weapon, distance);
 
             //Overwatch
-            if (sourceCharacter.InOverwatch == true)
+            int overwatchPenaltyRemoved = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
             {
-                //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70 % of normal
+                //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
                 toHit = (int)((float)toHit * 0.7f);
             }
             if (toHit > 100)
@@ -123,7 +124,7 @@ namespace Battle.Logic.Encounters
             Console.WriteLine(sourceCharacter.Location);
             Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
-            CoverStateResult coverState = Characters.Characters.CalculateCover(targetCharacter.Location, map.GetLength(0), map.GetLength(1), map, new() { sourceCharacter.Location });
+            CoverStateResult coverState = Characters.Characters.CalculateCover(map, targetCharacter.Location, new() { sourceCharacter.Location });
 
             return !coverState.IsInCover;
         }

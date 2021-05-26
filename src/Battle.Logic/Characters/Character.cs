@@ -128,7 +128,7 @@ namespace Battle.Logic.Characters
                     mapFov[(int)character.Location.X, (int)character.Location.Z] = "P";
                 }
             }
-            string mapString = MapCore.GetMapString(mapFov, map.GetLength(0), map.GetLength(1));
+            string mapString = MapCore.GetMapString(mapFov);
 
             return mapString;
         }
