@@ -9,13 +9,15 @@ namespace Battle.Logic.Map
 {
     public static class MapGeneration
     {
-        public static string[,] GenerateRandomMap(string[,] map, int xMax, int zMax, int probOfMapBeingBlocked)
+        public static string[,] GenerateRandomMap(string[,] map, int probOfMapBeingBlocked)
         {
-            for (int z = 0; z < zMax; z++)
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
+            for (int z = 0; z < height; z++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    if (((x != 0 && z != 0) || (x != xMax - 1 && z != zMax - 1)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(1, 100))
+                    if (((x != 0 && z != 0) || (x != width - 1 && z != height - 1)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(1, 100))
                     {
                         map[x, z] = CoverType.FullCover;
                     }
@@ -24,11 +26,13 @@ namespace Battle.Logic.Map
             return map;
         }
 
-        public static void DebugPrintOutMap(string[,] map, int xMax, int zMax)
+        public static void DebugPrintOutMap(string[,] map)
         {
-            for (int z = 0; z < zMax; z++)
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
+            for (int z = 0; z < height; z++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = 0; x < width; x++)
                 {
                     if (map[x, z] != "")
                     {
