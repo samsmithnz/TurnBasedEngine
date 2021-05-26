@@ -7,12 +7,12 @@ namespace Battle.Logic.Map
 {
     public static class FieldOfView
     {
-        public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
+        public static List<Vector3> GetFieldOfView(string[,,] map, Vector3 location, int range)
         {
             return MapCore.GetMapArea(map, location, range, true);
         }
 
-        public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int range)
+        public static List<Character> GetCharactersInArea(List<Character> characters, string[,,] map, Vector3 location, int range)
         {
             List<Character> results = new();
             List<Vector3> area = MapCore.GetMapArea(map, location, range, false, true);

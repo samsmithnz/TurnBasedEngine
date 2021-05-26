@@ -63,7 +63,7 @@ namespace Battle.Logic.Encounters
             return toHit;
         }
 
-        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, bool isAreaEffectAttack)
+        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, bool isAreaEffectAttack)
         {
             int chanceToCrit = weapon.CriticalChance;
             if (isAreaEffectAttack == false && targetCharacter != null && TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
@@ -118,7 +118,7 @@ namespace Battle.Logic.Encounters
             return adjustment;
         }
 
-        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,] map)
+        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,,] map)
         {
             Console.WriteLine(map.Length);
             Console.WriteLine(sourceCharacter.Location);

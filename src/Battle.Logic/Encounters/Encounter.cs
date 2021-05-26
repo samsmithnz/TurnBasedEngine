@@ -11,7 +11,7 @@ namespace Battle.Logic.Encounters
 {
     public static class Encounter
     {
-        public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,] map, Queue<int> diceRolls, Vector3 throwingTargetLocation)
+        public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,,] map, Queue<int> diceRolls, Vector3 throwingTargetLocation)
         {
             int damageDealt;
             bool isCriticalHit = false;
@@ -50,9 +50,9 @@ namespace Battle.Logic.Encounters
             List<Vector3> area = MapCore.GetMapArea(map, throwingTargetLocation, weapon.AreaEffectRadius, false, true);
             foreach (Vector3 item in area)
             {
-                if (map[(int)item.X, (int)item.Z] == CoverType.FullCover || map[(int)item.X, (int)item.Z] == CoverType.HalfCover)
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == CoverType.FullCover || map[(int)item.X, (int)item.Y, (int)item.Z] == CoverType.HalfCover)
                 {
-                    map[(int)item.X, (int)item.Z] = "";
+                    map[(int)item.X, (int)item.Y, (int)item.Z] = "";
                     log.Add("Cover removed from " + item.ToString());
                 }
             }
@@ -75,7 +75,7 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, Queue<int> diceRolls)
+        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, Queue<int> diceRolls)
         {
             if (diceRolls == null || diceRolls.Count == 0)
             {
@@ -144,7 +144,7 @@ namespace Battle.Logic.Encounters
         }
 
 
-        private static EncounterResult ProcessCharacterDamageAndExperience(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,] map, Queue<int> diceRolls, List<string> log, bool isAreaEffectAttack)
+        private static EncounterResult ProcessCharacterDamageAndExperience(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, Queue<int> diceRolls, List<string> log, bool isAreaEffectAttack)
         {
             //Get damage 
             int damageRollPercent = diceRolls.Dequeue();

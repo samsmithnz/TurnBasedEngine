@@ -14,7 +14,7 @@ namespace Battle.Tests.Map
             int xMax = 10;
             int zMax = 10;
             int probability = 50;
-            string[,] map = MapUtility.InitializeMap(xMax, zMax);
+            string[,,] map = MapUtility.InitializeMap(xMax, 1, zMax);
 
             //Act
             map = MapGeneration.GenerateRandomMap(map, probability);

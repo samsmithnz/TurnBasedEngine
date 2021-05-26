@@ -1,5 +1,4 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Map;
+﻿using Battle.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,15 +47,15 @@ namespace Battle.Tests.Map
         public void BasicShallowLineWithCoverTest()
         {
             //Arrange
-            string[,] map = MapUtility.InitializeMap(5, 5);
-            map[3, 2] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            map[3, 0, 2] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
             List<Vector3> newResults = new();
             foreach (Vector3 item in results)
             {
-                if (map[(int)item.X, (int)item.Z] != "")
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
                 {
                     break;
                 }
@@ -90,7 +89,7 @@ namespace Battle.Tests.Map
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
 
@@ -121,14 +120,14 @@ namespace Battle.Tests.Map
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
-            map[3, 4] = CoverType.FullCover;
-            map[3, 3] = CoverType.FullCover;
-            map[4, 3] = CoverType.FullCover;
-            map[5, 3] = CoverType.FullCover;
-            map[5, 4] = CoverType.FullCover;
+            map[3, 0, 4] = CoverType.FullCover;
+            map[3, 0, 3] = CoverType.FullCover;
+            map[4, 0, 3] = CoverType.FullCover;
+            map[5, 0, 3] = CoverType.FullCover;
+            map[5, 0, 4] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
@@ -155,7 +154,7 @@ namespace Battle.Tests.Map
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
             //  □ □ □ □ □ □ □ □ □ □
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 12;
             Vector3 startingLocation = new(4, 0, 4);
 
@@ -180,14 +179,14 @@ namespace Battle.Tests.Map
             //  □ ■ P ■ □ 
             //  □ ■ ■ ■ □ 
             //  □ □ □ □ □ 
-            string[,] map = MapUtility.InitializeMap(5, 5);
+            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
             int range = 10;
             Vector3 startingLocation = new(2, 0, 2);
-            map[1, 2] = CoverType.FullCover;
-            map[1, 1] = CoverType.FullCover;
-            map[2, 1] = CoverType.FullCover;
-            map[3, 1] = CoverType.FullCover;
-            map[3, 2] = CoverType.FullCover;
+            map[1, 0, 2] = CoverType.FullCover;
+            map[1, 0, 1] = CoverType.FullCover;
+            map[2, 0, 1] = CoverType.FullCover;
+            map[3, 0, 1] = CoverType.FullCover;
+            map[3, 0, 2] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);

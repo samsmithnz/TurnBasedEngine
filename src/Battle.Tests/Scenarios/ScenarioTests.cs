@@ -20,9 +20,9 @@ namespace Battle.Tests.Scenarios
             //Arrange
             Game game = new();
             game.TurnNumber = 1;
-            game.Map = MapUtility.InitializeMap(50, 50);
-            game.Map[6, 5] = CoverType.FullCover;
-            game.Map[20, 11] = CoverType.FullCover;
+            game.Map = MapUtility.InitializeMap(50, 1, 50);
+            game.Map[6, 0, 5] = CoverType.FullCover;
+            game.Map[20, 0, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(5, 0, 5);
             Team team1 = new()
@@ -273,18 +273,18 @@ Fred is ready to level up
             //Arrange
             Game game = new();
             game.TurnNumber = 1;
-            game.Map = MapUtility.InitializeMap(50, 50);
-            game.Map[5, 6] = CoverType.FullCover;
-            game.Map[14, 5] = CoverType.FullCover;
-            game.Map[14, 6] = CoverType.FullCover;
-            game.Map[14, 7] = CoverType.FullCover;
-            game.Map[14, 8] = CoverType.FullCover;
-            game.Map[14, 9] = CoverType.FullCover;
-            game.Map[14, 10] = CoverType.FullCover;
-            game.Map[14, 11] = CoverType.FullCover;
-            game.Map[14, 12] = CoverType.FullCover;
-            game.Map[14, 13] = CoverType.FullCover;
-            game.Map[14, 14] = CoverType.FullCover;
+            game.Map = MapUtility.InitializeMap(50,1, 50);
+            game.Map[5, 0, 6] = CoverType.FullCover;
+            game.Map[14, 0, 5] = CoverType.FullCover;
+            game.Map[14, 0, 6] = CoverType.FullCover;
+            game.Map[14, 0, 7] = CoverType.FullCover;
+            game.Map[14, 0, 8] = CoverType.FullCover;
+            game.Map[14, 0, 9] = CoverType.FullCover;
+            game.Map[14, 0, 10] = CoverType.FullCover;
+            game.Map[14, 0, 11] = CoverType.FullCover;
+            game.Map[14, 0, 12] = CoverType.FullCover;
+            game.Map[14, 0, 13] = CoverType.FullCover;
+            game.Map[14, 0, 14] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(5, 0, 5);
             Team team1 = new()

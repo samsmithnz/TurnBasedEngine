@@ -24,7 +24,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 5;
             jeff.ArmorPoints = 5;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -55,7 +55,7 @@ Armor prevented 5 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 4;
             jeff.ArmorPoints = 2;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -87,7 +87,7 @@ Armor prevented 2 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 2;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -122,7 +122,7 @@ Fred is ready to level up
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 3;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -155,7 +155,7 @@ Armor prevented 1 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 10;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -188,7 +188,7 @@ Armor prevented 10 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
             jeff.ArmorPoints = 10;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
