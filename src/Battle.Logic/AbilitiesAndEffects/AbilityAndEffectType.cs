@@ -10,6 +10,7 @@
         ArmorPiercing = 5, //Ignores armor points
         FireDamage = 6, //Fire damage. Spreads and causes [n] damage over time for [m] turns
         PoisonDamage = 7, //poison damage. Causes [n] damage over time for [m] turns
-        ExplosiveDamage = 8 // Causes an explosion for [n] damage with a radius [m]
+        ExplosiveDamage = 8, // Causes an explosion for [n] damage with a radius [m]
+        OverwatchPenaltyRemoved = 9 //Removes the overwatch penalty   
     }
 }

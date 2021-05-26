@@ -49,9 +49,10 @@ namespace Battle.Logic.Encounters
             toHit += Range.GetRangeModifier(weapon, distance);
 
             //Overwatch
-            if (sourceCharacter.InOverwatch == true)
+            int overwatchPenaltyRemoved = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
             {
-                //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70 % of normal
+                //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
                 toHit = (int)((float)toHit * 0.7f);
             }
             if (toHit > 100)

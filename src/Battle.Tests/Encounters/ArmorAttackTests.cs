@@ -151,7 +151,6 @@ Armor prevented 1 damage to character Jeff
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            //fred.Abilities.Add(new("Shredder", AbilityTypeEnum.ArmorShredding, 2));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 3;
