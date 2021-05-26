@@ -173,9 +173,10 @@ namespace Battle.Logic.Characters
         private static List<Vector3> FindAdjacentCover(string[,,] map, Vector3 currentLocation)
         {
             int width = map.GetLength(0);
-            int height = map.GetLength(1);
+            //int height = map.GetLength(1);
+            int breadth = map.GetLength(2);
             List<Vector3> result = new();
-            if (currentLocation.X > width - 1 || currentLocation.Z > height - 1)
+            if (currentLocation.X > width - 1 || currentLocation.Z > breadth - 1)
             {
                 throw new Exception("The character is off the map");
             }
@@ -197,9 +198,9 @@ namespace Battle.Logic.Characters
                 zMin = 0;
             }
             int zMax = Convert.ToInt32(currentLocation.Z) + 1;
-            if (zMax > height - 1)
+            if (zMax > breadth - 1)
             {
-                zMax = height - 1;
+                zMax = breadth - 1;
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
