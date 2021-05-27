@@ -11,7 +11,7 @@ namespace Battle.Logic.Characters
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverStateResult CalculateCover(string[,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
+        public static CoverStateResult CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
             CoverStateResult result = new();
             List<Vector3> coverTiles = FindAdjacentCover(map, defenderPosition);
@@ -170,12 +170,13 @@ namespace Battle.Logic.Characters
         /// Look at adjacent squares for cover
         /// </summary>
         /// <returns>A List of Vector3 objects for each item of cover</returns>
-        private static List<Vector3> FindAdjacentCover(string[,] map, Vector3 currentLocation)
+        private static List<Vector3> FindAdjacentCover(string[,,] map, Vector3 currentLocation)
         {
             int width = map.GetLength(0);
-            int height = map.GetLength(1);
+            //int height = map.GetLength(1);
+            int breadth = map.GetLength(2);
             List<Vector3> result = new();
-            if (currentLocation.X > width - 1 || currentLocation.Z > height - 1)
+            if (currentLocation.X > width - 1 || currentLocation.Z > breadth - 1)
             {
                 throw new Exception("The character is off the map");
             }
@@ -197,25 +198,25 @@ namespace Battle.Logic.Characters
                 zMin = 0;
             }
             int zMax = Convert.ToInt32(currentLocation.Z) + 1;
-            if (zMax > height - 1)
+            if (zMax > breadth - 1)
             {
-                zMax = height - 1;
+                zMax = breadth - 1;
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (map[Convert.ToInt32(currentLocation.X), zMax] == CoverType.FullCover || map[Convert.ToInt32(currentLocation.X), zMax] == CoverType.HalfCover)
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == CoverType.FullCover || map[Convert.ToInt32(currentLocation.X), 0, zMax] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (map[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || map[xMax, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
+            if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMax, 0f, currentLocation.Z));
             }
-            if (map[Convert.ToInt32(currentLocation.X), zMin] == CoverType.FullCover|| map[Convert.ToInt32(currentLocation.X), zMin] == CoverType.HalfCover)
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == CoverType.FullCover || map[Convert.ToInt32(currentLocation.X), 0, zMin] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMin));
             }
-            if (map[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover|| map[xMin, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
+            if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == CoverType.FullCover || map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == CoverType.HalfCover)
             {
                 result.Add(new Vector3(xMin, 0f, currentLocation.Z));
             }

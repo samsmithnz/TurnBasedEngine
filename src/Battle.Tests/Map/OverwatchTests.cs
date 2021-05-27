@@ -20,7 +20,7 @@ namespace Battle.Tests.Map
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -59,7 +59,7 @@ Fred is ready to level up
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -94,7 +94,7 @@ Missed: Chance to hit: 56, (dice roll: 0)
             harry.InOverwatch = true;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Hitpoints = 25;
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -137,7 +137,7 @@ Fred is ready to level up
             Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.InOverwatch = true;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 

@@ -5,7 +5,7 @@ namespace Battle.Logic.Map
 {
     public static class MovementPossibileTiles
     {
-        public static List<Vector3> GetMovementPossibileTiles(string[,] map, Vector3 sourceLocation, int range)
+        public static List<Vector3> GetMovementPossibileTiles(string[,,] map, Vector3 sourceLocation, int range)
         {
             List<Vector3> possibleTiles = MapCore.GetMapArea(map, sourceLocation, range, false);
             List<Vector3> verifiedTiles = new();

@@ -18,7 +18,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(8, 0, 0);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -48,7 +48,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(8, 0, 0);
             
             //Act
@@ -71,7 +71,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(8, 0, 1);
 
             //Act
@@ -94,7 +94,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(7, 0, 1);
 
             //Act

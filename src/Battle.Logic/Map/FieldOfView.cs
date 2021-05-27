@@ -7,12 +7,12 @@ namespace Battle.Logic.Map
 {
     public static class FieldOfView
     {
-        public static List<Vector3> GetFieldOfView(string[,] map, Vector3 location, int range)
+        public static List<Vector3> GetFieldOfView(string[,,] map, Vector3 location, int range)
         {
             return MapCore.GetMapArea(map, location, range, true);
         }
 
-        public static List<Character> GetCharactersInArea(List<Character> characters, string[,] map, Vector3 location, int range)
+        public static List<Character> GetCharactersInArea(List<Character> characters, string[,,] map, Vector3 location, int range)
         {
             List<Character> results = new();
             List<Vector3> area = MapCore.GetMapArea(map, location, range, false, true);
@@ -37,10 +37,10 @@ namespace Battle.Logic.Map
             if (steep)
             {
                 int t;
-                t = x0; // swap x0 and y0
+                t = x0; // swap x0 and z0
                 x0 = z0;
                 z0 = t;
-                t = x1; // swap x1 and y1
+                t = x1; // swap x1 and z1
                 x1 = z1;
                 z1 = t;
             }
@@ -50,22 +50,22 @@ namespace Battle.Logic.Map
                 t = x0; // swap x0 and x1
                 x0 = x1;
                 x1 = t;
-                t = z0; // swap y0 and y1
+                t = z0; // swap z0 and z1
                 z0 = z1;
                 z1 = t;
             }
             int dx = x1 - x0;
-            int dy = Math.Abs(z1 - z0);
+            int dz = Math.Abs(z1 - z0);
             int error = dx / 2;
-            int ystep = (z0 < z1) ? 1 : -1;
-            int y = z0;
+            int zstep = (z0 < z1) ? 1 : -1;
+            int z = z0;
             for (int x = x0; x <= x1; x++)
             {
-                yield return new((steep ? y : x), 0, (steep ? x : y));
-                error -= dy;
+                yield return new((steep ? z : x), 0, (steep ? x : z));
+                error -= dz;
                 if (error < 0)
                 {
-                    y += ystep;
+                    z += zstep;
                     error += dx;
                 }
             }

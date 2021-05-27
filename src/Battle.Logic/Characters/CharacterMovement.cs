@@ -7,7 +7,7 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,] map, List<Vector3> path, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,,] map, List<Vector3> path, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             List<EncounterResult> encounters = new();
             int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
@@ -33,7 +33,7 @@ namespace Battle.Logic.Characters
             return encounters;
         }
 
-        private static (EncounterResult, bool) Overwatch(Character characterMoving, string[,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        private static (EncounterResult, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             EncounterResult result = null;
             overWatchedCharacters = overWatchedCharacters.OrderByDescending(o => o.Key.Speed).ToList();

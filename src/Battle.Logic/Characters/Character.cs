@@ -87,7 +87,7 @@ namespace Battle.Logic.Characters
             return options;
         }
 
-        public List<Character> GetCharactersInView(string[,] map, List<Team> teams)
+        public List<Character> GetCharactersInView(string[,,] map, List<Team> teams)
         {
             List<Character> results = new();
 
@@ -116,16 +116,16 @@ namespace Battle.Logic.Characters
             return results;
         }
 
-        public string GetCharactersInViewMapString(string[,] map, List<Team> teams)
+        public string GetCharactersInViewMapString(string[,,] map, List<Team> teams)
         {
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
-            string[,] mapFov = MapCore.ApplyListToMap((string[,])map.Clone(), fov, "o");
-            mapFov[(int)Location.X, (int)Location.Z] = "P";
+            string[,,] mapFov = MapCore.ApplyListToMap((string[,,])map.Clone(), fov, "o");
+            mapFov[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
             foreach (Team team in teams)
             {
                 foreach (Character character in team.Characters)
                 {
-                    mapFov[(int)character.Location.X, (int)character.Location.Z] = "P";
+                    mapFov[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "P";
                 }
             }
             string mapString = MapCore.GetMapString(mapFov);

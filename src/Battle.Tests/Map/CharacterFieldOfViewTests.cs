@@ -19,7 +19,7 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -52,15 +52,15 @@ P o o o o o o o o o
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[7, 7] = CoverType.FullCover;
-            map[8, 7] = CoverType.FullCover;
-            map[9, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[7, 0, 7] = CoverType.FullCover;
+            map[8, 0, 7] = CoverType.FullCover;
+            map[9, 0, 7] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
             //Act
-           string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
+            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
             List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
 
             //Assert
@@ -88,10 +88,10 @@ P o o o o o o o o o
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(8, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[7, 7] = CoverType.FullCover;
-            map[8, 7] = CoverType.FullCover;
-            map[9, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[7, 0, 7] = CoverType.FullCover;
+            map[8, 0, 7] = CoverType.FullCover;
+            map[9, 0, 7] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -124,9 +124,9 @@ o o o o o o o o P o
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(8, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[8, 7] = CoverType.FullCover;
-            map[9, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[8, 0, 7] = CoverType.FullCover;
+            map[9, 0, 7] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -162,9 +162,9 @@ o o o o o o o o P o
             fred.Location = new(8, 0, 8);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new(8, 0, 1);
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[8, 2] = CoverType.FullCover;
-            map[9, 2] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[8, 0, 2] = CoverType.FullCover;
+            map[9, 0, 2] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -200,8 +200,8 @@ o o o o o o o o □ □
             fred.Location = new(1, 0, 7);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new(9, 0, 7);
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[8, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[8, 0, 7] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -233,11 +233,11 @@ o o o o o o o o o o
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(9, 0, 7); 
+            fred.Location = new(9, 0, 7);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new(0, 0, 7);
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[1, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[1, 0, 7] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -269,10 +269,10 @@ o o o o o o o o o o
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[7, 7] = CoverType.FullCover;
-            map[8, 7] = CoverType.FullCover;
-            map[9, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[7, 0, 7] = CoverType.FullCover;
+            map[8, 0, 7] = CoverType.FullCover;
+            map[9, 0, 7] = CoverType.FullCover;
             Team teamGood = new();
             teamGood.Characters.Add(fred);
 
@@ -304,10 +304,10 @@ P □ □ □ □ □ □ □ □ □
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Character jeff = CharacterPool.CreateJeffBaddie();
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[7, 7] = CoverType.HalfCover;
-            map[8, 7] = CoverType.FullCover;
-            map[9, 7] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[7, 0, 7] = CoverType.HalfCover;
+            map[8, 0, 7] = CoverType.FullCover;
+            map[9, 0, 7] = CoverType.FullCover;
             Team teamGood = new();
             teamGood.Characters.Add(fred);
 
@@ -341,8 +341,8 @@ P o o o o □ □ □ □ □
             fred.Location = new Vector3(2, 0, 2);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 6);
-            string[,] map = MapUtility.InitializeMap(10, 10);
-            map[2, 5] = CoverType.FullCover;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[2, 0, 5] = CoverType.FullCover;
             Team teamBaddie = new();
             teamBaddie.Characters.Add(jeff);
 
@@ -375,7 +375,7 @@ o o o o o o o o o o
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(5, 0, 5);
             fred.ShootingRange = 3;
-            string[,] map = MapUtility.InitializeMap(11, 11);
+            string[,,] map = MapUtility.InitializeMap(11, 1, 11);
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team>());

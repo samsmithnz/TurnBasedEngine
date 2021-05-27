@@ -8,7 +8,7 @@ namespace Battle.Logic.Map
 {
     public static class MapCore
     {
-        public static List<Vector3> GetMapArea(string[,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
+        public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
             int startingX = (int)sourceLocation.X;
             int startingZ = (int)sourceLocation.Z;
@@ -29,24 +29,24 @@ namespace Battle.Logic.Map
                 minZ = 0;
             }
             int maxZ = startingZ + range;
-            if (maxZ > map.GetLength(0) - 1)
+            if (maxZ > map.GetLength(2) - 1)
             {
-                maxZ = map.GetLength(0) - 1;
+                maxZ = map.GetLength(2) - 1;
             }
 
             //Get a list of all border squares
             HashSet<Vector3> borderTiles = new();
             //Add the top and bottom rows
-            for (int i = minX; i <= maxX; i++)
+            for (int x = minX; x <= maxX; x++)
             {
-                borderTiles.Add(new(i, 0, minZ));
-                borderTiles.Add(new(i, 0, maxZ));
+                borderTiles.Add(new(x, 0, minZ));
+                borderTiles.Add(new(x, 0, maxZ));
             }
             //Add the left and right sides
-            for (int i = minZ; i < maxZ; i++)
+            for (int z = minZ; z < maxZ; z++)
             {
-                borderTiles.Add(new(minX, 0, i));
-                borderTiles.Add(new(maxX, 0, i));
+                borderTiles.Add(new(minX, 0, z));
+                borderTiles.Add(new(maxX, 0, z));
             }
 
             //For each border tile, draw a line from the starting point to the border
@@ -70,7 +70,7 @@ namespace Battle.Logic.Map
                     currentLength += lineSegment;
                     Vector3 fovItem = singleLineCheck[i];
                     //If we find an object, stop adding tiles
-                    if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Z] == CoverType.FullCover)
+                    if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
                     {
                         break;
                     }
@@ -104,19 +104,21 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,] map)
+        public static string GetMapString(string[,,] map)
         {
             int xMax = map.GetLength(0);
-            int zMax = map.GetLength(1);
+            //int yMax = map.GetLength(1);
+            int zMax = map.GetLength(2);
             StringBuilder sb = new();
             sb.Append(Environment.NewLine);
+            int y = 0;
             for (int z = zMax - 1; z >= 0; z--)
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    if (map[x, z] != "")
+                    if (map[x, y, z] != "")
                     {
-                        sb.Append(map[x, z] + " ");
+                        sb.Append(map[x, y, z] + " ");
                     }
                     else
                     {
@@ -128,22 +130,22 @@ namespace Battle.Logic.Map
             return sb.ToString();
         }
 
-        public static string[,] ApplyListToMap(string[,] map, List<Vector3> list, string tile)
+        public static string[,,] ApplyListToMap(string[,,] map, List<Vector3> list, string tile)
         {
             foreach (Vector3 item in list)
             {
-                if (map[(int)item.X, (int)item.Z] == "")
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
                 {
-                    map[(int)item.X, (int)item.Z] = tile;
+                    map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
                 }
             }
 
             return map;
         }
 
-        public static string GetMapStringWithItems(string[,] map, List<Vector3> list)
+        public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
         {
-            string[,] mapFov = MapCore.ApplyListToMap((string[,])map.Clone(), list, "o");
+            string[,,] mapFov = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
             string mapString = MapCore.GetMapString(mapFov);
             return mapString;
         }
