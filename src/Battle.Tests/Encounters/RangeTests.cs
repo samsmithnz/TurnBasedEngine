@@ -1,10 +1,11 @@
 using Battle.Logic.Encounters;
-using Battle.Logic.Weapons;
-using Battle.Tests.Weapons;
+using Battle.Logic.Items;
+using Battle.Tests.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Battle.Tests.Encounters
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
     public class RangeTests

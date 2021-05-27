@@ -23,12 +23,12 @@ namespace Battle.Tests.Encounters
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -41,7 +41,7 @@ namespace Battle.Tests.Encounters
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -70,12 +70,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -89,7 +89,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -120,12 +120,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -140,7 +140,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -171,12 +171,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -191,7 +191,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -222,12 +222,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -240,7 +240,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -269,12 +269,12 @@ Cover removed from <2, 0, 3>
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ H □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ H . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -291,7 +291,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -327,12 +327,12 @@ Cover removed from <2, 0, 3>
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ H □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ H . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -349,7 +349,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -385,12 +385,12 @@ Cover removed from <2, 0, 3>
             //  "E" = enemy/jeff
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ H □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ H . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -407,7 +407,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -441,12 +441,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -465,7 +465,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -504,12 +504,12 @@ Cover removed from <2, 0, 3>
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ E □ □
-            //  □ □ ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . E . .
+            //  . . ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -547,7 +547,7 @@ Cover removed from <2, 0, 3>
             //Assert.AreEqual(new Vector3(1, 0, 3), results[0]);
 
             //Act 2: Now destroy the cover
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
             results = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
@@ -603,7 +603,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -618,7 +618,7 @@ Cover removed from <2, 0, 3>
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            fred.UtilityItemEquipped = null;
+            fred.UtilityWeaponEquipped = null;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
             jeff.Hitpoints = 4;
@@ -627,7 +627,7 @@ Cover removed from <2, 0, 3>
             List<Character> characterList = new() { fred, jeff };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityItemEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result == null);

@@ -80,7 +80,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(2, character.Effects[0].TurnExpiration);
 
             Assert.IsTrue(actions != null);
-            Assert.AreEqual(4, actions.Count);
+            Assert.AreEqual(5, actions.Count);
             Assert.AreEqual("1", actions[0].KeyBinding);
         }
 

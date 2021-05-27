@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.Weapons
+﻿namespace Battle.Logic.Items
 {
     public class Weapon
     {
@@ -29,6 +29,7 @@
         Shotgun = 2,
         SniperRifle = 3,
         Sword = 4,
-        Grenade = 5
+        Grenade = 5,
+        MedKit = 6
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
-using Battle.Tests.Weapons;
+using Battle.Tests.Items;
 
 namespace Battle.Tests.Characters
 {
@@ -23,7 +23,8 @@ namespace Battle.Tests.Characters
                 MovementRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateRifle(),
-                UtilityItemEquipped = WeaponPool.CreateGrenade(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
+                UtilityItemEquipped = ItemPool.CreateMedKit(),
                 InHalfCover = false,
                 InFullCover = false,
                 InOverwatch = false,
@@ -60,7 +61,7 @@ namespace Battle.Tests.Characters
                 MovementRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
-                UtilityItemEquipped = WeaponPool.CreateGrenade(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = false,
                 InFullCover = false,
                 InOverwatch = false,
@@ -86,7 +87,7 @@ namespace Battle.Tests.Characters
                 MovementRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
-                UtilityItemEquipped = WeaponPool.CreateGrenade(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InHalfCover = true,
                 InFullCover = false,
                 InOverwatch = false,

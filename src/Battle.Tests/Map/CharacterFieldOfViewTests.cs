@@ -67,8 +67,8 @@ P o o o o o o o o o
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
             string mapResult = @"
-o o o o o o o o o □ 
-o o o o o o o o P □ 
+o o o o o o o o o . 
+o o o o o o o o P . 
 o o o o o o o ■ ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -103,8 +103,8 @@ P o o o o o o o o o
             Assert.IsTrue(characters != null);
             Assert.AreEqual(0, characters.Count);
             string mapResult = @"
-o o o o o o o □ □ □ 
-o o o o o o o □ P □ 
+o o o o o o o . . . 
+o o o o o o o . P . 
 o o o o o o o ■ ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -138,8 +138,8 @@ o o o o o o o o P o
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
             string mapResult = @"
-o o o o o o o o □ □ 
-o o o o o o o o P □ 
+o o o o o o o o . . 
+o o o o o o o o P . 
 o o o o o o o o ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -184,8 +184,8 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 o o o o o o o o ■ ■ 
-o o o o o o o o P □ 
-o o o o o o o o □ □ 
+o o o o o o o o P . 
+o o o o o o o o . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -287,13 +287,13 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o ■ ■ ■ 
-o o o o o □ □ □ □ □ 
-o o □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-P □ □ □ □ □ □ □ □ □ 
+o o o o o . . . . . 
+o o . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+P . . . . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -321,14 +321,14 @@ P □ □ □ □ □ □ □ □ □
             string mapResult = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
-o o o o o o o ▪ ■ ■ 
-o o o o o o o o □ □ 
-o o o o o o o □ □ □ 
-o o o o o o o □ □ □ 
-o o o o o o □ □ □ □ 
-o o o o o o □ □ □ □ 
-o o o o o □ □ □ □ □ 
-P o o o o □ □ □ □ □ 
+o o o o o o o □ ■ ■ 
+o o o o o o o o . . 
+o o o o o o o . . . 
+o o o o o o o . . . 
+o o o o o o . . . . 
+o o o o o o . . . . 
+o o o o o . . . . . 
+P o o o o . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -354,9 +354,9 @@ P o o o o □ □ □ □ □
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
             string mapResult = @"
-o □ □ □ o o o o o o 
-o □ □ □ o o o o o o 
-o o □ o o o o o o o 
+o . . . o o o o o o 
+o . . . o o o o o o 
+o o . o o o o o o o 
 o o P o o o o o o o 
 o o ■ o o o o o o o 
 o o o o o o o o o o 
@@ -385,17 +385,17 @@ o o o o o o o o o o
             Assert.IsTrue(characters != null);
             Assert.AreEqual(0, characters.Count);
             string mapResult = @"
-□ □ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ □ 
-□ □ □ o o o o o □ □ □ 
-□ □ o o o o o o o □ □ 
-□ □ o o o o o o o □ □ 
-□ □ o o o P o o o □ □ 
-□ □ o o o o o o o □ □ 
-□ □ o o o o o o o □ □ 
-□ □ □ o o o o o □ □ □ 
-□ □ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ □ 
+. . . . . . . . . . . 
+. . . . . . . . . . . 
+. . . o o o o o . . . 
+. . o o o o o o o . . 
+. . o o o o o o o . . 
+. . o o o P o o o . . 
+. . o o o o o o o . . 
+. . o o o o o o o . . 
+. . . o o o o o . . . 
+. . . . . . . . . . . 
+. . . . . . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
