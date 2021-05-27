@@ -1,7 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.Weapons;
+using Battle.Logic.Items;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

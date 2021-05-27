@@ -10,7 +10,7 @@ namespace Battle.Tests.Characters
     public class CoverWestTests
     {
         // In the diagrams
-        // "□" is open space
+        // "." is open space
         // CoverType.FullCover is cover/an object
         // "S" is the player
         // "E" is the enemy/opponent
@@ -22,9 +22,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ □ □ E 
-            //  □ ■ S □ 
-            //  □ □ □ □
+            //  . . . E 
+            //  . ■ S . 
+            //  . . . .
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -46,9 +46,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            // 2 □ □ □ □ 
-            // 1 □ ■ S E 
-            // 0 □ □ □ □
+            // 2 . . . . 
+            // 1 . ■ S E 
+            // 0 . . . .
             //   0 1 2 3
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
@@ -71,9 +71,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ □ □ □ 
-            //  □ ■ S □ 
-            //  □ □ □ E
+            //  . . . . 
+            //  . ■ S . 
+            //  . . . E
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -95,9 +95,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ □ □ □ 
-            //  □ ■ S □ 
-            //  □ □ E □
+            //  . . . . 
+            //  . ■ S . 
+            //  . . E .
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -119,9 +119,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ □ □ □ 
-            //  □ ■ S □ 
-            //  □ E □ □
+            //  . . . . 
+            //  . ■ S . 
+            //  . E . .
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -143,9 +143,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ □ □ □ 
-            //  □ ■ S □ 
-            //  E □ □ □
+            //  . . . . 
+            //  . ■ S . 
+            //  E . . .
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -167,9 +167,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  In Cover
-            //  □ □ □ □ 
-            //  E ■ S □ 
-            //  □ □ □ □            
+            //  . . . . 
+            //  E ■ S . 
+            //  . . . .            
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -191,9 +191,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  In Cover
-            //  E □ □ □ 
-            //  □ ■ S □ 
-            //  □ □ □ □               
+            //  E . . . 
+            //  . ■ S . 
+            //  . . . .               
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -215,9 +215,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            //  □ E □ □ 
-            //  □ ■ S □ 
-            //  □ □ □ □             
+            //  . E . . 
+            //  . ■ S . 
+            //  . . . .             
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;
             int height = 3;
@@ -239,9 +239,9 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  Flanked
-            // 2 □ □ E □ 
-            // 1 □ ■ S □ 
-            // 0 □ □ □ □   
+            // 2 . . E . 
+            // 1 . ■ S . 
+            // 0 . . . .   
             //   0 1 2 3          
             Vector3 startingLocation = new(2, 0, 1);
             int width = 4;

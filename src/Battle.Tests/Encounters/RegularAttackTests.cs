@@ -1,7 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
-using Battle.Logic.Weapons;
+using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
@@ -533,12 +533,12 @@ Fred is ready to level up
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ E □ □
-            //  □ □ ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . E . .
+            //  . . ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -578,12 +578,12 @@ Critical chance: 20, (dice roll: 0)
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □
-            //  □ E ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -626,13 +626,13 @@ Fred is ready to level up
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
+            //  "." = open ground
             //            E
-            //  □ □ □ □ □
-            //  □ □ ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  . . . . .
+            //  . . ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -661,12 +661,12 @@ Fred is ready to level up
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ E □ □
-            //  □ □ ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . E . .
+            //  . . ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
@@ -704,12 +704,12 @@ Missed: Chance to hit: 24, (dice roll: 65)
             //  "P" = player/fred
             //  "E" = enemy/jeff
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ E □ □
-            //  □ □ ■ □ □ 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □
-            //  □ □ P □ □
+            //  "." = open ground
+            //  . . E . .
+            //  . . ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();

@@ -122,7 +122,7 @@ namespace Battle.Logic.Map
                     }
                     else
                     {
-                        sb.Append("□ ");
+                        sb.Append(". ");
                     }
                 }
                 sb.Append(Environment.NewLine);

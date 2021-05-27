@@ -10,7 +10,7 @@ namespace Battle.Tests.Characters
     public class CoverBaseTests
     {
         // In the diagrams
-        // "□" is open space
+        // "." is open space
         // "■" is cover/an object
         // "S" is the player
         // "E" is the enemy/opponent
@@ -21,9 +21,9 @@ namespace Battle.Tests.Characters
         public void Test_WithoutCover_NoEnemy()
         {
             // Arrange
-            //  □ □ □ 
-            //  □ S □ 
-            //  □ □ □ 
+            //  . . . 
+            //  . S . 
+            //  . . . 
             Vector3 startingLocation = new(1,0, 1);
             int width = 3;
             int height = 3;
@@ -68,9 +68,9 @@ namespace Battle.Tests.Characters
         public void Test_WithNorthCover_NoEnemy()
         {
             // Arrange
-            //  □ ■ □ 
-            //  □ S □
-            //  □ □ □ 
+            //  . ■ . 
+            //  . S .
+            //  . . . 
             Vector3 startingLocation = new (1, 0, 1);
             int width = 3;
             int height = 3;
@@ -94,9 +94,9 @@ namespace Battle.Tests.Characters
         public void Test_WithEastCover_NoEnemy()
         {
             // Arrange
-            //  □ □ □ 
-            //  □ S ■ 
-            //  □ □ □ 
+            //  . . . 
+            //  . S ■ 
+            //  . . . 
             Vector3 startingLocation = new (1, 0, 1);
             int width = 3;
             int height = 3;
@@ -120,9 +120,9 @@ namespace Battle.Tests.Characters
         public void Test_WithSouthCover_NoEnemy()
         {
             // Arrange
-            //  □ □ □ 
-            //  □ S □ 
-            //  □ ■ □ 
+            //  . . . 
+            //  . S . 
+            //  . ■ . 
             Vector3 startingLocation = new (1, 0, 1);
             int width = 3;
             int height = 3;
@@ -146,9 +146,9 @@ namespace Battle.Tests.Characters
         public void Test_WithWestCover_NoEnemy()
         {
             // Arrange
-            //  □ □ □ 
-            //  ■ S □ 
-            //  □ □ □ 
+            //  . . . 
+            //  ■ S . 
+            //  . . . 
             Vector3 startingLocation = new(1, 0, 1);
             int width = 3;
             int height = 3;

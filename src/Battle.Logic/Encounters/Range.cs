@@ -1,4 +1,4 @@
-﻿using Battle.Logic.Weapons;
+﻿using Battle.Logic.Items;
 using System.Numerics;
 
 namespace Battle.Logic.Encounters

@@ -1,7 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Map;
 using Battle.Logic.GameController;
-using Battle.Logic.Weapons;
+using Battle.Logic.Items;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -30,7 +30,8 @@ namespace Battle.Logic.Characters
         public int MovementRange { get; set; }
         public int ShootingRange { get; set; }
         public Weapon WeaponEquipped { get; set; }
-        public Weapon UtilityItemEquipped { get; set; }
+        public Weapon UtilityWeaponEquipped { get; set; }
+        public Item UtilityItemEquipped { get; set; }
         public bool InHalfCover { get; set; }
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
@@ -77,14 +78,33 @@ namespace Battle.Logic.Characters
                 {
                     options.Add(new() { Name = "_reload", Caption = "Reload", KeyBinding = "1" });
                 }
-                if (UtilityItemEquipped != null)
+                if (UtilityWeaponEquipped != null)
                 {
                     options.Add(new() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
                 }
-                options.Add(new() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "4" });
+                if (UtilityItemEquipped != null)
+                {
+                    if (UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
+                    {
+                        options.Add(new() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
+                    }
+                }
+                options.Add(new() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
             }
 
             return options;
+        }
+
+        public void UseItem(Item item)
+        {
+            if (item != null)
+            {
+                if (item.Type == ItemType.MedKit && item.ClipRemaining > 0)
+                {
+                    Hitpoints += item.Adjustment;
+                    item.ClipRemaining -= 1;
+                }
+            }
         }
 
         public List<Character> GetCharactersInView(string[,,] map, List<Team> teams)

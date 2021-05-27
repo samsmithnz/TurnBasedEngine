@@ -29,11 +29,11 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(4, 0, 3), results[2]);
             Assert.AreEqual(location, results[3]);
             string mapResult = @"
-□ □ □ o o 
-□ □ □ o o 
-□ □ □ □ □ 
-□ □ □ □ □ 
-□ □ □ □ □ 
+. . . o o 
+. . . o o 
+. . . . . 
+. . . . . 
+. . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -60,11 +60,11 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(2, 0, 0), results[4]);
             Assert.AreEqual(location, results[8]);
             string mapResult = @"
-□ □ □ □ □ 
-□ □ □ □ □ 
-o o o □ □ 
-o o o □ □ 
-o o o □ □ 
+. . . . . 
+. . . . . 
+o o o . . 
+o o o . . 
+o o o . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -89,11 +89,11 @@ o o o □ □
             Assert.AreEqual(new Vector3(1, 0, 1), results[2]);
             Assert.AreEqual(location, results[3]);
             string mapResult = @"
-□ □ □ □ □ 
-□ □ □ □ □ 
-□ □ □ □ □ 
-o o □ □ □ 
-o o □ □ □ 
+. . . . . 
+. . . . . 
+. . . . . 
+o o . . . 
+o o . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -118,16 +118,16 @@ o o □ □ □
             Assert.AreEqual(new Vector3(7, 0, 6), results[43]);
             Assert.AreEqual(location, results[44]);
             string mapResult = @"
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ o o o o o □ □ □ 
-□ o o o o o o o □ □ 
-□ o o o o o o o □ □ 
-□ o o o o o o o □ □ 
-□ o o o o o o o □ □ 
-□ o o o o o o o □ □ 
-□ □ o o o o o □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . o o o o o . . . 
+. o o o o o o o . . 
+. o o o o o o o . . 
+. o o o o o o o . . 
+. o o o o o o o . . 
+. o o o o o o o . . 
+. . o o o o o . . . 
+. . . . . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }
@@ -151,16 +151,16 @@ o o □ □ □
             Assert.AreEqual(new Vector3(3, 0, 2), results[13]);
             Assert.AreEqual(location, results[14]);
             string mapResult = @"
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-□ □ □ □ □ □ □ □ □ □ 
-o o o □ □ □ □ □ □ □ 
-o o o o □ □ □ □ □ □ 
-o o o o □ □ □ □ □ □ 
-o o o o □ □ □ □ □ □ 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+o o o . . . . . . . 
+o o o o . . . . . . 
+o o o o . . . . . . 
+o o o o . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
         }

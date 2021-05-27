@@ -78,17 +78,17 @@ namespace Battle.Tests.Map
             //Arrange            
             //  "P" = player/fred
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ P □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
+            //  "." = open ground
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . P . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
@@ -109,17 +109,17 @@ namespace Battle.Tests.Map
             //Arrange            
             //  "P" = player/fred
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ ■ P ■ □ □ □
-            //  □ □ □ □ ■ ■ ■ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
+            //  "." = open ground
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . ■ P ■ . . .
+            //  . . . . ■ ■ ■ . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
@@ -143,17 +143,17 @@ namespace Battle.Tests.Map
             //Arrange            
             //  "P" = player/fred
             //  CoverType.FullCover = cover
-            //  "□" = open ground
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ P □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □ □ □ □
+            //  "." = open ground
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . P . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
+            //  . . . . . . . . . .
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             int range = 12;
             Vector3 startingLocation = new(4, 0, 4);
@@ -172,13 +172,13 @@ namespace Battle.Tests.Map
             //Arrange            
             //  "P" = player/fred
             //  CoverType.FullCover = cover
-            //  "□" = open ground
+            //  "." = open ground
 
-            //  □ □ □ □ □ 
-            //  □ □ □ □ □ 
-            //  □ ■ P ■ □ 
-            //  □ ■ ■ ■ □ 
-            //  □ □ □ □ □ 
+            //  . . . . . 
+            //  . . . . . 
+            //  . ■ P ■ . 
+            //  . ■ ■ ■ . 
+            //  . . . . . 
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
             int range = 10;
             Vector3 startingLocation = new(2, 0, 2);
