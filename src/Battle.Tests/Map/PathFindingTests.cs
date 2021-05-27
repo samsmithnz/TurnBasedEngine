@@ -172,7 +172,7 @@ namespace Battle.Tests.Map
             //Arrange
             int height = 5;
             int width = 5;
-            string[,,] map = MapUtility.InitializeMap(width, 0, height);
+            string[,,] map = MapUtility.InitializeMap(width, 1, height);
             map[1, 0, 1] = CoverType.FullCover;
             map[1, 0, 2] = CoverType.FullCover;
             map[1, 0, 3] = CoverType.FullCover;
@@ -210,7 +210,7 @@ namespace Battle.Tests.Map
             Vector3 endLocation = new(2, 0, 2);
             int height = 5;
             int width = 5;
-            string[,,] map = MapUtility.InitializeMap(width, 0, height);
+            string[,,] map = MapUtility.InitializeMap(width, 1, height);
             map[1, 0, 1] = CoverType.FullCover;
             map[1, 0, 2] = CoverType.FullCover;
             map[1, 0, 3] = CoverType.FullCover;

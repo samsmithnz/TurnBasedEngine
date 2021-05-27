@@ -21,7 +21,7 @@ namespace Battle.Logic.Map
             InitializeTiles(map);
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)startLocation.Y, (int)endLocation.Z];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list
             PathFindingResult result = new();
@@ -116,7 +116,7 @@ namespace Battle.Logic.Map
                 int z = (int)location.Z;
 
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || z < 0 || z >= _height)
+                if (x < 0 || x >= _width || z < 0 || z >= _breadth)
                 {
                     continue;
                 }

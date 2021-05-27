@@ -37,16 +37,16 @@ namespace Battle.Logic.Map
             //Get a list of all border squares
             HashSet<Vector3> borderTiles = new();
             //Add the top and bottom rows
-            for (int i = minX; i <= maxX; i++)
+            for (int x = minX; x <= maxX; x++)
             {
-                borderTiles.Add(new(i, 0, minZ));
-                borderTiles.Add(new(i, 0, maxZ));
+                borderTiles.Add(new(x, 0, minZ));
+                borderTiles.Add(new(x, 0, maxZ));
             }
             //Add the left and right sides
-            for (int i = minZ; i < maxZ; i++)
+            for (int z = minZ; z < maxZ; z++)
             {
-                borderTiles.Add(new(minX, 0, i));
-                borderTiles.Add(new(maxX, 0, i));
+                borderTiles.Add(new(minX, 0, z));
+                borderTiles.Add(new(maxX, 0, z));
             }
 
             //For each border tile, draw a line from the starting point to the border
