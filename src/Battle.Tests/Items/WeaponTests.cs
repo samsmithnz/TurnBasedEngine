@@ -67,8 +67,8 @@ namespace Battle.Tests.Items
             Assert.AreEqual(20, weapon.CriticalChance);
             Assert.AreEqual(5, weapon.CriticalDamageLow);
             Assert.AreEqual(7, weapon.CriticalDamageHigh);
-            Assert.AreEqual(4, weapon.ClipSize);
-            Assert.AreEqual(4, weapon.ClipRemaining);
+            Assert.AreEqual(4, weapon.AmmoMax);
+            Assert.AreEqual(4, weapon.AmmoCurrent);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.Standard, weapon.Type);
         }
@@ -85,8 +85,8 @@ namespace Battle.Tests.Items
             Assert.AreEqual(20, weapon.CriticalChance);
             Assert.AreEqual(6, weapon.CriticalDamageLow);
             Assert.AreEqual(8, weapon.CriticalDamageHigh);
-            Assert.AreEqual(4, weapon.ClipSize);
-            Assert.AreEqual(4, weapon.ClipRemaining);
+            Assert.AreEqual(4, weapon.AmmoMax);
+            Assert.AreEqual(4, weapon.AmmoCurrent);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.Shotgun, weapon.Type);
         }
@@ -103,8 +103,8 @@ namespace Battle.Tests.Items
             Assert.AreEqual(25, weapon.CriticalChance);
             Assert.AreEqual(6, weapon.CriticalDamageLow);
             Assert.AreEqual(8, weapon.CriticalDamageHigh);
-            Assert.AreEqual(4, weapon.ClipSize);
-            Assert.AreEqual(4, weapon.ClipRemaining);
+            Assert.AreEqual(4, weapon.AmmoMax);
+            Assert.AreEqual(4, weapon.AmmoCurrent);
             Assert.AreEqual(2, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.SniperRifle, weapon.Type);
         }
@@ -121,8 +121,8 @@ namespace Battle.Tests.Items
             Assert.AreEqual(0, weapon.CriticalChance);
             Assert.AreEqual(0, weapon.CriticalDamageLow);
             Assert.AreEqual(0, weapon.CriticalDamageHigh);
-            Assert.AreEqual(1, weapon.ClipSize);
-            Assert.AreEqual(1, weapon.ClipRemaining);
+            Assert.AreEqual(1, weapon.AmmoMax);
+            Assert.AreEqual(1, weapon.AmmoCurrent);
             Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.Grenade, weapon.Type);
         }

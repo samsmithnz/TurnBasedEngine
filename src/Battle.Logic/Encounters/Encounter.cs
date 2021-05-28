@@ -17,7 +17,7 @@ namespace Battle.Logic.Encounters
             bool isCriticalHit = false;
             List<string> log = new();
 
-            if (diceRolls == null || diceRolls.Count == 0 || weapon == null || weapon.ClipRemaining <= 0)
+            if (diceRolls == null || diceRolls.Count == 0 || weapon == null || weapon.AmmoCurrent <= 0)
             {
                 return null;
             }
@@ -58,7 +58,7 @@ namespace Battle.Logic.Encounters
             }
 
             //Consume source characters action points
-            sourceCharacter.ActionPoints = 0;
+            sourceCharacter.ActionPointsCurrent = 0;
 
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
@@ -88,7 +88,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString());
 
             //Don't attack if the clip is empty
-            if (weapon.ClipRemaining > 0)
+            if (weapon.AmmoCurrent > 0)
             {
                 int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
@@ -116,9 +116,9 @@ namespace Battle.Logic.Encounters
                 }
 
                 //Consume source characters action points
-                sourceCharacter.ActionPoints = 0;
+                sourceCharacter.ActionPointsCurrent = 0;
                 //Consume weapon ammo
-                weapon.ClipRemaining--;
+                weapon.AmmoCurrent--;
 
                 //Check if the character has enough experience to level up
                 sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
@@ -188,33 +188,33 @@ namespace Battle.Logic.Encounters
             }
             else
             {
-                damageDealt -= targetCharacter.ArmorPoints;
+                damageDealt -= targetCharacter.ArmorPointsCurrent;
             }
             //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
             if (damageDealt < 0)
             {
                 damageDealt = 0;
             }
-            targetCharacter.Hitpoints -= damageDealt;
+            targetCharacter.HitpointsCurrent -= damageDealt;
 
             //Process armor shredding
             int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
-            targetCharacter.ArmorPoints -= armorShredderDamage;
+            targetCharacter.ArmorPointsCurrent -= armorShredderDamage;
 
             //Update log
             if (armorShredderDamage > 0)
             {
                 log.Add(armorShredderDamage.ToString() + " armor points shredded");
             }
-            if (targetCharacter.ArmorPoints > 0 && armorPiercing == 0)
+            if (targetCharacter.ArmorPointsCurrent > 0 && armorPiercing == 0)
             {
-                log.Add("Armor prevented " + targetCharacter.ArmorPoints.ToString() + " damage to character " + targetCharacter.Name);
+                log.Add("Armor prevented " + targetCharacter.ArmorPointsCurrent.ToString() + " damage to character " + targetCharacter.Name);
             }
-            log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", HP is now " + targetCharacter.Hitpoints.ToString());
+            log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", HP is now " + targetCharacter.HitpointsCurrent.ToString());
 
             //process experience
             int xp;
-            if (targetCharacter.Hitpoints <= 0)
+            if (targetCharacter.HitpointsCurrent <= 0)
             {
                 log.Add(targetCharacter.Name + " is killed");
                 xp = Experience.GetExperience(true, true);

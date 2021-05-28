@@ -262,7 +262,7 @@ Fred is ready to level up
             //End of of battle
 
             //Assert
-            Assert.AreEqual(-5, jeff.Hitpoints);
+            Assert.AreEqual(-5, jeff.HitpointsCurrent);
         }
 
         //Enemy is behind cover and not visible.

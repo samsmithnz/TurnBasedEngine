@@ -11,14 +11,14 @@
         public int CriticalChance { get; set; }
         public int CriticalDamageLow { get; set; }
         public int CriticalDamageHigh { get; set; }
-        public int ClipSize { get; set; }
-        public int ClipRemaining { get; set; }
+        public int AmmoMax { get; set; }
+        public int AmmoCurrent { get; set; }
         public int ActionPointsRequired { get; set; }
         public WeaponType Type { get; set; }
 
         public void Reload()
         {
-            ClipRemaining = ClipSize;
+            AmmoCurrent = AmmoMax;
         }
     }
 

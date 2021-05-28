@@ -38,7 +38,7 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.WeaponEquipped.ClipRemaining = 0;
+            fred.WeaponEquipped.AmmoCurrent = 0;
 
             //Act
             List<CharacterAction> actions = fred.GetCurrentActions();
@@ -109,7 +109,7 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.ActionPoints = 0;
+            fred.ActionPointsCurrent = 0;
 
             //Act
             List<CharacterAction> actions = fred.GetCurrentActions();

@@ -12,19 +12,37 @@ namespace Battle.Tests.Characters
     public class CharacterItemTests
     {
         [TestMethod]
-        public void CharacterItemFredTest()
+        public void MedkitItemFredTest()
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Hitpoints = 1;
+            fred.HitpointsCurrent = 1;
             fred.UtilityItemEquipped = ItemPool.CreateMedKit();
 
             //Act
             fred.UseItem(fred.UtilityItemEquipped);
 
             //Assert
-            Assert.AreEqual(4, fred.Hitpoints);
+            Assert.AreEqual(4, fred.HitpointsCurrent);
             Assert.AreEqual(0, fred.UtilityItemEquipped.ClipRemaining = 0);
-        }  
+        }
+
+
+        [TestMethod]
+        public void UnknownItemFredTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.HitpointsCurrent = 1;
+            fred.UtilityItemEquipped = ItemPool.CreateMedKit();
+            fred.UtilityItemEquipped.Type = Logic.Items.ItemType.Unknown;
+
+            //Act
+            fred.UseItem(fred.UtilityItemEquipped);
+
+            //Assert
+            Assert.AreEqual(1, fred.HitpointsCurrent);
+            Assert.AreEqual(1, fred.UtilityItemEquipped.ClipRemaining );
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience); 
             Assert.AreEqual(1, movementResults.Count); 
@@ -72,7 +72,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(12, jeff.Hitpoints);
+            Assert.AreEqual(12, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
@@ -93,7 +93,7 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Character harry = CharacterPool.CreateHarryHeroSidekick();
             harry.InOverwatch = true;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 25;
+            jeff.HitpointsCurrent = 25;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Vector3 destination = new(6, 0, 0);
             Queue<int> diceRolls = new(new List<int>  { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -109,7 +109,7 @@ Missed: Chance to hit: 56, (dice roll: 0)
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(0, jeff.Hitpoints);
+            Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
@@ -150,7 +150,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(12, jeff.Hitpoints);
+            Assert.AreEqual(12, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(0, harry.Experience);
