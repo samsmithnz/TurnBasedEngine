@@ -73,7 +73,8 @@ namespace Battle.Logic.Encounters
             }
             chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
-            if (sourceCharacter.InOverwatch == true)
+            int overwatchPenaltyRemoved = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
             {
                 chanceToCrit = 0;
             }

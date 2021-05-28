@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]
-    public class AdvancedCoverTests
+    public class CoverAdvancedTests
     {
 
         [TestMethod]
