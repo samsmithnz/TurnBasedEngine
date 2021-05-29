@@ -18,7 +18,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(8, 0, 0);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -48,9 +48,9 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(8, 0, 0);
-            
+
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
             Vector3 destinationCheck = Vector3.Zero;
@@ -71,7 +71,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(8, 0, 1);
 
             //Act
@@ -94,7 +94,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(7, 0, 1);
 
             //Act
@@ -110,6 +110,182 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.AreEqual(destination, destinationCheck);
+        }
+
+        [TestMethod]
+        public void MovementRange8Test()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(20, 0, 20);
+            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+
+            //Act
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            string mapResult= MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            string mapExpected = @"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . o o o o o o o o . o o o o o o o o . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+";
+
+            //Assert
+            Assert.AreEqual(mapExpected, mapResult);
+        }
+
+        [TestMethod]
+        public void MovementRange16Test()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(20, 0, 20);
+            fred.MovementRange = 16;
+            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+
+            //Act
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            string mapResult= MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            string mapExpected = @"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . o o o o o o o o o o o o o o o o . o o o o o o o o o o o o o o o o . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+";
+
+            //Assert
+            Assert.AreEqual(mapExpected, mapResult);
+        }
+
+        [TestMethod]
+        public void MovementRange8AndRange16LayedTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new(20, 0, 20);
+            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+
+            //Act
+            List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 8);
+            List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
+            string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
+            string mapExpected = @"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o O o o o o o o o o o o o o . . . . . . . 
+. . . . . . . o o o o o o o o o o o O O O O O o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o O O O O O O O O O o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o O O O O O O O O O O O o o o o o o o o . . . . . . 
+. . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 
+. . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
+. . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
+. . . . o o o o o o o o O O O O O O O O . O O O O O O O O o o o o o o o o . . . 
+. . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
+. . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
+. . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 
+. . . . . . . o o o o o o o o O O O O O O O O O O O o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o O O O O O O O O O o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o O O O O O o o o o o o o o o o o . . . . . . 
+. . . . . . . . o o o o o o o o o o o o O o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+";
+
+            //Assert
+            Assert.AreEqual(mapExpected, mapResult);
         }
     }
 }
