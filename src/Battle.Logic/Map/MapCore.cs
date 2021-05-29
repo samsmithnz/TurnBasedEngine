@@ -139,15 +139,33 @@ namespace Battle.Logic.Map
                     map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
                 }
             }
+            return map;
+        }
 
+        public static string[,,] ApplyListToExistingMap(string[,,] map, List<Vector3> list, string tile)
+        {
+            foreach (Vector3 item in list)
+            {
+                map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
+            }
             return map;
         }
 
         public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
         {
-            string[,,] mapFov = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
-            string mapString = MapCore.GetMapString(mapFov);
+            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
+            string mapString = MapCore.GetMapString(mapNew);
             return mapString;
+        }
+
+        public static string GetMapStringWithItemLayers(string[,,] map, List<Vector3> baseList, List<Vector3> overlayList)
+        {
+            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), baseList, "o");
+            mapNew = MapCore.ApplyListToExistingMap(mapNew, overlayList, "O");
+
+            string mapString = MapCore.GetMapString(mapNew);
+            return mapString;
+
         }
     }
 }
