@@ -1,15 +1,20 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-//namespace Battle.Logic.GameController
-//{
-//    public class Mission
-//    {
-//        //Start mission
+namespace Battle.Logic.GameController
+{
+    public class Mission
+    {
+        public Mission()
+        {
+            Teams = new();
+        }
 
-//        //End mission, add records
-//    }
-//}
+        public int TurnNumber { get; set; }
+        public List<Team> Teams { get; set; }
+        public string[,,] Map { get; set; }
+
+        //Start mission
+
+        //End mission, add records
+    }
+}
