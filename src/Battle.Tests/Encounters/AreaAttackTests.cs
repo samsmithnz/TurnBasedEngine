@@ -413,7 +413,7 @@ Cover removed from <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.AreEqual(8, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(12, fred.HitpointsCurrent);
+            Assert.AreEqual(4, fred.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
             Assert.AreEqual(110, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);

@@ -20,7 +20,7 @@ namespace Battle.Tests.Characters
             fred.ProcessEffects(1);
 
             //Assert
-            Assert.AreEqual(11, fred.HitpointsCurrent);
+            Assert.AreEqual(3, fred.HitpointsCurrent);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace Battle.Tests.Characters
 
             //Assert
             Assert.AreEqual(0, fred.Effects.Count);
-            Assert.AreEqual(11, fred.HitpointsCurrent);
+            Assert.AreEqual(3, fred.HitpointsCurrent);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Battle.Tests.Characters
 
             //Assert
             Assert.AreEqual(1, fred.Effects.Count);
-            Assert.AreEqual(11, fred.HitpointsCurrent);
+            Assert.AreEqual(3, fred.HitpointsCurrent);
         }
 
     }

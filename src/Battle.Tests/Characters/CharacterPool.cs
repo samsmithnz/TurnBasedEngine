@@ -11,8 +11,8 @@ namespace Battle.Tests.Characters
             Character fred = new()
             {
                 Name = "Fred",
-                HitpointsMax = 12,
-                HitpointsCurrent = 12,
+                HitpointsMax = 4,
+                HitpointsCurrent = 4,
                 ArmorPointsMax = 0,
                 ArmorPointsCurrent = 0,
                 ActionPointsMax = 2,
@@ -52,15 +52,18 @@ namespace Battle.Tests.Characters
             Character fred = new()
             {
                 Name = "Jeff",
-                HitpointsCurrent = 12,
+                HitpointsMax = 4,
+                HitpointsCurrent = 4,
+                ArmorPointsMax = 0,
                 ArmorPointsCurrent = 0,
+                ActionPointsMax = 2,
+                ActionPointsCurrent = 2,
                 ChanceToHit = 70,
                 Experience = 0,
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 11,
                 Location = new(8, 0, 8),
-                ActionPointsCurrent = 2,
                 MovementRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateShotgun(),

@@ -34,6 +34,7 @@ namespace Battle.Tests.Scenarios
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new(20, 0, 10);
+            jeff.HitpointsCurrent = 6;
             Team team2 = new()
             {
                 Name = "Bad guys",
@@ -201,7 +202,7 @@ Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log1, encounter1.LogString);
@@ -254,7 +255,7 @@ Hit: Chance to hit: 80, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now -5
+12 damage dealt to character Jeff, HP is now -11
 Jeff is killed
 100 XP added to character Fred, for a total of 110 XP
 Fred is ready to level up
@@ -265,7 +266,7 @@ Fred is ready to level up
             mission.EndMission();
 
             //Assert
-            Assert.AreEqual(-5, jeff.HitpointsCurrent);
+            Assert.AreEqual(-11, jeff.HitpointsCurrent);
             Assert.AreEqual(1, fred.MissionsCompleted);
             Assert.AreEqual(0, jeff.MissionsCompleted);
             Assert.AreEqual(2, fred.TotalShots);
@@ -309,6 +310,7 @@ Fred is ready to level up
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new(15, 0, 10);
+            jeff.HitpointsCurrent = 5;
             Team team2 = new()
             {
                 Name = "Bad guys",
@@ -397,7 +399,7 @@ Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 3-4, (dice roll: 100)
-4 damage dealt to character Jeff, HP is now 8
+4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 Cover removed from <14, 0, 8>
 Cover removed from <14, 0, 7>

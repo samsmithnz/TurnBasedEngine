@@ -33,7 +33,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
@@ -43,7 +43,7 @@ Hit: Chance to hit: 56, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now 0
+12 damage dealt to character Jeff, HP is now -8
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
@@ -72,7 +72,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
@@ -82,7 +82,7 @@ Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now 0
+12 damage dealt to character Jeff, HP is now -8
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
@@ -111,7 +111,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(12, jeff.HitpointsCurrent);
+            Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
@@ -189,7 +189,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(PathFindingResult != null);
-            Assert.AreEqual(12, jeff.HitpointsCurrent);
+            Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(0, harry.Experience);

@@ -188,5 +188,20 @@ namespace Battle.Logic.Characters
             return false;
         }
 
+        public bool LevelUpCharacter()
+        {
+            if (LevelUpIsReady == true)
+            {
+                LevelUpIsReady = false;
+                HitpointsCurrent++;
+                HitpointsMax++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

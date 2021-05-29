@@ -52,8 +52,8 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Fred", character.Name);
-            Assert.AreEqual(12, character.HitpointsMax);
-            Assert.AreEqual(12, character.HitpointsCurrent);
+            Assert.AreEqual(4, character.HitpointsMax);
+            Assert.AreEqual(4, character.HitpointsCurrent);
             Assert.AreEqual(0, character.ArmorPointsMax);
             Assert.AreEqual(0, character.ArmorPointsCurrent);
             Assert.AreEqual(2, character.ActionPointsMax);
@@ -91,8 +91,12 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Jeff", character.Name);
-            Assert.AreEqual(12, character.HitpointsCurrent);
+            Assert.AreEqual(4, character.HitpointsMax);
+            Assert.AreEqual(4, character.HitpointsCurrent);
+            Assert.AreEqual(0, character.ArmorPointsMax);
             Assert.AreEqual(0, character.ArmorPointsCurrent);
+            Assert.AreEqual(2, character.ActionPointsMax);
+            Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
             Assert.AreEqual(0, character.Experience);
             Assert.AreEqual(1, character.Level);

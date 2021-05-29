@@ -24,6 +24,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.HitpointsCurrent = 6;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -42,14 +43,14 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(5, damageOptions.DamageHigh);
             Assert.AreEqual(8, damageOptions.CriticalDamageLow);
             Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
-            Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
