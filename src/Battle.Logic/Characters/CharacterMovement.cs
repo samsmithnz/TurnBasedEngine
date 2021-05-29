@@ -41,13 +41,13 @@ namespace Battle.Logic.Characters
             {
                 foreach (Vector3 fovLocation in characterFOV.Value)
                 {
-                    if (characterFOV.Key.ActionPoints > 0 && fovLocation == characterMoving.Location)
+                    if (characterFOV.Key.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
                     {
                         //Act
                         result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
                         //The character uses their overwatch charge
                         characterFOV.Key.InOverwatch = false;
-                        if (result.TargetCharacter.Hitpoints <= 0)
+                        if (result.TargetCharacter.HitpointsCurrent <= 0)
                         {
                             //Return the encounter result and if the character is still alive
                             return (result, false);
@@ -66,7 +66,7 @@ namespace Battle.Logic.Characters
             {
                 foreach (KeyValuePair<Character, List<Vector3>> item in overWatchedCharacters)
                 {
-                    total += item.Key.ActionPoints;
+                    total += item.Key.ActionPointsCurrent;
                 }
             }
             return total;

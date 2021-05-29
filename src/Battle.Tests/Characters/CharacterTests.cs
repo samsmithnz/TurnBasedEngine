@@ -52,15 +52,18 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Fred", character.Name);
-            Assert.AreEqual(12, character.Hitpoints);
-            Assert.AreEqual(0, character.ArmorPoints);
+            Assert.AreEqual(4, character.HitpointsMax);
+            Assert.AreEqual(4, character.HitpointsCurrent);
+            Assert.AreEqual(0, character.ArmorPointsMax);
+            Assert.AreEqual(0, character.ArmorPointsCurrent);
+            Assert.AreEqual(2, character.ActionPointsMax);
+            Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
             Assert.AreEqual(0, character.Experience);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(10, character.Speed);
             Assert.AreEqual(new Vector3(0, 0, 0), character.Location);
-            Assert.AreEqual(2, character.ActionPoints);
             Assert.AreEqual(8, character.MovementRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(false, character.InHalfCover);
@@ -88,15 +91,19 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Jeff", character.Name);
-            Assert.AreEqual(12, character.Hitpoints);
-            Assert.AreEqual(0, character.ArmorPoints);
+            Assert.AreEqual(4, character.HitpointsMax);
+            Assert.AreEqual(4, character.HitpointsCurrent);
+            Assert.AreEqual(0, character.ArmorPointsMax);
+            Assert.AreEqual(0, character.ArmorPointsCurrent);
+            Assert.AreEqual(2, character.ActionPointsMax);
+            Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
             Assert.AreEqual(0, character.Experience);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(11, character.Speed);
             Assert.AreEqual(new Vector3(8, 0, 8), character.Location);
-            Assert.AreEqual(2, character.ActionPoints);
+            Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(8, character.MovementRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(false, character.InHalfCover);
@@ -109,15 +116,15 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Harry", character.Name);
-            Assert.AreEqual(12, character.Hitpoints);
-            Assert.AreEqual(1, character.ArmorPoints);
+            Assert.AreEqual(12, character.HitpointsCurrent);
+            Assert.AreEqual(1, character.ArmorPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
             Assert.AreEqual(0, character.Experience);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(12, character.Speed);
             Assert.AreEqual(new Vector3(5, 0, 5), character.Location);
-            Assert.AreEqual(2, character.ActionPoints);
+            Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(8, character.MovementRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(true, character.InHalfCover);

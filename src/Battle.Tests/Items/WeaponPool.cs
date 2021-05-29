@@ -16,8 +16,8 @@ namespace Battle.Tests.Items
                 CriticalChance = 20,
                 CriticalDamageLow = 5,
                 CriticalDamageHigh = 7,
-                ClipSize = 4,
-                ClipRemaining = 4,
+                AmmoMax = 4,
+                AmmoCurrent = 4,
                 ActionPointsRequired = 1,
                 Type = WeaponType.Standard
             };
@@ -36,8 +36,8 @@ namespace Battle.Tests.Items
                 CriticalChance = 20,
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
-                ClipSize = 4,
-                ClipRemaining = 4,
+                AmmoMax = 4,
+                AmmoCurrent = 4,
                 ActionPointsRequired = 1,
                 Type = WeaponType.Shotgun
             };
@@ -56,8 +56,8 @@ namespace Battle.Tests.Items
                 CriticalChance = 25,
                 CriticalDamageLow = 6,
                 CriticalDamageHigh = 8,
-                ClipSize = 4,
-                ClipRemaining = 4,
+                AmmoMax = 4,
+                AmmoCurrent = 4,
                 ActionPointsRequired = 2,
                 Type = WeaponType.SniperRifle
             };
@@ -76,8 +76,8 @@ namespace Battle.Tests.Items
                 CriticalChance = 0,
                 CriticalDamageLow = 0,
                 CriticalDamageHigh = 0,
-                ClipSize = 1,
-                ClipRemaining = 1,
+                AmmoMax = 1,
+                AmmoCurrent = 1,
                 ActionPointsRequired = 1,
                 Type = WeaponType.Grenade
             };

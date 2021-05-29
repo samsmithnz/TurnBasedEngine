@@ -98,5 +98,12 @@
             }
             return result;
         }
+
+        //public bool LevelUp(Character character)
+        //{
+        //    //add abilities
+
+        //    //add HP
+        //}
     }
 }

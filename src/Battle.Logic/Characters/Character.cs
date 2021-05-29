@@ -16,8 +16,13 @@ namespace Battle.Logic.Characters
         }
 
         public string Name { get; set; }
-        public int Hitpoints { get; set; }
-        public int ArmorPoints { get; set; }
+        public int HitpointsMax { get; set; }
+        public int HitpointsCurrent { get; set; }
+        public int ArmorPointsMax { get; set; }
+        public int ArmorPointsCurrent { get; set; }
+        public int ActionPointsMax { get; set; }
+        public int ActionPointsCurrent { get; set; }
+
         public int ChanceToHit { get; set; }
         public int Experience { get; set; }
         public int Level { get; set; }
@@ -26,7 +31,6 @@ namespace Battle.Logic.Characters
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
         public Vector3 Location { get; set; }
-        public int ActionPoints { get; set; }
         public int MovementRange { get; set; }
         public int ShootingRange { get; set; }
         public Weapon WeaponEquipped { get; set; }
@@ -36,6 +40,14 @@ namespace Battle.Logic.Characters
         public bool InFullCover { get; set; }
         public bool InOverwatch { get; set; }
         public bool HunkeredDown { get; set; }
+
+        //Records & statistics
+        public int MissionsCompleted { get; set; }
+        //public int DaysWounded { get; set; }
+        public int TotalKills { get; set; }
+        public int TotalShots { get; set; }
+        public int TotalHits { get; set; }
+        public int TotalDamage { get; set; }
 
         public void ProcessEffects(int currentTurn)
         {
@@ -53,7 +65,7 @@ namespace Battle.Logic.Characters
                     switch (effect.Type)
                     {
                         case AbilityType.FireDamage:
-                            Hitpoints -= effect.Adjustment;
+                            HitpointsCurrent -= effect.Adjustment;
                             break;
                     }
                 }
@@ -67,9 +79,9 @@ namespace Battle.Logic.Characters
         public List<CharacterAction> GetCurrentActions()
         {
             List<CharacterAction> options = new();
-            if (ActionPoints > 0)
+            if (ActionPointsCurrent > 0)
             {
-                if (WeaponEquipped.ClipRemaining > 0)
+                if (WeaponEquipped.AmmoCurrent > 0)
                 {
                     options.Add(new() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
                     options.Add(new() { Name = "_overwatch", Caption = "Overwatch", KeyBinding = "2" });
@@ -82,13 +94,11 @@ namespace Battle.Logic.Characters
                 {
                     options.Add(new() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
                 }
-                if (UtilityItemEquipped != null)
+                if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
                 {
-                    if (UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
-                    {
-                        options.Add(new() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
-                    }
+                    options.Add(new() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
+
                 options.Add(new() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
             }
 
@@ -101,7 +111,7 @@ namespace Battle.Logic.Characters
             {
                 if (item.Type == ItemType.MedKit && item.ClipRemaining > 0)
                 {
-                    Hitpoints += item.Adjustment;
+                    HitpointsCurrent += item.Adjustment;
                     item.ClipRemaining -= 1;
                 }
             }
@@ -176,6 +186,21 @@ namespace Battle.Logic.Characters
                 }
             }
             return false;
+        }
+
+        public bool LevelUpCharacter()
+        {
+            if (LevelUpIsReady == true)
+            {
+                LevelUpIsReady = false;
+                HitpointsCurrent++;
+                HitpointsMax++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

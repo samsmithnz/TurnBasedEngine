@@ -24,6 +24,7 @@ namespace Battle.Tests.Encounters
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -42,7 +43,7 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(5, damageOptions.DamageHigh);
             Assert.AreEqual(8, damageOptions.CriticalDamageLow);
             Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
-            Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -72,7 +73,7 @@ Critical chance: 70, (dice roll: 0)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(12, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -92,6 +93,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
             rifle.ChanceToHitAdjustment = 20;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InFullCover = false;
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -100,7 +102,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -138,7 +140,7 @@ Critical chance: 70, (dice roll: 0)
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 5;
+            jeff.HitpointsCurrent = 5;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -149,7 +151,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -172,7 +174,7 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 12;
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -183,7 +185,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -207,7 +209,7 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 5;
+            jeff.HitpointsCurrent = 5;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -218,7 +220,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -244,7 +246,7 @@ Fred is ready to level up
             fred.Level = 1;
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 5;
+            jeff.HitpointsCurrent = 5;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -253,7 +255,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(-7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
@@ -280,6 +282,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.InHalfCover = true;
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -288,7 +291,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -317,7 +320,7 @@ Critical chance: 70, (dice roll: 0)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(12, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -344,7 +347,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(12, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -375,7 +378,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(12, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(50, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -393,7 +396,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
             fred.Abilities.Add(new("Sharp Shooter", AbilityType.Damage, 10));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -402,7 +405,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(-7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -427,7 +430,7 @@ Fred is ready to level up
             fred.Abilities.Add(new("Sharp Shooter2", AbilityType.Damage, 7));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -436,7 +439,7 @@ Fred is ready to level up
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(-7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -460,7 +463,7 @@ Fred is ready to level up
             fred.Abilities.Add(new("Platform Stability", AbilityType.CriticalChance, 10));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 12;
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -471,7 +474,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -498,7 +501,7 @@ Fred is ready to level up
             fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -509,7 +512,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -547,7 +550,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -557,7 +560,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(10, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -592,7 +595,7 @@ Critical chance: 20, (dice roll: 0)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -602,7 +605,7 @@ Critical chance: 20, (dice roll: 0)
             Assert.IsTrue(result != null);
             Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -674,7 +677,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             jeff.InFullCover = true;
             jeff.HunkeredDown = true;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -686,7 +689,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(0, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(15, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(15, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -717,7 +720,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
-            jeff.Hitpoints = 15;
+            jeff.HitpointsCurrent = 15;
             jeff.InHalfCover = true;
             jeff.HunkeredDown = true;
             Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -729,7 +732,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(10, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(10, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -750,7 +753,7 @@ Critical chance: 0, hunkered down
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            rifle.ClipRemaining = 0;
+            rifle.AmmoCurrent = 0;
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -775,8 +778,9 @@ Rifle has no ammo remaining and the attack cannot be completed
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             Weapon rifle = fred.WeaponEquipped;
-            rifle.ClipRemaining = 0;
+            rifle.AmmoCurrent = 0;
             Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.HitpointsCurrent = 12;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -786,9 +790,9 @@ Rifle has no ammo remaining and the attack cannot be completed
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
+            Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
-            Assert.AreEqual(3, result.SourceCharacter.WeaponEquipped.ClipRemaining);
+            Assert.AreEqual(3, result.SourceCharacter.WeaponEquipped.AmmoCurrent);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
