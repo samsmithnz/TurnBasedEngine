@@ -196,6 +196,7 @@ namespace Battle.Logic.Encounters
                 damageDealt = 0;
             }
             targetCharacter.HitpointsCurrent -= damageDealt;
+            sourceCharacter.TotalDamage += damageDealt;
 
             //Process armor shredding
             int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);

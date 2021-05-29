@@ -15,7 +15,7 @@ namespace Battle.Tests.Scenarios
     public class ScenarioTests
     {
         [TestMethod]
-        public void SimpleJeffMovesToCoverAndExchangesFireOver2TurnsToWinTest()
+        public void JeffMovesToCoverAndExchangesFireOver2TurnsToWinTest()
         {
             //Arrange
             Mission mission = new();
@@ -271,9 +271,11 @@ Fred is ready to level up
             Assert.AreEqual(2, fred.TotalShots);
             Assert.AreEqual(2, fred.TotalHits);
             Assert.AreEqual(1, fred.TotalKills);
+            Assert.AreEqual(17, fred.TotalDamage);
             Assert.AreEqual(1, jeff.TotalShots);
             Assert.AreEqual(0, jeff.TotalHits);
             Assert.AreEqual(0, jeff.TotalKills);
+            Assert.AreEqual(0, jeff.TotalDamage);
 
         }
 
@@ -470,6 +472,14 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             //Assert
             Assert.AreEqual(1, fred.MissionsCompleted);
             Assert.AreEqual(1, jeff.MissionsCompleted);
+            Assert.AreEqual(0, fred.TotalShots);
+            Assert.AreEqual(1, fred.TotalHits);
+            Assert.AreEqual(0, fred.TotalKills);
+            Assert.AreEqual(4, fred.TotalDamage);
+            Assert.AreEqual(0, jeff.TotalShots);
+            Assert.AreEqual(0, jeff.TotalHits);
+            Assert.AreEqual(0, jeff.TotalKills);
+            Assert.AreEqual(0, jeff.TotalDamage);
         }
 
     }
