@@ -19,6 +19,7 @@ namespace Battle.Tests.Scenarios
         {
             //Arrange
             Mission mission = new();
+            mission.Objective = Mission.MissionType.EliminateAllOpponents;
             mission.TurnNumber = 1;
             mission.Map = MapUtility.InitializeMap(50, 1, 50);
             mission.Map[6, 0, 5] = CoverType.FullCover;
@@ -43,6 +44,7 @@ namespace Battle.Tests.Scenarios
 
 
             //Assert - Setup
+            Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
             Assert.AreEqual(1, mission.TurnNumber);
             Assert.AreEqual(2, mission.Teams.Count);
             Assert.AreEqual(50 * 50, mission.Map.Length);
@@ -260,9 +262,19 @@ Fred is ready to level up
             Assert.AreEqual(log3, encounter3.LogString);
 
             //End of of battle
+            mission.EndMission();
 
             //Assert
             Assert.AreEqual(-5, jeff.HitpointsCurrent);
+            Assert.AreEqual(1, fred.MissionsCompleted);
+            Assert.AreEqual(0, jeff.MissionsCompleted);
+            Assert.AreEqual(2, fred.TotalShots);
+            Assert.AreEqual(2, fred.TotalHits);
+            Assert.AreEqual(1, fred.TotalKills);
+            Assert.AreEqual(1, jeff.TotalShots);
+            Assert.AreEqual(0, jeff.TotalHits);
+            Assert.AreEqual(0, jeff.TotalKills);
+
         }
 
         //Enemy is behind cover and not visible.
@@ -453,8 +465,11 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(mapResult2, mapString2);
 
             //End of of battle
+            mission.EndMission();
 
             //Assert
+            Assert.AreEqual(1, fred.MissionsCompleted);
+            Assert.AreEqual(1, jeff.MissionsCompleted);
         }
 
     }

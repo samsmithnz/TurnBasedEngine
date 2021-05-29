@@ -68,7 +68,6 @@ namespace Battle.Logic.Encounters
                 SourceCharacter = sourceCharacter,
                 AllCharacters = allCharacters,
                 DamageDealt = totalDamageDealt,
-                //DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
                 Log = log
             };
@@ -90,6 +89,7 @@ namespace Battle.Logic.Encounters
             //Don't attack if the clip is empty
             if (weapon.AmmoCurrent > 0)
             {
+                sourceCharacter.TotalShots++;
                 int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
                 //If the number rolled is higher than the chance to hit, the attack was successful!
@@ -218,6 +218,7 @@ namespace Battle.Logic.Encounters
             {
                 log.Add(targetCharacter.Name + " is killed");
                 xp = Experience.GetExperience(true, true);
+                sourceCharacter.TotalKills++;
             }
             else
             {
@@ -225,6 +226,7 @@ namespace Battle.Logic.Encounters
             }
             sourceCharacter.Experience += xp;
             log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+            sourceCharacter.TotalHits++;
 
             EncounterResult result = new()
             {

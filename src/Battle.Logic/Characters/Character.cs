@@ -41,6 +41,13 @@ namespace Battle.Logic.Characters
         public bool InOverwatch { get; set; }
         public bool HunkeredDown { get; set; }
 
+        //Records & statistics
+        public int MissionsCompleted { get; set; }
+        //public int DaysWounded { get; set; }
+        public int TotalKills { get; set; }
+        public int TotalShots { get; set; }
+        public int TotalHits { get; set; }
+
         public void ProcessEffects(int currentTurn)
         {
             List<int> itemIndexesToRemove = new();
