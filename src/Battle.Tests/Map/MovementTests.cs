@@ -33,13 +33,13 @@ namespace Battle.Tests.Map
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
-            PathFindingResult PathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, PathFindingResult.Path, diceRolls);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls);
 
             //Assert
-            Assert.IsTrue(PathFindingResult != null);
+            Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(destination, fred.Location);
-            Assert.AreEqual(8, PathFindingResult.Path.Count);
+            Assert.AreEqual(8, pathFindingResult.Path.Count);
             Assert.AreEqual(0, movementResults.Count);
         }
 
@@ -119,10 +119,23 @@ namespace Battle.Tests.Map
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(20, 0, 20);
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            Vector3 destination = new(12, 0, 20);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
-            string mapResult= MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            Vector3 destinationCheck = Vector3.Zero;
+            foreach (Vector3 item in movementPossibileTiles)
+            {
+                if (item == destination)
+                {
+                    destinationCheck = item;
+                }
+            }
+            Assert.AreEqual(destination, destinationCheck);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
+            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+
+            string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -168,6 +181,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(1, fred.ActionPointsCurrent);
         }
 
         [TestMethod]
@@ -176,12 +190,24 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(20, 0, 20);
-            fred.MovementRange = 16;
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            Vector3 destination = new(6, 0, 20);
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
-            string mapResult= MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
+            Vector3 destinationCheck = Vector3.Zero;
+            foreach (Vector3 item in movementPossibileTiles)
+            {
+                if (item == destination)
+                {
+                    destinationCheck = item;
+                }
+            }
+            Assert.AreEqual(destination, destinationCheck);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
+            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+
+            string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -227,6 +253,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(0, fred.ActionPointsCurrent);
         }
 
         [TestMethod]
@@ -236,10 +263,23 @@ namespace Battle.Tests.Map
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new(20, 0, 20);
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            Vector3 destination = new(6, 0, 20);
 
             //Act
             List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 8);
             List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
+            Vector3 destinationCheck = Vector3.Zero;
+            foreach (Vector3 item in movementPossibileTilesRange16)
+            {
+                if (item == destination)
+                {
+                    destinationCheck = item;
+                }
+            }
+            Assert.AreEqual(destination, destinationCheck);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
+            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+
             string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -286,6 +326,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(0, fred.ActionPointsCurrent);
         }
     }
 }
