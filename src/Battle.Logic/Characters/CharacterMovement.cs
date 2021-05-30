@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Encounters;
+using Battle.Logic.Map;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -7,11 +8,19 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,,] map, List<Vector3> path, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
+            if (pathFindingResult.Tiles[^1].TraversalCost > characterMoving.MovementRange)
+            {
+                characterMoving.ActionPointsCurrent -= 2;
+            }
+            else
+            {
+                characterMoving.ActionPointsCurrent -= 1;
+            }
             List<EncounterResult> encounters = new();
             int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
-            foreach (Vector3 step in path)
+            foreach (Vector3 step in pathFindingResult.Path)
             {
                 characterMoving.Location = step;
                 if (overWatchedCharacters != null && totalActionPoints > 0)
