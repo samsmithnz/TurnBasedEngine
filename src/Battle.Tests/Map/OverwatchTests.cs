@@ -58,7 +58,7 @@ Fred is ready to level up
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             fred.InOverwatch = true;
-            fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
+            fred.Abilities.Add(AbilityPool.OpportunistAbility());
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(6, 0, 0);
