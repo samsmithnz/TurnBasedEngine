@@ -393,7 +393,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Sharp Shooter", AbilityType.Damage, 10));
+            fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 15;
@@ -426,8 +426,7 @@ Fred is ready to level up
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Sharp Shooter", AbilityType.Damage, 3));
-            fred.Abilities.Add(new("Sharp Shooter2", AbilityType.Damage, 7));
+            fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 15;
@@ -460,7 +459,7 @@ Fred is ready to level up
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Platform Stability", AbilityType.CriticalChance, 10));
+            fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 12;
@@ -498,7 +497,7 @@ Fred is ready to level up
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
+            fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 15;
@@ -546,7 +545,7 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
+            fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(2, 0, 4);
@@ -591,7 +590,7 @@ Critical chance: 20, (dice roll: 0)
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero();
             fred.Location = new Vector3(2, 0, 0);
-            fred.Abilities.Add(new("Bring em on", AbilityType.CriticalDamage, 3));
+            fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);

@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Characters;
+﻿using Battle.Logic.AbilitiesAndEffects;
+using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Map;
 using Battle.Tests.Characters;
@@ -57,7 +58,7 @@ Fred is ready to level up
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             fred.InOverwatch = true;
-            fred.Abilities.Add(new Logic.AbilitiesAndEffects.Ability("Opportunist", Logic.AbilitiesAndEffects.AbilityType.OverwatchPenaltyRemoved, 1));
+            fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new(6, 0, 0);
