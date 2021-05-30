@@ -107,13 +107,10 @@ namespace Battle.Logic.Characters
 
         public void UseItem(Item item)
         {
-            if (item != null)
+            if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > 0)
             {
-                if (item.Type == ItemType.MedKit && item.ClipRemaining > 0)
-                {
-                    HitpointsCurrent += item.Adjustment;
-                    item.ClipRemaining -= 1;
-                }
+                HitpointsCurrent += item.Adjustment;
+                item.ClipRemaining -= 1;
             }
         }
 
