@@ -29,6 +29,42 @@ namespace Battle.Logic.Map
             return results;
         }
 
+        //Get the final location - which will usually be just off the map
+        public static Vector3 GetMissedLocation(Vector3 source, Vector3 target, string[,,] map)
+        {
+            int xMax = map.GetLength(0);
+            int yMax = map.GetLength(1);
+            int zMax = map.GetLength(2);
+
+            int xDifference = (int)(target.X - source.X);
+            int yDifference = (int)(target.Y - source.Y);
+            int zDifference = (int)(target.Z - source.Z);
+
+            int x = (int)(target.X + xDifference);
+            int y = (int)(target.Y + yDifference);
+            int z = (int)(target.Z + zDifference);
+
+            //int x = (int)Math.Ceiling(xMax / target.X);
+            //int y = (int)Math.Ceiling(yMax / target.Y);
+            //int z = (int)Math.Ceiling(zMax / target.Z);
+            int xFinal = x;// (int)target.X * x;
+            if (xFinal < 0)
+            {
+                xFinal = 0;
+            }
+            int yFinal = y;//(int)target.Y * y;
+            if (yFinal < 0)
+            {
+                yFinal = 0;
+            }
+            int zFinal = z;//(int)target.Z * z;
+            if (zFinal < 0)
+            {
+                zFinal = 0;
+            }
+            return new(xFinal, yFinal, zFinal);
+        }
+
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html
         //https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
         public static IEnumerable<Vector3> GetPointsOnLine(int x0, int z0, int x1, int z1)

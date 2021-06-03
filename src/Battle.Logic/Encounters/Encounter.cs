@@ -110,6 +110,13 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
+                    //Work out where the shot goes
+                    //get the percentage miss
+                    //Randomize x,y,z coordinates.
+                    //Aim and shoot at that new target and see if we hit anything
+                    //do this by doubling the lines. 
+                    Vector3 missedLocation = FieldOfView.GetMissedLocation(sourceCharacter.Location, targetCharacter.Location, map);
+
                     int xp = Experience.GetExperience(false);
                     sourceCharacter.Experience += xp;
                     log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
