@@ -40,28 +40,55 @@ namespace Battle.Logic.Map
             int yDifference = (int)(target.Y - source.Y);
             int zDifference = (int)(target.Z - source.Z);
 
-            int x = (int)(target.X + xDifference);
-            int y = (int)(target.Y + yDifference);
-            int z = (int)(target.Z + zDifference);
+            int xAdjustment = 1;
+            if (xDifference < 0)
+            {
+                xAdjustment = -1;
+            }
+            int yAdjustment = 1;
+            if (yDifference < 0)
+            {
+                yAdjustment = -1;
+            }
+            int zAdjustment = 1;
+            if (zDifference < 0)
+            {
+                zAdjustment = -1;
+            }
+            //int x = (int)(target.X + xDifference);
+            //int y = (int)(target.Y + yDifference);
+            //int z = (int)(target.Z + zDifference);
 
-            //int x = (int)Math.Ceiling(xMax / target.X);
-            //int y = (int)Math.Ceiling(yMax / target.Y);
-            //int z = (int)Math.Ceiling(zMax / target.Z);
-            int xFinal = x;// (int)target.X * x;
-            if (xFinal < 0)
+            int xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference);
+            if (xDifference < 0)
             {
-                xFinal = 0;
+                xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference * xAdjustment);
             }
-            int yFinal = y;//(int)target.Y * y;
-            if (yFinal < 0)
+            int yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference);
+            if (yDifference < 0)
             {
-                yFinal = 0;
+                yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference * yAdjustment);
             }
-            int zFinal = z;//(int)target.Z * z;
-            if (zFinal < 0)
+            int zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference);
+            if (zDifference < 0)
             {
-                zFinal = 0;
+                zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference * zAdjustment);
             }
+            int xFinal = ((int)target.X + (xDifference * xMultiplier));
+            //if (xFinal < 0)
+            //{
+            //    xFinal = 0;
+            //}
+            int yFinal = ((int)target.Y + (yDifference * yMultiplier));
+            //if (yFinal < 0)
+            //{
+            //    yFinal = 0;
+            //}
+            int zFinal = ((int)target.Z + (zDifference * zMultiplier));
+            //if (zFinal < 0)
+            //{
+            //    zFinal = 0;
+            //}
             return new(xFinal, yFinal, zFinal);
         }
 

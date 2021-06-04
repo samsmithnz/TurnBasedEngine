@@ -20,7 +20,7 @@ namespace Battle.Tests.Map
             Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
 
             //Assert
-            Assert.AreEqual(new Vector3(9, 0, 9), result);
+            Assert.AreEqual(new Vector3(13, 0, 13), result);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace Battle.Tests.Map
             Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
 
             //Assert
-            Assert.AreEqual(new Vector3(9, 0, 1), result);
+            Assert.AreEqual(new Vector3(13, 0, -3), result);
         }
 
         [TestMethod]
@@ -50,14 +50,14 @@ namespace Battle.Tests.Map
             Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
 
             //Assert
-            Assert.AreEqual(new Vector3(1, 0, 9), result);
+            Assert.AreEqual(new Vector3(-3, 0, 13), result);
         }
 
         [TestMethod]
         public void NorthWestTargetTest()
         {
             //Arrange
-            Vector3 source = new(1, 0, 9);
+            Vector3 source = new(9, 0, 1);
             Vector3 target = new(5, 0, 5);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
@@ -65,7 +65,22 @@ namespace Battle.Tests.Map
             Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
 
             //Assert
-            Assert.AreEqual(new Vector3(9, 0, 1), result);
+            Assert.AreEqual(new Vector3(-3, 0, 13), result);
+        }
+
+        [TestMethod]
+        public void NorthEastSmallTargetTest()
+        {
+            //Arrange
+            Vector3 source = new(0, 0, 0);
+            Vector3 target = new(2, 0, 2);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+
+            //Act
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+
+            //Assert
+            Assert.AreEqual(new Vector3(10, 0, 10), result);
         }
 
 
