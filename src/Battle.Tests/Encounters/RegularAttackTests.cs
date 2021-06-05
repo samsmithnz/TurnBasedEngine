@@ -657,7 +657,7 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindFullCoverAndHunkeredDownInjuriesHimTest()
+        public void FredAttacksWithRifleJeffBehindFullCoverAndHunkeredDownMissingHimTest()
         {
             //Arrange
             //  "P" = player/fred
@@ -694,13 +694,58 @@ Fred is ready to level up
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 24, (dice roll: 65)
+High cover downgraded to low cover at <2, 0, 3>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindHalfCoverAndHunkeredDownInjuriesHimTest()
+        public void FredAttacksWithRifleJeffBehindHalfCoverAndHunkeredDownMissingHimTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  CoverType.FullCover = cover
+            //  "." = open ground
+            //  . . E . .
+            //  . . □ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            map[2, 0, 3] = CoverType.HalfCover; //Add cover 
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new Vector3(2, 0, 0);
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new Vector3(2, 0, 4);
+            jeff.HitpointsCurrent = 15;
+            jeff.InFullCover = true;
+            jeff.HunkeredDown = true;
+            Queue<int> diceRolls = new(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.DamageDealt);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(15, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 24, (dice roll: 65)
+Low cover downgraded to no cover at <2, 0, 3>
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksWithRifleJeffBehindFullCoverAndHunkeredDownInjuriesHimTest()
         {
             //Arrange
             //  "P" = player/fred

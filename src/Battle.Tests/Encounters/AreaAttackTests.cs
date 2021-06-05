@@ -58,7 +58,7 @@ Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -108,7 +108,7 @@ Armor prevented 2 damage to character Jeff
 2 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -159,7 +159,7 @@ Critical chance: 0, (dice roll: 0)
 2 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -210,7 +210,7 @@ Critical chance: 0, (dice roll: 0)
 Armor prevented 1 damage to character Jeff
 1 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -256,7 +256,7 @@ Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -314,7 +314,7 @@ Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -372,7 +372,7 @@ Critical chance: 0, (dice roll: 0)
 Armor prevented 1 damage to character Harry
 3 damage dealt to character Harry, HP is now 1
 10 XP added to character Fred, for a total of 110 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -429,7 +429,7 @@ Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 110 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -492,7 +492,7 @@ Critical chance: 20, (dice roll: 0)
 4 damage dealt to character Harry, HP is now 0
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -585,7 +585,7 @@ Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
-Cover removed from <2, 0, 3>
+High cover downgraded to low cover at <2, 0, 3>
 ";
             Assert.AreEqual(log, result.LogString);
         }
