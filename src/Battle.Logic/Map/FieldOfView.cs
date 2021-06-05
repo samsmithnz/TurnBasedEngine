@@ -44,9 +44,9 @@ namespace Battle.Logic.Map
             {
                 Vector3 item = points[i];
                 //If the item gets to the edge of the map - return the edge location
-                if (((int)item.X > map.GetLength(0) - 1 ||
-                    (int)item.Y > map.GetLength(1) - 1 ||
-                    (int)item.Z > map.GetLength(2) - 1) &&
+                if (((int)item.X > map.GetLength(0) - 1 || (int)item.X < 0 ||
+                    (int)item.Y > map.GetLength(1) - 1 || (int)item.Y < 0 ||
+                    (int)item.Z > map.GetLength(2) - 1 || (int)item.Z < 0) && 
                     points.Count > 0)
                 {
                     return points[i - 1];
@@ -170,8 +170,14 @@ namespace Battle.Logic.Map
         public static List<Vector3> GetPointsOnLine(Vector3 source, Vector3 target)
         {
             List<Vector3> points = GetPointsOnLine((int)source.X, (int)source.Z, (int)target.X, (int)target.Z).ToList<Vector3>();
-            //Reverse the list
-            //points.Reverse(); //TODO: uncommenting this doesn't work as expected...
+
+            //Check if we need to reverse the list, we always want the source node first
+            if (points.Count > 0 &&
+                points[^1].X == source.X &&
+                points[^1].Z == source.Z) // note that ^1 is the same as singleLineCheck.Count - 1
+            {
+                points.Reverse();
+            }
 
             return points;
         }
