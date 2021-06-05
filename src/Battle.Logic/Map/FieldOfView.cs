@@ -39,7 +39,11 @@ namespace Battle.Logic.Map
 
             foreach (Vector3 item in points)
             {
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
+                if ((int)item.X >= map.GetLength(0) || (int)item.Y >= map.GetLength(1) || (int)item.Z >= map.GetLength(2))
+                {
+                    return item;
+                }
+                else if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
                 {
                     return item;
                 }

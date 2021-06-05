@@ -83,8 +83,6 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(10, 0, 10), result);
         }
 
-
-
         [TestMethod]
         public void NorthEastSmallTargetWithWallTest()
         {
@@ -102,6 +100,21 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.AreEqual(new Vector3(8, 0, 8), impactLocation);
+        }
+
+        [TestMethod]
+        public void NorthEastSmallTargetWithNoWallTest()
+        {
+            //Arrange
+            Vector3 source = new(0, 0, 0);
+            Vector3 target = new(2, 0, 2);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+
+            //Act
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+
+            //Assert
+            Assert.AreEqual(new Vector3(10, 0, 10), impactLocation);
         }
 
 
