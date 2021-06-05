@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Characters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Battle.Logic.Map
@@ -27,6 +28,15 @@ namespace Battle.Logic.Map
                 }
             }
             return results;
+        }
+
+        //Follow the missed shot to find the target
+        public static bool MissedShot(Vector3 source, Vector3 target, string[,,] map)
+        {
+            Vector3 finalLocation = GetMissedLocation(source, target, map);
+
+            List<Vector3> points = GetPointsOnLine(source, finalLocation);
+            return true;
         }
 
         //Get the final location - which will usually be just off the map
@@ -94,7 +104,7 @@ namespace Battle.Logic.Map
 
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html
         //https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
-        public static IEnumerable<Vector3> GetPointsOnLine(int x0, int z0, int x1, int z1)
+        private static IEnumerable<Vector3> GetPointsOnLine(int x0, int z0, int x1, int z1)
         {
             bool steep = Math.Abs(z1 - z0) > Math.Abs(x1 - x0);
             if (steep)
@@ -133,6 +143,13 @@ namespace Battle.Logic.Map
                 }
             }
             yield break;
+        }
+
+        public static List<Vector3> GetPointsOnLine(Vector3 source, Vector3 target)
+        {
+            List<Vector3> points = GetPointsOnLine((int)source.X, (int)source.Z, (int)target.X, (int)target.Z).ToList<Vector3>();
+
+            return points;
         }
 
     }
