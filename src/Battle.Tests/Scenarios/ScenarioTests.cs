@@ -292,7 +292,7 @@ Fred is ready to level up
             mission.Map[5, 0, 6] = CoverType.FullCover;
             mission.Map[14, 0, 5] = CoverType.FullCover;
             mission.Map[14, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 7] = CoverType.FullCover;
+            mission.Map[14, 0, 7] = CoverType.HalfCover; //half cover here!
             mission.Map[14, 0, 8] = CoverType.FullCover;
             mission.Map[14, 0, 9] = CoverType.FullCover;
             mission.Map[14, 0, 10] = CoverType.FullCover;
@@ -373,13 +373,13 @@ Fred is ready to level up
 . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o . . . . . . . . . o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o . . . . . . . o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o . . . . . . . o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o . . . . . o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o . . . . . o o o o o o ■ P . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o . . . o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o . . . o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o . o o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o . . . . . . . o o o o o ■ . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . 
+o o . . . . . . . o o o o o ■ . . . . . . . . . . . . . . . o o o o o o . . . . . . . . . . . . . . 
+o o o . . . . . o o o o o o ■ . . . . . . . . . . . o o o o o o o o o o . . . . . . . . . . . . . . 
+o o o . . . . . o o o o o o ■ P . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . . . . 
+o o o o . . . o o o o o o o ■ . . . . o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . 
+o o o o . . . o o o o o o o ■ o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o . o o o o o o o o □ o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o ■ o o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o P o o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . 
@@ -401,13 +401,13 @@ Critical chance: 0, (dice roll: 100)
 Critical damage range: 3-4, (dice roll: 100)
 4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
-Cover removed from <14, 0, 8>
-Cover removed from <14, 0, 7>
-Cover removed from <14, 0, 12>
-Cover removed from <14, 0, 13>
-Cover removed from <14, 0, 9>
-Cover removed from <14, 0, 11>
-Cover removed from <14, 0, 10>
+High cover downgraded to low cover at <14, 0, 8>
+Low cover downgraded to no cover at <14, 0, 7>
+High cover downgraded to low cover at <14, 0, 12>
+High cover downgraded to low cover at <14, 0, 13>
+High cover downgraded to low cover at <14, 0, 9>
+High cover downgraded to low cover at <14, 0, 11>
+High cover downgraded to low cover at <14, 0, 10>
 ";
             Assert.AreEqual(log1, encounter1.LogString);
 
@@ -451,13 +451,13 @@ Cover removed from <14, 0, 10>
 . . . . . . . . . . . o o o o o . o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . 
 . . . . . . . . . . o o o o o . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . 
 o . . . . . . . . . o o o o ■ o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . 
-o o . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . 
-o o . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
-o o o . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
-o o o . . . . . o o o o o o o P o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . 
-o o o o . . . o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . 
-o o o o . . . o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o . o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o . . . . . . . o o o o o □ o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . 
+o o . . . . . . . o o o o o □ o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
+o o o . . . . . o o o o o o □ o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
+o o o . . . . . o o o o o o □ P o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . 
+o o o o . . . o o o o o o o □ o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . 
+o o o o . . . o o o o o o o □ o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o . o o o o o o o o . o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o ■ o o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o P o o o o o o o o ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . 

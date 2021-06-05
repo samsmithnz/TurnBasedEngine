@@ -50,10 +50,18 @@ namespace Battle.Logic.Encounters
             List<Vector3> area = MapCore.GetMapArea(map, throwingTargetLocation, weapon.AreaEffectRadius, false, true);
             foreach (Vector3 item in area)
             {
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == CoverType.FullCover || map[(int)item.X, (int)item.Y, (int)item.Z] == CoverType.HalfCover)
+                switch (map[(int)item.X, (int)item.Y, (int)item.Z])
                 {
-                    map[(int)item.X, (int)item.Y, (int)item.Z] = "";
-                    log.Add("Cover removed from " + item.ToString());
+                    //Full cover becomes low cover
+                    case CoverType.FullCover:
+                        map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.HalfCover;
+                        log.Add("High cover downgraded to low cover at " + item.ToString());
+                        break;
+                    //Low cover becomes no cover
+                    case CoverType.HalfCover:
+                        map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.NoCover;
+                        log.Add("Low cover downgraded to no cover at " + item.ToString());
+                        break;
                 }
             }
 
@@ -125,10 +133,12 @@ namespace Battle.Logic.Encounters
                             //Full cover becomes low cover
                             case CoverType.FullCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.HalfCover;
+                                log.Add("High cover downgraded to low cover at " + missedLocation.ToString());
                                 break;
                             //Low cover becomes no cover
                             case CoverType.HalfCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.NoCover;
+                                log.Add("Low cover downgraded to no cover at " + missedLocation.ToString());
                                 break;
                         }
                         map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = "";
