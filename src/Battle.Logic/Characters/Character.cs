@@ -31,7 +31,7 @@ namespace Battle.Logic.Characters
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
         public Vector3 Location { get; set; }
-        public int MovementRange { get; set; }
+        public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }

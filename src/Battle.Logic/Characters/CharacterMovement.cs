@@ -10,7 +10,7 @@ namespace Battle.Logic.Characters
     {
         public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
-            if (pathFindingResult.Tiles[^1].TraversalCost > characterMoving.MovementRange)
+            if (pathFindingResult.Tiles[^1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
             }

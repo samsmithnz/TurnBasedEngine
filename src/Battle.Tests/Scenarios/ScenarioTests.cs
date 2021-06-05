@@ -58,7 +58,7 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange);
             Vector3 destination = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {

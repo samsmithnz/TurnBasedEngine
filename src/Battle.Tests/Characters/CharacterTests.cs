@@ -64,7 +64,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(10, character.Speed);
             Assert.AreEqual(new Vector3(0, 0, 0), character.Location);
-            Assert.AreEqual(8, character.MovementRange);
+            Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(false, character.InHalfCover);
             Assert.AreEqual(false, character.InFullCover);
@@ -104,7 +104,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(11, character.Speed);
             Assert.AreEqual(new Vector3(8, 0, 8), character.Location);
             Assert.AreEqual(2, character.ActionPointsCurrent);
-            Assert.AreEqual(8, character.MovementRange);
+            Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(false, character.InHalfCover);
             Assert.AreEqual(true, character.InFullCover);
@@ -125,7 +125,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(12, character.Speed);
             Assert.AreEqual(new Vector3(5, 0, 5), character.Location);
             Assert.AreEqual(2, character.ActionPointsCurrent);
-            Assert.AreEqual(8, character.MovementRange);
+            Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(true, character.InHalfCover);
             Assert.AreEqual(false, character.InFullCover);
