@@ -110,6 +110,30 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
+                    //Work out where the shot goes
+                    //get the percentage miss
+                    //Randomize x,y,z coordinates.
+                    //Aim and shoot at that new target and see if we hit anything
+                    //do this by doubling the lines. 
+                    Vector3 missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map);
+
+                    //Remove cover at this location
+                    if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != "")
+                    {
+                        switch (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z])
+                        {
+                            //Full cover becomes low cover
+                            case CoverType.FullCover:
+                                map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.HalfCover;
+                                break;
+                            //Low cover becomes no cover
+                            case CoverType.HalfCover:
+                                map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.NoCover;
+                                break;
+                        }
+                        map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = "";
+                    }
+
                     int xp = Experience.GetExperience(false);
                     sourceCharacter.Experience += xp;
                     log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");

@@ -9,9 +9,10 @@ namespace Battle.Logic.Map
     public static class MapCore
     {
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
-        {
+        { 
             int startingX = (int)sourceLocation.X;
             int startingZ = (int)sourceLocation.Z;
+            
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
             if (minX < 0)
@@ -53,14 +54,13 @@ namespace Battle.Logic.Map
             HashSet<Vector3> results = new();
             foreach (Vector3 borderItem in borderTiles)
             {
-                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(startingX, startingZ, (int)borderItem.X, (int)borderItem.Z).ToList<Vector3>();
+                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new(startingX, 0, startingZ), borderItem);
                 if (singleLineCheck.Count > 0 &&
                     singleLineCheck[^1].X == startingX &&
                     singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
                 {
-                    //Reverse the list
+                    //Reverse the list, so that items are in order from source to destination
                     singleLineCheck.Reverse();
-
                 }
                 double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[^1], 1);
                 double lineSegment = lineLength / singleLineCheck.Count;

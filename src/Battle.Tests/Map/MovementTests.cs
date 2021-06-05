@@ -23,7 +23,7 @@ namespace Battle.Tests.Map
             Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {
@@ -52,7 +52,7 @@ namespace Battle.Tests.Map
             Vector3 destination = new(8, 0, 0);
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {
@@ -75,7 +75,7 @@ namespace Battle.Tests.Map
             Vector3 destination = new(8, 0, 1);
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {
@@ -98,7 +98,7 @@ namespace Battle.Tests.Map
             Vector3 destination = new(7, 0, 1);
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {
@@ -122,7 +122,7 @@ namespace Battle.Tests.Map
             Vector3 destination = new(12, 0, 20);
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MovementRange);
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (Vector3 item in movementPossibileTiles)
             {

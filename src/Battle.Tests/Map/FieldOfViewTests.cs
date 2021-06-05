@@ -14,9 +14,11 @@ namespace Battle.Tests.Map
         public void BasicShallowLineWithNoCoverTest()
         {
             //Arrange
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(4, 0, 2);
 
             //Act
-            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -31,9 +33,11 @@ namespace Battle.Tests.Map
         public void BasicSteepLineWithNoCoverTest()
         {
             //Arrange
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(3, 0, 1);
 
             //Act
-            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 3, 1).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -47,11 +51,13 @@ namespace Battle.Tests.Map
         public void BasicShallowLineWithCoverTest()
         {
             //Arrange
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(4, 0, 2);
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
             map[3, 0, 2] = CoverType.FullCover;
 
             //Act
-            List<Vector3> results = FieldOfView.GetPointsOnLine(1, 3, 4, 2).ToList<Vector3>();
+            List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
             List<Vector3> newResults = new();
             foreach (Vector3 item in results)
             {
@@ -89,7 +95,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             //  . . . . . . . . . .
             //  . . . . . . . . . .
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
 
@@ -120,7 +126,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             //  . . . . . . . . . .
             //  . . . . . . . . . .
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             int range = 1;
             Vector3 startingLocation = new(4, 0, 4);
             map[3, 0, 4] = CoverType.FullCover;
@@ -154,7 +160,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             //  . . . . . . . . . .
             //  . . . . . . . . . .
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             int range = 12;
             Vector3 startingLocation = new(4, 0, 4);
 
