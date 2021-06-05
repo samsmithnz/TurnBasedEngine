@@ -58,7 +58,7 @@ namespace Battle.Logic.Map
                     singleLineCheck[^1].X == startingX &&
                     singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
                 {
-                    //Reverse the list
+                    //Reverse the list, so that items are in order from source to destination
                     singleLineCheck.Reverse();
                 }
                 double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[^1], 1);

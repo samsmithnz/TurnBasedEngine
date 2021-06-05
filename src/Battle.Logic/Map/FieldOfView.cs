@@ -31,12 +31,21 @@ namespace Battle.Logic.Map
         }
 
         //Follow the missed shot to find the target
-        public static bool MissedShot(Vector3 source, Vector3 target, string[,,] map)
+        public static Vector3 MissedShot(Vector3 source, Vector3 target, string[,,] map)
         {
             Vector3 finalLocation = GetMissedLocation(source, target, map);
 
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
-            return true;
+
+            foreach (Vector3 item in points)
+            {
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
+                {
+                    return item;
+                }
+            }
+
+            return Vector3.Zero;
         }
 
         //Get the final location - which will usually be just off the map
@@ -148,6 +157,8 @@ namespace Battle.Logic.Map
         public static List<Vector3> GetPointsOnLine(Vector3 source, Vector3 target)
         {
             List<Vector3> points = GetPointsOnLine((int)source.X, (int)source.Z, (int)target.X, (int)target.Z).ToList<Vector3>();
+            //Reverse the list
+            //points.Reverse(); //TODO: uncommenting this doesn't work as expected...
 
             return points;
         }

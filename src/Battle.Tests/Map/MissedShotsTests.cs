@@ -84,5 +84,26 @@ namespace Battle.Tests.Map
         }
 
 
+
+        [TestMethod]
+        public void NorthEastSmallTargetWithWallTest()
+        {
+            //Arrange
+            Vector3 source = new(0, 0, 0);
+            Vector3 target = new(2, 0, 2);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            for (int i = 0; i < 10; i++)
+            {
+                map[8, 0, i] = CoverType.FullCover;
+            }
+
+            //Act
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+
+            //Assert
+            Assert.AreEqual(new Vector3(8, 0, 8), impactLocation);
+        }
+
+
     }
 }
