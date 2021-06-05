@@ -9,9 +9,10 @@ namespace Battle.Logic.Map
     public static class MapCore
     {
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
-        {
+        { 
             int startingX = (int)sourceLocation.X;
             int startingZ = (int)sourceLocation.Z;
+            
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
             if (minX < 0)
