@@ -114,7 +114,22 @@ namespace Battle.Tests.Map
             Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
 
             //Assert
-            Assert.AreEqual(new Vector3(10, 0, 10), impactLocation);
+            Assert.AreEqual(new Vector3(9, 0, 9), impactLocation);
+        }
+
+        [TestMethod]
+        public void NorthEastSmallTargetBiggerMapWithNoWallTest()
+        {
+            //Arrange
+            Vector3 source = new(0, 0, 0);
+            Vector3 target = new(2, 0, 2);
+            string[,,] map = MapUtility.InitializeMap(20, 1, 20);
+
+            //Act
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+
+            //Assert
+            Assert.AreEqual(new Vector3(19, 0, 19), impactLocation);
         }
 
 

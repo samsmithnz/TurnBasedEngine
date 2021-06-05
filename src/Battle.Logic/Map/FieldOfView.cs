@@ -33,16 +33,25 @@ namespace Battle.Logic.Map
         //Follow the missed shot to find the target
         public static Vector3 MissedShot(Vector3 source, Vector3 target, string[,,] map)
         {
+            //Get the final missed location the projectile is heading down
             Vector3 finalLocation = GetMissedLocation(source, target, map);
 
+            //Get all of the points along this line to the final location
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
 
-            foreach (Vector3 item in points)
+            //Check each point to see if it goes off the map, or hits another object
+            for (int i = 0; i < points.Count; i++)
             {
-                if ((int)item.X >= map.GetLength(0) || (int)item.Y >= map.GetLength(1) || (int)item.Z >= map.GetLength(2))
+                Vector3 item = points[i];
+                //If the item gets to the edge of the map - return the edge location
+                if (((int)item.X > map.GetLength(0) - 1 ||
+                    (int)item.Y > map.GetLength(1) - 1 ||
+                    (int)item.Z > map.GetLength(2) - 1) &&
+                    points.Count > 0)
                 {
-                    return item;
+                    return points[i - 1];
                 }
+                //If the item hits something, return that position
                 else if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
                 {
                     return item;
