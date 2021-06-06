@@ -34,12 +34,45 @@ namespace Battle.Tests.Encounters
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor prevented 5 damage to character Jeff
+0 damage dealt to character Jeff, HP is now 5
+10 XP added to character Fred, for a total of 10 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndArmorBlocksAnyDamageTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero();
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.HitpointsCurrent = 5;
+            jeff.ArmorPointsCurrent = 5;
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(5, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(3, result.ArmorAbsorbed);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 80, (dice roll: 80)
+Damage range: 3-5, (dice roll: 20)
+Critical chance: 70, (dice roll: 0)
+Armor prevented 3 damage to character Jeff
 0 damage dealt to character Jeff, HP is now 5
 10 XP added to character Fred, for a total of 10 XP
 ";
@@ -65,6 +98,7 @@ Armor prevented 5 damage to character Jeff
             Assert.IsTrue(result != null);
             Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(2, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
@@ -95,16 +129,17 @@ Armor prevented 2 damage to character Jeff
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(-2, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.TargetCharacter.ArmorPointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(2, result.ArmorShredded);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
-3 damage dealt to character Jeff, HP is now 0
+5 damage dealt to character Jeff, HP is now -2
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
@@ -120,7 +155,7 @@ Fred is ready to level up
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.HitpointsCurrent = 3;
+            jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 3;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -133,6 +168,7 @@ Fred is ready to level up
             Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(1, result.TargetCharacter.ArmorPointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(1, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
@@ -140,7 +176,7 @@ Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
 Armor prevented 1 damage to character Jeff
-2 damage dealt to character Jeff, HP is now 1
+4 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -166,12 +202,13 @@ Armor prevented 1 damage to character Jeff
             Assert.AreEqual(3, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.TargetCharacter.ArmorPointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-Armor prevented 10 damage to character Jeff
+Armor prevented 5 damage to character Jeff
 0 damage dealt to character Jeff, HP is now 3
 10 XP added to character Fred, for a total of 10 XP
 ";
@@ -199,6 +236,8 @@ Armor prevented 10 damage to character Jeff
             Assert.AreEqual(-2, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.TargetCharacter.ArmorPointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.ArmorShredded);
+            Assert.AreEqual(0, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)

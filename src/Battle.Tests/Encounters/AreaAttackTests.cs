@@ -133,7 +133,7 @@ High cover downgraded to low cover at <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HitpointsCurrent = 2;
+            jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 2;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -144,7 +144,7 @@ High cover downgraded to low cover at <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(2, result.DamageDealt);
+            Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, jeff.ArmorPointsCurrent);
@@ -156,7 +156,7 @@ Characters in affected area: Jeff
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
-2 damage dealt to character Jeff, HP is now 0
+4 damage dealt to character Jeff, HP is now 0
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
@@ -184,7 +184,7 @@ High cover downgraded to low cover at <2, 0, 3>
             fred.Location = new Vector3(2, 0, 0);
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.Location = new Vector3(1, 0, 3);
-            jeff.HitpointsCurrent = 2;
+            jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 3;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -195,7 +195,7 @@ High cover downgraded to low cover at <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result != null);
-            Assert.AreEqual(1, result.DamageDealt);
+            Assert.AreEqual(3, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
             Assert.AreEqual(1, jeff.ArmorPointsCurrent);
@@ -208,7 +208,7 @@ Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
 Armor prevented 1 damage to character Jeff
-1 damage dealt to character Jeff, HP is now 1
+3 damage dealt to character Jeff, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 High cover downgraded to low cover at <2, 0, 3>
 ";

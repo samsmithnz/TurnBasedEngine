@@ -32,6 +32,8 @@ namespace Battle.Logic.Encounters
         }
         public List<Character> AllCharacters { get; set; }
         public int DamageDealt { get; set; }
+        public int ArmorShredded { get; set; }
+        public int ArmorAbsorbed { get; set; }
         public bool IsCriticalHit { get; set; }
         public List<string> Log { get; set; }
         public string LogString
