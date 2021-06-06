@@ -64,19 +64,6 @@ namespace Battle.Logic.Characters
                 //Work out where the enemy is relative to the cover
                 foreach (Vector3 enemyItem in attackerLocations)
                 {
-                    //NOTE: I don't think I need this now that I have cover lines
-                    //Check to see if Enemy is right on top of the player, neutralizing each others cover and causing a flank
-                    int xPosition = Convert.ToInt32(defenderPosition.X - enemyItem.X);
-                    if (xPosition < 0)
-                    {
-                        xPosition *= -1;
-                    }
-                    int zPosition = Convert.ToInt32(defenderPosition.Z - enemyItem.Z);
-                    if (zPosition < 0)
-                    {
-                        zPosition *= -1;
-                    }
-
                     //Now check over all of the levels of cover
 
                     //Enemy is located NorthEast
