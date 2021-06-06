@@ -3,6 +3,7 @@ using Battle.Logic.Characters;
 using Battle.Logic.Items;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.Encounters
 {
@@ -83,7 +84,7 @@ namespace Battle.Logic.Encounters
 
         public static DamageOptions GetDamageRange(Character sourceCharacter, Weapon weapon)
         {
-            DamageOptions damageOptions = new();
+            DamageOptions damageOptions = new DamageOptions();
             int lowDamageAdjustment = 0;
             int highDamageAdjustment = 0;
 
@@ -125,7 +126,7 @@ namespace Battle.Logic.Encounters
             Console.WriteLine(sourceCharacter.Location);
             Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
-            CoverStateResult coverState = Characters.Characters.CalculateCover(map, targetCharacter.Location, new() { sourceCharacter.Location });
+            CoverStateResult coverState = Characters.Characters.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
 
             return !coverState.IsInCover;
         }

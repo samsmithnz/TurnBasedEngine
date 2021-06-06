@@ -6,7 +6,7 @@ namespace Battle.Tests.Items
     {
         public static Weapon CreateRifle()
         {
-            Weapon rifle = new()
+            Weapon rifle = new Weapon()
             {
                 Name = "Rifle",
                 ChanceToHitAdjustment = 10,
@@ -26,7 +26,7 @@ namespace Battle.Tests.Items
 
         public static Weapon CreateShotgun()
         {
-            Weapon shotgun = new()
+            Weapon shotgun = new Weapon()
             {
                 Name = "Shotgun",
                 ChanceToHitAdjustment = 10,
@@ -46,7 +46,7 @@ namespace Battle.Tests.Items
 
         public static Weapon CreateSniperRifle()
         {
-            Weapon shotgun = new()
+            Weapon shotgun = new Weapon()
             {
                 Name = "Sniper Rifle",
                 ChanceToHitAdjustment = 10,
@@ -65,7 +65,7 @@ namespace Battle.Tests.Items
         }
         public static Weapon CreateGrenade()
         {
-            Weapon grenade = new()
+            Weapon grenade = new Weapon()
             {
                 Name = "Grenade",
                 ChanceToHitAdjustment = 0,

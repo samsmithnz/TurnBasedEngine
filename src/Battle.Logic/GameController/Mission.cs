@@ -7,7 +7,7 @@ namespace Battle.Logic.GameController
     {
         public Mission()
         {
-            Teams = new();
+            Teams = new List<Team>();
         }
 
         public int TurnNumber { get; set; }

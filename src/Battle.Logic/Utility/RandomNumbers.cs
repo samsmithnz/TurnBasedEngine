@@ -9,20 +9,20 @@ namespace Battle.Logic.Utility
         {
             if (seed == null)
             {
-                Random rand = new();
+                Random rand = new Random();
                 return rand.Next(minValue, maxValue);
             }
             else
             {
-                Random rand = new((int)seed);
+                Random rand = new Random((int)seed);
                 return rand.Next(minValue, maxValue);
             }
         }
 
         public static List<int> GenerateRandomNumberList(int minValue, int maxValue, int seed = 0, int listSize = 10)
         {
-            Random rand = new(seed);
-            List<int> result = new(seed);
+            Random rand = new Random(seed);
+            List<int> result = new List<int>(seed);
             for (int i = 0; i < listSize; i++)
             {
                 result.Add(rand.Next(minValue, maxValue));
@@ -33,7 +33,7 @@ namespace Battle.Logic.Utility
         public static int ScaleRandomNumber(int minValue, int maxValue, int value)
         {
             //The scale formula is: =(value - minValue) / (maxValue - minValue);
-            int result = (value - 0) * (maxValue - minValue) / (100- 0) + minValue;
+            int result = (value - 0) * (maxValue - minValue) / (100 - 0) + minValue;
 
             return result;
         }

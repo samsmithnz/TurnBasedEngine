@@ -11,8 +11,8 @@ namespace Battle.Logic.Characters
     {
         public Character()
         {
-            Abilities = new();
-            Effects = new();
+            Abilities = new List<Ability>();
+            Effects = new List<Effect>();
         }
 
         public string Name { get; set; }
@@ -51,7 +51,7 @@ namespace Battle.Logic.Characters
 
         public void ProcessEffects(int currentTurn)
         {
-            List<int> itemIndexesToRemove = new();
+            List<int> itemIndexesToRemove = new List<int>();
             for (int i = 0; i < Effects.Count; i++)
             {
                 Effect effect = Effects[i];
@@ -78,28 +78,28 @@ namespace Battle.Logic.Characters
 
         public List<CharacterAction> GetCurrentActions()
         {
-            List<CharacterAction> options = new();
+            List<CharacterAction> options = new List<CharacterAction>();
             if (ActionPointsCurrent > 0)
             {
                 if (WeaponEquipped.AmmoCurrent > 0)
                 {
-                    options.Add(new() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
-                    options.Add(new() { Name = "_overwatch", Caption = "Overwatch", KeyBinding = "2" });
+                    options.Add(new CharacterAction() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
+                    options.Add(new CharacterAction() { Name = "_overwatch", Caption = "Overwatch", KeyBinding = "2" });
                 }
                 else
                 {
-                    options.Add(new() { Name = "_reload", Caption = "Reload", KeyBinding = "1" });
+                    options.Add(new CharacterAction() { Name = "_reload", Caption = "Reload", KeyBinding = "1" });
                 }
                 if (UtilityWeaponEquipped != null)
                 {
-                    options.Add(new() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
+                    options.Add(new CharacterAction() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
                 }
                 if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
                 {
-                    options.Add(new() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
+                    options.Add(new CharacterAction() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
 
-                options.Add(new() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
+                options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
             }
 
             return options;
@@ -116,7 +116,7 @@ namespace Battle.Logic.Characters
 
         public List<Character> GetCharactersInView(string[,,] map, List<Team> teams)
         {
-            List<Character> results = new();
+            List<Character> results = new List<Character>();
 
             List<Vector3> fovVectors = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
             foreach (Team team in teams)

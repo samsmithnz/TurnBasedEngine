@@ -15,7 +15,7 @@ namespace Battle.Logic.Map
 
         public static List<Character> GetCharactersInArea(List<Character> characters, string[,,] map, Vector3 location, int range)
         {
-            List<Character> results = new();
+            List<Character> results = new List<Character>();
             List<Vector3> area = MapCore.GetMapArea(map, location, range, false, true);
             foreach (Character character in characters)
             {
@@ -46,7 +46,7 @@ namespace Battle.Logic.Map
                 //If the item gets to the edge of the map - return the edge location
                 if (((int)item.X > map.GetLength(0) - 1 || (int)item.X < 0 ||
                     (int)item.Y > map.GetLength(1) - 1 || (int)item.Y < 0 ||
-                    (int)item.Z > map.GetLength(2) - 1 || (int)item.Z < 0) && 
+                    (int)item.Z > map.GetLength(2) - 1 || (int)item.Z < 0) &&
                     points.Count > 0)
                 {
                     return points[i - 1];
@@ -106,7 +106,7 @@ namespace Battle.Logic.Map
             int xFinal = ((int)target.X + (xDifference * xMultiplier));
             int yFinal = ((int)target.Y + (yDifference * yMultiplier));
             int zFinal = ((int)target.Z + (zDifference * zMultiplier));
-            return new(xFinal, yFinal, zFinal);
+            return new Vector3(xFinal, yFinal, zFinal);
         }
 
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html
@@ -141,7 +141,7 @@ namespace Battle.Logic.Map
             int z = z0;
             for (int x = x0; x <= x1; x++)
             {
-                yield return new((steep ? z : x), 0, (steep ? x : z));
+                yield return new Vector3((steep ? z : x), 0, (steep ? x : z));
                 error -= dz;
                 if (error < 0)
                 {
@@ -158,8 +158,8 @@ namespace Battle.Logic.Map
 
             //Check if we need to reverse the list, we always want the source node first
             if (points.Count > 0 &&
-                points[^1].X == source.X &&
-                points[^1].Z == source.Z) // note that ^1 is the same as singleLineCheck.Count - 1
+                points[points.Count - 1].X == source.X &&
+                points[points.Count - 1].Z == source.Z)
             {
                 points.Reverse();
             }

@@ -24,7 +24,7 @@ namespace Battle.Tests.Characters
             //  . . . 
             //  . S . 
             //  . . . 
-            Vector3 startingLocation = new(1,0, 1);
+            Vector3 startingLocation = new Vector3(1,0, 1);
             int width = 3;
             int height = 3;
             List<Vector3> enemyLocations = null;
@@ -46,7 +46,7 @@ namespace Battle.Tests.Characters
         {
             // Arrange
             //  S 
-            Vector3 startingLocation = new (0,0, 0);
+            Vector3 startingLocation = new Vector3(0,0, 0);
             int width = 1;
             int height = 1;
             List<Vector3> enemyLocations = null;
@@ -71,11 +71,11 @@ namespace Battle.Tests.Characters
             //  . ■ . 
             //  . S .
             //  . . . 
-            Vector3 startingLocation = new (1, 0, 1);
+            Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new ();
-            coverLocations.Add(new (1, 0, 2));
+            List<Vector3> coverLocations = new List<Vector3>();
+            coverLocations.Add(new Vector3(1, 0, 2));
             List<Vector3> enemyLocations = null;
 
             // Act
@@ -97,11 +97,11 @@ namespace Battle.Tests.Characters
             //  . . . 
             //  . S ■ 
             //  . . . 
-            Vector3 startingLocation = new (1, 0, 1);
+            Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new();
-            coverLocations.Add(new (2, 0, 1));
+            List<Vector3> coverLocations = new List<Vector3>();
+            coverLocations.Add(new Vector3(2, 0, 1));
             List<Vector3> enemyLocations = null;
 
             // Act
@@ -123,11 +123,11 @@ namespace Battle.Tests.Characters
             //  . . . 
             //  . S . 
             //  . ■ . 
-            Vector3 startingLocation = new (1, 0, 1);
+            Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new();
-            coverLocations.Add(new (1, 0, 0));
+            List<Vector3> coverLocations = new List<Vector3>();
+            coverLocations.Add(new Vector3(1, 0, 0));
             List<Vector3> enemyLocations = null;
 
             // Act
@@ -149,11 +149,11 @@ namespace Battle.Tests.Characters
             //  . . . 
             //  ■ S . 
             //  . . . 
-            Vector3 startingLocation = new(1, 0, 1);
+            Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new();
-            coverLocations.Add(new(0, 0, 1));
+            List<Vector3> coverLocations = new List<Vector3>();
+            coverLocations.Add(new Vector3(0, 0, 1));
             List<Vector3> enemyLocations = null;
 
             // Act

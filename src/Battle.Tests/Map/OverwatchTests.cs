@@ -22,20 +22,20 @@ namespace Battle.Tests.Map
             //Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(6, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(6, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new() { fredFOV });
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
-            Assert.AreEqual(new(8, 0, 7), jeff.Location);
+            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
@@ -61,20 +61,20 @@ Fred is ready to level up
             fred.Abilities.Add(AbilityPool.OpportunistAbility());
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(6, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(6, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new() { fredFOV });
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
-            Assert.AreEqual(new(8, 0, 7), jeff.Location);
+            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
@@ -100,15 +100,15 @@ Fred is ready to level up
             //Weapon rifle = fred.WeaponEquiped;
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(6, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(6, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new() { fredFOV });
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -135,22 +135,22 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 25;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(6, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(6, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fovFred = FieldOfView.GetFieldOfView(map, fred.Location, fred.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fovFred);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fovFred);
             List<Vector3> fovHarry = FieldOfView.GetFieldOfView(map, harry.Location, harry.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> harryFOV = new(harry, fovHarry);
+            KeyValuePair<Character, List<Vector3>> harryFOV = new KeyValuePair<Character, List<Vector3>>(harry, fovHarry);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new() { fredFOV, harryFOV });
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV, harryFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
-            Assert.AreEqual(new(8, 0, 7), jeff.Location);
+            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
             Assert.AreEqual(1, movementResults.Count);
@@ -178,15 +178,15 @@ Fred is ready to level up
             harry.InOverwatch = true;
             Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(6, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(6, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.ShootingRange);
-            KeyValuePair<Character, List<Vector3>> fredFOV = new(fred, fov);
+            KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new() { fredFOV });
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);

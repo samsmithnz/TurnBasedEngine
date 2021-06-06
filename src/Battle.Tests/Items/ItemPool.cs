@@ -6,7 +6,7 @@ namespace Battle.Tests.Items
     {
         public static Item CreateMedKit()
         {
-            Item medKit = new()
+            Item medKit = new Item()
             {
                 Name = "MedKit",
                 Adjustment =3,

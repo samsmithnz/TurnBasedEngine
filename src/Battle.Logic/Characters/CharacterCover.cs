@@ -13,7 +13,7 @@ namespace Battle.Logic.Characters
         /// <returns>True if the player is in cover</returns>
         public static CoverStateResult CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
-            CoverStateResult result = new();
+            CoverStateResult result = new CoverStateResult();
             List<Vector3> coverTiles = FindAdjacentCover(map, defenderPosition);
             int coverLineNorth = -1;
             int coverLineEast = -1;
@@ -175,7 +175,7 @@ namespace Battle.Logic.Characters
             int width = map.GetLength(0);
             //int height = map.GetLength(1);
             int breadth = map.GetLength(2);
-            List<Vector3> result = new();
+            List<Vector3> result = new List<Vector3>();
             if (currentLocation.X > width - 1 || currentLocation.Z > breadth - 1)
             {
                 throw new Exception("The character is off the map");
