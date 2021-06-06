@@ -24,7 +24,7 @@ namespace Battle.Logic.Map
             MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list
-            PathFindingResult result = new();
+            PathFindingResult result = new PathFindingResult();
             bool success = Search(startTile, endTile);
             if (success)
             {
@@ -106,7 +106,7 @@ namespace Battle.Logic.Map
         /// <returns>A list of next possible tiles in the path</returns>
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
-            List<MapTile> walkableTiles = new();
+            List<MapTile> walkableTiles = new List<MapTile>();
             IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
 
             foreach (var location in nextLocations)

@@ -5,11 +5,10 @@ namespace Battle.Logic.Map
 {
     public class PathFindingResult
     {
-
         public PathFindingResult()
         {
-            Tiles = new();
-            Path = new ();
+            Tiles = new List<MapTile>();
+            Path = new List<Vector3>();
         }
 
         public List<MapTile> Tiles { get; set; }
@@ -19,7 +18,7 @@ namespace Battle.Logic.Map
         {
             if (Tiles.Count > 0)
             {
-                return Tiles[^1]; //"^1" is the same asa "Tiles.Count - 1"
+                return Tiles[Tiles.Count - 1];
             }
             else
             {

@@ -10,7 +10,7 @@ namespace Battle.Logic.Characters
     {
         public static List<EncounterResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
-            if (pathFindingResult.Tiles[^1].TraversalCost > characterMoving.MobilityRange)
+            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
             }
@@ -18,7 +18,7 @@ namespace Battle.Logic.Characters
             {
                 characterMoving.ActionPointsCurrent -= 1;
             }
-            List<EncounterResult> encounters = new();
+            List<EncounterResult> encounters = new List<EncounterResult>();
             int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
             foreach (Vector3 step in pathFindingResult.Path)
             {

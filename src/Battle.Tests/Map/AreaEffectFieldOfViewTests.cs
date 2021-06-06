@@ -14,7 +14,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
-            Vector3 location = new(4, 0, 4);
+            Vector3 location = new Vector3(4, 0, 4);
             int radius = 1;
 
             //Act
@@ -43,7 +43,7 @@ namespace Battle.Tests.Map
         {
             //Arrange
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
-            Vector3 location = new(1, 0, 1);
+            Vector3 location = new Vector3(1, 0, 1);
             int radius = 1;
 
             //Act
@@ -74,7 +74,7 @@ o o o . .
         {
             //Arrange
             string[,,] map = MapUtility.InitializeMap(5, 1, 5);
-            Vector3 location = new(0, 0, 0);
+            Vector3 location = new Vector3(0, 0, 0);
             int radius = 1;
 
             //Act
@@ -104,7 +104,7 @@ o o . . .
         {
             //Arrange
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 location = new(4, 0, 4);
+            Vector3 location = new Vector3(4, 0, 4);
             int radius = 3;
 
             //Act
@@ -137,7 +137,7 @@ o o . . .
         {
             //Arrange
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 location = new(0, 0, 0);
+            Vector3 location = new Vector3(0, 0, 0);
             int radius = 3;
 
             //Act

@@ -9,10 +9,10 @@ namespace Battle.Logic.Map
     public static class MapCore
     {
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
-        { 
+        {
             int startingX = (int)sourceLocation.X;
             int startingZ = (int)sourceLocation.Z;
-            
+
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
             if (minX < 0)
@@ -36,33 +36,33 @@ namespace Battle.Logic.Map
             }
 
             //Get a list of all border squares
-            HashSet<Vector3> borderTiles = new();
+            HashSet<Vector3> borderTiles = new HashSet<Vector3>();
             //Add the top and bottom rows
             for (int x = minX; x <= maxX; x++)
             {
-                borderTiles.Add(new(x, 0, minZ));
-                borderTiles.Add(new(x, 0, maxZ));
+                borderTiles.Add(new Vector3(x, 0, minZ));
+                borderTiles.Add(new Vector3(x, 0, maxZ));
             }
             //Add the left and right sides
             for (int z = minZ; z < maxZ; z++)
             {
-                borderTiles.Add(new(minX, 0, z));
-                borderTiles.Add(new(maxX, 0, z));
+                borderTiles.Add(new Vector3(minX, 0, z));
+                borderTiles.Add(new Vector3(maxX, 0, z));
             }
 
             //For each border tile, draw a line from the starting point to the border
-            HashSet<Vector3> results = new();
+            HashSet<Vector3> results = new HashSet<Vector3>();
             foreach (Vector3 borderItem in borderTiles)
             {
-                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new(startingX, 0, startingZ), borderItem);
+                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
                 if (singleLineCheck.Count > 0 &&
-                    singleLineCheck[^1].X == startingX &&
-                    singleLineCheck[^1].Z == startingZ) // note that ^1 is the same as singleLineCheck.Count - 1
+                    singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
+                    singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
                 {
                     //Reverse the list, so that items are in order from source to destination
                     singleLineCheck.Reverse();
                 }
-                double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[^1], 1);
+                double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
                 double lineSegment = lineLength / singleLineCheck.Count;
                 double currentLength = 0;
                 for (int i = 0; i < singleLineCheck.Count; i++)
@@ -109,7 +109,7 @@ namespace Battle.Logic.Map
             int xMax = map.GetLength(0);
             //int yMax = map.GetLength(1);
             int zMax = map.GetLength(2);
-            StringBuilder sb = new();
+            StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
             int y = 0;
             for (int z = zMax - 1; z >= 0; z--)

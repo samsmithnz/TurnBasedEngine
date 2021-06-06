@@ -26,7 +26,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeffBaddie();
             jeff.HitpointsCurrent = 6;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);

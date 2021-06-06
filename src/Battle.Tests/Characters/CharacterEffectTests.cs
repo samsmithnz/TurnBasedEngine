@@ -43,7 +43,7 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Effects.Add(new()
+            fred.Effects.Add(new Effect()
             {
                 Type = AbilityType.Unknown,
                 TurnExpiration = 3

@@ -15,7 +15,7 @@ namespace Battle.Logic.Encounters
         {
             int damageDealt;
             bool isCriticalHit = false;
-            List<string> log = new();
+            List<string> log = new List<string>();
 
             if (diceRolls == null || diceRolls.Count == 0 || weapon == null || weapon.AmmoCurrent <= 0)
             {
@@ -25,14 +25,14 @@ namespace Battle.Logic.Encounters
 
             //Get the targets in the area affected
             List<Character> areaEffectTargets = FieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
-            StringBuilder names = new();
+            StringBuilder names = new StringBuilder();
             foreach (Character item in areaEffectTargets)
             {
                 names.Append(' ');
                 names.Append(item.Name);
                 names.Append(", ");
             }
-            log.Add("Characters in affected area: " + names.ToString()[1..^2]);//remove the first " " and last two characters: ", "
+            log.Add("Characters in affected area: " + names.ToString().Substring(1, names.ToString().Length - 3));//remove the first " " and last two characters: ", "
 
             //Deal damage to each target
             int totalDamageDealt = 0;
@@ -71,7 +71,7 @@ namespace Battle.Logic.Encounters
             //Check if the character has enough experience to level up
             sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
 
-            EncounterResult result = new()
+            EncounterResult result = new EncounterResult()
             {
                 SourceCharacter = sourceCharacter,
                 AllCharacters = allCharacters,
@@ -91,8 +91,10 @@ namespace Battle.Logic.Encounters
 
             int damageDealt = 0;
             bool isCriticalHit = false;
-            List<string> log = new();
-            log.Add(sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString());
+            List<string> log = new List<string>
+            {
+                sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString()
+            };
 
             //Don't attack if the clip is empty
             if (weapon.AmmoCurrent > 0)
@@ -166,7 +168,7 @@ namespace Battle.Logic.Encounters
                 log.Add(weapon.Name + " has no ammo remaining and the attack cannot be completed");
             }
 
-            EncounterResult result = new()
+            EncounterResult result = new EncounterResult()
             {
                 SourceCharacter = sourceCharacter,
                 TargetCharacter = targetCharacter,
@@ -263,7 +265,7 @@ namespace Battle.Logic.Encounters
             log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
             sourceCharacter.TotalHits++;
 
-            EncounterResult result = new()
+            EncounterResult result = new EncounterResult()
             {
                 SourceCharacter = sourceCharacter,
                 TargetCharacter = targetCharacter,

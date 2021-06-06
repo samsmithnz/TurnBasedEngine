@@ -25,7 +25,7 @@ namespace Battle.Tests.Encounters
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 5;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -56,7 +56,7 @@ Armor prevented 5 damage to character Jeff
             jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 2;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -88,7 +88,7 @@ Armor prevented 2 damage to character Jeff
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 2;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -123,7 +123,7 @@ Fred is ready to level up
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 3;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -156,7 +156,7 @@ Armor prevented 1 damage to character Jeff
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -189,7 +189,7 @@ Armor prevented 10 damage to character Jeff
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
             string[,,] map = MapUtility.InitializeMap(10,1, 10);
-            Queue<int> diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);

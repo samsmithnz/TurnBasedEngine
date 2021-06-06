@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Tests.Items;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -8,7 +9,7 @@ namespace Battle.Tests.Characters
     {
         public static Character CreateFredHero()
         {
-            Character fred = new()
+            Character fred = new Character()
             {
                 Name = "Fred",
                 HitpointsMax = 4,
@@ -22,7 +23,7 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 10,
-                Location = new(0, 0, 0),
+                Location = new Vector3(0, 0, 0),
                 MobilityRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateRifle(),
@@ -33,9 +34,9 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.Abilities.Add(new("Ability", AbilityType.Unknown, 0));
+            fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
-                new()
+                new Effect()
                 {
                     Name = "Fire",
                     Type = AbilityType.FireDamage,
@@ -49,7 +50,7 @@ namespace Battle.Tests.Characters
 
         public static Character CreateJeffBaddie()
         {
-            Character fred = new()
+            Character fred = new Character()
             {
                 Name = "Jeff",
                 HitpointsMax = 4,
@@ -63,7 +64,7 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 11,
-                Location = new(8, 0, 8),
+                Location = new Vector3(8, 0, 8),
                 MobilityRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
@@ -78,7 +79,7 @@ namespace Battle.Tests.Characters
 
         public static Character CreateHarryHeroSidekick()
         {
-            Character harry = new()
+            Character harry = new Character()
             {
                 Name = "Harry",
                 HitpointsCurrent = 12,
@@ -88,7 +89,7 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 12,
-                Location = new(5, 0, 5),
+                Location = new Vector3(5, 0, 5),
                 ActionPointsCurrent = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,

@@ -33,7 +33,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.201
+        dotnet-version: 3.1.x
     - name: Build logic
       run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Run automated tests
@@ -48,7 +48,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: package
-        path: src/Battle.Logic/bin/Release/net5.0 
+        path: src/Battle.Logic/bin/Release/netstandard2.0 
 
   sonarCloud:
     name: sonarCloud

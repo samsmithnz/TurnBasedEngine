@@ -9,8 +9,8 @@ namespace Battle.Logic.Encounters
     {
         public EncounterResult()
         {
-            AllCharacters = new();
-            Log = new();
+            AllCharacters = new List<Character>();
+            Log = new List<string>();
         }
 
         public Character SourceCharacter { get; set; }
@@ -38,7 +38,7 @@ namespace Battle.Logic.Encounters
         {
             get
             {
-                StringBuilder result = new();
+                StringBuilder result = new StringBuilder();
                 result.Append(Environment.NewLine);
                 foreach (string item in Log)
                 {

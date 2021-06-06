@@ -12,8 +12,8 @@ namespace Battle.Tests.Map
         public void NorthEastTargetTest()
         {
             //Arrange
-            Vector3 source = new(1, 0, 1);
-            Vector3 target = new(5, 0, 5);
+            Vector3 source = new Vector3(1, 0, 1);
+            Vector3 target = new Vector3(5, 0, 5);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -27,8 +27,8 @@ namespace Battle.Tests.Map
         public void SouthEastTargetTest()
         {
             //Arrange
-            Vector3 source = new(1, 0, 9);
-            Vector3 target = new(5, 0, 5);
+            Vector3 source = new Vector3(1, 0, 9);
+            Vector3 target = new Vector3(5, 0, 5);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -42,8 +42,8 @@ namespace Battle.Tests.Map
         public void SouthWestTargetTest()
         {
             //Arrange
-            Vector3 source = new(9, 0, 1);
-            Vector3 target = new(5, 0, 5);
+            Vector3 source = new Vector3(9, 0, 1);
+            Vector3 target = new Vector3(5, 0, 5);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -57,8 +57,8 @@ namespace Battle.Tests.Map
         public void NorthWestTargetTest()
         {
             //Arrange
-            Vector3 source = new(9, 0, 1);
-            Vector3 target = new(5, 0, 5);
+            Vector3 source = new Vector3(9, 0, 1);
+            Vector3 target = new Vector3(5, 0, 5);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -72,8 +72,8 @@ namespace Battle.Tests.Map
         public void NorthEastSmallTargetTest()
         {
             //Arrange
-            Vector3 source = new(0, 0, 0);
-            Vector3 target = new(2, 0, 2);
+            Vector3 source = new Vector3(0, 0, 0);
+            Vector3 target = new Vector3(2, 0, 2);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -87,8 +87,8 @@ namespace Battle.Tests.Map
         public void NorthEastSmallTargetWithWallTest()
         {
             //Arrange
-            Vector3 source = new(0, 0, 0);
-            Vector3 target = new(2, 0, 2);
+            Vector3 source = new Vector3(0, 0, 0);
+            Vector3 target = new Vector3(2, 0, 2);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             for (int i = 0; i < 10; i++)
             {
@@ -106,8 +106,8 @@ namespace Battle.Tests.Map
         public void NorthEastSmallTargetWithNoWallTest()
         {
             //Arrange
-            Vector3 source = new(0, 0, 0);
-            Vector3 target = new(2, 0, 2);
+            Vector3 source = new Vector3(0, 0, 0);
+            Vector3 target = new Vector3(2, 0, 2);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
 
             //Act
@@ -121,8 +121,8 @@ namespace Battle.Tests.Map
         public void NorthEastSmallTargetBiggerMapWithNoWallTest()
         {
             //Arrange
-            Vector3 source = new(0, 0, 0);
-            Vector3 target = new(2, 0, 2);
+            Vector3 source = new Vector3(0, 0, 0);
+            Vector3 target = new Vector3(2, 0, 2);
             string[,,] map = MapUtility.InitializeMap(20, 1, 20);
 
             //Act

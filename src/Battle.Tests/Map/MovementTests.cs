@@ -19,8 +19,8 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(8, 0, 0);
-            Queue<int> diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 destination = new Vector3(8, 0, 0);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -49,7 +49,7 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(8, 0, 0);
+            Vector3 destination = new Vector3(8, 0, 0);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -72,7 +72,7 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(8, 0, 1);
+            Vector3 destination = new Vector3(8, 0, 1);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -95,7 +95,7 @@ namespace Battle.Tests.Map
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
-            Vector3 destination = new(7, 0, 1);
+            Vector3 destination = new Vector3(7, 0, 1);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -117,9 +117,9 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(20, 0, 20);
+            fred.Location = new Vector3(20, 0, 20);
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
-            Vector3 destination = new(12, 0, 20);
+            Vector3 destination = new Vector3(12, 0, 20);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -189,9 +189,9 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(20, 0, 20);
+            fred.Location = new Vector3(20, 0, 20);
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
-            Vector3 destination = new(6, 0, 20);
+            Vector3 destination = new Vector3(6, 0, 20);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
@@ -261,9 +261,9 @@ namespace Battle.Tests.Map
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(20, 0, 20);
+            fred.Location = new Vector3(20, 0, 20);
             string[,,] map = MapUtility.InitializeMap(40, 1, 40);
-            Vector3 destination = new(6, 0, 20);
+            Vector3 destination = new Vector3(6, 0, 20);
 
             //Act
             List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 8);

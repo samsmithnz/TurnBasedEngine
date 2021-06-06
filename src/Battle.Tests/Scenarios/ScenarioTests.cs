@@ -18,30 +18,32 @@ namespace Battle.Tests.Scenarios
         public void JeffMovesToCoverAndExchangesFireOver2TurnsToWinTest()
         {
             //Arrange
-            Mission mission = new();
-            mission.Objective = Mission.MissionType.EliminateAllOpponents;
-            mission.TurnNumber = 1;
-            mission.Map = MapUtility.InitializeMap(50, 1, 50);
+            Mission mission = new Mission
+            {
+                Objective = Mission.MissionType.EliminateAllOpponents,
+                TurnNumber = 1,
+                Map = MapUtility.InitializeMap(50, 1, 50)
+            };
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(5, 0, 5);
-            Team team1 = new()
+            fred.Location = new Vector3(5, 0, 5);
+            Team team1 = new Team()
             {
                 Name = "Good guys",
-                Characters = new() { fred }
+                Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new(20, 0, 10);
+            jeff.Location = new Vector3(20, 0, 10);
             jeff.HitpointsCurrent = 6;
-            Team team2 = new()
+            Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new() { jeff }
+                Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -286,9 +288,11 @@ Fred is ready to level up
         public void JeffIsHidingBehindCoverScenarioTest()
         {
             //Arrange
-            Mission mission = new();
-            mission.TurnNumber = 1;
-            mission.Map = MapUtility.InitializeMap(50,1, 50);
+            Mission mission = new Mission
+            {
+                TurnNumber = 1,
+                Map = MapUtility.InitializeMap(50, 1, 50)
+            };
             mission.Map[5, 0, 6] = CoverType.FullCover;
             mission.Map[14, 0, 5] = CoverType.FullCover;
             mission.Map[14, 0, 6] = CoverType.FullCover;
@@ -301,23 +305,23 @@ Fred is ready to level up
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new(5, 0, 5);
-            Team team1 = new()
+            fred.Location = new Vector3(5, 0, 5);
+            Team team1 = new Team()
             {
                 Name = "Good guys",
-                Characters = new() { fred }
+                Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new(15, 0, 10);
+            jeff.Location = new Vector3(15, 0, 10);
             jeff.HitpointsCurrent = 5;
-            Team team2 = new()
+            Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new() { jeff }
+                Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -391,7 +395,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(mapResult1, mapString1);
 
             //Throw grenade in front of wall
-            Vector3 targetThrowingLocation = new(13, 0, 10);
+            Vector3 targetThrowingLocation = new Vector3(13, 0, 10);
             EncounterResult encounter1 = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, team2.Characters, mission.Map, diceRolls, targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>

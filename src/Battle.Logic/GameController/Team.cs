@@ -7,7 +7,7 @@ namespace Battle.Logic.GameController
     {
         public Team()
         {
-            Characters = new();
+            Characters = new List<Character>();
         }
 
         public string Name { get; set; }
