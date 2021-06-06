@@ -153,8 +153,18 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults.Count);
             string log = @"
+Harry is attacking with Sniper Rifle, targeted on Jeff
+Hit: Chance to hit: 42, (dice roll: 100)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 0, (dice roll: 100)
+Critical damage range: 9-13, (dice roll: 100)
+13 damage dealt to character Jeff, HP is now 12
+10 XP added to character Harry, for a total of 10 XP
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
+            string log2 = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 56, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
@@ -165,7 +175,7 @@ Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
-            Assert.AreEqual(log, movementResults[0].LogString);
+            Assert.AreEqual(log2, movementResults[1].LogString);
         }
 
         [TestMethod]

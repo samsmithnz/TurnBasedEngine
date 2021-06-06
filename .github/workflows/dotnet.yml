@@ -43,7 +43,6 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
-
     - name: Upload package back to GitHub
       uses: actions/upload-artifact@v2
       with:
@@ -81,7 +80,7 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Build and analyze
+      - name: Analyze with SonarCloud 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

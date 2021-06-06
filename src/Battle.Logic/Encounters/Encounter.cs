@@ -36,12 +36,16 @@ namespace Battle.Logic.Encounters
 
             //Deal damage to each target
             int totalDamageDealt = 0;
+            int totalArmorAbsorbed = 0;
+            int totalArmorShredded = 0;
             foreach (Character targetCharacter in areaEffectTargets)
             {
                 EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, true);
                 sourceCharacter = tempResult.SourceCharacter;
                 damageDealt = tempResult.DamageDealt;
                 totalDamageDealt += damageDealt;
+                totalArmorAbsorbed += tempResult.ArmorAbsorbed;
+                totalArmorShredded += tempResult.ArmorShredded;
                 isCriticalHit = tempResult.IsCriticalHit;
                 log = tempResult.Log;
             }
@@ -75,6 +79,8 @@ namespace Battle.Logic.Encounters
             {
                 SourceCharacter = sourceCharacter,
                 AllCharacters = allCharacters,
+                ArmorAbsorbed = totalArmorAbsorbed,
+                ArmorShredded = totalArmorShredded,
                 DamageDealt = totalDamageDealt,
                 IsCriticalHit = isCriticalHit,
                 Log = log
@@ -89,6 +95,8 @@ namespace Battle.Logic.Encounters
                 return null;
             }
 
+            int armorAbsorbed = 0;
+            int armorShredded = 0;
             int damageDealt = 0;
             bool isCriticalHit = false;
             List<string> log = new List<string>
@@ -112,6 +120,8 @@ namespace Battle.Logic.Encounters
                     EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
                     sourceCharacter = tempResult.SourceCharacter;
                     targetCharacter = tempResult.TargetCharacter;
+                    armorAbsorbed = tempResult.ArmorAbsorbed;
+                    armorShredded = tempResult.ArmorShredded;
                     damageDealt = tempResult.DamageDealt;
                     isCriticalHit = tempResult.IsCriticalHit;
                     log = tempResult.Log;
@@ -172,6 +182,8 @@ namespace Battle.Logic.Encounters
             {
                 SourceCharacter = sourceCharacter,
                 TargetCharacter = targetCharacter,
+                ArmorAbsorbed = armorAbsorbed,
+                ArmorShredded = armorShredded,
                 DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
                 Log = log
@@ -217,6 +229,12 @@ namespace Battle.Logic.Encounters
                         lowDamage, highDamage,
                         damageRollPercent);
 
+            //Process armor shredding. This happens in addition to piercing, and therefore happens first
+            int armorShredded = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
+            targetCharacter.ArmorPointsCurrent -= armorShredded;
+
+            //Now process any other damage with armor
+            int armorAbsorbed = 0;
             int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
             if (armorPiercing > 0)
             {
@@ -224,28 +242,28 @@ namespace Battle.Logic.Encounters
             }
             else
             {
-                damageDealt -= targetCharacter.ArmorPointsCurrent;
+                int damageAfterArmor = damageDealt - targetCharacter.ArmorPointsCurrent;
+                //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 
+                if (damageAfterArmor < 0)
+                {
+                    damageAfterArmor = 0;
+                }
+                armorAbsorbed = damageDealt - damageAfterArmor;
+                damageDealt = damageAfterArmor;
             }
-            //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 0
-            if (damageDealt < 0)
-            {
-                damageDealt = 0;
-            }
+
+            //Apply any damage
             targetCharacter.HitpointsCurrent -= damageDealt;
             sourceCharacter.TotalDamage += damageDealt;
 
-            //Process armor shredding
-            int armorShredderDamage = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
-            targetCharacter.ArmorPointsCurrent -= armorShredderDamage;
-
             //Update log
-            if (armorShredderDamage > 0)
+            if (armorShredded > 0)
             {
-                log.Add(armorShredderDamage.ToString() + " armor points shredded");
+                log.Add(armorShredded.ToString() + " armor points shredded");
             }
-            if (targetCharacter.ArmorPointsCurrent > 0 && armorPiercing == 0)
+            if (armorAbsorbed > 0)
             {
-                log.Add("Armor prevented " + targetCharacter.ArmorPointsCurrent.ToString() + " damage to character " + targetCharacter.Name);
+                log.Add("Armor prevented " + armorAbsorbed.ToString() + " damage to character " + targetCharacter.Name);
             }
             log.Add(damageDealt.ToString() + " damage dealt to character " + targetCharacter.Name + ", HP is now " + targetCharacter.HitpointsCurrent.ToString());
 
@@ -269,6 +287,8 @@ namespace Battle.Logic.Encounters
             {
                 SourceCharacter = sourceCharacter,
                 TargetCharacter = targetCharacter,
+                ArmorAbsorbed = armorAbsorbed,
+                ArmorShredded = armorShredded,
                 DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
                 Log = log
