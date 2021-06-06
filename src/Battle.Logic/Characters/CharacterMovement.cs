@@ -25,8 +25,8 @@ namespace Battle.Logic.Characters
                 characterMoving.Location = step;
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
-                    (EncounterResult, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
-                    encounters.Add(overWatchResult.Item1);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
+                    encounters.AddRange(overWatchResult.Item1);
                     //is the character still alive?
                     if (overWatchResult.Item2 == false)
                     {
@@ -42,8 +42,9 @@ namespace Battle.Logic.Characters
             return encounters;
         }
 
-        private static (EncounterResult, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
+            List<EncounterResult> results = new List<EncounterResult>();
             EncounterResult result = null;
             overWatchedCharacters = overWatchedCharacters.OrderByDescending(o => o.Key.Speed).ToList();
             foreach (KeyValuePair<Character, List<Vector3>> characterFOV in overWatchedCharacters)
@@ -54,18 +55,19 @@ namespace Battle.Logic.Characters
                     {
                         //Act
                         result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
+                        results.Add(result);
                         //The character uses their overwatch charge
                         characterFOV.Key.InOverwatch = false;
-                        if (result.TargetCharacter.HitpointsCurrent <= 0)
+                        if (characterMoving.HitpointsCurrent <= 0)
                         {
                             //Return the encounter result and if the character is still alive
-                            return (result, false);
+                            return (results, false);
                         }
                     }
                 }
             }
             //Return the encounter result and if the character is still alive
-            return (result, true);
+            return (results, true);
         }
 
         private static int TotalOverwatchActionPoints(List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters)
