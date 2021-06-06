@@ -48,7 +48,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: package
-        path: src/Battle.Logic/bin/Release/net5.0 
+        path: src/Battle.Logic/bin/Release/netstandard2.0 
 
   sonarCloud:
     name: sonarCloud
