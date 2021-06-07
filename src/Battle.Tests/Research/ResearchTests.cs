@@ -52,6 +52,7 @@ namespace Battle.Tests.Research
             Assert.IsNull(item.ItemPrereq);
             Assert.AreEqual(5, item.DaysToComplete);
             Assert.AreEqual(5, item.DaysCompleted);
+            Assert.AreEqual(0, item.ScientistsAssigned);
             Assert.AreEqual(true, item.IsComplete);
         }
 
@@ -64,6 +65,7 @@ namespace Battle.Tests.Research
             Assert.IsNull(item.ItemPrereq);
             Assert.AreEqual(5, item.DaysToComplete);
             Assert.AreEqual(3, item.DaysCompleted);
+            Assert.AreEqual(2, item.ScientistsAssigned);
             Assert.AreEqual(false, item.IsComplete);
         }
 
@@ -76,6 +78,7 @@ namespace Battle.Tests.Research
             Assert.IsNull(item.ItemPrereq);
             Assert.AreEqual(5, item.DaysToComplete);
             Assert.AreEqual(0, item.DaysCompleted);
+            Assert.AreEqual(0, item.ScientistsAssigned);
             Assert.AreEqual(false, item.IsComplete);
         }
 

@@ -13,6 +13,7 @@ namespace Battle.Tests.Research
                 ItemPrereq = null,
                 DaysToComplete = 5,
                 DaysCompleted = 5,
+                ScientistsAssigned = 0,
                 IsComplete = true
             };
         }
@@ -26,6 +27,7 @@ namespace Battle.Tests.Research
                 ItemPrereq = null,
                 DaysToComplete = 5,
                 DaysCompleted = 3,
+                ScientistsAssigned = 2,
                 IsComplete = false
             };
         }
@@ -39,6 +41,7 @@ namespace Battle.Tests.Research
                 ItemPrereq = null,
                 DaysToComplete = 5,
                 DaysCompleted = 0,
+                ScientistsAssigned = 0,
                 IsComplete = false
             };
         }
