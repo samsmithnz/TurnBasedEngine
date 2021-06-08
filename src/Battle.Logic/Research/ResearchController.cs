@@ -34,10 +34,10 @@ namespace Battle.Logic.Research
             return filteredItems;
         }
 
-        public void LoadResearchItems(List<ResearchItem> researchItems)
-        {
+        //public void LoadResearchItems(List<ResearchItem> researchItems)
+        //{
 
-        }
+        //}
 
     }
 }
