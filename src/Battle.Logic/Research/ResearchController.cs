@@ -11,9 +11,9 @@ namespace Battle.Logic.Research
             List<ResearchItem> filteredItems = new List<ResearchItem>();
             foreach (ResearchItem item in ResearchItems)
             {
-                if (item.ResearchPrereq != null && 
-                    item.ResearchPrereq.IsComplete == true && 
-                    item.IsComplete == false)
+                if (item.ResearchPrereq != null &&
+                    item.ResearchPrereq.IsComplete &&
+                    !item.IsComplete)
                 {
                     filteredItems.Add(item);
                 }
@@ -26,7 +26,7 @@ namespace Battle.Logic.Research
             List<ResearchItem> filteredItems = new List<ResearchItem>();
             foreach (ResearchItem item in ResearchItems)
             {
-                if (item.IsComplete == true)
+                if (item.IsComplete)
                 {
                     filteredItems.Add(item);
                 }
