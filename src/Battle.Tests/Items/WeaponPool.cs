@@ -63,6 +63,7 @@ namespace Battle.Tests.Items
             };
             return shotgun;
         }
+
         public static Weapon CreateGrenade()
         {
             Weapon grenade = new Weapon()
