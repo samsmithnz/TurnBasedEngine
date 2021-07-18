@@ -31,7 +31,8 @@ namespace Battle.Tests.Scenarios
             Team team1 = new Team()
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred }
+                Characters = new List<Character>() { fred },
+                Color = "Blue"
             };
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie();
@@ -40,7 +41,8 @@ namespace Battle.Tests.Scenarios
             Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jeff }
+                Characters = new List<Character>() { jeff },
+                Color = "Red"
             };
             mission.Teams.Add(team2);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -52,8 +54,10 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(2, mission.Teams.Count);
             Assert.AreEqual(50 * 50, mission.Map.Length);
             Assert.AreEqual("Good guys", mission.Teams[0].Name);
+            Assert.AreEqual("Blue", mission.Teams[0].Color);
             Assert.AreEqual(1, mission.Teams[0].Characters.Count);
             Assert.AreEqual("Bad guys", mission.Teams[1].Name);
+            Assert.AreEqual("Red", mission.Teams[1].Color);
             Assert.AreEqual(1, mission.Teams[1].Characters.Count);
 
             //Act

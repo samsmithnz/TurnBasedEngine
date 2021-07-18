@@ -12,5 +12,6 @@ namespace Battle.Logic.GameController
 
         public string Name { get; set; }
         public List<Character> Characters { get; set; }
+        public string Color { get; set; }
     }
 }
