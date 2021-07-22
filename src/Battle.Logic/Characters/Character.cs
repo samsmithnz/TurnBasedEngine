@@ -33,6 +33,7 @@ namespace Battle.Logic.Characters
         public Vector3 Location { get; set; }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
+        public int FOVRange { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
