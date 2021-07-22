@@ -18,14 +18,16 @@ namespace Battle.Logic.Characters
             {
                 characterMoving.ActionPointsCurrent -= 1;
             }
+            List<string> log = new List<string>();
             List<EncounterResult> encounters = new List<EncounterResult>();
             int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
             foreach (Vector3 step in pathFindingResult.Path)
             {
+                log.Add(characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString());
                 characterMoving.Location = step;
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, log, overWatchedCharacters);
                     encounters.AddRange(overWatchResult.Item1);
                     //is the character still alive?
                     if (overWatchResult.Item2 == false)
@@ -39,10 +41,18 @@ namespace Battle.Logic.Characters
                 }
             }
 
+            if (log.Count > 0)
+            {
+                encounters.Add(new EncounterResult()
+                {
+                    Log = log
+                });
+            }
+
             return encounters;
         }
 
-        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<string> log, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             List<EncounterResult> results = new List<EncounterResult>();
             EncounterResult result = null;
@@ -55,6 +65,12 @@ namespace Battle.Logic.Characters
                     {
                         //Act
                         result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
+                        //Insert any existing logs to the beginning of the log
+                        if (log.Count > 0)
+                        {
+                            result.Log.InsertRange(0, log);
+                            log = new List<string>();
+                        }
                         results.Add(result);
                         //The character uses their overwatch charge
                         characterFOV.Key.InOverwatch = false;

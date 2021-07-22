@@ -129,7 +129,16 @@ o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, mission.Map);
-            CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, null);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, null);
+            Assert.AreEqual(1, movementResults.Count);
+            string log = @"
+Fred is moving from <5, 0, 5> to <6, 0, 6>
+Fred is moving from <6, 0, 6> to <7, 0, 7>
+Fred is moving from <7, 0, 7> to <8, 0, 8>
+Fred is moving from <8, 0, 8> to <8, 0, 9>
+Fred is moving from <8, 0, 9> to <9, 0, 10>
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
 
             //Fred aims at Jeff, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });

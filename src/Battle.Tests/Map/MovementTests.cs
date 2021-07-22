@@ -40,7 +40,18 @@ namespace Battle.Tests.Map
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(destination, fred.Location);
             Assert.AreEqual(8, pathFindingResult.Path.Count);
-            Assert.AreEqual(0, movementResults.Count);
+            Assert.AreEqual(1, movementResults.Count);
+            string log = @"
+Fred is moving from <0, 0, 0> to <1, 0, 0>
+Fred is moving from <1, 0, 0> to <2, 0, 0>
+Fred is moving from <2, 0, 0> to <3, 0, 0>
+Fred is moving from <3, 0, 0> to <4, 0, 0>
+Fred is moving from <4, 0, 0> to <5, 0, 0>
+Fred is moving from <5, 0, 0> to <6, 0, 0>
+Fred is moving from <6, 0, 0> to <7, 0, 0>
+Fred is moving from <7, 0, 0> to <8, 0, 0>
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
         }
 
         [TestMethod]
@@ -133,7 +144,7 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
@@ -182,6 +193,19 @@ namespace Battle.Tests.Map
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(1, fred.ActionPointsCurrent);
+            Assert.AreEqual(1, movementResults.Count); 
+            string log = @"
+Fred is moving from <20, 0, 20> to <19, 0, 20>
+Fred is moving from <19, 0, 20> to <18, 0, 20>
+Fred is moving from <18, 0, 20> to <17, 0, 20>
+Fred is moving from <17, 0, 20> to <16, 0, 20>
+Fred is moving from <16, 0, 20> to <15, 0, 20>
+Fred is moving from <15, 0, 20> to <14, 0, 20>
+Fred is moving from <14, 0, 20> to <13, 0, 20>
+Fred is moving from <13, 0, 20> to <12, 0, 20>
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
+
         }
 
         [TestMethod]
@@ -205,7 +229,7 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
@@ -254,6 +278,24 @@ namespace Battle.Tests.Map
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
+            Assert.AreEqual(1, movementResults.Count);
+            string log = @"
+Fred is moving from <20, 0, 20> to <19, 0, 20>
+Fred is moving from <19, 0, 20> to <18, 0, 20>
+Fred is moving from <18, 0, 20> to <17, 0, 20>
+Fred is moving from <17, 0, 20> to <16, 0, 20>
+Fred is moving from <16, 0, 20> to <15, 0, 20>
+Fred is moving from <15, 0, 20> to <14, 0, 20>
+Fred is moving from <14, 0, 20> to <13, 0, 20>
+Fred is moving from <13, 0, 20> to <12, 0, 20>
+Fred is moving from <12, 0, 20> to <11, 0, 20>
+Fred is moving from <11, 0, 20> to <10, 0, 20>
+Fred is moving from <10, 0, 20> to <9, 0, 20>
+Fred is moving from <9, 0, 20> to <8, 0, 20>
+Fred is moving from <8, 0, 20> to <7, 0, 20>
+Fred is moving from <7, 0, 20> to <6, 0, 20>
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
         }
 
         [TestMethod]
@@ -278,7 +320,7 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
             string mapExpected = @"
@@ -327,6 +369,24 @@ namespace Battle.Tests.Map
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
+            Assert.AreEqual(1, movementResults.Count);
+            string log = @"
+Fred is moving from <20, 0, 20> to <19, 0, 20>
+Fred is moving from <19, 0, 20> to <18, 0, 20>
+Fred is moving from <18, 0, 20> to <17, 0, 20>
+Fred is moving from <17, 0, 20> to <16, 0, 20>
+Fred is moving from <16, 0, 20> to <15, 0, 20>
+Fred is moving from <15, 0, 20> to <14, 0, 20>
+Fred is moving from <14, 0, 20> to <13, 0, 20>
+Fred is moving from <13, 0, 20> to <12, 0, 20>
+Fred is moving from <12, 0, 20> to <11, 0, 20>
+Fred is moving from <11, 0, 20> to <10, 0, 20>
+Fred is moving from <10, 0, 20> to <9, 0, 20>
+Fred is moving from <9, 0, 20> to <8, 0, 20>
+Fred is moving from <8, 0, 20> to <7, 0, 20>
+Fred is moving from <7, 0, 20> to <6, 0, 20>
+";
+            Assert.AreEqual(log, movementResults[0].LogString);
         }
     }
 }

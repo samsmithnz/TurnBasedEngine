@@ -37,8 +37,9 @@ namespace Battle.Tests.Map
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults.Count);
             string log = @"
+Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 56, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
@@ -76,8 +77,9 @@ Fred is ready to level up
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults.Count);
             string log = @"
+Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
@@ -115,8 +117,9 @@ Fred is ready to level up
             Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults.Count);
             string log = @"
+Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
@@ -153,8 +156,9 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
-            Assert.AreEqual(2, movementResults.Count);
+            Assert.AreEqual(3, movementResults.Count);
             string log = @"
+Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Harry is attacking with Sniper Rifle, targeted on Jeff
 Hit: Chance to hit: 42, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
@@ -204,8 +208,9 @@ Fred is ready to level up
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(0, harry.Experience);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults.Count);
             string log = @"
+Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
