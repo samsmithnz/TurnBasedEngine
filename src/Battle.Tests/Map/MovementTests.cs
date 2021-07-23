@@ -34,13 +34,13 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(destination, fred.Location);
             Assert.AreEqual(8, pathFindingResult.Path.Count);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Fred is moving from <0, 0, 0> to <1, 0, 0>
 Fred is moving from <1, 0, 0> to <2, 0, 0>
@@ -144,7 +144,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
@@ -193,7 +193,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(1, fred.ActionPointsCurrent);
-            Assert.AreEqual(1, movementResults.Count); 
+            Assert.AreEqual(8, movementResults.Count); 
             string log = @"
 Fred is moving from <20, 0, 20> to <19, 0, 20>
 Fred is moving from <19, 0, 20> to <18, 0, 20>
@@ -229,7 +229,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
             string mapExpected = @"
@@ -278,7 +278,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(14, movementResults.Count);
             string log = @"
 Fred is moving from <20, 0, 20> to <19, 0, 20>
 Fred is moving from <19, 0, 20> to <18, 0, 20>
@@ -320,7 +320,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null);
 
             string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
             string mapExpected = @"
@@ -369,7 +369,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
             //Assert
             Assert.AreEqual(mapExpected, mapResult);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
-            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(14, movementResults.Count);
             string log = @"
 Fred is moving from <20, 0, 20> to <19, 0, 20>
 Fred is moving from <19, 0, 20> to <18, 0, 20>

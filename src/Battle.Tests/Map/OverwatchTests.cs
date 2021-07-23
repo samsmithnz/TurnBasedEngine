@@ -30,14 +30,14 @@ namespace Battle.Tests.Map
             KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
-            Assert.AreEqual(2, movementResults.Count);
+            Assert.AreEqual(1, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
@@ -70,14 +70,14 @@ Fred is ready to level up
             KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
-            Assert.AreEqual(2, movementResults.Count);
+            Assert.AreEqual(1, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
@@ -110,19 +110,26 @@ Fred is ready to level up
             KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
-            Assert.AreEqual(2, movementResults.Count);
+            Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
+Jeff is moving from <8, 0, 7> to <8, 0, 6>
+Jeff is moving from <8, 0, 6> to <8, 0, 5>
+Jeff is moving from <8, 0, 5> to <8, 0, 4>
+Jeff is moving from <8, 0, 4> to <7, 0, 3>
+Jeff is moving from <7, 0, 3> to <7, 0, 2>
+Jeff is moving from <7, 0, 2> to <6, 0, 1>
+Jeff is moving from <6, 0, 1> to <6, 0, 0>
 ";
             Assert.AreEqual(log, movementResults[0].LogString);
         }
@@ -148,7 +155,7 @@ Missed: Chance to hit: 56, (dice roll: 0)
             KeyValuePair<Character, List<Vector3>> harryFOV = new KeyValuePair<Character, List<Vector3>>(harry, fovHarry);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV, harryFOV });
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV, harryFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -156,7 +163,8 @@ Missed: Chance to hit: 56, (dice roll: 0)
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
             Assert.AreEqual(100, fred.Experience);
             Assert.AreEqual(10, harry.Experience);
-            Assert.AreEqual(3, movementResults.Count);
+            Assert.AreEqual(1, movementResults.Count);
+            Assert.AreEqual(2, movementResults[0].EncounterResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Harry is attacking with Sniper Rifle, targeted on Jeff
@@ -166,9 +174,6 @@ Critical chance: 0, (dice roll: 100)
 Critical damage range: 9-13, (dice roll: 100)
 13 damage dealt to character Jeff, HP is now 12
 10 XP added to character Harry, for a total of 10 XP
-";
-            Assert.AreEqual(log, movementResults[0].LogString);
-            string log2 = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 56, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
@@ -179,7 +184,8 @@ Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
-            Assert.AreEqual(log2, movementResults[1].LogString);
+            Assert.AreEqual(log, movementResults[0].LogString);
+
         }
 
         [TestMethod]
@@ -200,7 +206,7 @@ Fred is ready to level up
             KeyValuePair<Character, List<Vector3>> fredFOV = new KeyValuePair<Character, List<Vector3>>(fred, fov);
 
             PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<EncounterResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<KeyValuePair<Character, List<Vector3>>>() { fredFOV });
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -208,12 +214,19 @@ Fred is ready to level up
             Assert.AreEqual(destination, jeff.Location);
             Assert.AreEqual(0, fred.Experience);
             Assert.AreEqual(0, harry.Experience);
-            Assert.AreEqual(2, movementResults.Count);
+            Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
+Jeff is moving from <8, 0, 7> to <8, 0, 6>
+Jeff is moving from <8, 0, 6> to <8, 0, 5>
+Jeff is moving from <8, 0, 5> to <8, 0, 4>
+Jeff is moving from <8, 0, 4> to <7, 0, 3>
+Jeff is moving from <7, 0, 3> to <7, 0, 2>
+Jeff is moving from <7, 0, 2> to <6, 0, 1>
+Jeff is moving from <6, 0, 1> to <6, 0, 0>
 ";
             Assert.AreEqual(log, movementResults[0].LogString);
         }
