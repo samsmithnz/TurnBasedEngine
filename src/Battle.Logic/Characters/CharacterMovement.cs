@@ -42,7 +42,7 @@ namespace Battle.Logic.Characters
                 characterMoving.Location = step;
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, log, overWatchedCharacters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
@@ -79,7 +79,7 @@ namespace Battle.Logic.Characters
             return results;
         }
 
-        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<string> log, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
+        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
             List<EncounterResult> results = new List<EncounterResult>();
             EncounterResult result = null;
@@ -92,12 +92,6 @@ namespace Battle.Logic.Characters
                     {
                         //Act
                         result = Encounter.AttackCharacter(characterFOV.Key, characterFOV.Key.WeaponEquipped, characterMoving, map, diceRolls);
-                        //Insert any existing logs to the beginning of the log
-                        //if (log.Count > 0)
-                        //{
-                        //    result.Log.InsertRange(0, log);
-                        //    log = new List<string>();
-                        //}
                         results.Add(result);
                         //The character uses their overwatch charge
                         characterFOV.Key.InOverwatch = false;
