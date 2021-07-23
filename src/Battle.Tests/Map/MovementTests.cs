@@ -52,6 +52,8 @@ Fred is moving from <6, 0, 0> to <7, 0, 0>
 Fred is moving from <7, 0, 0> to <8, 0, 0>
 ";
             Assert.AreEqual(log, movementResults[0].LogString);
+            Assert.AreEqual(new Vector3(0, 0, 0), movementResults[0].StartLocation);
+            Assert.AreEqual(new Vector3(1, 0, 0), movementResults[0].EndLocation);
         }
 
         [TestMethod]
