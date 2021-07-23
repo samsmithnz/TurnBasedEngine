@@ -10,7 +10,6 @@ namespace Battle.Logic.Characters
     {
         public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, Queue<int> diceRolls, List<KeyValuePair<Character, List<Vector3>>> overWatchedCharacters = null)
         {
-            List<string> log = new List<string>();
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<ActionResult> results = new List<ActionResult>();
 
@@ -26,6 +25,7 @@ namespace Battle.Logic.Characters
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
+                List<string> log = new List<string>();
                 log.Add(characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString());
                 ActionResult result = new ActionResult();
                 if (i == 0)

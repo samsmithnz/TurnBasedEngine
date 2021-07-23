@@ -2,6 +2,7 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.GameController;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using Battle.Tests.Characters;
 using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -138,7 +139,7 @@ Fred is moving from <7, 0, 7> to <8, 0, 8>
 Fred is moving from <8, 0, 8> to <8, 0, 9>
 Fred is moving from <8, 0, 9> to <9, 0, 10>
 ";
-            Assert.AreEqual(log, movementResults[0].LogString);
+            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
 
             //Fred aims at Jeff, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
