@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
 
 namespace Battle.Logic.Encounters
 {
@@ -11,6 +9,5 @@ namespace Battle.Logic.Encounters
         public Vector3 EndLocation { get; set; }
         public List<EncounterResult> EncounterResults { get; set; }
         public List<string> Log { get; set; }
-
     }
 }

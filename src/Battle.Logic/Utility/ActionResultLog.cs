@@ -18,7 +18,6 @@ namespace Battle.Logic.Utility
                     result.Append(log);
                     result.Append(Environment.NewLine);
                 }
-
             }
             return result.ToString();
         }
