@@ -42,6 +42,11 @@ namespace Battle.Tests.Map
             Assert.AreEqual(destination, fred.Location);
             Assert.AreEqual(8, pathFindingResult.Path.Count);
             Assert.AreEqual(8, movementResults.Count);
+            Assert.AreEqual(new Vector3(0, 0, 0), movementResults[0].StartLocation);
+            Assert.AreEqual(new Vector3(1, 0, 0), movementResults[0].EndLocation);
+            Assert.AreEqual("Fred is moving from <0, 0, 0> to <1, 0, 0>", movementResults[0].Log[0]);
+
+
             string log = @"
 Fred is moving from <0, 0, 0> to <1, 0, 0>
 Fred is moving from <1, 0, 0> to <2, 0, 0>
@@ -53,8 +58,6 @@ Fred is moving from <6, 0, 0> to <7, 0, 0>
 Fred is moving from <7, 0, 0> to <8, 0, 0>
 ";
             Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
-            Assert.AreEqual(new Vector3(0, 0, 0), movementResults[0].StartLocation);
-            Assert.AreEqual(new Vector3(1, 0, 0), movementResults[0].EndLocation);
         }
 
         [TestMethod]
