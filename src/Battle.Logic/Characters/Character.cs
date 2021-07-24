@@ -22,7 +22,6 @@ namespace Battle.Logic.Characters
         public int ArmorPointsCurrent { get; set; }
         public int ActionPointsMax { get; set; }
         public int ActionPointsCurrent { get; set; }
-
         public int ChanceToHit { get; set; }
         public int Experience { get; set; }
         public int Level { get; set; }
@@ -30,7 +29,23 @@ namespace Battle.Logic.Characters
         public int Speed { get; set; }
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
-        public Vector3 Location { get; set; }
+        private Vector3 _location { get; set; }
+        public Vector3 Location
+        {
+            get
+            {
+                return _location;
+            }
+        }
+        public void SetLocation(Vector3 location, string[,,] map)
+        {
+            //if (map != null)
+            //{
+                map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
+                map[(int)location.X, (int)location.Y, (int)location.Z] = "P";
+            //}
+            _location = location;
+        }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
         public int FOVRange { get; set; }

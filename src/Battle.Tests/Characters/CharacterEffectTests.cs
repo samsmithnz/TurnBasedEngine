@@ -14,7 +14,7 @@ namespace Battle.Tests.Characters
         public void CharacterEffectDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
 
             //Act
             fred.ProcessEffects(1);
@@ -27,7 +27,7 @@ namespace Battle.Tests.Characters
         public void CharacterEffectExpiresDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
 
             //Act
             fred.ProcessEffects(1);
@@ -42,7 +42,7 @@ namespace Battle.Tests.Characters
         public void CharacterMultipleEffectExpiresDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
             fred.Effects.Add(new Effect()
             {
                 Type = AbilityType.Unknown,

@@ -18,12 +18,12 @@ namespace Battle.Tests.Map
         public void FredInOverwatchKillsWhileJeffMoves()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.InOverwatch = true;
-            //Weapon rifle = fred.WeaponEquiped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.InOverwatch = true;
+            //Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -58,12 +58,12 @@ Fred is ready to level up
         public void FredInOverwatchWithOpportunistKillsWhileJeffMoves()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.InOverwatch = true;
-            fred.Abilities.Add(AbilityPool.OpportunistAbility());
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.InOverwatch = true;
+            fred.Abilities.Add(AbilityPool.OpportunistAbility());
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -98,12 +98,12 @@ Fred is ready to level up
         public void FredInOverwatchMissesWhileJeffMoves()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.InOverwatch = true;
-            //Weapon rifle = fred.WeaponEquiped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.InOverwatch = true;
+            //Weapon rifle = fred.WeaponEquiped;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -139,14 +139,14 @@ Jeff is moving from <6, 0, 1> to <6, 0, 0>
         public void FredAndHarryInOverwatchKillsWhileJeffMoves()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.InOverwatch = true;
-            Character harry = CharacterPool.CreateHarryHeroSidekick();
-            harry.InOverwatch = true;
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.HitpointsCurrent = 25;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.InOverwatch = true;
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
+            harry.InOverwatch = true;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.HitpointsCurrent = 25;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -193,13 +193,13 @@ Fred is ready to level up
         public void FredAndHarryInOverwatchMissesWhileJeffMoves()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.InOverwatch = true;
-            Character harry = CharacterPool.CreateHarryHeroSidekick();
-            harry.InOverwatch = true;
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.InOverwatch = true;
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
+            harry.InOverwatch = true;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act

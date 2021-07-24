@@ -19,12 +19,12 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndArmorBlocksKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 5;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -51,12 +51,12 @@ Armor prevented 5 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorBlocksAnyDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 5;
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -83,12 +83,12 @@ Armor prevented 3 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorSavesAKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 2;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -115,13 +115,13 @@ Armor prevented 2 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorShreddingAllowsAKillTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 2;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -151,13 +151,13 @@ Fred is ready to level up
         public void FredAttacksJeffWithRifleAndHighArmorShreddingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 3;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -186,12 +186,12 @@ Armor prevented 1 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -219,13 +219,13 @@ Armor prevented 5 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorAndArmorPiercingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ArmorPiercingAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act

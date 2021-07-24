@@ -17,9 +17,9 @@ namespace Battle.Tests.Map
         public void FredCanSeeJeffTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -50,12 +50,12 @@ P o o o o o o o o o
         public void FredCanSeeJeffInAngleTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -85,13 +85,13 @@ P o o o o o o o o o
         public void FredCannotSeeJeffTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(8, 0, 0);
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(8, 0, 0), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -121,12 +121,12 @@ o o o o o o o o P o
         public void FredCanSeeJeffInNorthCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(8, 0, 0);
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(8, 0, 0), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -158,13 +158,13 @@ o o o o o o o o P o
         public void FredCanSeeJeffInSouthCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(8, 0, 8);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(8, 0, 1);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[8, 0, 2] = CoverType.FullCover;
             map[9, 0, 2] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(8, 0, 8), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(8, 0, 1), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -196,12 +196,12 @@ o o o o o o o o . .
         public void FredCanSeeJeffInEastCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(1, 0, 7);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(9, 0, 7);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(1, 0, 7), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(9, 0, 7), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -232,12 +232,12 @@ o o o o o o o o o o
         public void FredCanSeeJeffInWestCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(9, 0, 7);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(0, 0, 7);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[1, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(9, 0, 7), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(0, 0, 7), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -267,12 +267,12 @@ o o o o o o o o o o
         public void JeffCannotSeeFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamGood = new Team();
             teamGood.Characters.Add(fred);
 
@@ -302,12 +302,12 @@ P . . . . . . . . .
         public void JeffCanSeeFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            Character jeff = CharacterPool.CreateJeffBaddie();
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.HalfCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamGood = new Team();
             teamGood.Characters.Add(fred);
 
@@ -337,12 +337,12 @@ P o o o o . . . . .
         public void FredShouldSeeJeffInCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(2, 0, 2);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(2, 0, 6);
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 5] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(2, 0, 2), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(2, 0, 6), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -372,10 +372,10 @@ o o o o o o o o o o
         public void FredSimpleRange3Test()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(5, 0, 5);
-            fred.ShootingRange = 3;
             string[,,] map = MapUtility.InitializeMap(11, 1, 11);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(5, 0, 5), map); ;
+            fred.ShootingRange = 3;
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team>());

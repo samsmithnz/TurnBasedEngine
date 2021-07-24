@@ -39,7 +39,7 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.Location = step;
+                characterMoving.SetLocation(step, map);
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);

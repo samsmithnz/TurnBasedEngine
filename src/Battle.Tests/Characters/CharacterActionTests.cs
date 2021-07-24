@@ -12,7 +12,7 @@ namespace Battle.Tests.Characters
         public void StartOfTurnTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
 
             //Act
             List<CharacterAction> actions = fred.GetCurrentActions();
@@ -37,7 +37,7 @@ namespace Battle.Tests.Characters
         public void NeedToReloadTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
             fred.WeaponEquipped.AmmoCurrent = 0;
 
             //Act
@@ -61,7 +61,7 @@ namespace Battle.Tests.Characters
         public void NoUtilityItemTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
             fred.UtilityWeaponEquipped = null;
             fred.UtilityItemEquipped = null;
 
@@ -84,7 +84,7 @@ namespace Battle.Tests.Characters
         public void MedKitConsumedTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
             fred.UtilityItemEquipped.ClipRemaining = 0;
 
             //Act
@@ -108,7 +108,7 @@ namespace Battle.Tests.Characters
         public void NoActionsRemainingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
+            Character fred = CharacterPool.CreateFredHero(null);
             fred.ActionPointsCurrent = 0;
 
             //Act

@@ -21,11 +21,11 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndHitsBaseTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero();
-            Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.HitpointsCurrent = 6;
             string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.HitpointsCurrent = 6;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
