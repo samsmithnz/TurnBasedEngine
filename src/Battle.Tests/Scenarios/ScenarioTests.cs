@@ -545,7 +545,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             fred.FOVMap = MapUtility.InitializeMap(10, 1, 10);
             string[,,] inverseMap = MapUtility.InitializeMap(10, 1, 10);
             //Set the player position to visible
-            inverseMap[(int)fred.Location.X, (int)fred.Location.Y, (int)fred.Location.Z] = FieldOfView.FOV_Visible;
+            inverseMap[(int)fred.Location.X, (int)fred.Location.Y, (int)fred.Location.Z] = "P";
             //Set the map to all of the visible positions
             foreach (Vector3 item in fov)
             {
