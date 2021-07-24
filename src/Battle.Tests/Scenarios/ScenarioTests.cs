@@ -502,6 +502,110 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(0, jeff.TotalDamage);
         }
 
+
+        [TestMethod]
+        public void JeffMovesAndFOVUpdatesTest()
+        {
+            //arrange
+            Mission mission = new Mission
+            {
+                TurnNumber = 1,
+                Map = MapUtility.InitializeMap(10, 1, 10)
+            };
+
+            mission.Map[5, 0, 2] = CoverType.FullCover;
+            mission.Map[5, 0, 3] = CoverType.FullCover;
+            mission.Map[5, 0, 4] = CoverType.FullCover;
+            mission.Map[5, 0, 5] = CoverType.FullCover;
+            mission.Map[5, 0, 6] = CoverType.FullCover;
+            mission.Map[5, 0, 7] = CoverType.HalfCover; //half cover here!
+            mission.Map[5, 0, 8] = CoverType.FullCover;
+            mission.Map[5, 0, 9] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero();
+            fred.Location = new Vector3(1, 0, 1);
+            Team team1 = new Team()
+            {
+                Name = "Good guys",
+                Characters = new List<Character>() { fred }
+            };
+            mission.Teams.Add(team1);
+            Character jeff = CharacterPool.CreateJeffBaddie();
+            jeff.Location = new Vector3(6, 0, 7);
+            jeff.HitpointsCurrent = 5;
+            Team team2 = new Team()
+            {
+                Name = "Bad guys",
+                Characters = new List<Character>() { jeff }
+            };
+            mission.Teams.Add(team2);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //act
+            List<Vector3> fov = FieldOfView.GetFieldOfView(mission.Map, fred.Location, fred.FOVRange);
+            fred.FOVMap = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] inverseMap = MapUtility.InitializeMap(10, 1, 10);
+            //Set the player position to visible
+            inverseMap[(int)fred.Location.X, (int)fred.Location.Y, (int)fred.Location.Z] = FieldOfView.FOV_Visible;
+            //Set the map to all of the visible positions
+            foreach (Vector3 item in fov)
+            {
+                inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_NotVisible;
+            }
+            //Now that we have the inverse map, reverse it to show areas that are not visible
+            int xMax = mission.Map.GetLength(0);
+            //int yMax = mission.Map.GetLength(1);
+            int zMax = mission.Map.GetLength(2);
+            for (int y = 0; y < 1; y++)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    for (int z = 0; z < zMax; z++)
+                    {
+                        if (inverseMap[x, y, z] != "")
+                        {
+                            fred.FOVMap[x, y, z] = FieldOfView.FOV_Visible;
+                        }
+                        else
+                        {
+                            fred.FOVMap[x, y, z] = FieldOfView.FOV_Unknown;
+                        }
+                    }
+                }
+            }
+            string fovMapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            string mapString = MapCore.GetMapString(mission.Map);
+
+            //assert
+            string expected = @"
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . □ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(expected, mapString);
+
+
+            string expectedFOV = @"
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . □ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ . . . . 
+. ▓ . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(expectedFOV, fovMapString);
+
+        }
     }
 }
 

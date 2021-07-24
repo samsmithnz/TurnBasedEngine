@@ -8,6 +8,11 @@ namespace Battle.Logic.Map
 {
     public static class FieldOfView
     {
+
+        public const string FOV_Visible = "";
+        public const string FOV_Unknown = "▓";
+        public const string FOV_NotVisible = "▒";
+
         public static List<Vector3> GetFieldOfView(string[,,] map, Vector3 location, int range)
         {
             return MapCore.GetMapArea(map, location, range, true);

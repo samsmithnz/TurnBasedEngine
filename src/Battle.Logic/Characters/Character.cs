@@ -34,6 +34,7 @@ namespace Battle.Logic.Characters
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
         public int FOVRange { get; set; }
+        public string[,,] FOVMap { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
