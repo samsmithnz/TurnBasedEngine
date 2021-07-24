@@ -29,22 +29,22 @@ namespace Battle.Logic.Characters
         public int Speed { get; set; }
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
-        private Vector3 _location { get; set; }
+        private Vector3 location { get; set; }
         public Vector3 Location
         {
             get
             {
-                return _location;
+                return location;
             }
         }
         public void SetLocation(Vector3 location, string[,,] map)
         {
             if (map != null)
             {
-                map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
+                map[(int)this.location.X, (int)this.location.Y, (int)this.location.Z] = "";
                 map[(int)location.X, (int)location.Y, (int)location.Z] = "P";
             }
-            _location = location;
+            this.location = location;
         }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }

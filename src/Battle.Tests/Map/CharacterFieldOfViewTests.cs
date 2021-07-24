@@ -17,7 +17,7 @@ namespace Battle.Tests.Map
         public void FredCanSeeJeffTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Character jeff = CharacterPool.CreateJeffBaddie(map);
             Team teamBaddie = new Team();
@@ -50,7 +50,7 @@ P o o o o o o o o o
         public void FredCanSeeJeffInAngleTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
@@ -85,7 +85,7 @@ P o o o o o o o o o
         public void FredCannotSeeJeffTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
@@ -121,7 +121,7 @@ o o o o o o o o P o
         public void FredCanSeeJeffInNorthCoverTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
@@ -158,7 +158,7 @@ o o o o o o o o P o
         public void FredCanSeeJeffInSouthCoverTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 2] = CoverType.FullCover;
             map[9, 0, 2] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
@@ -196,7 +196,7 @@ o o o o o o o o . .
         public void FredCanSeeJeffInEastCoverTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(1, 0, 7), map);
@@ -232,7 +232,7 @@ o o o o o o o o o o
         public void FredCanSeeJeffInWestCoverTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[1, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(9, 0, 7), map);
@@ -267,7 +267,7 @@ o o o o o o o o o o
         public void JeffCannotSeeFredTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
@@ -302,7 +302,7 @@ P . . . . . . . . .
         public void JeffCanSeeFredTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[7, 0, 7] = CoverType.HalfCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
@@ -337,7 +337,7 @@ P o o o o . . . . .
         public void FredShouldSeeJeffInCoverTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 5] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 2), map);
@@ -372,7 +372,7 @@ o o o o o o o o o o
         public void FredSimpleRange3Test()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(11, 1, 11);
+            string[,,] map = MapCore.InitializeMap(11, 1, 11);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(5, 0, 5), map); ;
             fred.ShootingRange = 3;

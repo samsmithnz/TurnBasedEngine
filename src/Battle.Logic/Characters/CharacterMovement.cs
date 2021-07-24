@@ -25,8 +25,10 @@ namespace Battle.Logic.Characters
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
-                List<string> log = new List<string>();
-                log.Add(characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString());
+                List<string> log = new List<string>
+                {
+                    characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString()
+                };
                 ActionResult result = new ActionResult();
                 if (i == 0)
                 {

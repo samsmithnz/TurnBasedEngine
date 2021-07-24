@@ -17,7 +17,7 @@ namespace Battle.Tests.Map
             //Arrange
             Vector3 startLocation = new Vector3(1, 0, 2);
             Vector3 endLocation = new Vector3(5, 0, 2);
-            string[,,] map = MapUtility.InitializeMap(7, 1, 5);
+            string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
             //Act
             PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
@@ -44,7 +44,7 @@ namespace Battle.Tests.Map
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
             Vector3 startLocation = new Vector3(1, 0, 2);
             Vector3 endLocation = new Vector3(5, 0, 2);
-            string[,,] map = MapUtility.InitializeMap(7, 1, 5);
+            string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[3, 0, 4] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
             map[3, 0, 2] = CoverType.FullCover;
@@ -76,7 +76,7 @@ namespace Battle.Tests.Map
             // No path
             Vector3 startLocation = new Vector3(1, 0, 2);
             Vector3 endLocation = new Vector3(5, 0, 2);
-            string[,,] map = MapUtility.InitializeMap(7, 1, 5);
+            string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[3, 0, 4] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
             map[3, 0, 2] = CoverType.FullCover;
@@ -107,7 +107,7 @@ namespace Battle.Tests.Map
             // long path
             Vector3 startLocation = new Vector3(0, 0, 4);
             Vector3 endLocation = new Vector3(6, 0, 4);
-            string[,,] map = MapUtility.InitializeMap(7, 1, 5);
+            string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[0, 0, 0] = CoverType.FullCover;
             map[1, 0, 4] = CoverType.FullCover;
             map[1, 0, 3] = CoverType.FullCover;
@@ -172,7 +172,7 @@ namespace Battle.Tests.Map
             //Arrange
             int height = 5;
             int width = 5;
-            string[,,] map = MapUtility.InitializeMap(width, 1, height);
+            string[,,] map = MapCore.InitializeMap(width, 1, height);
             map[1, 0, 1] = CoverType.FullCover;
             map[1, 0, 2] = CoverType.FullCover;
             map[1, 0, 3] = CoverType.FullCover;
@@ -210,7 +210,7 @@ namespace Battle.Tests.Map
             Vector3 endLocation = new Vector3(2, 0, 2);
             int height = 5;
             int width = 5;
-            string[,,] map = MapUtility.InitializeMap(width, 1, height);
+            string[,,] map = MapCore.InitializeMap(width, 1, height);
             map[1, 0, 1] = CoverType.FullCover;
             map[1, 0, 2] = CoverType.FullCover;
             map[1, 0, 3] = CoverType.FullCover;
@@ -346,7 +346,7 @@ namespace Battle.Tests.Map
 
 
 
-            string[,,] map = MapUtility.InitializeMap(70, 1, 40);
+            string[,,] map = MapCore.InitializeMap(70, 1, 40);
             map[6, 0, 0] = CoverType.FullCover;
             map[8, 0, 0] = CoverType.FullCover;
             map[10, 0, 0] = CoverType.FullCover;

@@ -18,7 +18,7 @@ namespace Battle.Tests.Map
         public void FredInOverwatchKillsWhileJeffMoves()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.InOverwatch = true;
@@ -58,7 +58,7 @@ Fred is ready to level up
         public void FredInOverwatchWithOpportunistKillsWhileJeffMoves()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.InOverwatch = true;
@@ -98,7 +98,7 @@ Fred is ready to level up
         public void FredInOverwatchMissesWhileJeffMoves()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.InOverwatch = true;
@@ -139,7 +139,7 @@ Jeff is moving from <6, 0, 1> to <6, 0, 0>
         public void FredAndHarryInOverwatchKillsWhileJeffMoves()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.InOverwatch = true;
@@ -193,7 +193,7 @@ Fred is ready to level up
         public void FredAndHarryInOverwatchMissesWhileJeffMoves()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.InOverwatch = true;

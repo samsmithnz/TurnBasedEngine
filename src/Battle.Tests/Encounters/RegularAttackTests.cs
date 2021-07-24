@@ -21,7 +21,7 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndHitsTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -60,7 +60,7 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksJeffWithRifleAndMissesTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
@@ -87,7 +87,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
         public void FredAttacksJeffWithRifleModifiersAndHitsTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
@@ -120,7 +120,7 @@ Critical chance: 70, (dice roll: 0)
         public void NoDiceRollsEncounterTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -137,7 +137,7 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksAndKillsJeffWithRifleTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -171,7 +171,7 @@ Fred is ready to level up
         public void FredAttacksAndKillsJeffWithRifleAndCriticalHitTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -206,7 +206,7 @@ Fred is ready to level up
         public void FredAttacksAndKillsJeffWithRifleAndCritsTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -241,7 +241,7 @@ Fred is ready to level up
         public void FredAttacksAndKillsJeffWithRifleCausingFredToLevelUpTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Experience = 0;
             fred.Level = 1;
@@ -277,7 +277,7 @@ Fred is ready to level up
         public void FredAttacksJeffWithRifleWhoIsInHalfCoverAndHitsTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 85;
             Weapon rifle = fred.WeaponEquipped;
@@ -308,7 +308,7 @@ Critical chance: 70, (dice roll: 0)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverAndMissesTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -334,7 +334,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverDiagAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 30;
             Weapon rifle = fred.WeaponEquipped;
@@ -363,7 +363,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
         public void FredAttacksJeffWithRifleWhoIsInFullCoverStraightOnAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 30;
             fred.Experience = 50;
@@ -392,7 +392,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
         public void FredAttacksJeffWithRifleAndHitsWithPlus10DamageAbilityTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -425,7 +425,7 @@ Fred is ready to level up
         public void FredAttacksJeffWithRifleAndHitsWithPlus5DamageTwiceAbilityTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -458,7 +458,7 @@ Fred is ready to level up
         public void FredAttacksAndKillsJeffWithRifleAndCriticalChanceAbilityBonusTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -496,7 +496,7 @@ Fred is ready to level up
         public void FredAttacksAndKillsJeffWithRifleAndCriticalDamageAbilityBonusTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -541,7 +541,7 @@ Fred is ready to level up
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -586,7 +586,7 @@ Critical chance: 20, (dice roll: 0)
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -635,7 +635,7 @@ Fred is ready to level up
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -669,7 +669,7 @@ Fred is ready to level up
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -712,7 +712,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.HalfCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -755,7 +755,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -793,7 +793,7 @@ Critical chance: 0, hunkered down
         public void FredAttacksJeffWithRifleWithNoAmmoTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             rifle.AmmoCurrent = 0;
@@ -818,7 +818,7 @@ Rifle has no ammo remaining and the attack cannot be completed
         public void FredAttacksJeffWithRifleWithNoAmmoAndReloadsFirstTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             rifle.AmmoCurrent = 0;

@@ -18,7 +18,7 @@ namespace Battle.Tests.Map
         public void MovementWithNoOverwatchTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
             Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -64,7 +64,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
         public void MovementInRangeTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map);
 
@@ -87,7 +87,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
         public void MovementOutOfRangeTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 1);
             Character fred = CharacterPool.CreateFredHero(map);
 
@@ -110,7 +110,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
         public void MovementJustInRangeTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(7, 0, 1);
             Character fred = CharacterPool.CreateFredHero(map);
 
@@ -133,7 +133,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
         public void MovementRange8Test()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(12, 0, 20);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(20, 0, 20), map);
@@ -218,7 +218,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
         public void MovementRange16Test()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(6, 0, 20);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation (new Vector3(20, 0, 20),map);
@@ -308,7 +308,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
         public void MovementRange8AndRange16LayedTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(40, 1, 40);
+            string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(20, 0, 20), map);
             Vector3 destination = new Vector3(6, 0, 20);

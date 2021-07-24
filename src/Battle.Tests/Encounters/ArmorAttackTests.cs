@@ -2,8 +2,8 @@
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Items;
+using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -19,7 +19,7 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndArmorBlocksKillTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -51,7 +51,7 @@ Armor prevented 5 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorBlocksAnyDamageTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -83,7 +83,7 @@ Armor prevented 3 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorSavesAKillTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -115,7 +115,7 @@ Armor prevented 2 damage to character Jeff
         public void FredAttacksJeffWithRifleAndArmorShreddingAllowsAKillTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -151,7 +151,7 @@ Fred is ready to level up
         public void FredAttacksJeffWithRifleAndHighArmorShreddingTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
@@ -186,7 +186,7 @@ Armor prevented 1 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
@@ -219,7 +219,7 @@ Armor prevented 5 damage to character Jeff
         public void FredAttacksJeffWithRifleAndSuperHighArmorAndArmorPiercingTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10,1, 10);
+            string[,,] map = MapCore.InitializeMap(10,1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ArmorPiercingAbility());
             Weapon rifle = fred.WeaponEquipped;

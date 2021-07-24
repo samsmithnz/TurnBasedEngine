@@ -8,6 +8,23 @@ namespace Battle.Logic.Map
 {
     public static class MapCore
     {
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax)
+        {
+            string[,,] map = new string[xMax, yMax, zMax];
+
+            //Initialize the map
+            int y = 0;
+            for (int z = 0; z < zMax; z++)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    map[x, y, z] = "";
+                }
+            }
+
+            return map;
+        }
+
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
             int startingX = (int)sourceLocation.X;

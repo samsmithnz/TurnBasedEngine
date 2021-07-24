@@ -1,14 +1,10 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Characters;
+﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {
@@ -21,7 +17,7 @@ namespace Battle.Tests.Encounters
         public void FredAttacksJeffWithRifleAndHitsBaseTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(map);

@@ -29,7 +29,7 @@ namespace Battle.Tests.Encounters
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -76,7 +76,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -126,7 +126,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
@@ -177,7 +177,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.Abilities.Add(AbilityPool.ShredderAbility());
@@ -228,7 +228,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -275,7 +275,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -333,7 +333,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -391,7 +391,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -447,7 +447,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -510,7 +510,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -595,7 +595,7 @@ High cover downgraded to low cover at <2, 0, 3>
         public void NoDiceRollsEncounterTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map);
             Character jeff = CharacterPool.CreateJeffBaddie(map);
             Queue<int> diceRolls = null;
@@ -614,7 +614,7 @@ High cover downgraded to low cover at <2, 0, 3>
         public void NoItemAvailableToThrowTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
