@@ -116,12 +116,12 @@ namespace Battle.Tests.Scenarios
 . . . . . o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . o o o o o o o o o . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o o o o o o o . . . . . . . . . P . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o . ■ o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o P ■ o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -523,7 +523,6 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             mission.Map[5, 0, 9] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map);
             fred.SetLocation(new Vector3(1, 0, 1), mission.Map);
-            mission.Map[1, 0, 1] = "P";
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -531,8 +530,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             };
             mission.Teams.Add(team1);
             Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
-            jeff.SetLocation(new Vector3(6, 0, 7), mission.Map);
-            mission.Map[9, 0, 7] = "P";
+            jeff.SetLocation(new Vector3(9, 0, 7), mission.Map);
             jeff.HitpointsCurrent = 5;
             Team team2 = new Team()
             {

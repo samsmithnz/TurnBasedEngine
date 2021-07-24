@@ -39,11 +39,11 @@ namespace Battle.Logic.Characters
         }
         public void SetLocation(Vector3 location, string[,,] map)
         {
-            //if (map != null)
-            //{
+            if (map != null)
+            {
                 map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
                 map[(int)location.X, (int)location.Y, (int)location.Z] = "P";
-            //}
+            }
             _location = location;
         }
         public int MobilityRange { get; set; }

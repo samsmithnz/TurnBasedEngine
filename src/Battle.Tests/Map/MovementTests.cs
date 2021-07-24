@@ -173,7 +173,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
 . . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . o o o o o o o o . o o o o o o o o . . . . . . . . . . . 
+. . . . . . . . . . . . P o o o o o o o . o o o o o o o o . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
 . . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
@@ -258,7 +258,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
 . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
 . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
-. . . . o o o o o o o o o o o o o o o o . o o o o o o o o o o o o o o o o . . . 
+. . . . o o P o o o o o o o o o o o o o . o o o o o o o o o o o o o o o o . . . 
 . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
@@ -349,7 +349,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
 . . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 
 . . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
 . . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
-. . . . o o o o o o o o O O O O O O O O . O O O O O O O O o o o o o o o o . . . 
+. . . . o o P o o o o o O O O O O O O O . O O O O O O O O o o o o o o o o . . . 
 . . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
 . . . . . o o o o o o o o O O O O O O O O O O O O O O O o o o o o o o o . . . . 
 . . . . . . o o o o o o o o O O O O O O O O O O O O O o o o o o o o o . . . . . 

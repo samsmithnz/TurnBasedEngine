@@ -635,7 +635,7 @@ Fred is ready to level up
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -694,7 +694,6 @@ Fred is ready to level up
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 24, (dice roll: 65)
-High cover downgraded to low cover at <2, 0, 3>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -738,7 +737,6 @@ High cover downgraded to low cover at <2, 0, 3>
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 24, (dice roll: 65)
-Low cover downgraded to no cover at <2, 0, 3>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);

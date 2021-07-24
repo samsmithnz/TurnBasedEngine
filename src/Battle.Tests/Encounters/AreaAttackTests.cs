@@ -510,7 +510,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . . . . 
             //  . . . . .
             //  . . P . .
-            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
@@ -522,12 +522,12 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jeff };
 
             //Act 1: get the FOV
-            List<Vector3> results = FieldOfView.GetFieldOfView(map, fred.Location, 10);
+            List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert: check the initial FOV
-            Assert.AreEqual(22, results.Count);
+            Assert.AreEqual(85, fov.Count);
             bool foundItem = false;
-            foreach (Vector3 item in results)
+            foreach (Vector3 item in fov)
             {
                 if (item.X == 2 && item.Z == 3)
                 {
@@ -536,7 +536,7 @@ High cover downgraded to low cover at <2, 0, 3>
             }
             Assert.IsTrue(foundItem == false);
             foundItem = false;
-            foreach (Vector3 item in results)
+            foreach (Vector3 item in fov)
             {
                 if (item.X == 2 && item.Z == 4)
                 {
@@ -548,12 +548,12 @@ High cover downgraded to low cover at <2, 0, 3>
 
             //Act 2: Now destroy the cover
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
-            results = FieldOfView.GetFieldOfView(map, fred.Location, 10);
+            fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
-            Assert.AreEqual(24, results.Count);
+            Assert.AreEqual(98, fov.Count);
             foundItem = false;
-            foreach (Vector3 item in results)
+            foreach (Vector3 item in fov)
             {
                 if (item.X == 2 && item.Z == 3)
                 {
@@ -562,7 +562,7 @@ High cover downgraded to low cover at <2, 0, 3>
             }
             Assert.IsTrue(foundItem == true);
             foundItem = false;
-            foreach (Vector3 item in results)
+            foreach (Vector3 item in fov)
             {
                 if (item.X == 2 && item.Z == 4)
                 {
