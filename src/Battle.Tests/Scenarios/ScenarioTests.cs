@@ -562,7 +562,6 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 ";
             Assert.AreEqual(expected, mapString);
 
-
             string expectedFOV = @"
 . . . . . ▓ ▓ ▓ ▓ ▓ 
 . . . . . ▓ ▓ ▓ ▓ ▓ 
@@ -577,6 +576,21 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
 
+            jeff.FOVMap = FieldOfView.GetCharacterFOVMap(mission.Map, jeff.Location, jeff.FOVRange);
+            string jeffFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jeff.FOVMap);
+            string expectedJeffFOV = @"
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+. . . . . ▓ . . . . 
+. . . . . □ . . . P 
+. . . . . ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ . . . . . 
+";
+            Assert.AreEqual(expectedJeffFOV, jeffFOVMapString);
 
             //Act, part 2 - moving up the Y axis
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, new Vector3(1,0,9), mission.Map);
