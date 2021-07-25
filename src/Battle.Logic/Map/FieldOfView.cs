@@ -174,9 +174,13 @@ namespace Battle.Logic.Map
 
         public static string[,,] GetCharacterFOVMap(string[,,] map, Vector3 location, int fovRange)
         {
-            string[,,] fovResult = MapCore.InitializeMap(10, 1, 10);
+            int xMax = map.GetLength(0);
+            int yMax = map.GetLength(1);
+            int zMax = map.GetLength(2);
+
+            string[,,] fovResult = MapCore.InitializeMap(xMax, yMax, zMax);
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, fovRange);
-            string[,,] inverseMap = MapCore.InitializeMap(10, 1, 10);
+            string[,,] inverseMap = MapCore.InitializeMap(xMax, yMax, zMax);
             //Set the player position to visible
             inverseMap[(int)location.X, (int)location.Y, (int)location.Z] = "P";
             //Set the map to all of the visible positions
@@ -185,9 +189,6 @@ namespace Battle.Logic.Map
                 inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_NotVisible;
             }
             //Now that we have the inverse map, reverse it to show areas that are not visible
-            int xMax = map.GetLength(0);
-            //int yMax = mission.Map.GetLength(1);
-            int zMax = map.GetLength(2);
             for (int y = 0; y < 1; y++)
             {
                 for (int x = 0; x < xMax; x++)
