@@ -563,14 +563,14 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(expected, mapString);
 
             string expectedFOV = @"
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . □ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ . . . . 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ . . . . 
 . P . . . . . . . . 
 . . . . . . . . . . 
 ";
@@ -579,14 +579,14 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             jeff.FOVMap = FieldOfView.GetCharacterFOVMap(mission.Map, jeff.Location, jeff.FOVRange);
             string jeffFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jeff.FOVMap);
             string expectedJeffFOV = @"
-▓ ▓ ▓ ▓ ▓ ▓ . . . . 
-. . . . . ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+. . . . . ■ . . . . 
 . . . . . □ . . . P 
-. . . . . ▓ . . . . 
-▓ ▓ ▓ ▓ ▓ ▓ . . . . 
-▓ ▓ ▓ ▓ ▓ ▓ . . . . 
-▓ ▓ ▓ ▓ ▓ ▓ . . . . 
-▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+. . . . . ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
 ▓ ▓ ▓ ▓ ▓ ▓ . . . . 
 ▓ ▓ ▓ ▓ ▓ . . . . . 
 ";
@@ -603,14 +603,14 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 {
                     string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
                     string expectedMovement = @"
-. . . . . ▓ ▓ ▓ . . 
-. . . . . ▓ . . . . 
+. . . . . ■ ▓ ▓ . . 
+. . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
-. P . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
-. . . . . ▓ ▓ ▓ ▓ ▓ 
+. P . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . . ▓ ▓ ▓ ▓ 
 . . . . . . . ▓ ▓ ▓ 
 ";

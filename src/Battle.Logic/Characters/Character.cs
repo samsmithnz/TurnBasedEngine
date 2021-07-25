@@ -179,26 +179,26 @@ namespace Battle.Logic.Characters
 
         private static bool LocationIsAdjacentToList(Vector3 location, List<Vector3> list)
         {
-            foreach (Vector3 item in list)
-            {
-                //if (item.X - 1 == location.X && item.Z == location.Z)
-                //{
-                //    return true;
-                //}
-                //else 
-                if (item.X + 1 == location.X && item.Z == location.Z)
-                {
-                    return true;
-                }
-                //else if (item.X == location.X && item.Z - 1 == location.Z)
-                //{
-                //    return true;
-                //}
-                else if (item.X == location.X && item.Z + 1 == location.Z)
-                {
-                    return true;
-                }
-            }
+            //foreach (Vector3 item in list)
+            //{
+            //    //if (item.X - 1 == location.X && item.Z == location.Z)
+            //    //{
+            //    //    return true;
+            //    //}
+            //    //else 
+            //    if (item.X + 1 == location.X && item.Z == location.Z)
+            //    {
+            //        return true;
+            //    }
+            //    //else if (item.X == location.X && item.Z - 1 == location.Z)
+            //    //{
+            //    //    return true;
+            //    //}
+            //    else if (item.X == location.X && item.Z + 1 == location.Z)
+            //    {
+            //        return true;
+            //    }
+            //}
             return false;
         }
 

@@ -90,7 +90,7 @@ namespace Battle.Logic.Map
                     if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
                     {
                         //Add the wall
-                        //results.Add(fovItem);
+                        results.Add(fovItem);
                         //Then break!
                         break;
                     }
