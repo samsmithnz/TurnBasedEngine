@@ -13,7 +13,7 @@ namespace Battle.Tests.Map
         public void Radius1AreaOfEffectAt4x4zTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            string[,,] map = MapCore.InitializeMap(5, 1, 5);
             Vector3 location = new Vector3(4, 0, 4);
             int radius = 1;
 
@@ -42,7 +42,7 @@ namespace Battle.Tests.Map
         public void Radius1AreaOfEffectAt1x1zTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            string[,,] map = MapCore.InitializeMap(5, 1, 5);
             Vector3 location = new Vector3(1, 0, 1);
             int radius = 1;
 
@@ -73,7 +73,7 @@ o o o . .
         public void Radius1AreaOfEffectAt0x0zTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(5, 1, 5);
+            string[,,] map = MapCore.InitializeMap(5, 1, 5);
             Vector3 location = new Vector3(0, 0, 0);
             int radius = 1;
 
@@ -103,7 +103,7 @@ o o . . .
         public void Radius3AreaOfEffectAt4x4zTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 location = new Vector3(4, 0, 4);
             int radius = 3;
 
@@ -136,7 +136,7 @@ o o . . .
         public void Radius3AreaOfEffectAt0x0zTest()
         {
             //Arrange
-            string[,,] map = MapUtility.InitializeMap(10, 1, 10);
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 location = new Vector3(0, 0, 0);
             int radius = 3;
 

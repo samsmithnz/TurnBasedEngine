@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFredHero()
+        public static Character CreateFredHero(string[,,] map)
         {
             Character fred = new Character()
             {
@@ -23,7 +23,6 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 10,
-                Location = new Vector3(0, 0, 0),
                 MobilityRange = 8,
                 ShootingRange = 30,
                 FOVRange = 40,
@@ -35,6 +34,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
+            fred.SetLocation(new Vector3(0, 0, 0), map);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -49,9 +49,9 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJeffBaddie()
+        public static Character CreateJeffBaddie(string[,,] map)
         {
-            Character fred = new Character()
+            Character jeff = new Character()
             {
                 Name = "Jeff",
                 HitpointsMax = 4,
@@ -65,7 +65,6 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 11,
-                Location = new Vector3(8, 0, 8),
                 MobilityRange = 8,
                 ShootingRange = 30,
                 FOVRange = 40,
@@ -76,10 +75,11 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            return fred;
+            jeff.SetLocation(new Vector3(8, 0, 8), map);
+            return jeff;
         }
 
-        public static Character CreateHarryHeroSidekick()
+        public static Character CreateHarryHeroSidekick(string[,,] map)
         {
             Character harry = new Character()
             {
@@ -91,7 +91,6 @@ namespace Battle.Tests.Characters
                 Level = 1,
                 LevelUpIsReady = false,
                 Speed = 12,
-                Location = new Vector3(5, 0, 5),
                 ActionPointsCurrent = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,
@@ -103,6 +102,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
+            harry.SetLocation(new Vector3(5, 0, 5), map);
             return harry;
         }
     }

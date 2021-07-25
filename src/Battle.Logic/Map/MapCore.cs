@@ -8,6 +8,23 @@ namespace Battle.Logic.Map
 {
     public static class MapCore
     {
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax)
+        {
+            string[,,] map = new string[xMax, yMax, zMax];
+
+            //Initialize the map
+            int y = 0;
+            for (int z = 0; z < zMax; z++)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    map[x, y, z] = "";
+                }
+            }
+
+            return map;
+        }
+
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
             int startingX = (int)sourceLocation.X;
@@ -72,6 +89,9 @@ namespace Battle.Logic.Map
                     //If we find an object, stop adding tiles
                     if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
                     {
+                        //Add the wall
+                        results.Add(fovItem);
+                        //Then break!
                         break;
                     }
                     else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
@@ -165,7 +185,62 @@ namespace Battle.Logic.Map
 
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
+        }
 
+        public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)
+        {
+            int xMax = map.GetLength(0);
+            //int yMax = map.GetLength(1);
+            int zMax = map.GetLength(2);
+            int xMaskMax = map.GetLength(0);
+            //int yMaskMax = map.GetLength(1);
+            int zMaskMax = map.GetLength(2);
+            if (xMax != xMaskMax && zMax != zMaskMax)
+            {
+                throw new Exception("Mask map is not the same size as the parent map");
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Environment.NewLine);
+            int y = 0;
+            for (int z = zMax - 1; z >= 0; z--)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    if (mapMask[x, y, z] != "")
+                    {
+                        sb.Append(mapMask[x, y, z] + " ");
+                    }
+                    else
+                    {
+                        if (map[x, y, z] != "")
+                        {
+                            sb.Append(map[x, y, z] + " ");
+                        }
+                        else
+                        {
+                            sb.Append(". ");
+                        }
+                    }
+                    //    if (map[x, y, z] != "")
+                    //{
+                    //    if (mapMask[x, y, z] != "")
+                    //    {
+                    //        map[x, y, z] = mapMask[x, y, z];
+                    //    }
+                    //    else
+                    //    {
+                    //        sb.Append(map[x, y, z] + " ");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    sb.Append(". ");
+                    //}
+                }
+                sb.Append(Environment.NewLine);
+            }
+            return sb.ToString();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Battle.Logic.Characters
         {
             Abilities = new List<Ability>();
             Effects = new List<Effect>();
+            FOVHistory = new HashSet<Vector3>();
         }
 
         public string Name { get; set; }
@@ -22,7 +23,6 @@ namespace Battle.Logic.Characters
         public int ArmorPointsCurrent { get; set; }
         public int ActionPointsMax { get; set; }
         public int ActionPointsCurrent { get; set; }
-
         public int ChanceToHit { get; set; }
         public int Experience { get; set; }
         public int Level { get; set; }
@@ -30,10 +30,28 @@ namespace Battle.Logic.Characters
         public int Speed { get; set; }
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
-        public Vector3 Location { get; set; }
+        private Vector3 location { get; set; }
+        public Vector3 Location
+        {
+            get
+            {
+                return location;
+            }
+        }
+        public void SetLocation(Vector3 location, string[,,] map)
+        {
+            if (map != null)
+            {
+                map[(int)this.location.X, (int)this.location.Y, (int)this.location.Z] = "";
+                map[(int)location.X, (int)location.Y, (int)location.Z] = "P";
+            }
+            this.location = location;
+        }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
         public int FOVRange { get; set; }
+        public string[,,] FOVMap { get; set; }
+        public HashSet<Vector3> FOVHistory { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
@@ -119,22 +137,22 @@ namespace Battle.Logic.Characters
         {
             List<Character> results = new List<Character>();
 
-            List<Vector3> fovVectors = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
+            List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
             foreach (Team team in teams)
             {
                 foreach (Character character in team.Characters)
                 {
                     bool addedCharacter = false;
-                    foreach (Vector3 location in fovVectors)
+                    foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.Location == location)
+                        if (character.Location == fovLocation)
                         {
                             addedCharacter = true;
                             results.Add(character);
                             break;
                         }
                     }
-                    if (addedCharacter == false && LocationIsAdjacentToList(character.Location, fovVectors) == true)
+                    if (addedCharacter == false && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov) == true)
                     {
                         results.Add(character);
                     }
@@ -161,26 +179,33 @@ namespace Battle.Logic.Characters
             return mapString;
         }
 
-        private static bool LocationIsAdjacentToList(Vector3 location, List<Vector3> list)
+        //If a player is behind cover, but adjacent squares are open/in the players FOV, then the player is visible too
+        private static bool CharacterLocationIsAdjacentToFOVList(string[,,] map, Vector3 location, List<Vector3> list)
         {
+            //Look at the location.
+            //Is the player in cover? 
+            //Are adjacent spots visible? 
+
             foreach (Vector3 item in list)
             {
-                //if (item.X - 1 == location.X && item.Z == location.Z)
-                //{
-                //    return true;
-                //}
-                //else 
-                if (item.X + 1 == location.X && item.Z == location.Z)
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
                 {
-                    return true;
-                }
-                //else if (item.X == location.X && item.Z - 1 == location.Z)
-                //{
-                //    return true;
-                //}
-                else if (item.X == location.X && item.Z + 1 == location.Z)
-                {
-                    return true;
+                    if (item.X - 1 == location.X && item.Z == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X + 1 == location.X && item.Z == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X == location.X && item.Z - 1 == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X == location.X && item.Z + 1 == location.Z)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;

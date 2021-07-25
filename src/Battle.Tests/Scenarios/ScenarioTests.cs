@@ -23,12 +23,12 @@ namespace Battle.Tests.Scenarios
             {
                 Objective = Mission.MissionType.EliminateAllOpponents,
                 TurnNumber = 1,
-                Map = MapUtility.InitializeMap(50, 1, 50)
+                Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(5, 0, 5);
+            Character fred = CharacterPool.CreateFredHero(mission.Map);
+            fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -36,8 +36,8 @@ namespace Battle.Tests.Scenarios
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(20, 0, 10);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
+            jeff.SetLocation(new Vector3(20, 0, 10), mission.Map);
             jeff.HitpointsCurrent = 6;
             Team team2 = new Team()
             {
@@ -116,12 +116,12 @@ namespace Battle.Tests.Scenarios
 . . . . . o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . o o o o o o o o o . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o o o o o o o . . . . . . . . . P . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-o o o o o . ■ o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o P ■ o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -305,7 +305,7 @@ Fred is ready to level up
             Mission mission = new Mission
             {
                 TurnNumber = 1,
-                Map = MapUtility.InitializeMap(50, 1, 50)
+                Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[5, 0, 6] = CoverType.FullCover;
             mission.Map[14, 0, 5] = CoverType.FullCover;
@@ -318,16 +318,16 @@ Fred is ready to level up
             mission.Map[14, 0, 12] = CoverType.FullCover;
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero();
-            fred.Location = new Vector3(5, 0, 5);
+            Character fred = CharacterPool.CreateFredHero(mission.Map);
+            fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
             Team team1 = new Team()
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie();
-            jeff.Location = new Vector3(15, 0, 10);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
+            jeff.SetLocation(new Vector3(15, 0, 10), mission.Map);
             jeff.HitpointsCurrent = 5;
             Team team2 = new Team()
             {
@@ -502,6 +502,148 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(0, jeff.TotalDamage);
         }
 
+
+        [TestMethod]
+        public void JeffMovesAndFOVUpdatesTest()
+        {
+            //arrange
+            Mission mission = new Mission
+            {
+                TurnNumber = 1,
+                Map = MapCore.InitializeMap(10, 1, 10)
+            };
+
+            mission.Map[5, 0, 2] = CoverType.FullCover;
+            mission.Map[5, 0, 3] = CoverType.FullCover;
+            mission.Map[5, 0, 4] = CoverType.FullCover;
+            mission.Map[5, 0, 5] = CoverType.FullCover;
+            mission.Map[5, 0, 6] = CoverType.FullCover;
+            mission.Map[5, 0, 7] = CoverType.HalfCover; //half cover here!
+            mission.Map[5, 0, 8] = CoverType.FullCover;
+            mission.Map[5, 0, 9] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(mission.Map);
+            fred.SetLocation(new Vector3(1, 0, 1), mission.Map);
+            fred.HitpointsCurrent = 1;
+            Team team1 = new Team()
+            {
+                Name = "Good guys",
+                Characters = new List<Character>() { fred }
+            };
+            mission.Teams.Add(team1);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
+            jeff.SetLocation(new Vector3(9, 0, 7), mission.Map);
+            jeff.HitpointsCurrent = 5;
+            jeff.InOverwatch = true;
+            Team team2 = new Team()
+            {
+                Name = "Bad guys",
+                Characters = new List<Character>() { jeff }
+            };
+            mission.Teams.Add(team2);
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //act
+            fred = FieldOfView.UpdateCharacterFOV(mission.Map, fred);
+            string fovMapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            string mapString = MapCore.GetMapString(mission.Map);
+
+            //assert
+            string expected = @"
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . □ . . . P 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . ■ . . . . 
+. P . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(expected, mapString);
+
+            string expectedFOV = @"
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . □ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ . . . . 
+. P . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(expectedFOV, fovMapString);
+
+            jeff = FieldOfView.UpdateCharacterFOV(mission.Map, jeff);
+            string jeffFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jeff.FOVMap);
+            string expectedJeffFOV = @"
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+. . . . . ■ . . . . 
+. . . . . □ . . . P 
+. . . . . ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ■ . . . . 
+▓ ▓ ▓ ▓ ▓ ▓ . . . . 
+▓ ▓ ▓ ▓ ▓ . . . . . 
+";
+            Assert.AreEqual(expectedJeffFOV, jeffFOVMapString);
+
+            //Act, part 2 - moving up the Y axis
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location,
+                new Vector3(1, 0, 9),
+                mission.Map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred,
+                mission.Map,
+                pathFindingResult,
+                diceRolls,
+                new List<Character>() { jeff });
+            string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            string expectedMovement = @"
+. . . . . ■ ▓ ░ . . 
+. . . . . ■ . . . . 
+. . . . . □ . . ▓ ▓ 
+. P . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ▓ ▓ ▓ ▓ 
+. . . . . ■ ░ ░ ░ ░ 
+. . . . . . ░ ░ ░ ░ 
+. . . . . . . ░ ░ ░ 
+";
+            Assert.AreEqual(expectedMovement, fovMapStringMovement);
+
+            //                else if (i == 2)
+            //                {
+            //                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            //                    string expectedMovement = @"
+            //";
+            //                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+            //                }
+            //                else if (i == 3)
+            //                {
+            //                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            //                    string expectedMovement = @"
+            //";
+            //                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+            //                }
+            //                else if (i == 4)
+            //                {
+            //                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            //                    string expectedMovement = @"
+            //";
+            //                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+            //                }
+            //                else if (i == 5)
+            //                {
+            //                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            //                    string expectedMovement = @"
+            //";
+            //                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+            //                }
+        }
     }
 }
-
