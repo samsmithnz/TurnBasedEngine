@@ -581,9 +581,55 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             //Act, part 2 - moving up the Y axis
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, new Vector3(1,0,9), mission.Map);
             List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, new List<Character>() { jeff });
-            foreach (ActionResult actionResult in movementResults)
+            for (int i = 0; i < movementResults.Count; i++)
             {
+                ActionResult actionResult = movementResults[i];
 
+                if (i == 0)
+                {
+                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+                    string expectedMovement = @"
+. . . . . ▓ ▓ ▓ . . 
+. . . . . ▓ . . . . 
+. . . . . □ . . ▓ ▓ 
+. P . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ 
+";
+                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+                }
+//                else if (i == 2)
+//                {
+//                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+//                    string expectedMovement = @"
+//";
+//                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+//                }
+//                else if (i == 3)
+//                {
+//                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+//                    string expectedMovement = @"
+//";
+//                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+//                }
+//                else if (i == 4)
+//                {
+//                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+//                    string expectedMovement = @"
+//";
+//                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+//                }
+//                else if (i == 5)
+//                {
+//                    string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+//                    string expectedMovement = @"
+//";
+//                    Assert.AreEqual(expectedMovement, fovMapStringMovement);
+//                }
             }
         }
     }
