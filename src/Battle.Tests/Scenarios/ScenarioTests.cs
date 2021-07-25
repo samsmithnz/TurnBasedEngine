@@ -603,16 +603,16 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 new List<Character>() { jeff });
             string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedMovement = @"
-. . . . . ■ ▓ ▒ . . 
+. . . . . ■ ▓ ░ . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ▒ ▒ ▒ ▒ 
-. . . . . . ▒ ▒ ▒ ▒ 
-. . . . . . . ▒ ▒ ▒ 
+. . . . . ■ ░ ░ ░ ░ 
+. . . . . . ░ ░ ░ ░ 
+. . . . . . . ░ ░ ░ 
 ";
             Assert.AreEqual(expectedMovement, fovMapStringMovement);
 

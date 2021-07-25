@@ -11,7 +11,7 @@ namespace Battle.Logic.Map
 
         public const string FOV_CanSee = "";
         public const string FOV_Unknown = "▓";
-        public const string FOV_CanNotSee = "▒";
+        public const string FOV_CanNotSee = "░";
 
         public static List<Vector3> GetFieldOfView(string[,,] map, Vector3 location, int range)
         {

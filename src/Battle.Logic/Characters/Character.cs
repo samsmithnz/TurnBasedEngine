@@ -137,22 +137,22 @@ namespace Battle.Logic.Characters
         {
             List<Character> results = new List<Character>();
 
-            List<Vector3> fovVectors = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
+            List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
             foreach (Team team in teams)
             {
                 foreach (Character character in team.Characters)
                 {
                     bool addedCharacter = false;
-                    foreach (Vector3 location in fovVectors)
+                    foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.Location == location)
+                        if (character.Location == fovLocation)
                         {
                             addedCharacter = true;
                             results.Add(character);
                             break;
                         }
                     }
-                    if (addedCharacter == false && LocationIsAdjacentToList(character.Location, fovVectors) == true)
+                    if (addedCharacter == false && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov) == true)
                     {
                         results.Add(character);
                     }
@@ -179,28 +179,35 @@ namespace Battle.Logic.Characters
             return mapString;
         }
 
-        private static bool LocationIsAdjacentToList(Vector3 location, List<Vector3> list)
+        //If a player is behind cover, but adjacent squares are open/in the players FOV, then the player is visible too
+        private static bool CharacterLocationIsAdjacentToFOVList(string[,,] map, Vector3 location, List<Vector3> list)
         {
-            //foreach (Vector3 item in list)
-            //{
-            //    //if (item.X - 1 == location.X && item.Z == location.Z)
-            //    //{
-            //    //    return true;
-            //    //}
-            //    //else 
-            //    if (item.X + 1 == location.X && item.Z == location.Z)
-            //    {
-            //        return true;
-            //    }
-            //    //else if (item.X == location.X && item.Z - 1 == location.Z)
-            //    //{
-            //    //    return true;
-            //    //}
-            //    else if (item.X == location.X && item.Z + 1 == location.Z)
-            //    {
-            //        return true;
-            //    }
-            //}
+            //Look at the location.
+            //Is the player in cover? 
+            //Are adjacent spots visible? 
+
+            foreach (Vector3 item in list)
+            {
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
+                {
+                    if (item.X - 1 == location.X && item.Z == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X + 1 == location.X && item.Z == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X == location.X && item.Z - 1 == location.Z)
+                    {
+                        return true;
+                    }
+                    else if (item.X == location.X && item.Z + 1 == location.Z)
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
         }
 
