@@ -7,6 +7,8 @@ namespace Battle.Logic.Encounters
     {
         public Vector3 StartLocation { get; set; }
         public Vector3 EndLocation { get; set; }
+        public string[,,] FOVMap { get; set; }
+        public string FOVMapString { get; set; }
         public List<EncounterResult> EncounterResults { get; set; }
         public List<string> Log { get; set; }
     }
