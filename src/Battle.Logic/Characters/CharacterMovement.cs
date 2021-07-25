@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Encounters;
+using Battle.Logic.GameController;
 using Battle.Logic.Map;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,8 @@ namespace Battle.Logic.Characters
                 //Move to the next step
                 characterMoving.SetLocation(step, map);
                 characterMoving = FieldOfView.UpdateCharacterFOV(map, characterMoving);
+                result.FOVMap = (string[,,])characterMoving.FOVMap.Clone(); //clone the array, so we don't create a link and capture the point in time
+                result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
