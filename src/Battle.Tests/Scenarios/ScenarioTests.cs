@@ -523,6 +523,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             mission.Map[5, 0, 9] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map);
             fred.SetLocation(new Vector3(1, 0, 1), mission.Map);
+            fred.HitpointsCurrent = 1;
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -532,6 +533,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
             jeff.SetLocation(new Vector3(9, 0, 7), mission.Map);
             jeff.HitpointsCurrent = 5;
+            jeff.InOverwatch = true;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
@@ -575,6 +577,14 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
 
+
+            //Act, part 2 - moving up the Y axis
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, new Vector3(1,0,9), mission.Map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, new List<Character>() { jeff });
+            foreach (ActionResult actionResult in movementResults)
+            {
+
+            }
         }
     }
 }
