@@ -543,7 +543,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //act
-            fred.FOVMap = FieldOfView.GetCharacterFOVMap(mission.Map, fred.Location, fred.FOVRange);
+            fred = FieldOfView.UpdateCharacterFOV(mission.Map, fred);
             string fovMapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string mapString = MapCore.GetMapString(mission.Map);
 
@@ -576,7 +576,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
 
-            jeff.FOVMap = FieldOfView.GetCharacterFOVMap(mission.Map, jeff.Location, jeff.FOVRange);
+            jeff = FieldOfView.UpdateCharacterFOV(mission.Map, jeff);
             string jeffFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jeff.FOVMap);
             string expectedJeffFOV = @"
 ▓ ▓ ▓ ▓ ▓ ■ . . . . 
@@ -593,26 +593,26 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(expectedJeffFOV, jeffFOVMapString);
 
             //Act, part 2 - moving up the Y axis
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, 
-                new Vector3(1, 0, 9), 
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location,
+                new Vector3(1, 0, 9),
                 mission.Map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, 
-                mission.Map, 
-                pathFindingResult, 
-                diceRolls, 
-                new List<Character>() { jeff });            
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred,
+                mission.Map,
+                pathFindingResult,
+                diceRolls,
+                new List<Character>() { jeff });
             string fovMapStringMovement = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedMovement = @"
-. . . . . ■ ▓ ▓ . . 
+. . . . . ■ ▓ ▒ . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . . ▓ ▓ ▓ ▓ 
-. . . . . . . ▓ ▓ ▓ 
+. . . . . ■ ▒ ▒ ▒ ▒ 
+. . . . . . ▒ ▒ ▒ ▒ 
+. . . . . . . ▒ ▒ ▒ 
 ";
             Assert.AreEqual(expectedMovement, fovMapStringMovement);
 

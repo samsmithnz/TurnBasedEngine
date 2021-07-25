@@ -514,6 +514,7 @@ High cover downgraded to low cover at <2, 0, 3>
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map);
             fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.FOVRange = 5;
             Character jeff = CharacterPool.CreateJeffBaddie(map);
             jeff.SetLocation(new Vector3(2, 0, 4), map);
             jeff.HitpointsCurrent = 5;
@@ -522,8 +523,8 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jeff };
 
             //Act 1: get the FOV
-            List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 5);
-            fred.FOVMap = FieldOfView.GetCharacterFOVMap(map, fred.Location, 5);
+            List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
+            fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fredFOVString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
             string expectedString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 

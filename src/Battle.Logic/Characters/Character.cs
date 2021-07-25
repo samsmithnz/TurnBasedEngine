@@ -13,6 +13,7 @@ namespace Battle.Logic.Characters
         {
             Abilities = new List<Ability>();
             Effects = new List<Effect>();
+            FOVHistory = new HashSet<Vector3>();
         }
 
         public string Name { get; set; }
@@ -50,6 +51,7 @@ namespace Battle.Logic.Characters
         public int ShootingRange { get; set; }
         public int FOVRange { get; set; }
         public string[,,] FOVMap { get; set; }
+        public HashSet<Vector3> FOVHistory { get; set; }
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }

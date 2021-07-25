@@ -42,7 +42,7 @@ namespace Battle.Logic.Characters
 
                 //Move to the next step
                 characterMoving.SetLocation(step, map);
-                characterMoving.FOVMap = FieldOfView.GetCharacterFOVMap(map, characterMoving.Location, characterMoving.FOVRange);
+                characterMoving = FieldOfView.UpdateCharacterFOV(map, characterMoving);
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
