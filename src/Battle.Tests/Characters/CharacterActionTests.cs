@@ -21,7 +21,7 @@ namespace Battle.Tests.Characters
             Assert.IsTrue(actions != null);
             Assert.AreEqual(5, actions.Count);
             Assert.AreEqual("1", actions[0].KeyBinding);
-            Assert.AreEqual("_shoot", actions[0].Name);;
+            Assert.AreEqual("_shoot", actions[0].Name); ;
             Assert.AreEqual("Shoot", actions[0].Caption);
             Assert.AreEqual("2", actions[1].KeyBinding);
             Assert.AreEqual("_overwatch", actions[1].Name);

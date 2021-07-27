@@ -1,6 +1,4 @@
-﻿using Battle.Logic.Characters;
-
-namespace Battle.Logic.Items
+﻿namespace Battle.Logic.Items
 {
     public class Item
     {

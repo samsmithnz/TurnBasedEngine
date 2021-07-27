@@ -1,5 +1,4 @@
 ﻿using Battle.Logic.Encounters;
-using Battle.Logic.GameController;
 using Battle.Logic.Map;
 using System.Collections.Generic;
 using System.Linq;

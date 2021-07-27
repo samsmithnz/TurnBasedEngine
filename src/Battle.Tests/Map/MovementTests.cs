@@ -221,7 +221,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(6, 0, 20);
             Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation (new Vector3(20, 0, 20),map);
+            fred.SetLocation(new Vector3(20, 0, 20), map);
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);

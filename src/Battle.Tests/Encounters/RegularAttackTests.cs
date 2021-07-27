@@ -4,7 +4,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

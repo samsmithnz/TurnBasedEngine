@@ -90,7 +90,7 @@ namespace Battle.Tests.Items
             Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.Shotgun, weapon.Type);
         }
-        
+
         private static void TestSniperRifle(Weapon weapon)
         {
             Assert.IsNotNull(weapon);
@@ -126,6 +126,6 @@ namespace Battle.Tests.Items
             Assert.AreEqual(1, weapon.ActionPointsRequired);
             Assert.AreEqual(WeaponType.Grenade, weapon.Type);
         }
-      
+
     }
 }

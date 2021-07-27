@@ -1,9 +1,6 @@
-using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Tests.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -42,7 +39,7 @@ namespace Battle.Tests.Characters
 
             //Assert
             Assert.AreEqual(1, fred.HitpointsCurrent);
-            Assert.AreEqual(1, fred.UtilityItemEquipped.ClipRemaining );
+            Assert.AreEqual(1, fred.UtilityItemEquipped.ClipRemaining);
         }
     }
 }

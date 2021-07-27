@@ -74,8 +74,8 @@ namespace Battle.Tests.Encounters
             int rangeModifier4 = Range.GetRangeModifier(shotgun, 4);
             int rangeModifier5 = Range.GetRangeModifier(shotgun, 5);
             int rangeModifier6 = Range.GetRangeModifier(shotgun, 6);
-            int rangeModifier7 = Range.GetRangeModifier(shotgun,7);
-            int rangeModifier8 = Range.GetRangeModifier(shotgun,8);
+            int rangeModifier7 = Range.GetRangeModifier(shotgun, 7);
+            int rangeModifier8 = Range.GetRangeModifier(shotgun, 8);
             int rangeModifier9 = Range.GetRangeModifier(shotgun, 9);
             int rangeModifier10 = Range.GetRangeModifier(shotgun, 10);
             int rangeModifier11 = Range.GetRangeModifier(shotgun, 11);
