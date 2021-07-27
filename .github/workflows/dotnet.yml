@@ -34,24 +34,31 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Build logic
-      run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Run automated tests
-      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings 
+      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
-    - name: Upload package back to GitHub
+
+    - name: Pack code into NuGet package
+      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'    
+    - name: Upload package to GitHub
       uses: actions/upload-artifact@v2
       with:
         name: package
         path: src/Battle.Logic/bin/Release/netstandard2.0 
+    - name: Upload nuget package to GitHub
+      uses: actions/upload-artifact@v2
+      with:
+        name: nugetPackage
+        path: src/Battle.Logic/bin/Release/  
 
   sonarCloud:
     name: sonarCloud
     runs-on: windows-latest
+    if: 0 == 1
     needs: build
     steps:
       - name: Set up JDK 11
@@ -93,7 +100,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'      
+    #if: github.ref == 'refs/heads/main'      
     steps:
     - name: Display GitVersion outputs
       run: |
@@ -103,10 +110,21 @@ jobs:
       uses: actions/download-artifact@v1.0.0
       with:
         name: package  
+    - name: Download nuget package artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: nugetPackage 
     #- name: Publish nuget package to nuget.org
     #  if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only publish a NuGet package if there has been a commit/version change
     #  run: dotnet nuget push package\*.nupkg --api-key "${{ secrets.GHPackagesToken }}" --source "https://api.nuget.org/v3/index.json"
     #  shell: pwsh
+    - name: Prep package for packing
+      run: dotnet nuget add source --username samsmithnz --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/samsmithnz/index.json"
+    - run: dir nugetPackage/*.*
+    - name: Publish nuget package to GitHub Packages
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only publish a NuGet package if there has been a commit/version change
+      run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      shell: pwsh
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
