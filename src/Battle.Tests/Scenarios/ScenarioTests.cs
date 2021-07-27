@@ -670,7 +670,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 }
                 else if (i == 4)
                 {
-                     string expectedMovement = @"
+                    string expectedMovement = @"
 . . . . . ■ ▓ ░ . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
@@ -686,7 +686,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 }
                 else if (i == 5)
                 {
-                     string expectedMovement = @"
+                    string expectedMovement = @"
 . . . . . ■ ▓ ░ . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 

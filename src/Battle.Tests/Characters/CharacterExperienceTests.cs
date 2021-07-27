@@ -1,8 +1,5 @@
-using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -105,7 +102,7 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null);
-            fred.Experience = 3000-1;
+            fred.Experience = 3000 - 1;
             fred.Level = 7;
 
             //Act

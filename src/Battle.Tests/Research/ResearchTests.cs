@@ -1,4 +1,3 @@
-using Battle.Logic.Items;
 using Battle.Logic.Research;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

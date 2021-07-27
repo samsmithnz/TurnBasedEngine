@@ -1,8 +1,6 @@
 using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Numerics;
 
 namespace Battle.Tests.Characters
 {

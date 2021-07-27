@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Battle.Logic.Characters
+﻿namespace Battle.Logic.Characters
 {
     public class CharacterAction
     {

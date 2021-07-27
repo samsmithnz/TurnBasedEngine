@@ -3,7 +3,6 @@ using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Map;
 using Battle.Tests.Characters;
-using Battle.Tests.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;

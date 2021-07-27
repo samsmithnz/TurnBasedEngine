@@ -9,7 +9,7 @@ namespace Battle.Tests.Items
             Item medKit = new Item()
             {
                 Name = "MedKit",
-                Adjustment =3,
+                Adjustment = 3,
                 Range = 1,
                 ClipSize = 1,
                 ClipRemaining = 1,
