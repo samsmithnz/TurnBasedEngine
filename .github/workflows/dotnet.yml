@@ -35,14 +35,15 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Run automated tests
-      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings 
-    - name: Pack code into NuGet package
-      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'    
+      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
+
+    - name: Pack code into NuGet package
+      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'    
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v2
       with:
@@ -52,7 +53,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nugetPackage
-        path: src/Battle.Logic/bin/Release/netstandard2.0      
+        path: src/Battle.Logic/bin/Release/  
 
   sonarCloud:
     name: sonarCloud
