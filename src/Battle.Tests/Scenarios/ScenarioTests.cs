@@ -287,10 +287,12 @@ Fred is ready to level up
             Assert.AreEqual(0, jeff.MissionsCompleted);
             Assert.AreEqual(2, fred.TotalShots);
             Assert.AreEqual(2, fred.TotalHits);
+            Assert.AreEqual(0, fred.TotalMisses);
             Assert.AreEqual(1, fred.TotalKills);
             Assert.AreEqual(17, fred.TotalDamage);
             Assert.AreEqual(1, jeff.TotalShots);
             Assert.AreEqual(0, jeff.TotalHits);
+            Assert.AreEqual(1, jeff.TotalMisses);
             Assert.AreEqual(0, jeff.TotalKills);
             Assert.AreEqual(0, jeff.TotalDamage);
 

@@ -66,6 +66,7 @@ namespace Battle.Logic.Characters
         public int TotalKills { get; set; }
         public int TotalShots { get; set; }
         public int TotalHits { get; set; }
+        public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
 
         public void ProcessEffects(int currentTurn)
