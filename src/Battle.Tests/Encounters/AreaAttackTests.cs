@@ -522,7 +522,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jeff };
 
             //Act 1: get the FOV
-            List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
+            //List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
             fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fredFOVString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
             string expectedString = @"
@@ -541,7 +541,7 @@ High cover downgraded to low cover at <2, 0, 3>
 
             //Act 2: Now destroy the cover
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
-            fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
+            List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
             Assert.AreEqual(98, fov.Count);

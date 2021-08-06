@@ -12,6 +12,7 @@ namespace Battle.Tests.Characters
             Character fred = new Character()
             {
                 Name = "Fred",
+                Background = "Fred is from Canada and is a nice guy.",
                 HitpointsMax = 4,
                 HitpointsCurrent = 4,
                 ArmorPointsMax = 0,
@@ -54,6 +55,7 @@ namespace Battle.Tests.Characters
             Character jeff = new Character()
             {
                 Name = "Jeff",
+                Background = "Jeff grew up on a farm, and likes ice cream",
                 HitpointsMax = 4,
                 HitpointsCurrent = 4,
                 ArmorPointsMax = 0,
@@ -84,6 +86,7 @@ namespace Battle.Tests.Characters
             Character harry = new Character()
             {
                 Name = "Harry",
+                Background = "Harry worships Clint Eastwood movies",
                 HitpointsCurrent = 12,
                 ArmorPointsCurrent = 1,
                 ChanceToHit = 70,
