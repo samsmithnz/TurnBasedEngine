@@ -52,6 +52,7 @@ namespace Battle.Tests.Characters
         {
             Assert.IsNotNull(character);
             Assert.AreEqual("Fred", character.Name);
+            Assert.AreEqual("Fred is from Canada and is a nice guy.", character.Background);
             Assert.AreEqual(4, character.HitpointsMax);
             Assert.AreEqual(4, character.HitpointsCurrent);
             Assert.AreEqual(0, character.ArmorPointsMax);
