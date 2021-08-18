@@ -43,7 +43,7 @@ jobs:
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
 
     - name: Pack code into NuGet package
-      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}' -p:AssemblyVersion'${{ steps.gitversion.outputs.SemVer }}'   
+      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}' -p:AssemblyVersion='${{ steps.gitversion.outputs.SemVer }}'   
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v2
       with:
