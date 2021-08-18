@@ -41,17 +41,16 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
-
-    - name: Pack code into NuGet package
-      if: github.ref == 'refs/heads/main'
-      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}' -p:AssemblyVersion='${{ steps.gitversion.outputs.SemVer }}'   
+    - name: Build code in debug
+      run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+    - name: Pack code into NuGet package in release
+      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v2
       with:
         name: package
-        path: src/Battle.Logic/bin/Release/netstandard2.0 
+        path: src/Battle.Logic/bin/Debug/netstandard2.0 
     - name: Upload nuget package to GitHub
-      if: github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v2
       with:
         name: nugetPackage
