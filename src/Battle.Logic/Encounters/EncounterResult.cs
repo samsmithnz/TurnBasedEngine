@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Characters;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace Battle.Logic.Encounters
@@ -34,7 +35,9 @@ namespace Battle.Logic.Encounters
         public int DamageDealt { get; set; }
         public int ArmorShredded { get; set; }
         public int ArmorAbsorbed { get; set; }
+        public bool IsHit { get; set; }
         public bool IsCriticalHit { get; set; }
+        public Vector3 MissedLocation { get; set; }
         public List<string> Log { get; set; }
         public string LogString
         {

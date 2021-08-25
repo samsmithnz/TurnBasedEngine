@@ -14,6 +14,7 @@ namespace Battle.Logic.Encounters
         public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,,] map, Queue<int> diceRolls, Vector3 throwingTargetLocation)
         {
             int damageDealt;
+            bool isHit = false;
             bool isCriticalHit = false;
             List<string> log = new List<string>();
 
@@ -46,7 +47,11 @@ namespace Battle.Logic.Encounters
                 totalDamageDealt += damageDealt;
                 totalArmorAbsorbed += tempResult.ArmorAbsorbed;
                 totalArmorShredded += tempResult.ArmorShredded;
-                isCriticalHit = tempResult.IsCriticalHit;
+                isHit = true;
+                if (isCriticalHit == false)
+                {
+                    isCriticalHit = tempResult.IsCriticalHit;
+                }
                 log = tempResult.Log;
             }
 
@@ -83,6 +88,7 @@ namespace Battle.Logic.Encounters
                 ArmorShredded = totalArmorShredded,
                 DamageDealt = totalDamageDealt,
                 IsCriticalHit = isCriticalHit,
+                IsHit = isHit,
                 Log = log
             };
             return result;
@@ -98,6 +104,7 @@ namespace Battle.Logic.Encounters
             int armorAbsorbed = 0;
             int armorShredded = 0;
             int damageDealt = 0;
+            bool isHit = false;
             bool isCriticalHit = false;
             List<string> log = new List<string>
             {
@@ -124,6 +131,7 @@ namespace Battle.Logic.Encounters
                     armorShredded = tempResult.ArmorShredded;
                     damageDealt = tempResult.DamageDealt;
                     isCriticalHit = tempResult.IsCriticalHit;
+                    isHit = true;
                     log = tempResult.Log;
                 }
                 else
@@ -186,6 +194,7 @@ namespace Battle.Logic.Encounters
                 ArmorShredded = armorShredded,
                 DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
+                IsHit = isHit,
                 Log = log
             };
             return result;
