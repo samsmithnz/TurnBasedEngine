@@ -38,7 +38,7 @@ namespace Battle.Logic.Encounters
         public bool IsHit { get; set; }
         public bool IsCriticalHit { get; set; }
         public Vector3 MissedLocation { get; set; }
-        public List<KeyValuePair<Vector3, int>> EnvironmentChanges { get; set; }
+        public List<KeyValuePair<Vector3, int>> AffectedMap { get; set; }
         public List<string> Log { get; set; }
         public string LogString
         {

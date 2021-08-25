@@ -16,7 +16,7 @@ namespace Battle.Logic.Encounters
             int damageDealt;
             bool isHit = false;
             bool isCriticalHit = false;
-            List<KeyValuePair<Vector3, int>> affectedCover = new List<KeyValuePair<Vector3, int>>();
+            List<KeyValuePair<Vector3, int>> affectedMap = new List<KeyValuePair<Vector3, int>>();
             List<string> log = new List<string>();
 
             if (diceRolls == null || diceRolls.Count == 0 || weapon == null || weapon.AmmoCurrent <= 0)
@@ -72,13 +72,13 @@ namespace Battle.Logic.Encounters
                     //Full cover becomes low cover
                     case CoverType.FullCover:
                         map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.HalfCover;
-                        affectedCover.Add(new KeyValuePair<Vector3, int>(item, 1));
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, 1));
                         log.Add("High cover downgraded to low cover at " + item.ToString());
                         break;
                     //Low cover becomes no cover
                     case CoverType.HalfCover:
                         map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.NoCover;
-                        affectedCover.Add(new KeyValuePair<Vector3, int>(item, 1));
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, 1));
                         log.Add("Low cover downgraded to no cover at " + item.ToString());
                         break;
                 }
@@ -98,7 +98,7 @@ namespace Battle.Logic.Encounters
                 ArmorShredded = totalArmorShredded,
                 DamageDealt = totalDamageDealt,
                 IsCriticalHit = isCriticalHit,
-                EnvironmentChanges = affectedCover,
+                AffectedMap = affectedMap,
                 IsHit = isHit,
                 Log = log
             };
@@ -118,7 +118,7 @@ namespace Battle.Logic.Encounters
             bool isHit = false;
             bool isCriticalHit = false;
             Vector3 missedLocation = Vector3.Zero;
-            List<KeyValuePair<Vector3, int>> affectedCover = new List<KeyValuePair<Vector3, int>>();
+            List<KeyValuePair<Vector3, int>> affectedMap = new List<KeyValuePair<Vector3, int>>();
             List<string> log = new List<string>
             {
                 sourceCharacter.Name + " is attacking with " + weapon.Name + ", targeted on " + targetCharacter.Name.ToString()
@@ -166,13 +166,13 @@ namespace Battle.Logic.Encounters
                             //Full cover becomes low cover
                             case CoverType.FullCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.HalfCover;
-                                affectedCover.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
+                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
                                 log.Add("High cover downgraded to low cover at " + missedLocation.ToString());
                                 break;
                             //Low cover becomes no cover
                             case CoverType.HalfCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.NoCover;
-                                affectedCover.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
+                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
                                 log.Add("Low cover downgraded to no cover at " + missedLocation.ToString());
                                 break;
                         }
@@ -211,7 +211,7 @@ namespace Battle.Logic.Encounters
                 IsCriticalHit = isCriticalHit,
                 IsHit = isHit,
                 MissedLocation = missedLocation,
-                EnvironmentChanges = affectedCover,
+                AffectedMap = affectedMap,
                 Log = log
             };
             return result;
