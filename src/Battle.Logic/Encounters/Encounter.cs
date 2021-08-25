@@ -34,7 +34,14 @@ namespace Battle.Logic.Encounters
                 names.Append(item.Name);
                 names.Append(", ");
             }
-            log.Add("Characters in affected area: " + names.ToString().Substring(1, names.ToString().Length - 3));//remove the first " " and last two characters: ", "
+            if (names.Length > 1)
+            {
+                log.Add("Characters in affected area: " + names.ToString().Substring(1, names.ToString().Length - 3));//remove the first " " and last two characters: ", "
+            }
+            else
+            {
+                log.Add("No characters in affected area");
+            }
 
             //Deal damage to each target
             int totalDamageDealt = 0;
@@ -65,7 +72,7 @@ namespace Battle.Logic.Encounters
                     //Full cover becomes low cover
                     case CoverType.FullCover:
                         map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.HalfCover;
-                        affectedCover.Add(new KeyValuePair<Vector3, int>(item,1));
+                        affectedCover.Add(new KeyValuePair<Vector3, int>(item, 1));
                         log.Add("High cover downgraded to low cover at " + item.ToString());
                         break;
                     //Low cover becomes no cover
@@ -110,6 +117,7 @@ namespace Battle.Logic.Encounters
             int damageDealt = 0;
             bool isHit = false;
             bool isCriticalHit = false;
+            Vector3 missedLocation = Vector3.Zero;
             List<KeyValuePair<Vector3, int>> affectedCover = new List<KeyValuePair<Vector3, int>>();
             List<string> log = new List<string>
             {
@@ -148,7 +156,7 @@ namespace Battle.Logic.Encounters
                     //Randomize x,y,z coordinates.
                     //Aim and shoot at that new target and see if we hit anything
                     //do this by doubling the lines. 
-                    Vector3 missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map);
+                    missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map);
 
                     //Remove cover at this location
                     if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != "")
@@ -202,6 +210,7 @@ namespace Battle.Logic.Encounters
                 DamageDealt = damageDealt,
                 IsCriticalHit = isCriticalHit,
                 IsHit = isHit,
+                MissedLocation = missedLocation,
                 EnvironmentChanges = affectedCover,
                 Log = log
             };

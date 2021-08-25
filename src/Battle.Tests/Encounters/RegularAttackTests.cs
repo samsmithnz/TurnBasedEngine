@@ -74,6 +74,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.IsHit);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 55, (dice roll: 44)

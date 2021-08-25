@@ -636,5 +636,47 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.IsTrue(result == null);
         }
 
+        [TestMethod]
+        public void FredThrowsGrenadeAndMissesJeffTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  CoverType.FullCover = cover
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            map[2, 0, 3] = CoverType.FullCover; //Add cover 
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(2, 0, 0), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            jeff.HitpointsCurrent = 4;
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new Vector3(9, 0, 9);
+            List<Character> characterList = new List<Character>() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.DamageDealt);
+            Assert.AreEqual(false, result.IsHit);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(4, jeff.HitpointsCurrent);
+            Assert.AreEqual(00, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <9, 0, 9>
+No characters in affected area
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
     }
 }
