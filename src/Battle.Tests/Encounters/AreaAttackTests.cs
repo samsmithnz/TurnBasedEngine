@@ -45,6 +45,7 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.Experience);
@@ -93,6 +94,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(2, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(2, jeff.ArmorPointsCurrent);
@@ -144,6 +146,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, jeff.ArmorPointsCurrent);
@@ -164,7 +167,7 @@ High cover downgraded to low cover at <2, 0, 3>
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndHurtsJeffWearingArmorWithShreddedTest()
+        public void FredThrowsGrenadeAndInjuriesJeffWearingArmorWithShreddedTest()
         {
             //Arrange
             //  "P" = player/fred
@@ -195,6 +198,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(3, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
             Assert.AreEqual(1, jeff.ArmorPointsCurrent);
@@ -244,6 +248,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
@@ -295,6 +300,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(8, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
@@ -353,6 +359,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(1, harry.HitpointsCurrent);
@@ -411,6 +418,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(8, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(4, fred.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
@@ -470,7 +478,8 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.AllCharacters != null);
             Assert.AreEqual(10, result.DamageDealt);
-            //Assert.AreEqual(true, result.IsCriticalHit);
+            Assert.AreEqual(true, result.IsHit);
+            Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
             Assert.IsTrue(result.TargetCharacter != null);
@@ -567,6 +576,7 @@ High cover downgraded to low cover at <2, 0, 3>
             //Assert 3: Check the area attack result 
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.DamageDealt);
+            Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.Experience);
@@ -624,6 +634,48 @@ High cover downgraded to low cover at <2, 0, 3>
 
             //Assert
             Assert.IsTrue(result == null);
+        }
+
+        [TestMethod]
+        public void FredThrowsGrenadeAndMissesJeffTest()
+        {
+            //Arrange
+            //  "P" = player/fred
+            //  "E" = enemy/jeff
+            //  CoverType.FullCover = cover
+            //  "." = open ground
+            //  . . . . .
+            //  . E ■ . . 
+            //  . . . . . 
+            //  . . . . .
+            //  . . P . .
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            map[2, 0, 3] = CoverType.FullCover; //Add cover 
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.SetLocation(new Vector3(2, 0, 0), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            jeff.HitpointsCurrent = 4;
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new Vector3(9, 0, 9);
+            List<Character> characterList = new List<Character>() { fred, jeff };
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(0, result.DamageDealt);
+            Assert.AreEqual(false, result.IsHit);
+            Assert.AreEqual(false, result.IsCriticalHit);
+            Assert.AreEqual(4, jeff.HitpointsCurrent);
+            Assert.AreEqual(00, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
+            string log = @"
+Fred is attacking with area effect Grenade aimed at <9, 0, 9>
+No characters in affected area
+";
+            Assert.AreEqual(log, result.LogString);
         }
 
     }

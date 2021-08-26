@@ -36,10 +36,10 @@ namespace Battle.Logic.Map
         }
 
         //Follow the missed shot to find the target
-        public static Vector3 MissedShot(Vector3 source, Vector3 target, string[,,] map)
+        public static Vector3 MissedShot(Vector3 source, Vector3 target, string[,,] map, int missedByPercent)
         {
             //Get the final missed location the projectile is heading down
-            Vector3 finalLocation = GetMissedLocation(source, target, map);
+            Vector3 finalLocation = GetMissedLocation(source, target, map, missedByPercent);
 
             //Get all of the points along this line to the final location
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
@@ -67,7 +67,7 @@ namespace Battle.Logic.Map
         }
 
         //Get the final location - which will usually be just off the map
-        public static Vector3 GetMissedLocation(Vector3 source, Vector3 target, string[,,] map)
+        public static Vector3 GetMissedLocation(Vector3 source, Vector3 target, string[,,] map, int missedByPercent)
         {
             int xMax = map.GetLength(0);
             int yMax = map.GetLength(1);
@@ -92,6 +92,18 @@ namespace Battle.Logic.Map
             {
                 zAdjustment = -1;
             }
+            if (xDifference == 0)
+            {
+                xDifference = 1;
+            }
+            if (yDifference == 0)
+            {
+                yDifference = 1;
+            }
+            if (zDifference == 0)
+            {
+                zDifference = 1;
+            }
 
             int xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference);
             if (xDifference < 0)
@@ -108,9 +120,10 @@ namespace Battle.Logic.Map
             {
                 zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference * zAdjustment);
             }
+
             int xFinal = ((int)target.X + (xDifference * xMultiplier));
             int yFinal = ((int)target.Y + (yDifference * yMultiplier));
-            int zFinal = ((int)target.Z + (zDifference * zMultiplier));
+            int zFinal = ((int)target.Z + (zDifference * zMultiplier)) + 2; //TODO: Fix this - but for now, it will work for missed shots
             return new Vector3(xFinal, yFinal, zFinal);
         }
 

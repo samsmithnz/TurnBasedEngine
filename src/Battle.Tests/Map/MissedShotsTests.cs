@@ -17,10 +17,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(13, 0, 13), result);
+            Assert.AreEqual(new Vector3(13, 1, 15), result);
         }
 
         [TestMethod]
@@ -32,10 +32,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(13, 0, -3), result);
+            Assert.AreEqual(new Vector3(13, 1, -1), result);
         }
 
         [TestMethod]
@@ -47,10 +47,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(-3, 0, 13), result);
+            Assert.AreEqual(new Vector3(-3, 1, 15), result);
         }
 
         [TestMethod]
@@ -62,10 +62,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(-3, 0, 13), result);
+            Assert.AreEqual(new Vector3(-3, 1, 15), result);
         }
 
         [TestMethod]
@@ -77,10 +77,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 result = FieldOfView.GetMissedLocation(source, target, map);
+            Vector3 result = FieldOfView.GetMissedLocation(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(10, 0, 10), result);
+            Assert.AreEqual(new Vector3(10, 1, 12), result);
         }
 
         [TestMethod]
@@ -96,10 +96,10 @@ namespace Battle.Tests.Map
             }
 
             //Act
-            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(8, 0, 8), impactLocation);
+            Assert.AreEqual(new Vector3(7, 0, 9), impactLocation);
         }
 
         [TestMethod]
@@ -111,10 +111,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
 
             //Act
-            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(9, 0, 9), impactLocation);
+            Assert.AreEqual(new Vector3(7, 0, 9), impactLocation);
         }
 
         [TestMethod]
@@ -126,10 +126,10 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(20, 1, 20);
 
             //Act
-            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map);
+            Vector3 impactLocation = FieldOfView.MissedShot(source, target, map, 0);
 
             //Assert
-            Assert.AreEqual(new Vector3(19, 0, 19), impactLocation);
+            Assert.AreEqual(new Vector3(17, 0, 19), impactLocation);
         }
 
 
