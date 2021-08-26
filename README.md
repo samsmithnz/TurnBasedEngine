@@ -6,11 +6,10 @@ A POC to codify a game idea I have, into a battle simulator.
 ![Current Release](https://img.shields.io/github/release/samsmithnz/Battle/all.svg)
 
 Currently supports
-- Basic pathfinding and map generation, in 2d world (x and z axis), y axis to come later
-- Basic attacks, between two characters, with weapon and special abilities and range taken into account
-- Basic high and low cover 
-- Grenades + cover destruction
-- Basic map generation
+- Basic map generation, in 2d world (x and z axis), (y axis to come later)
+- Basic pathfinding, movement and possible movement tiles
+- Basic attacks, between two characters, with weapon, special abilities, and range taken into account
+- Basic high and low cover, with cover destruction
+- Grenades/area effects 
 - Basic Field of view
-- Movement and possible movement tiles
 - Reactions/ overwatch
