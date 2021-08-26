@@ -105,9 +105,21 @@ namespace Battle.Logic.Map
                 zDifference = 1;
             }
 
-            int xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference * (xAdjustment + ((100f + missedByPercent) / 100f)));
-            int yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference * (yAdjustment + ((100f + missedByPercent) / 100f)));
-            int zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference * (zAdjustment + ((100f + missedByPercent) / 100f)));
+            int xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference);
+            if (xDifference < 0)
+            {
+                xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference * xAdjustment);
+            }
+            int yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference);
+            if (yDifference < 0)
+            {
+                yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference * yAdjustment);
+            }
+            int zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference);
+            if (zDifference < 0)
+            {
+                zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference * zAdjustment);
+            }
 
             int xFinal = ((int)target.X + (xDifference * xMultiplier));
             int yFinal = ((int)target.Y + (yDifference * yMultiplier));
