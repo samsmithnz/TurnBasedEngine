@@ -56,11 +56,11 @@ Critical chance: 70, (dice roll: 0)
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndMissesTest()
+        public void FredAttacksJeffWithRifleAndMissesHittingHighCoverTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            //map[8, 0, 8] = CoverType.FullCover;
+            map[8, 0, 9] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
@@ -76,8 +76,71 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.IsHit);
-            Assert.AreEqual(new Vector3(8, 0, 8), result.MissedLocation);
-            Assert.AreEqual(CoverType.HalfCover, map[8, 0, 8]);
+            Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
+            Assert.AreEqual(CoverType.HalfCover, map[8, 0, 9]);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 55, (dice roll: 44)
+High cover downgraded to low cover at <8, 0, 9>
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndMissesHittingLowCoverTest()
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            map[8, 0, 9] = CoverType.HalfCover;
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.ChanceToHit = 45;
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.InFullCover = false;
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.IsHit);
+            Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
+            Assert.AreEqual(CoverType.NoCover, map[8, 0, 9]);
+            string log = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 55, (dice roll: 44)
+Low cover downgraded to no cover at <8, 0, 9>
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log, result.LogString);
+        }
+
+        [TestMethod]
+        public void FredAttacksJeffWithRifleAndMissesHittingNoCoverTest()
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(map);
+            fred.ChanceToHit = 45;
+            Weapon rifle = fred.WeaponEquipped;
+            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            jeff.InFullCover = false;
+            Queue<int> diceRolls = new Queue<int>(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+
+            //Act
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(false, result.IsHit);
+            Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
+            Assert.AreEqual("", map[8, 0, 9]);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 55, (dice roll: 44)

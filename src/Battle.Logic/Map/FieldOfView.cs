@@ -111,7 +111,7 @@ namespace Battle.Logic.Map
 
             int xFinal = ((int)target.X + (xDifference * xMultiplier));
             int yFinal = ((int)target.Y + (yDifference * yMultiplier));
-            int zFinal = ((int)target.Z + (zDifference * zMultiplier));
+            int zFinal = ((int)target.Z + (zDifference * zMultiplier)) + 2; //TODO: Fix this - but for now, it will work for missed shots
             return new Vector3(xFinal, yFinal, zFinal);
 
             //return new Vector3(Random.Range(0f, tolerance), 0, 0);
