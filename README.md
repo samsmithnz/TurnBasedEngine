@@ -1,4 +1,4 @@
-# BattleSimulator
+# Battle
 A POC to codify a game idea I have, into a battle simulator.  
 
 [![.NET Build](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml)
