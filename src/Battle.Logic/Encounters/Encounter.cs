@@ -56,7 +56,7 @@ namespace Battle.Logic.Encounters
                 totalArmorAbsorbed += tempResult.ArmorAbsorbed;
                 totalArmorShredded += tempResult.ArmorShredded;
                 isHit = true;
-                if (isCriticalHit == false)
+                if (!isCriticalHit)
                 {
                     isCriticalHit = tempResult.IsCriticalHit;
                 }
