@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RepositoryUrl>https://github.com/samsmithnz/BattleSimulator</RepositoryUrl>
+    <RepositoryUrl>https://github.com/samsmithnz/Battle</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
