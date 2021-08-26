@@ -60,6 +60,7 @@ Critical chance: 70, (dice roll: 0)
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            //map[8, 0, 8] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map);
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
@@ -75,6 +76,8 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.Experience);
             Assert.AreEqual(false, result.IsHit);
+            Assert.AreEqual(new Vector3(8, 0, 8), result.MissedLocation);
+            Assert.AreEqual(CoverType.HalfCover, map[8, 0, 8]);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 55, (dice roll: 44)

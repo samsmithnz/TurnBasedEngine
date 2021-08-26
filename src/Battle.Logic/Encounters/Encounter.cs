@@ -151,12 +151,15 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
+                    //How badly did we miss?
+                    int missedByPercent = (100 - toHitPercent) - randomToHit;
+
                     //Work out where the shot goes
                     //get the percentage miss
                     //Randomize x,y,z coordinates.
                     //Aim and shoot at that new target and see if we hit anything
                     //do this by doubling the lines. 
-                    missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map);
+                    missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map, missedByPercent);
 
                     //Remove cover at this location
                     if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != "")

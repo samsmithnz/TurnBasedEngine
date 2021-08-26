@@ -167,7 +167,7 @@ High cover downgraded to low cover at <2, 0, 3>
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndHurtsJeffWearingArmorWithShreddedTest()
+        public void FredThrowsGrenadeAndInjuriesJeffWearingArmorWithShreddedTest()
         {
             //Arrange
             //  "P" = player/fred
