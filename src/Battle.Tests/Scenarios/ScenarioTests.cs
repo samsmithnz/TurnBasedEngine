@@ -744,7 +744,6 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             };
             mission.Teams.Add(team2);
 
-
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
             Assert.AreEqual(1, mission.TurnNumber);
@@ -815,11 +814,9 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
 
-
             //Fred aims at Jeff, who is behind high cover. 
             List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(characters[0], jeff);
-
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, mission.Map, false);
@@ -838,10 +835,11 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 80, (dice roll: 8)
+Low cover downgraded to no cover at <5, 0, 5>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log1, encounter1.LogString);
-            Assert.AreEqual(Vector3.Zero, encounter1.MissedLocation);
+            Assert.AreEqual(new Vector3(5,0,5), encounter1.MissedLocation);
 
             //Fred shoots at Jeff, and hits him. 
             EncounterResult encounter2 = Encounter.AttackCharacter(fred,
