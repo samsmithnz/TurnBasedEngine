@@ -30,10 +30,8 @@ namespace Battle.Tests.Encounters
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -78,10 +76,8 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 2;
             jeff.ArmorPointsCurrent = 2;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -129,11 +125,9 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 2;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -181,11 +175,9 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 3;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -233,10 +225,8 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 5;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -281,13 +271,10 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
-            harry.SetLocation(new Vector3(3, 0, 3), map);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -340,13 +327,10 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
-            harry.SetLocation(new Vector3(3, 0, 3), map);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 1;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -399,13 +383,10 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 15;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
-            harry.SetLocation(new Vector3(3, 0, 3), map);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -456,15 +437,12 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility1());
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility2());
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 6;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map);
-            harry.SetLocation(new Vector3(3, 0, 3), map);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -520,11 +498,9 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.FOVRange = 5;
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(2, 0, 4), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(2, 0, 4));
             jeff.HitpointsCurrent = 5;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -599,8 +575,8 @@ High cover downgraded to low cover at <2, 0, 3>
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(8, 0, 8));
             Queue<int> diceRolls = null;
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jeff };
@@ -619,11 +595,9 @@ High cover downgraded to low cover at <2, 0, 3>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.UtilityWeaponEquipped = null;
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
@@ -651,10 +625,8 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map);
-            fred.SetLocation(new Vector3(2, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
             jeff.HitpointsCurrent = 4;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(9, 0, 9);

@@ -1,6 +1,7 @@
 using Battle.Logic.Characters;
 using Battle.Tests.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -12,7 +13,7 @@ namespace Battle.Tests.Characters
         public void MedkitItemFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.HitpointsCurrent = 1;
             fred.UtilityItemEquipped = ItemPool.CreateMedKit();
 
@@ -29,7 +30,7 @@ namespace Battle.Tests.Characters
         public void UnknownItemFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.HitpointsCurrent = 1;
             fred.UtilityItemEquipped = ItemPool.CreateMedKit();
             fred.UtilityItemEquipped.Type = Logic.Items.ItemType.Unknown;

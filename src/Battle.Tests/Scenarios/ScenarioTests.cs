@@ -27,8 +27,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map);
-            fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -36,8 +35,7 @@ namespace Battle.Tests.Scenarios
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
-            jeff.SetLocation(new Vector3(20, 0, 10), mission.Map);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(20, 0, 10));
             jeff.HitpointsCurrent = 6;
             Team team2 = new Team()
             {
@@ -320,7 +318,7 @@ Fred is ready to level up
             mission.Map[14, 0, 12] = CoverType.FullCover;
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map);
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
             Team team1 = new Team()
             {
@@ -328,8 +326,7 @@ Fred is ready to level up
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
-            jeff.SetLocation(new Vector3(15, 0, 10), mission.Map);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(15, 0, 10));
             jeff.HitpointsCurrent = 5;
             Team team2 = new Team()
             {
@@ -523,8 +520,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             mission.Map[5, 0, 7] = CoverType.HalfCover; //half cover here!
             mission.Map[5, 0, 8] = CoverType.FullCover;
             mission.Map[5, 0, 9] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map);
-            fred.SetLocation(new Vector3(1, 0, 1), mission.Map);
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.HitpointsCurrent = 1;
             Team team1 = new Team()
             {
@@ -532,8 +528,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map);
-            jeff.SetLocation(new Vector3(9, 0, 7), mission.Map);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(9, 0, 7));
             jeff.HitpointsCurrent = 5;
             jeff.InOverwatch = true;
             Team team2 = new Team()
@@ -703,6 +698,168 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }
             }
+        }
+
+        [TestMethod]
+        public void FredShootsAtJeffTest()
+        {
+            //Arrange
+            int xMax = 50;
+            int zMax = 50;
+            Mission mission = new Mission
+            {
+                Objective = Mission.MissionType.EliminateAllOpponents,
+                TurnNumber = 1,
+                Map = MapCore.InitializeMap(50, 1, 50)
+            };
+            List<int> RandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
+            Queue<int> NumberQueue = new Queue<int>(RandomNumbers);
+            //Add 100 full cover items randomly
+            for (int i = 0; i < 100; i++)
+            {
+                int x = NumberQueue.Dequeue();
+                int z = NumberQueue.Dequeue();
+                mission.Map[x, 0, z] = CoverType.FullCover;
+            }
+            //Add 100 half cover items randomly
+            for (int i = 0; i < 100; i++)
+            {
+                int x = NumberQueue.Dequeue();
+                int z = NumberQueue.Dequeue();
+                mission.Map[x, 0, z] = CoverType.HalfCover;
+            }
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
+            fred.MobilityRange = 16;
+            Team team1 = new Team()
+            {
+                Name = "Good guys",
+                Characters = new List<Character>() { fred }
+            };
+            mission.Teams.Add(team1);
+            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(19, 0, 19));
+            Team team2 = new Team()
+            {
+                Name = "Bad guys",
+                Characters = new List<Character>() { jeff }
+            };
+            mission.Teams.Add(team2);
+
+            //Assert - Setup
+            Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
+            Assert.AreEqual(1, mission.TurnNumber);
+            Assert.AreEqual(2, mission.Teams.Count);
+            Assert.AreEqual(50 * 50, mission.Map.Length);
+            Assert.AreEqual("Good guys", mission.Teams[0].Name);
+            Assert.AreEqual(1, mission.Teams[0].Characters.Count);
+            Assert.AreEqual("Bad guys", mission.Teams[1].Name);
+            Assert.AreEqual(1, mission.Teams[1].Characters.Count);
+
+            //Act
+
+            //Turn 1 - Team 1 starts
+            //Fred runs to cover
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange);
+            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, movementPossibileTiles);
+            string mapMovementResult = @"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
+. . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 
+. . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . ■ . . . . . . . . ■ . . . . . . . . . □ ■ . . . . . . . . . . . . . . . . . . . 
+. . . ■ . . ■ . . . □ . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . □ . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . ■ . . . . . . 
+. . . . . □ . . . . . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . □ . . . . . . □ . 
+. . . . ■ . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . □ . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . ■ . . □ . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . □ . . . . □ . . □ . . . . . . . . . ■ . . . . . . . . . 
+. . . . . . . . . . . □ . . . . □ . . . . . . . . . . . . . . . . . . . . □ . . . . . . ■ . . . . . 
+. . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . ■ . . . . . . . . . . . 
+. . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . ■ . . . ■ . . . . . . . . . . . . . . 
+. . . . . . ■ . . . . . . ■ . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
+. □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . ■ . . ■ . . . . 
+. . . . . . . . . . . . . . . . . . . . □ . . . . ■ . □ . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . ■ . . . . . . . . . . . □ . . . □ . . . . . □ . . . . . . . . ■ . □ . . . . . . . . 
+. . . . □ . □ . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . 
+. . . . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . 
+. . . . . . . . . . . . . . . . . . . . . . . . □ □ . . . . □ . . . . . . . . . . . . . . . . ■ . . 
+□ . . . . . . . . . ■ . . . . . . . . . . . . . . . . . ■ . . □ . ■ . . . ■ . . . ■ . . . . . . ■ . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . □ . . . . . . 
+. . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . ■ . . ■ . . . □ . □ . . . . . . . . . 
+. . . . . . . . . . . . . ■ . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . □ . ■ . . □ . . . . . . . . . ■ . . . . . . . ■ ■ . . . . . □ . . . . . . . . . . ■ . 
+. . . . . . . . . ■ . . . . ■ . ■ . . . . ■ . . . . . □ . . . . ■ . . . . . . □ . . . □ . . . . . . 
+□ . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+■ . . . . . . . . . . . . . . . . . . P □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. ■ . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . 
+■ o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . □ . . . . . 
+o o o o . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . □ . . . . . . . . . . . □ . . . . 
+o o o o o o . . . . . . □ . . . . . . . . . . . . . ■ . . . . . . ■ . . . ■ . . . . □ . . . . . . . 
+o o o o o o o . o . . . . . . . ■ . . . . . . . . . . □ . . . . . . . . . . . . . . . . □ ■ . . . . 
+o o o o o □ o o o o o . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . . □ ■ . . 
+o o o ■ o o o o o □ o o □ . . □ . . . . . . . . . . . . . ■ . □ . . . . . . . . . . . . . . . . . . 
+o o o o o o o o o o o o o . . . . . . . . . . . . . . . □ . . . . . . . □ . . . . . □ . . . . . . . 
+o o o o o o o ■ o o o o o o . . . . . . . . . . . . . . . . ■ . □ . . . . . . . ■ . □ . . . . . . . 
+o o o o □ □ o o ■ o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . □ . . . 
+o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . 
+o o o □ o □ o o o □ o ■ o o o . . . . . . . . . ■ □ . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o o o o □ o o o □ o o . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . 
+o o o □ o □ o ■ o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . 
+o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . ■ . □ . . . ■ . . . . . . . . . . 
+o o o o o o o o o ■ ■ o o o ■ o o . . . . . . . . . ■ . . . . . □ . . . . . . . . ■ . . . . . ■ . . 
+o o o o o o o o o o o o o o o o o . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . 
+o P o o o o o o o o o o o o o o □ . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . □ . 
+o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . . . . . . . . . . . ■ . 
+";
+            Assert.AreEqual(mapMovementResult, mapMovementString);
+
+            //Fred aims at Jeff, who is behind high cover. 
+            List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
+            Assert.AreEqual(characters[0], jeff);
+
+            int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, mission.Map, false);
+            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            Assert.AreEqual(80, chanceToHit);
+            Assert.AreEqual(70, chanceToCrit);
+            Assert.AreEqual(3, damageOptions.DamageLow);
+            Assert.AreEqual(5, damageOptions.DamageHigh);
+
+            //Fred shoots at Jeff, and misses 
+            EncounterResult encounter1 = Encounter.AttackCharacter(fred,
+                    fred.WeaponEquipped,
+                    jeff,
+                    mission.Map,
+                    NumberQueue);
+            string log1 = @"
+Fred is attacking with Rifle, targeted on Jeff
+Missed: Chance to hit: 80, (dice roll: 8)
+Low cover downgraded to no cover at <5, 0, 5>
+0 XP added to character Fred, for a total of 0 XP
+";
+            Assert.AreEqual(log1, encounter1.LogString);
+            Assert.AreEqual(new Vector3(5,0,5), encounter1.MissedLocation);
+
+            //Fred shoots at Jeff, and hits him. 
+            EncounterResult encounter2 = Encounter.AttackCharacter(fred,
+                    fred.WeaponEquipped,
+                    jeff,
+                    mission.Map,
+                    NumberQueue);
+            string log2 = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 80, (dice roll: 28)
+Damage range: 3-5, (dice roll: 35)
+Critical chance: 70, (dice roll: 40)
+Critical damage range: 8-12, (dice roll: 35)
+9 damage dealt to character Jeff, HP is now -5
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
+";
+            Assert.AreEqual(log2, encounter2.LogString);
+
         }
     }
 }

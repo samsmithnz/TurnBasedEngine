@@ -1,6 +1,7 @@
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -12,7 +13,7 @@ namespace Battle.Tests.Characters
         public void StartOfTurnTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             List<CharacterAction> actions = fred.GetCurrentActions();
@@ -37,7 +38,7 @@ namespace Battle.Tests.Characters
         public void NeedToReloadTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.WeaponEquipped.AmmoCurrent = 0;
 
             //Act
@@ -61,7 +62,7 @@ namespace Battle.Tests.Characters
         public void NoUtilityItemTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.UtilityWeaponEquipped = null;
             fred.UtilityItemEquipped = null;
 
@@ -84,7 +85,7 @@ namespace Battle.Tests.Characters
         public void MedKitConsumedTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.UtilityItemEquipped.ClipRemaining = 0;
 
             //Act
@@ -108,7 +109,7 @@ namespace Battle.Tests.Characters
         public void NoActionsRemainingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ActionPointsCurrent = 0;
 
             //Act

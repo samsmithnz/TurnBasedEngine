@@ -5,6 +5,7 @@ using Battle.Logic.Map;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {
@@ -18,9 +19,9 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 6;
             Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 

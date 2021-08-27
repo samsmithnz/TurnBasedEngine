@@ -45,7 +45,8 @@ namespace Battle.Logic.Map
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
 
             //Check each point to see if it goes off the map, or hits another object
-            for (int i = 0; i < points.Count; i++)
+           //Start at 1 to skip the source - if the source is a player, things go bad
+            for (int i = 1; i < points.Count; i++)
             {
                 Vector3 item = points[i];
                 //If the item gets to the edge of the map - return the edge location
