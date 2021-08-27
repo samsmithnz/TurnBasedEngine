@@ -1,5 +1,6 @@
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -11,7 +12,7 @@ namespace Battle.Tests.Characters
         public void FredLevelUpToLevel1Test()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Level = 1;
             fred.Experience = 100;
             fred.LevelUpIsReady = true;
@@ -37,7 +38,7 @@ namespace Battle.Tests.Characters
         public void FredLevelUpToLevel1NotReadyTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Level = 1;
             fred.Experience = 0;
             fred.LevelUpIsReady = false;

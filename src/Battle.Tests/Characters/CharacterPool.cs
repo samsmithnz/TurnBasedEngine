@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFredHero(string[,,] map)
+        public static Character CreateFredHero(string[,,] map, Vector3 location)
         {
             Character fred = new Character()
             {
@@ -35,7 +35,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetLocation(new Vector3(0, 0, 0), map);
+            fred.SetLocation(location , map);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -50,7 +50,7 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJeffBaddie(string[,,] map)
+        public static Character CreateJeffBaddie(string[,,] map, Vector3 location)
         {
             Character jeff = new Character()
             {
@@ -77,11 +77,11 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jeff.SetLocation(new Vector3(8, 0, 8), map);
+            jeff.SetLocation(location , map);
             return jeff;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map)
+        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 location)
         {
             Character harry = new Character()
             {
@@ -105,7 +105,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetLocation(new Vector3(5, 0, 5), map);
+            harry.SetLocation(location, map);
             return harry;
         }
     }

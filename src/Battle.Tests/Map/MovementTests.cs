@@ -20,7 +20,7 @@ namespace Battle.Tests.Map
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -66,7 +66,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -89,7 +89,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 1);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -112,7 +112,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(7, 0, 1);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
@@ -135,7 +135,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(12, 0, 20);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
 
             //Act
@@ -220,7 +220,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(6, 0, 20);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
 
             //Act
@@ -309,7 +309,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
             Vector3 destination = new Vector3(6, 0, 20);
 

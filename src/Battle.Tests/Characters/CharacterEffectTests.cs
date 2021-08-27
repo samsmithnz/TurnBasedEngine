@@ -1,6 +1,7 @@
 using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -12,7 +13,7 @@ namespace Battle.Tests.Characters
         public void CharacterEffectDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             fred.ProcessEffects(1);
@@ -25,7 +26,7 @@ namespace Battle.Tests.Characters
         public void CharacterEffectExpiresDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
             fred.ProcessEffects(1);
@@ -40,7 +41,7 @@ namespace Battle.Tests.Characters
         public void CharacterMultipleEffectExpiresDoesDamageTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Effects.Add(new Effect()
             {
                 Type = AbilityType.Unknown,

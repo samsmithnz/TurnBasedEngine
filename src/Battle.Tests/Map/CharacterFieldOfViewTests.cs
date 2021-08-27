@@ -18,8 +18,8 @@ namespace Battle.Tests.Map
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -54,8 +54,8 @@ P o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -105,9 +105,9 @@ P o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(8, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -156,9 +156,9 @@ o o o o o o o o P o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(8, 0, 0), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
 
@@ -193,9 +193,9 @@ o o o o o o o o P o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 2] = CoverType.FullCover;
             map[9, 0, 2] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(8, 0, 8), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(8, 0, 1), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
@@ -230,9 +230,9 @@ o o o o o o o o . .
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(1, 0, 7), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(9, 0, 7), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
@@ -266,9 +266,9 @@ o o o o o o o o o o
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[1, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(9, 0, 7), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(0, 0, 7), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
@@ -303,8 +303,8 @@ o o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamGood = new Team();
             teamGood.Characters.Add(fred);
 
@@ -338,8 +338,8 @@ P . . . . . . . . .
             map[7, 0, 7] = CoverType.HalfCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             Team teamGood = new Team();
             teamGood.Characters.Add(fred);
 
@@ -371,9 +371,9 @@ P o o o o . . . . .
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 5] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(2, 0, 2), map);
-            Character jeff = CharacterPool.CreateJeffBaddie(map);
+            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(2, 0, 6), map);
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jeff);
@@ -405,7 +405,7 @@ o o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(11, 1, 11);
-            Character fred = CharacterPool.CreateFredHero(map);
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(5, 0, 5), map); ;
             fred.ShootingRange = 3;
 
