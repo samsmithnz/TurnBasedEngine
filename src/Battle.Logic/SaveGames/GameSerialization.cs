@@ -17,26 +17,6 @@ namespace Battle.Logic.SaveGames
         {
             string json = JsonConvert.SerializeObject(mission);
             return json;
-            //string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //string path = systemPath + @"\my games\TBS\Saves\";
-            //if (Directory.Exists(path) == false)
-            //{
-            //    Directory.CreateDirectory(path);
-            //}
-            //int number = new DirectoryInfo(path).GetFiles().Length;
-            //string fileName = $"Save{number:000}.json";
-            //while (File.Exists(path + fileName) == true)
-            //{
-            //    number++;
-            //    fileName = $"Save{number:000}.json";
-            //    if (number > 1000)
-            //    {
-            //        //we don't want an infinite loop
-            //        break;
-            //    }
-            //}
-            //File.WriteAllText(path + fileName, json);
-            //return true;
         }
     }
 }
