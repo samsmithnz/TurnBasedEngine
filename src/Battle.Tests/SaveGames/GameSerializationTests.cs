@@ -3,28 +3,33 @@ using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Battle.Tests.SaveGames
 {
     [TestClass]
     [TestCategory("L0")]
-    public class SaveGameTests
+    public class GameSerializationTests
     {
+        private string _rootPath;
+
+        [TestInitialize]
+        public void GameSerializationStartUp()
+        {
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        }
+
         [TestMethod]
         public void SaveGamesExist()
         {
             //Arrange
-            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string path = systemPath + @"\my games\TBS\Saves\";
+            string path = _rootPath + @"\SaveGames\Saves\";
 
             //Act
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
 
             //Assert
+            Assert.IsTrue(Directory.Exists(path));
             Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
         }
 
@@ -32,15 +37,10 @@ namespace Battle.Tests.SaveGames
         public void SaveGameLoads()
         {
             //Arrange
-            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string path = systemPath + @"\my games\TBS\Saves\";
+            string path = _rootPath + @"\SaveGames\Saves\";
             Mission mission = null;
 
             //Act
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
@@ -50,12 +50,26 @@ namespace Battle.Tests.SaveGames
                     fileContents = streamReader.ReadToEnd();
                 }
 
-                mission = SaveGame.LoadGame(fileContents);
+                mission = GameSerialization.LoadGame(fileContents);
             }
 
             //Assert
+            Assert.IsTrue(Directory.Exists(path));
             Assert.IsTrue(mission != null);
+        }
 
+        [TestMethod]
+        public void SaveNewGameExist()
+        {
+            //Arrange
+            Mission mission = new Mission();
+            string path = _rootPath + @"\SaveGames\Saves\";
+
+            //Act
+
+            //Assert
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
         }
 
     }
