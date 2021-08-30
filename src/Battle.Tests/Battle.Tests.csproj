@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Battle.Logic\Battle.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SaveGames\Saves\Save001.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
