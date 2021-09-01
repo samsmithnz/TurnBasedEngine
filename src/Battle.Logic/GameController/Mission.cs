@@ -12,7 +12,7 @@ namespace Battle.Logic.GameController
             Objective = Mission.MissionType.EliminateAllOpponents;
             TurnNumber = 1;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
-            RandomNumbers.Queue[0] = 8;
+            RandomNumbers.Queue[0] = 8; //First shot always misses in this scenario.
         }
 
         public int TurnNumber { get; set; }
