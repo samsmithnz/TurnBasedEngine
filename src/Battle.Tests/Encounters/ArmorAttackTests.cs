@@ -3,6 +3,7 @@ using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Battle.Tests.Encounters
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 5;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -58,7 +59,7 @@ Armor prevented 5 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 5;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -90,7 +91,7 @@ Armor prevented 3 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 4;
             jeff.ArmorPointsCurrent = 2;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -123,7 +124,7 @@ Armor prevented 2 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 2;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -159,7 +160,7 @@ Fred is ready to level up
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
             jeff.ArmorPointsCurrent = 3;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -193,7 +194,7 @@ Armor prevented 1 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -227,7 +228,7 @@ Armor prevented 5 damage to character Jeff
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 3;
             jeff.ArmorPointsCurrent = 10;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);

@@ -11,14 +11,14 @@ namespace Battle.Logic.GameController
             Teams = new List<Team>();
             Objective = Mission.MissionType.EliminateAllOpponents;
             TurnNumber = 1;
-            RandomNumbers = new Queue<int>(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
+            RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
         }
 
         public int TurnNumber { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
         public MissionType Objective { get; set; }
-        public Queue<int> RandomNumbers { get; set; }
+        public RandomNumberQueue RandomNumbers { get; set; }
 
         //Start mission
 

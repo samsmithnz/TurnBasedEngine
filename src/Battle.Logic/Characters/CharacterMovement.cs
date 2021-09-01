@@ -1,5 +1,6 @@
 ﻿using Battle.Logic.Encounters;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -8,7 +9,7 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, Queue<int> diceRolls, List<Character> overWatchedCharacters = null)
+        public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<ActionResult> results = new List<ActionResult>();
@@ -84,7 +85,7 @@ namespace Battle.Logic.Characters
             return results;
         }
 
-        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, Queue<int> diceRolls, List<Character> overWatchedCharacters = null)
+        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)
         {
             List<EncounterResult> results = new List<EncounterResult>();
             EncounterResult result = null;

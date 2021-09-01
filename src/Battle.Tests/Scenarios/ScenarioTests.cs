@@ -42,7 +42,7 @@ namespace Battle.Tests.Scenarios
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -331,7 +331,7 @@ Fred is ready to level up
                 Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -533,7 +533,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //act
             fred = FieldOfView.UpdateCharacterFOV(mission.Map, fred);

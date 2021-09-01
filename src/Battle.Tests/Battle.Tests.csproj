@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <None Update="SaveGames\Saves\Save001.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
