@@ -2,6 +2,7 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 6;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);

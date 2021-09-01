@@ -22,7 +22,7 @@ namespace Battle.Logic.Utility
         public static List<int> GenerateRandomNumberList(int minValue, int maxValue, int seed = 0, int listSize = 10)
         {
             Random rand = new Random(seed);
-            List<int> result = new List<int>(seed);
+            List<int> result = new List<int>();
             for (int i = 0; i < listSize; i++)
             {
                 result.Add(rand.Next(minValue, maxValue));

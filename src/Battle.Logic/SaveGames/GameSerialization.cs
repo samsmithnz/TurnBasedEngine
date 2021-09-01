@@ -1,7 +1,5 @@
 ﻿using Battle.Logic.GameController;
 using Newtonsoft.Json;
-using System;
-using System.IO;
 
 namespace Battle.Logic.SaveGames
 {

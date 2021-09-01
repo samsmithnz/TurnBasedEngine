@@ -21,8 +21,6 @@ namespace Battle.Tests.Scenarios
             //Arrange
             Mission mission = new Mission
             {
-                Objective = Mission.MissionType.EliminateAllOpponents,
-                TurnNumber = 1,
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[6, 0, 5] = CoverType.FullCover;
@@ -44,7 +42,7 @@ namespace Battle.Tests.Scenarios
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -304,7 +302,6 @@ Fred is ready to level up
             //Arrange
             Mission mission = new Mission
             {
-                TurnNumber = 1,
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[5, 0, 6] = CoverType.FullCover;
@@ -334,7 +331,7 @@ Fred is ready to level up
                 Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
             //Assert - Setup
@@ -508,7 +505,6 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             //arrange
             Mission mission = new Mission
             {
-                TurnNumber = 1,
                 Map = MapCore.InitializeMap(10, 1, 10)
             };
 
@@ -537,7 +533,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
                 Characters = new List<Character>() { jeff }
             };
             mission.Teams.Add(team2);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //act
             fred = FieldOfView.UpdateCharacterFOV(mission.Map, fred);
@@ -708,24 +704,22 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             int zMax = 50;
             Mission mission = new Mission
             {
-                Objective = Mission.MissionType.EliminateAllOpponents,
-                TurnNumber = 1,
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            List<int> RandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
-            Queue<int> NumberQueue = new Queue<int>(RandomNumbers);
+            List<int> MapRandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
+            Queue<int> MapNumberQueue = new Queue<int>(MapRandomNumbers);
             //Add 100 full cover items randomly
             for (int i = 0; i < 100; i++)
             {
-                int x = NumberQueue.Dequeue();
-                int z = NumberQueue.Dequeue();
+                int x = MapNumberQueue.Dequeue();
+                int z = MapNumberQueue.Dequeue();
                 mission.Map[x, 0, z] = CoverType.FullCover;
             }
             //Add 100 half cover items randomly
             for (int i = 0; i < 100; i++)
             {
-                int x = NumberQueue.Dequeue();
-                int z = NumberQueue.Dequeue();
+                int x = MapNumberQueue.Dequeue();
+                int z = MapNumberQueue.Dequeue();
                 mission.Map[x, 0, z] = CoverType.HalfCover;
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
@@ -753,6 +747,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(1, mission.Teams[0].Characters.Count);
             Assert.AreEqual("Bad guys", mission.Teams[1].Name);
             Assert.AreEqual(1, mission.Teams[1].Characters.Count);
+            Assert.AreEqual(8, mission.RandomNumbers.Queue[0]);
 
             //Act
 
@@ -831,7 +826,7 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
                     fred.WeaponEquipped,
                     jeff,
                     mission.Map,
-                    NumberQueue);
+                    mission.RandomNumbers);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 80, (dice roll: 8)
@@ -839,21 +834,21 @@ Low cover downgraded to no cover at <5, 0, 5>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log1, encounter1.LogString);
-            Assert.AreEqual(new Vector3(5,0,5), encounter1.MissedLocation);
+            Assert.AreEqual(new Vector3(5, 0, 5), encounter1.MissedLocation);
 
             //Fred shoots at Jeff, and hits him. 
             EncounterResult encounter2 = Encounter.AttackCharacter(fred,
                     fred.WeaponEquipped,
                     jeff,
                     mission.Map,
-                    NumberQueue);
+                    mission.RandomNumbers);
             string log2 = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 80, (dice roll: 28)
-Damage range: 3-5, (dice roll: 35)
-Critical chance: 70, (dice roll: 40)
-Critical damage range: 8-12, (dice roll: 35)
-9 damage dealt to character Jeff, HP is now -5
+Hit: Chance to hit: 80, (dice roll: 81)
+Damage range: 3-5, (dice roll: 76)
+Critical chance: 70, (dice roll: 55)
+Critical damage range: 8-12, (dice roll: 76)
+11 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up

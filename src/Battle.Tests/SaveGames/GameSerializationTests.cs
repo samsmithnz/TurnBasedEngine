@@ -66,7 +66,7 @@ namespace Battle.Tests.SaveGames
             string path = _rootPath + @"\SaveGames\Saves\";
 
             //Act
-           string json = GameSerialization.SaveGame(mission);
+            string json = GameSerialization.SaveGame(mission);
 
             if (Directory.Exists(path) == false)
             {

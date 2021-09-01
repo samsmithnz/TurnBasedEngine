@@ -3,6 +3,7 @@ using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -25,7 +26,7 @@ namespace Battle.Tests.Encounters
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);
@@ -66,7 +67,7 @@ Critical chance: 70, (dice roll: 0)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = false;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -98,7 +99,7 @@ High cover downgraded to low cover at <8, 0, 9>
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = false;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -129,7 +130,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = false;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -161,7 +162,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = false;
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -190,7 +191,7 @@ Critical chance: 70, (dice roll: 0)
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            Queue<int> diceRolls = null;
+            RandomNumberQueue diceRolls = null;
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -208,7 +209,7 @@ Critical chance: 70, (dice roll: 0)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -242,7 +243,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -277,7 +278,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -314,7 +315,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 5;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -350,7 +351,7 @@ Fred is ready to level up
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InHalfCover = true;
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -379,7 +380,7 @@ Critical chance: 70, (dice roll: 0)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = true;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -406,7 +407,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = true;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -437,7 +438,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = true;
             jeff.SetLocation(new Vector3(5, 0, 0), map);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -464,7 +465,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 15;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -497,7 +498,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 15;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -530,7 +531,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -568,7 +569,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 15;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -616,7 +617,7 @@ Fred is ready to level up
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(2, 0, 4), map);
             jeff.HitpointsCurrent = 15;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -661,7 +662,7 @@ Critical chance: 20, (dice roll: 0)
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(1, 0, 3), map);
             jeff.HitpointsCurrent = 15;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -708,7 +709,7 @@ Fred is ready to level up
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.SetLocation(new Vector3(5, 0, 5), map);
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             try
@@ -745,7 +746,7 @@ Fred is ready to level up
             jeff.HitpointsCurrent = 15;
             jeff.InFullCover = true;
             jeff.HunkeredDown = true;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -788,7 +789,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             jeff.HitpointsCurrent = 15;
             jeff.InFullCover = true;
             jeff.HunkeredDown = true;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -831,7 +832,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             jeff.HitpointsCurrent = 15;
             jeff.InHalfCover = true;
             jeff.HunkeredDown = true;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -864,7 +865,7 @@ Critical chance: 0, hunkered down
             Weapon rifle = fred.WeaponEquipped;
             rifle.AmmoCurrent = 0;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
@@ -890,7 +891,7 @@ Rifle has no ammo remaining and the attack cannot be completed
             rifle.AmmoCurrent = 0;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.HitpointsCurrent = 12;
-            Queue<int> diceRolls = new Queue<int>(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             fred.WeaponEquipped.Reload();
