@@ -747,6 +747,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(1, mission.Teams[0].Characters.Count);
             Assert.AreEqual("Bad guys", mission.Teams[1].Name);
             Assert.AreEqual(1, mission.Teams[1].Characters.Count);
+            Assert.AreEqual(8, mission.RandomNumbers.Queue[0]);
 
             //Act
 
@@ -843,11 +844,11 @@ Low cover downgraded to no cover at <5, 0, 5>
                     mission.RandomNumbers);
             string log2 = @"
 Fred is attacking with Rifle, targeted on Jeff
-Hit: Chance to hit: 80, (dice roll: 28)
-Damage range: 3-5, (dice roll: 35)
-Critical chance: 70, (dice roll: 40)
-Critical damage range: 8-12, (dice roll: 35)
-9 damage dealt to character Jeff, HP is now -5
+Hit: Chance to hit: 80, (dice roll: 81)
+Damage range: 3-5, (dice roll: 76)
+Critical chance: 70, (dice roll: 55)
+Critical damage range: 8-12, (dice roll: 76)
+11 damage dealt to character Jeff, HP is now -7
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up

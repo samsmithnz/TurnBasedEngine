@@ -12,6 +12,7 @@ namespace Battle.Logic.GameController
             Objective = Mission.MissionType.EliminateAllOpponents;
             TurnNumber = 1;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
+            RandomNumbers.Queue[0] = 8;
         }
 
         public int TurnNumber { get; set; }
