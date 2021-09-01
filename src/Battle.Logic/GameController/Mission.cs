@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Utility;
 using System.Collections.Generic;
 
 namespace Battle.Logic.GameController
@@ -8,12 +9,16 @@ namespace Battle.Logic.GameController
         public Mission()
         {
             Teams = new List<Team>();
+            Objective = Mission.MissionType.EliminateAllOpponents;
+            TurnNumber = 1;
+            RandomNumbers = new Queue<int>(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
         }
 
         public int TurnNumber { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
         public MissionType Objective { get; set; }
+        public Queue<int> RandomNumbers { get; set; }
 
         //Start mission
 
