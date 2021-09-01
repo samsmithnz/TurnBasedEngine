@@ -55,7 +55,7 @@ namespace Battle.Tests.Utility
         }
 
         [TestMethod]
-        public void RandomNumberQueue3ItemsTest()
+        public void NewQueue3ItemsTest()
         {
             //Arrange
             RandomNumberQueue queue = new RandomNumberQueue();
@@ -75,7 +75,7 @@ namespace Battle.Tests.Utility
         }
 
         [TestMethod]
-        public void RandomNumberQueue500ItemsListTest()
+        public void NewQueue500ItemsListTest()
         {
             //Arrange
             RandomNumberQueue queue;
