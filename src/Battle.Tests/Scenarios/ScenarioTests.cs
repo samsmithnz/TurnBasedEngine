@@ -424,6 +424,14 @@ High cover downgraded to low cover at <14, 0, 11>
 High cover downgraded to low cover at <14, 0, 10>
 ";
             Assert.AreEqual(log1, encounter1.LogString);
+            Assert.AreEqual(7, encounter1.AffectedMap.Count);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 8), 1), encounter1.AffectedMap[0]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 7), 1), encounter1.AffectedMap[1]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 12), 1), encounter1.AffectedMap[2]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 13), 1), encounter1.AffectedMap[3]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 9), 1), encounter1.AffectedMap[4]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 11), 1), encounter1.AffectedMap[5]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
 
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
             List<Character> characters2 = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
