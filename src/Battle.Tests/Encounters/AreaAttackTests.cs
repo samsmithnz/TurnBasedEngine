@@ -47,7 +47,7 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -58,6 +58,7 @@ Critical chance: 0, (dice roll: 0)
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -95,7 +96,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(2, jeff.ArmorPointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -107,6 +108,7 @@ Armor prevented 2 damage to character Jeff
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -145,7 +147,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, jeff.ArmorPointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -157,6 +159,7 @@ Critical chance: 0, (dice roll: 0)
 Jeff is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -195,7 +198,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
             Assert.AreEqual(1, jeff.ArmorPointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -242,7 +245,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -292,7 +295,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
-            Assert.AreEqual(200, result.SourceCharacter.Experience);
+            Assert.AreEqual(200, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -308,6 +311,7 @@ Critical chance: 0, (dice roll: 0)
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -348,7 +352,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(1, harry.HitpointsCurrent);
-            Assert.AreEqual(110, result.SourceCharacter.Experience);
+            Assert.AreEqual(110, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -364,6 +368,7 @@ Armor prevented 1 damage to character Harry
 3 damage dealt to character Harry, HP is now 1
 10 XP added to character Fred, for a total of 110 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -404,7 +409,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(4, fred.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
-            Assert.AreEqual(110, result.SourceCharacter.Experience);
+            Assert.AreEqual(110, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -419,6 +424,7 @@ Critical chance: 0, (dice roll: 0)
 Harry is killed
 100 XP added to character Fred, for a total of 110 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -463,7 +469,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(0, harry.HitpointsCurrent);
             Assert.IsTrue(result.TargetCharacter != null);
             Assert.IsTrue(result.AllCharacters.Count > 0);
-            Assert.AreEqual(200, result.SourceCharacter.Experience);
+            Assert.AreEqual(200, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -480,6 +486,7 @@ Critical chance: 20, (dice roll: 0)
 Harry is killed
 100 XP added to character Fred, for a total of 200 XP
 High cover downgraded to low cover at <2, 0, 3>
+Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
@@ -556,7 +563,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(1, jeff.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
@@ -642,7 +649,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(false, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(4, jeff.HitpointsCurrent);
-            Assert.AreEqual(00, result.SourceCharacter.Experience);
+            Assert.AreEqual(00, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <9, 0, 9>

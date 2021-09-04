@@ -42,7 +42,7 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(8, damageOptions.CriticalDamageLow);
             Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
             Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)

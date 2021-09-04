@@ -87,9 +87,10 @@ namespace Battle.Logic.Encounters
             //Consume source characters action points
             sourceCharacter.ActionPointsCurrent = 0;
 
-            //Check if the character has enough experience to level up
-            sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
-
+            if (sourceCharacter.LevelUpIsReady == true)
+            {
+                log.Add(sourceCharacter.Name + " is ready to level up");
+            }
             EncounterResult result = new EncounterResult()
             {
                 SourceCharacter = sourceCharacter,
@@ -183,8 +184,8 @@ namespace Battle.Logic.Encounters
                     }
 
                     int xp = Experience.GetExperience(false);
-                    sourceCharacter.Experience += xp;
-                    log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+                    sourceCharacter.XP += xp;
+                    log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.XP + " XP");
                 }
 
                 //Consume source characters action points
@@ -193,7 +194,6 @@ namespace Battle.Logic.Encounters
                 weapon.AmmoCurrent--;
 
                 //Check if the character has enough experience to level up
-                sourceCharacter.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(sourceCharacter.Level, sourceCharacter.Experience);
                 if (sourceCharacter.LevelUpIsReady == true)
                 {
                     log.Add(sourceCharacter.Name + " is ready to level up");
@@ -308,8 +308,8 @@ namespace Battle.Logic.Encounters
             {
                 xp = Experience.GetExperience(true);
             }
-            sourceCharacter.Experience += xp;
-            log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.Experience + " XP");
+            sourceCharacter.XP += xp;
+            log.Add(xp.ToString() + " XP added to character " + sourceCharacter.Name + ", for a total of " + sourceCharacter.XP + " XP");
             sourceCharacter.TotalHits++;
 
             EncounterResult result = new EncounterResult()

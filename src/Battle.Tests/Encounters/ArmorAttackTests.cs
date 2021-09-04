@@ -35,7 +35,7 @@ namespace Battle.Tests.Encounters
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -67,7 +67,7 @@ Armor prevented 5 damage to character Jeff
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(5, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(3, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -99,7 +99,7 @@ Armor prevented 3 damage to character Jeff
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(2, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -133,7 +133,7 @@ Armor prevented 2 damage to character Jeff
             Assert.IsTrue(result != null);
             Assert.AreEqual(-2, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.TargetCharacter.ArmorPointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(2, result.ArmorShredded);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -169,7 +169,7 @@ Fred is ready to level up
             Assert.IsTrue(result != null);
             Assert.AreEqual(1, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(1, result.TargetCharacter.ArmorPointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(1, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -203,7 +203,7 @@ Armor prevented 1 damage to character Jeff
             Assert.IsTrue(result != null);
             Assert.AreEqual(3, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.TargetCharacter.ArmorPointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -237,7 +237,7 @@ Armor prevented 5 damage to character Jeff
             Assert.IsTrue(result != null);
             Assert.AreEqual(-2, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.TargetCharacter.ArmorPointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(0, result.ArmorShredded);
             Assert.AreEqual(0, result.ArmorAbsorbed);
             string log = @"

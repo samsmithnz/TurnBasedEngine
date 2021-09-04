@@ -13,11 +13,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 100;
+            fred.XP = 100;
             fred.Level = 1;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -28,11 +28,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 500;
+            fred.XP = 500;
             fred.Level = 2;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -43,11 +43,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 1000;
+            fred.XP = 1000;
             fred.Level = 3;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -58,11 +58,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 1500;
+            fred.XP = 1500;
             fred.Level = 4;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -73,11 +73,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 2000;
+            fred.XP = 2000;
             fred.Level = 5;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -88,11 +88,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 2500;
+            fred.XP = 2500;
             fred.Level = 6;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);
@@ -103,11 +103,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 3000 - 1;
+            fred.XP = 3000 - 1;
             fred.Level = 7;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(false, readyToLevelUp);
@@ -118,11 +118,11 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 3000;
+            fred.XP = 3000;
             fred.Level = 7;
 
             //Act
-            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            bool readyToLevelUp = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
 
             //Assert
             Assert.AreEqual(true, readyToLevelUp);

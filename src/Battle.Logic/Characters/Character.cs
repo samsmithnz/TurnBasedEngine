@@ -25,7 +25,20 @@ namespace Battle.Logic.Characters
         public int ActionPointsMax { get; set; }
         public int ActionPointsCurrent { get; set; }
         public int ChanceToHit { get; set; }
-        public int Experience { get; set; }
+        private int _xp;
+        public int XP
+        {
+            get
+            {
+                return _xp;
+            }
+            set
+            {
+                _xp = value;
+                //Check if the character has enough experience to level up
+                LevelUpIsReady = Experience.CheckIfReadyToLevelUp(Level, _xp);
+            }
+        }
         public int Level { get; set; }
         public bool LevelUpIsReady { get; set; }
         public int Speed { get; set; }

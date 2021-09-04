@@ -30,10 +30,13 @@ namespace Battle.Logic.GameController
             {
                 foreach (Character character in team.Characters)
                 {
-                    //If the character is still alive, incrememt the missions completed metric
+                    //If the character is still alive
                     if (character.HitpointsCurrent > 0)
                     {
+                        //incrememt the missions completed metric
                         character.MissionsCompleted++;
+                        //Add some experience for surviving
+                        character.XP += 100;
                     }
                 }
             }

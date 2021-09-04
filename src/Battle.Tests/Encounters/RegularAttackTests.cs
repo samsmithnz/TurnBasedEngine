@@ -44,7 +44,7 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(8, damageOptions.CriticalDamageLow);
             Assert.AreEqual(12, damageOptions.CriticalDamageHigh);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 80)
@@ -75,7 +75,7 @@ Critical chance: 70, (dice roll: 0)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual(CoverType.HalfCover, map[8, 0, 9]);
@@ -107,7 +107,7 @@ High cover downgraded to low cover at <8, 0, 9>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual(CoverType.NoCover, map[8, 0, 9]);
@@ -138,7 +138,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual("", map[8, 0, 9]);
@@ -170,7 +170,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 65, (dice roll: 65)
@@ -219,7 +219,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -253,7 +253,7 @@ Fred is ready to level up
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -288,7 +288,7 @@ Fred is ready to level up
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -310,7 +310,7 @@ Fred is ready to level up
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.Experience = 0;
+            fred.XP = 0;
             fred.Level = 1;
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
@@ -323,7 +323,7 @@ Fred is ready to level up
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
@@ -359,7 +359,7 @@ Fred is ready to level up
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 75, (dice roll: 65)
@@ -388,7 +388,7 @@ Critical chance: 70, (dice roll: 0)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 40, (dice roll: 55)
@@ -415,7 +415,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 0, (dice roll: 65)
@@ -433,7 +433,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 30;
-            fred.Experience = 50;
+            fred.XP = 50;
             Weapon rifle = fred.WeaponEquipped;
             Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
             jeff.InFullCover = true;
@@ -446,7 +446,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(50, result.SourceCharacter.Experience);
+            Assert.AreEqual(50, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Missed: Chance to hit: 19, (dice roll: 65)
@@ -473,7 +473,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 65)
@@ -506,7 +506,7 @@ Fred is ready to level up
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
 Hit: Chance to hit: 80, (dice roll: 65)
@@ -541,7 +541,7 @@ Fred is ready to level up
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -579,7 +579,7 @@ Fred is ready to level up
             Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -627,7 +627,7 @@ Fred is ready to level up
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(10, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -672,7 +672,7 @@ Critical chance: 20, (dice roll: 0)
             Assert.AreEqual(15, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
             Assert.AreEqual(0, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(100, result.SourceCharacter.Experience);
+            Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -756,7 +756,7 @@ Fred is ready to level up
             Assert.AreEqual(0, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(15, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -799,7 +799,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Assert.AreEqual(0, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(15, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(0, result.SourceCharacter.Experience);
+            Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -842,7 +842,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Assert.AreEqual(5, result.DamageDealt);
             Assert.AreEqual(false, result.IsCriticalHit);
             Assert.AreEqual(10, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
@@ -900,7 +900,7 @@ Rifle has no ammo remaining and the attack cannot be completed
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
-            Assert.AreEqual(10, result.SourceCharacter.Experience);
+            Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(3, result.SourceCharacter.WeaponEquipped.AmmoCurrent);
             string log = @"
 Fred is attacking with Rifle, targeted on Jeff
