@@ -68,6 +68,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
+            bool missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 1 - Team 2 starts
@@ -80,6 +82,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, jeff.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 2 - Team 1 starts
@@ -91,6 +95,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 2 - Team 2 starts
@@ -102,6 +108,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, jeff.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 3 - Team 1 starts - force an end turn
@@ -113,6 +121,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 3 - Team 2 starts - force an end turn
@@ -124,6 +134,8 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, jeff.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(false, missionIsComplete);
             mission.MoveToNextTurn();
 
             //Turn 4 - Team 1 starts, and aborts mission
@@ -146,8 +158,8 @@ Fred is ready to level up
             Assert.AreEqual(log1, encounter1.LogString);
 
             //End of of battle
-            bool missionIsComplete = mission.CheckIfMissionIsCompleted();
-            Assert.AreEqual(true, missionIsComplete);      
+            missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(true, missionIsComplete);
             mission.EndMission();
 
             //Assert

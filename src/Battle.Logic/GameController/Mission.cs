@@ -95,15 +95,11 @@ namespace Battle.Logic.GameController
                 int totalHPs = 0;
                 foreach (Character character in team.Characters)
                 {
-                    totalHPs += character.ActionPointsCurrent;
+                    totalHPs += character.HitpointsCurrent;
                 }
-                if (totalHPs == 0)
+                if (totalHPs <= 0)
                 {
                     return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
 
