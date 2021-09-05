@@ -69,11 +69,11 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
             mission.MoveToNextTurn();
-            Assert.AreEqual(1, mission.TurnNumber);
-            Assert.AreEqual(1, mission.CurrentTeamIndex);
 
             //Turn 1 - Team 2 starts
             //Jeff moves
+            Assert.AreEqual(1, mission.TurnNumber);
+            Assert.AreEqual(1, mission.CurrentTeamIndex);
             Vector3 jeffDestination = new Vector3(2, 0, 2);
             pathFindingResult = PathFinding.FindPath(jeff.Location, jeffDestination, mission.Map);
             CharacterMovement.MoveCharacter(jeff, mission.Map, pathFindingResult, mission.RandomNumbers, null);
@@ -81,10 +81,10 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
             mission.MoveToNextTurn();
-            Assert.AreEqual(2, mission.TurnNumber);
-            Assert.AreEqual(0, mission.CurrentTeamIndex);
 
             //Turn 2 - Team 1 starts
+            Assert.AreEqual(2, mission.TurnNumber);
+            Assert.AreEqual(0, mission.CurrentTeamIndex);
             fredDestination = new Vector3(4, 0, 4);
             pathFindingResult = PathFinding.FindPath(fred.Location, fredDestination, mission.Map);
             CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, mission.RandomNumbers, null);
@@ -92,10 +92,10 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
             mission.MoveToNextTurn();
-            Assert.AreEqual(2, mission.TurnNumber);
-            Assert.AreEqual(1, mission.CurrentTeamIndex);
 
             //Turn 2 - Team 2 starts
+            Assert.AreEqual(2, mission.TurnNumber);
+            Assert.AreEqual(1, mission.CurrentTeamIndex);
             jeffDestination = new Vector3(12, 0, 12);
             pathFindingResult = PathFinding.FindPath(jeff.Location, jeffDestination, mission.Map);
             CharacterMovement.MoveCharacter(jeff, mission.Map, pathFindingResult, mission.RandomNumbers, null);
@@ -103,10 +103,10 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
             mission.MoveToNextTurn();
-            Assert.AreEqual(3, mission.TurnNumber);
-            Assert.AreEqual(0, mission.CurrentTeamIndex);
 
             //Turn 3 - Team 1 starts - force an end turn
+            Assert.AreEqual(3, mission.TurnNumber);
+            Assert.AreEqual(0, mission.CurrentTeamIndex);
             fredDestination = new Vector3(5, 0, 5);
             pathFindingResult = PathFinding.FindPath(fred.Location, fredDestination, mission.Map);
             CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, mission.RandomNumbers, null);
@@ -114,10 +114,10 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);
             mission.MoveToNextTurn();
+
+            //Turn 3 - Team 2 starts - force an end turn
             Assert.AreEqual(3, mission.TurnNumber);
             Assert.AreEqual(1, mission.CurrentTeamIndex);
-
-            //Turn 2 - Team 2 starts - force an end turn
             jeffDestination = new Vector3(11, 0, 11);
             pathFindingResult = PathFinding.FindPath(jeff.Location, jeffDestination, mission.Map);
             CharacterMovement.MoveCharacter(jeff, mission.Map, pathFindingResult, mission.RandomNumbers, null);
@@ -125,21 +125,40 @@ namespace Battle.Tests.Scenarios
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);
             mission.MoveToNextTurn();
-            Assert.AreEqual(4, mission.TurnNumber);
-            Assert.AreEqual(0, mission.CurrentTeamIndex);
+
+            //Turn 4 - Team 1 starts, and aborts mission
+            //Fred shoots at Jeff and kills him. 
+            EncounterResult encounter1 = Encounter.AttackCharacter(fred,
+                    fred.WeaponEquipped,
+                    jeff,
+                    mission.Map,
+                    mission.RandomNumbers);
+            string log1 = @"
+Fred is attacking with Rifle, targeted on Jeff
+Hit: Chance to hit: 86, (dice roll: 100)
+Damage range: 3-5, (dice roll: 100)
+Critical chance: 70, (dice roll: 0)
+5 damage dealt to character Jeff, HP is now -1
+Jeff is killed
+100 XP added to character Fred, for a total of 100 XP
+Fred is ready to level up
+";
+            Assert.AreEqual(log1, encounter1.LogString);
 
             //End of of battle
+            bool missionIsComplete = mission.CheckIfMissionIsCompleted();
+            Assert.AreEqual(true, missionIsComplete);      
             mission.EndMission();
 
             //Assert
-            Assert.AreEqual(4, jeff.HitpointsCurrent);
+            Assert.AreEqual(-1, jeff.HitpointsCurrent);
             Assert.AreEqual(1, fred.MissionsCompleted);
-            Assert.AreEqual(1, jeff.MissionsCompleted);
-            Assert.AreEqual(0, fred.TotalShots);
-            Assert.AreEqual(0, fred.TotalHits);
+            Assert.AreEqual(0, jeff.MissionsCompleted);
+            Assert.AreEqual(1, fred.TotalShots);
+            Assert.AreEqual(1, fred.TotalHits);
             Assert.AreEqual(0, fred.TotalMisses);
-            Assert.AreEqual(0, fred.TotalKills);
-            Assert.AreEqual(0, fred.TotalDamage);
+            Assert.AreEqual(1, fred.TotalKills);
+            Assert.AreEqual(5, fred.TotalDamage);
             Assert.AreEqual(0, jeff.TotalShots);
             Assert.AreEqual(0, jeff.TotalHits);
             Assert.AreEqual(0, jeff.TotalMisses);

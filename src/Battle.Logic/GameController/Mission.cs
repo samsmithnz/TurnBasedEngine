@@ -56,13 +56,13 @@ namespace Battle.Logic.GameController
             {
                 totalActionPoints += character.ActionPointsCurrent;
             }
-            if (totalActionPoints > 0)
+            if (totalActionPoints == 0)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -85,6 +85,29 @@ namespace Battle.Logic.GameController
             {
                 character.ActionPointsCurrent = character.ActionPointsMax;
             }
+        }
+
+        public bool CheckIfMissionIsCompleted()
+        {
+            bool result = false;
+            foreach (Team team in Teams)
+            {
+                int totalHPs = 0;
+                foreach (Character character in team.Characters)
+                {
+                    totalHPs += character.ActionPointsCurrent;
+                }
+                if (totalHPs == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return result;
         }
     }
 }
