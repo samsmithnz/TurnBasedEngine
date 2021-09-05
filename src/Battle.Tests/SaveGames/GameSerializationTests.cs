@@ -1,13 +1,12 @@
 using Battle.Logic.GameController;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace Battle.Tests.SaveGames
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
     public class GameSerializationTests

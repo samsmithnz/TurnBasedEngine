@@ -60,7 +60,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(2, character.ActionPointsMax);
             Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
-            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(0, character.XP);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(10, character.Speed);
@@ -100,7 +100,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(2, character.ActionPointsMax);
             Assert.AreEqual(2, character.ActionPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
-            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(0, character.XP);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(11, character.Speed);
@@ -122,7 +122,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(12, character.HitpointsCurrent);
             Assert.AreEqual(1, character.ArmorPointsCurrent);
             Assert.AreEqual(70, character.ChanceToHit);
-            Assert.AreEqual(0, character.Experience);
+            Assert.AreEqual(0, character.XP);
             Assert.AreEqual(1, character.Level);
             Assert.AreEqual(false, character.LevelUpIsReady);
             Assert.AreEqual(12, character.Speed);

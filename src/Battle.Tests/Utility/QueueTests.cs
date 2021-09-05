@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using Battle.Logic.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Text;
-using Battle.Logic.Utility;
 
 namespace Battle.Tests.Utility
 {

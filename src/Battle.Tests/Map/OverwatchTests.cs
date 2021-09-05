@@ -34,7 +34,7 @@ namespace Battle.Tests.Map
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
-            Assert.AreEqual(100, fred.Experience);
+            Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
@@ -71,7 +71,7 @@ Fred is ready to level up
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(-8, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
-            Assert.AreEqual(100, fred.Experience);
+            Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
@@ -108,7 +108,7 @@ Fred is ready to level up
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
-            Assert.AreEqual(0, fred.Experience);
+            Assert.AreEqual(0, fred.XP);
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>
@@ -148,8 +148,8 @@ Jeff is moving from <6, 0, 1> to <6, 0, 0>
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(0, jeff.HitpointsCurrent);
             Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
-            Assert.AreEqual(100, fred.Experience);
-            Assert.AreEqual(10, harry.Experience);
+            Assert.AreEqual(100, fred.XP);
+            Assert.AreEqual(10, harry.XP);
             Assert.AreEqual(1, movementResults.Count);
             Assert.AreEqual(2, movementResults[0].EncounterResults.Count);
             string log = @"
@@ -196,8 +196,8 @@ Fred is ready to level up
             Assert.IsTrue(pathFindingResult != null);
             Assert.AreEqual(4, jeff.HitpointsCurrent);
             Assert.AreEqual(destination, jeff.Location);
-            Assert.AreEqual(0, fred.Experience);
-            Assert.AreEqual(0, harry.Experience);
+            Assert.AreEqual(0, fred.XP);
+            Assert.AreEqual(0, harry.XP);
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Jeff is moving from <8, 0, 8> to <8, 0, 7>

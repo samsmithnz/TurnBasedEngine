@@ -14,14 +14,14 @@ namespace Battle.Tests.Characters
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Level = 1;
-            fred.Experience = 100;
+            fred.XP = 100;
             fred.LevelUpIsReady = true;
             fred.HitpointsCurrent = 3;
 
             //Assert - before the level up
 
             //Act
-            fred.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            fred.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
             Assert.IsTrue(fred.LevelUpIsReady);
             Assert.AreEqual(4, fred.HitpointsMax);
             Assert.AreEqual(3, fred.HitpointsCurrent);
@@ -40,14 +40,14 @@ namespace Battle.Tests.Characters
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Level = 1;
-            fred.Experience = 0;
+            fred.XP = 0;
             fred.LevelUpIsReady = false;
             fred.HitpointsCurrent = 3;
 
             //Assert - before the level up
 
             //Act
-            fred.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(fred.Level, fred.Experience);
+            fred.LevelUpIsReady = Experience.CheckIfReadyToLevelUp(fred.Level, fred.XP);
             Assert.IsTrue(fred.LevelUpIsReady == false);
             Assert.AreEqual(4, fred.HitpointsMax);
             Assert.AreEqual(3, fred.HitpointsCurrent);

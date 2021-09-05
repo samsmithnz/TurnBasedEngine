@@ -6,7 +6,7 @@ namespace Battle.Logic.Utility
 {
     public class RandomNumberQueue
     {
-        private List<int> _queue;
+        private readonly List<int> _queue;
         public List<int> Queue
         {
             get
