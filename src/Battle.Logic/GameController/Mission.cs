@@ -11,11 +11,13 @@ namespace Battle.Logic.GameController
             Teams = new List<Team>();
             Objective = Mission.MissionType.EliminateAllOpponents;
             TurnNumber = 1;
+            CurrentTeamIndex = 0;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
             RandomNumbers.Queue[0] = 8; //First shot always misses in this scenario.
         }
 
         public int TurnNumber { get; set; }
+        public int CurrentTeamIndex { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
         public MissionType Objective { get; set; }
@@ -45,6 +47,44 @@ namespace Battle.Logic.GameController
         public enum MissionType
         {
             EliminateAllOpponents = 0
+        }
+
+        public bool CheckIfCurrentTeamIsDoneTurn()
+        {
+            int totalActionPoints = 0;
+            foreach (Character character in Teams[CurrentTeamIndex].Characters)
+            {
+                totalActionPoints += character.ActionPointsCurrent;
+            }
+            if (totalActionPoints > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void MoveToNextTurn()
+        {
+            //Move to the next team
+            if (CurrentTeamIndex == Teams.Count - 1)
+            {
+                CurrentTeamIndex = 0;
+                //Move to the next turn
+                TurnNumber++;
+            }
+            else
+            {
+                CurrentTeamIndex++;
+            }
+
+            //Reset the characters action points for the new turn
+            foreach (Character character in Teams[CurrentTeamIndex].Characters)
+            {
+                character.ActionPointsCurrent = character.ActionPointsMax;
+            }
         }
     }
 }
