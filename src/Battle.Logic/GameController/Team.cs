@@ -1,5 +1,6 @@
 ﻿using Battle.Logic.Characters;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.GameController
 {
@@ -13,7 +14,8 @@ namespace Battle.Logic.GameController
         public string Name { get; set; }
         public List<Character> Characters { get; set; }
         public string Color { get; set; }
-        public string[,,] TeamFOVMap { get; set; }
+        public string[,,] FOVMap { get; set; }
+        public HashSet<Vector3> FOVHistory { get; set; }
 
         //get the first character on the team with action points
         public Character GetCharacterWithActionPoints()
@@ -27,5 +29,7 @@ namespace Battle.Logic.GameController
             }
             return null;
         }
+
+
     }
 }
