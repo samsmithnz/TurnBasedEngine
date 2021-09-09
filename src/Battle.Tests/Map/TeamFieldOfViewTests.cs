@@ -39,6 +39,12 @@ namespace Battle.Tests.Map
             string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, mission.Teams[0].Characters[1].FOVMap);
             string fov3MapString = MapCore.GetMapStringWithMapMask(mission.Map, mission.Teams[0].Characters[2].FOVMap);
             string teamFovMapstring = MapCore.GetMapStringWithMapMask(mission.Map, mission.Teams[0].FOVMap);
+            //?mission.Map[29, 0, 0]
+            //"□"
+            //? mission.Teams[0].Characters[2].FOVMap[29, 0, 0]
+            //""
+            //? mission.Teams[0].Characters[2].FOVMap[31, 0, 0]
+            //"░"
 
             //Assert
             Assert.IsNotNull(mission);
