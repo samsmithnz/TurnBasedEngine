@@ -241,10 +241,15 @@ namespace Battle.Logic.Map
             if (team.FOVMap == null)
             {
                 team.FOVMap = MapCore.InitializeMap(xMax, yMax, zMax, FOV_Unknown);
+                team.FOVHistory = new HashSet<Vector3>();
             }
             foreach (Character character in team.Characters)
             {
                 UpdateCharacterFOV(map, character);
+                foreach (Vector3 item in character.FOVHistory)
+                {
+                    team.FOVHistory.Add(item);
+                }
                 for (int y = 0; y < 1; y++)
                 {
                     for (int x = 0; x < xMax; x++)
