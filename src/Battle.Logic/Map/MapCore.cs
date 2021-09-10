@@ -8,7 +8,7 @@ namespace Battle.Logic.Map
 {
     public static class MapCore
     {
-        public static string[,,] InitializeMap(int xMax, int yMax, int zMax)
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = "")
         {
             string[,,] map = new string[xMax, yMax, zMax];
 
@@ -18,7 +18,7 @@ namespace Battle.Logic.Map
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    map[x, y, z] = "";
+                    map[x, y, z] = initialString;
                 }
             }
 
@@ -222,21 +222,6 @@ namespace Battle.Logic.Map
                             sb.Append(". ");
                         }
                     }
-                    //    if (map[x, y, z] != "")
-                    //{
-                    //    if (mapMask[x, y, z] != "")
-                    //    {
-                    //        map[x, y, z] = mapMask[x, y, z];
-                    //    }
-                    //    else
-                    //    {
-                    //        sb.Append(map[x, y, z] + " ");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    sb.Append(". ");
-                    //}
                 }
                 sb.Append(Environment.NewLine);
             }
