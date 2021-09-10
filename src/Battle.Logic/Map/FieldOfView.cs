@@ -195,7 +195,7 @@ namespace Battle.Logic.Map
 
             if (character.FOVMap == null)
             {
-                character.FOVMap = MapCore.InitializeMap(xMax, yMax, zMax);
+                character.FOVMap = MapCore.InitializeMap(xMax, yMax, zMax, FOV_Unknown);
             }
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
             foreach (Vector3 item in fov)
@@ -221,18 +221,9 @@ namespace Battle.Logic.Map
                         {
                             character.FOVMap[x, y, z] = FOV_CanSee;
                         }
-                        else
+                        else if (character.FOVHistory.Contains(new Vector3(x, y, z)))
                         {
-                            //If the location has been visible in the past, but not now, set it as cannot see
-                            if (character.FOVHistory.Contains(new Vector3(x, y, z)))
-                            {
-                                character.FOVMap[x, y, z] = FOV_CanNotSee;
-                            }
-                            else
-                            {
-                                //Otherwise it's never been visible and is unknown
-                                character.FOVMap[x, y, z] = FOV_Unknown;
-                            }
+                            character.FOVMap[x, y, z] = FOV_CanNotSee;
                         }
                     }
 
