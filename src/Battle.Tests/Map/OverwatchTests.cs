@@ -15,7 +15,7 @@ namespace Battle.Tests.Map
     public class OverwatchTests
     {
         [TestMethod]
-        public void FredInOverwatchKillsWhileJeffMoves()
+        public void FredInOverwatchKillsWhileJethroMoves()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -23,28 +23,28 @@ namespace Battle.Tests.Map
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<Character>() { fred });
+            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
-            Assert.AreEqual(-8, jeff.HitpointsCurrent);
-            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
+            Assert.AreEqual(-8, jethro.HitpointsCurrent);
+            Assert.AreEqual(new Vector3(8, 0, 7), jethro.Location);
             Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
-Jeff is moving from <8, 0, 8> to <8, 0, 7>
-Fred is attacking with Rifle, targeted on Jeff
+Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 56, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now -8
-Jeff is killed
+12 damage dealt to character Jethro, HP is now -8
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -52,7 +52,7 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredInOverwatchWithOpportunistKillsWhileJeffMoves()
+        public void FredInOverwatchWithOpportunistKillsWhileJethroMoves()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -60,28 +60,28 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             fred.Abilities.Add(AbilityPool.OpportunistAbility());
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<Character>() { fred });
+            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
-            Assert.AreEqual(-8, jeff.HitpointsCurrent);
-            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
+            Assert.AreEqual(-8, jethro.HitpointsCurrent);
+            Assert.AreEqual(new Vector3(8, 0, 7), jethro.Location);
             Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(1, movementResults.Count);
             string log = @"
-Jeff is moving from <8, 0, 8> to <8, 0, 7>
-Fred is attacking with Rifle, targeted on Jeff
+Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now -8
-Jeff is killed
+12 damage dealt to character Jethro, HP is now -8
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -89,7 +89,7 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredInOverwatchMissesWhileJeffMoves()
+        public void FredInOverwatchMissesWhileJethroMoves()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -97,37 +97,37 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<Character>() { fred });
+            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
-            Assert.AreEqual(4, jeff.HitpointsCurrent);
-            Assert.AreEqual(destination, jeff.Location);
+            Assert.AreEqual(4, jethro.HitpointsCurrent);
+            Assert.AreEqual(destination, jethro.Location);
             Assert.AreEqual(0, fred.XP);
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
-Jeff is moving from <8, 0, 8> to <8, 0, 7>
-Fred is attacking with Rifle, targeted on Jeff
+Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
-Jeff is moving from <8, 0, 7> to <8, 0, 6>
-Jeff is moving from <8, 0, 6> to <8, 0, 5>
-Jeff is moving from <8, 0, 5> to <8, 0, 4>
-Jeff is moving from <8, 0, 4> to <7, 0, 3>
-Jeff is moving from <7, 0, 3> to <7, 0, 2>
-Jeff is moving from <7, 0, 2> to <6, 0, 1>
-Jeff is moving from <6, 0, 1> to <6, 0, 0>
+Jethro is moving from <8, 0, 7> to <8, 0, 6>
+Jethro is moving from <8, 0, 6> to <8, 0, 5>
+Jethro is moving from <8, 0, 5> to <8, 0, 4>
+Jethro is moving from <8, 0, 4> to <7, 0, 3>
+Jethro is moving from <7, 0, 3> to <7, 0, 2>
+Jethro is moving from <7, 0, 2> to <6, 0, 1>
+Jethro is moving from <6, 0, 1> to <6, 0, 0>
 ";
             Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
         }
 
         [TestMethod]
-        public void FredAndHarryInOverwatchKillsWhileJeffMoves()
+        public void FredAndHarryInOverwatchKillsWhileJethroMoves()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -136,38 +136,38 @@ Jeff is moving from <6, 0, 1> to <6, 0, 0>
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 25;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 25;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<Character>() { fred, harry });
+            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
-            Assert.AreEqual(new Vector3(8, 0, 7), jeff.Location);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
+            Assert.AreEqual(new Vector3(8, 0, 7), jethro.Location);
             Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(10, harry.XP);
             Assert.AreEqual(1, movementResults.Count);
             Assert.AreEqual(2, movementResults[0].EncounterResults.Count);
             string log = @"
-Jeff is moving from <8, 0, 8> to <8, 0, 7>
-Harry is attacking with Sniper Rifle, targeted on Jeff
+Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Harry is attacking with Sniper Rifle, targeted on Jethro
 Hit: Chance to hit: 42, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 9-13, (dice roll: 100)
-13 damage dealt to character Jeff, HP is now 12
+13 damage dealt to character Jethro, HP is now 12
 10 XP added to character Harry, for a total of 10 XP
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 56, (dice roll: 100)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+12 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -176,7 +176,7 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAndHarryInOverwatchMissesWhileJeffMoves()
+        public void FredAndHarryInOverwatchMissesWhileJethroMoves()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -185,32 +185,32 @@ Fred is ready to level up
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jeff.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jeff, map, pathFindingResult, diceRolls, new List<Character>() { fred });
+            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
+            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
-            Assert.AreEqual(4, jeff.HitpointsCurrent);
-            Assert.AreEqual(destination, jeff.Location);
+            Assert.AreEqual(4, jethro.HitpointsCurrent);
+            Assert.AreEqual(destination, jethro.Location);
             Assert.AreEqual(0, fred.XP);
             Assert.AreEqual(0, harry.XP);
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
-Jeff is moving from <8, 0, 8> to <8, 0, 7>
-Fred is attacking with Rifle, targeted on Jeff
+Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 56, (dice roll: 0)
 0 XP added to character Fred, for a total of 0 XP
-Jeff is moving from <8, 0, 7> to <8, 0, 6>
-Jeff is moving from <8, 0, 6> to <8, 0, 5>
-Jeff is moving from <8, 0, 5> to <8, 0, 4>
-Jeff is moving from <8, 0, 4> to <7, 0, 3>
-Jeff is moving from <7, 0, 3> to <7, 0, 2>
-Jeff is moving from <7, 0, 2> to <6, 0, 1>
-Jeff is moving from <6, 0, 1> to <6, 0, 0>
+Jethro is moving from <8, 0, 7> to <8, 0, 6>
+Jethro is moving from <8, 0, 6> to <8, 0, 5>
+Jethro is moving from <8, 0, 5> to <8, 0, 4>
+Jethro is moving from <8, 0, 4> to <7, 0, 3>
+Jethro is moving from <7, 0, 3> to <7, 0, 2>
+Jethro is moving from <7, 0, 2> to <6, 0, 1>
+Jethro is moving from <6, 0, 1> to <6, 0, 0>
 ";
             Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
         }

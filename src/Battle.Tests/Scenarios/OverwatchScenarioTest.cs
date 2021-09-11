@@ -17,7 +17,7 @@ namespace Battle.Tests.Scenarios
     public class OverwatchScenarioTest
     {
         [TestMethod]
-        public void FredInOverwatchShootsAtJeffTest()
+        public void FredInOverwatchShootsAtJethroTest()
         {
             //Arrange
             int xMax = 50;
@@ -50,11 +50,11 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(19, 0, 19));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
             Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jeff }
+                Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
 
@@ -129,26 +129,26 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
 
-            //Fred aims at Jeff, who is behind high cover. 
+            //Fred aims at Jethro, who is behind high cover. 
             List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(characters[0], jeff);
+            Assert.AreEqual(characters[0], jethro);
 
-            int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jeff);
-            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jeff, mission.Map, false);
+            int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jethro, mission.Map, false);
             DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
             Assert.AreEqual(80, chanceToHit);
             Assert.AreEqual(70, chanceToCrit);
             Assert.AreEqual(3, damageOptions.DamageLow);
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
-            //Fred shoots at Jeff, and misses 
+            //Fred shoots at Jethro, and misses 
             EncounterResult encounter1 = Encounter.AttackCharacter(fred,
                     fred.WeaponEquipped,
-                    jeff,
+                    jethro,
                     mission.Map,
                     mission.RandomNumbers);
             string log1 = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 80, (dice roll: 8)
 Low cover downgraded to no cover at <5, 0, 5>
 0 XP added to character Fred, for a total of 0 XP
@@ -156,20 +156,20 @@ Low cover downgraded to no cover at <5, 0, 5>
             Assert.AreEqual(log1, encounter1.LogString);
             Assert.AreEqual(new Vector3(5, 0, 5), encounter1.MissedLocation);
 
-            //Fred shoots at Jeff, and hits him. 
+            //Fred shoots at Jethro, and hits him. 
             EncounterResult encounter2 = Encounter.AttackCharacter(fred,
                     fred.WeaponEquipped,
-                    jeff,
+                    jethro,
                     mission.Map,
                     mission.RandomNumbers);
             string log2 = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 81)
 Damage range: 3-5, (dice roll: 76)
 Critical chance: 70, (dice roll: 55)
 Critical damage range: 8-12, (dice roll: 76)
-11 damage dealt to character Jeff, HP is now -7
-Jeff is killed
+11 damage dealt to character Jethro, HP is now -7
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";

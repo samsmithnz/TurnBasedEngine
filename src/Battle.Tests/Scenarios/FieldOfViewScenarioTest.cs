@@ -17,7 +17,7 @@ namespace Battle.Tests.Scenarios
     public class FieldOfViewScenarioTest
     {
         [TestMethod]
-        public void JeffMovesAndFOVUpdatesTest()
+        public void JethroMovesAndFOVUpdatesTest()
         {
             //arrange
             Mission mission = new Mission
@@ -41,13 +41,13 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(9, 0, 7));
-            jeff.HitpointsCurrent = 5;
-            jeff.InOverwatch = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(9, 0, 7));
+            jethro.HitpointsCurrent = 5;
+            jethro.InOverwatch = true;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jeff }
+                Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -86,9 +86,9 @@ namespace Battle.Tests.Scenarios
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
 
-            jeff = FieldOfView.UpdateCharacterFOV(mission.Map, jeff);
-            string jeffFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jeff.FOVMap);
-            string expectedJeffFOV = @"
+            jethro = FieldOfView.UpdateCharacterFOV(mission.Map, jethro);
+            string jethroFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jethro.FOVMap);
+            string expectedJethroFOV = @"
 ▓ ▓ ▓ ▓ ▓ ■ . . . . 
 . . . . . ■ . . . . 
 . . . . . □ . . . P 
@@ -100,7 +100,7 @@ namespace Battle.Tests.Scenarios
 ▓ ▓ ▓ ▓ ▓ ▓ . . . . 
 ▓ ▓ ▓ ▓ ▓ . . . . . 
 ";
-            Assert.AreEqual(expectedJeffFOV, jeffFOVMapString);
+            Assert.AreEqual(expectedJethroFOV, jethroFOVMapString);
 
             //Act, part 2 - moving up the Y axis
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location,
@@ -110,7 +110,8 @@ namespace Battle.Tests.Scenarios
                 mission.Map,
                 pathFindingResult,
                 diceRolls,
-                new List<Character>() { jeff });
+                new List<Character>() { jethro },
+                team1);
 
             for (int i = 0; i < movementResults.Count; i++)
             {

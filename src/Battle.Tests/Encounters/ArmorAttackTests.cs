@@ -18,19 +18,19 @@ namespace Battle.Tests.Encounters
     {
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndArmorBlocksKillTest()
+        public void FredAttacksJethroWithRifleAndArmorBlocksKillTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
-            jeff.ArmorPointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
+            jethro.ArmorPointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -38,31 +38,31 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-Armor prevented 5 damage to character Jeff
-0 damage dealt to character Jeff, HP is now 5
+Armor prevented 5 damage to character Jethro
+0 damage dealt to character Jethro, HP is now 5
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndArmorBlocksAnyDamageTest()
+        public void FredAttacksJethroWithRifleAndArmorBlocksAnyDamageTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
-            jeff.ArmorPointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
+            jethro.ArmorPointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -70,31 +70,31 @@ Armor prevented 5 damage to character Jeff
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(3, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 20)
 Critical chance: 70, (dice roll: 0)
-Armor prevented 3 damage to character Jeff
-0 damage dealt to character Jeff, HP is now 5
+Armor prevented 3 damage to character Jethro
+0 damage dealt to character Jethro, HP is now 5
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndArmorSavesAKillTest()
+        public void FredAttacksJethroWithRifleAndArmorSavesAKillTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 4;
-            jeff.ArmorPointsCurrent = 2;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 4;
+            jethro.ArmorPointsCurrent = 2;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -102,32 +102,32 @@ Armor prevented 3 damage to character Jeff
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(2, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-Armor prevented 2 damage to character Jeff
-3 damage dealt to character Jeff, HP is now 1
+Armor prevented 2 damage to character Jethro
+3 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndArmorShreddingAllowsAKillTest()
+        public void FredAttacksJethroWithRifleAndArmorShreddingAllowsAKillTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 3;
-            jeff.ArmorPointsCurrent = 2;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 3;
+            jethro.ArmorPointsCurrent = 2;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -136,13 +136,13 @@ Armor prevented 2 damage to character Jeff
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(2, result.ArmorShredded);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
-5 damage dealt to character Jeff, HP is now -2
-Jeff is killed
+5 damage dealt to character Jethro, HP is now -2
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -150,20 +150,20 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndHighArmorShreddingTest()
+        public void FredAttacksJethroWithRifleAndHighArmorShreddingTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
-            jeff.ArmorPointsCurrent = 3;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
+            jethro.ArmorPointsCurrent = 3;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -172,32 +172,32 @@ Fred is ready to level up
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(1, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 2 armor points shredded
-Armor prevented 1 damage to character Jeff
-4 damage dealt to character Jeff, HP is now 1
+Armor prevented 1 damage to character Jethro
+4 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndSuperHighArmorTest()
+        public void FredAttacksJethroWithRifleAndSuperHighArmorTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 3;
-            jeff.ArmorPointsCurrent = 10;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 3;
+            jethro.ArmorPointsCurrent = 10;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -206,32 +206,32 @@ Armor prevented 1 damage to character Jeff
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(5, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-Armor prevented 5 damage to character Jeff
-0 damage dealt to character Jeff, HP is now 3
+Armor prevented 5 damage to character Jethro
+0 damage dealt to character Jethro, HP is now 3
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndSuperHighArmorAndArmorPiercingTest()
+        public void FredAttacksJethroWithRifleAndSuperHighArmorAndArmorPiercingTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ArmorPiercingAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 3;
-            jeff.ArmorPointsCurrent = 10;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 3;
+            jethro.ArmorPointsCurrent = 10;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -241,13 +241,13 @@ Armor prevented 5 damage to character Jeff
             Assert.AreEqual(0, result.ArmorShredded);
             Assert.AreEqual(0, result.ArmorAbsorbed);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
 Armor was ignored due to 'armor piercing' ability
-5 damage dealt to character Jeff, HP is now -2
-Jeff is killed
+5 damage dealt to character Jethro, HP is now -2
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";

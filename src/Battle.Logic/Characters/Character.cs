@@ -44,22 +44,24 @@ namespace Battle.Logic.Characters
         public int Speed { get; set; }
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
-        private Vector3 location { get; set; }
+        private Vector3 _location { get; set; }
         public Vector3 Location
         {
             get
             {
-                return location;
+                return _location;
             }
         }
-        public void SetLocation(Vector3 location, string[,,] map)
+        public void SetLocation(Vector3 characterLocation, string[,,] map)
         {
             if (map != null)
             {
-                map[(int)this.location.X, (int)this.location.Y, (int)this.location.Z] = "";
-                map[(int)location.X, (int)location.Y, (int)location.Z] = "P";
+                //Set the previous location on the map to blank (the character is no longer there)
+                map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
+                //Place the player in the new location on the map
+                map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
             }
-            this.location = location;
+            _location = characterLocation;
         }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }

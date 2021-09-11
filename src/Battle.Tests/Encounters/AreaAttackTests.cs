@@ -17,11 +17,11 @@ namespace Battle.Tests.Encounters
     {
 
         [TestMethod]
-        public void FredThrowsGrenadeAndKillsJeffTest()
+        public void FredThrowsGrenadeAndKillsJethroTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -32,11 +32,11 @@ namespace Battle.Tests.Encounters
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -46,16 +46,16 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+4 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
 Fred is ready to level up
@@ -64,11 +64,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndKillsJeffWearingArmorTest()
+        public void FredThrowsGrenadeAndKillsJethroWearingArmorTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -79,12 +79,12 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 2;
-            jeff.ArmorPointsCurrent = 2;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 2;
+            jethro.ArmorPointsCurrent = 2;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -94,18 +94,18 @@ Fred is ready to level up
             Assert.AreEqual(2, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
-            Assert.AreEqual(2, jeff.ArmorPointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
+            Assert.AreEqual(2, jethro.ArmorPointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-Armor prevented 2 damage to character Jeff
-2 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+Armor prevented 2 damage to character Jethro
+2 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
 Fred is ready to level up
@@ -114,11 +114,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndKillsJeffWearingArmorThisShreddedTest()
+        public void FredThrowsGrenadeAndKillsJethroWearingArmorThisShreddedTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -130,12 +130,12 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
-            jeff.ArmorPointsCurrent = 2;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
+            jethro.ArmorPointsCurrent = 2;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -145,18 +145,18 @@ Fred is ready to level up
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
-            Assert.AreEqual(0, jeff.ArmorPointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
+            Assert.AreEqual(0, jethro.ArmorPointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
-4 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+4 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 High cover downgraded to low cover at <2, 0, 3>
 Fred is ready to level up
@@ -165,11 +165,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndInjuriesJeffWearingArmorWithShreddedTest()
+        public void FredThrowsGrenadeAndInjuriesJethroWearingArmorWithShreddedTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -181,12 +181,12 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
-            jeff.ArmorPointsCurrent = 3;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
+            jethro.ArmorPointsCurrent = 3;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -196,18 +196,18 @@ Fred is ready to level up
             Assert.AreEqual(3, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HitpointsCurrent);
-            Assert.AreEqual(1, jeff.ArmorPointsCurrent);
+            Assert.AreEqual(1, jethro.HitpointsCurrent);
+            Assert.AreEqual(1, jethro.ArmorPointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
 2 armor points shredded
-Armor prevented 1 damage to character Jeff
-3 damage dealt to character Jeff, HP is now 1
+Armor prevented 1 damage to character Jethro
+3 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 High cover downgraded to low cover at <2, 0, 3>
 ";
@@ -215,11 +215,11 @@ High cover downgraded to low cover at <2, 0, 3>
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndInjuriesJeffTest()
+        public void FredThrowsGrenadeAndInjuriesJethroTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -230,11 +230,11 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -244,15 +244,15 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HitpointsCurrent);
+            Assert.AreEqual(1, jethro.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 1
+4 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 High cover downgraded to low cover at <2, 0, 3>
 ";
@@ -260,11 +260,11 @@ High cover downgraded to low cover at <2, 0, 3>
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndKillsJeffAndHarryTest()
+        public void FredThrowsGrenadeAndKillsJethroAndHarryTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
             //  "." = open ground
@@ -276,14 +276,14 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff, harry };
+            List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -293,17 +293,17 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(8, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
             Assert.AreEqual(200, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff,  Harry
+Characters in affected area: Jethro,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+4 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
@@ -317,11 +317,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndKillsJeffAndHarryIsSavedByArmorTest()
+        public void FredThrowsGrenadeAndKillsJethroAndHarryIsSavedByArmorTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
             //  "." = open ground
@@ -333,14 +333,14 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 1;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff, harry };
+            List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -350,17 +350,17 @@ Fred is ready to level up
             Assert.AreEqual(7, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
             Assert.AreEqual(1, harry.HitpointsCurrent);
             Assert.AreEqual(110, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff,  Harry
+Characters in affected area: Jethro,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+4 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
@@ -374,11 +374,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndInjuriesJeffAndKillsHarryTest()
+        public void FredThrowsGrenadeAndInjuriesJethroAndKillsHarryTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  "H" = enemy/harry
             //  CoverType.FullCover = cover
             //  "." = open ground
@@ -390,14 +390,14 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 15;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff, harry };
+            List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -413,10 +413,10 @@ Fred is ready to level up
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff,  Harry
+Characters in affected area: Jethro,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 11
+4 damage dealt to character Jethro, HP is now 11
 10 XP added to character Fred, for a total of 10 XP
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
@@ -430,11 +430,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeWithCriticalAbilityAndKillsJeffTest()
+        public void FredThrowsGrenadeWithCriticalAbilityAndKillsJethroTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -447,14 +447,14 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility1());
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility2());
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 6;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 6;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff, harry };
+            List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -465,7 +465,7 @@ Fred is ready to level up
             Assert.AreEqual(10, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(true, result.IsCriticalHit);
-            Assert.AreEqual(0, jeff.HitpointsCurrent);
+            Assert.AreEqual(0, jethro.HitpointsCurrent);
             Assert.AreEqual(0, harry.HitpointsCurrent);
             Assert.IsTrue(result.TargetCharacter != null);
             Assert.IsTrue(result.AllCharacters.Count > 0);
@@ -473,12 +473,12 @@ Fred is ready to level up
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff,  Harry
+Characters in affected area: Jethro,  Harry
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 20, (dice roll: 80)
 Critical damage range: 5-6, (dice roll: 100)
-6 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+6 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 20, (dice roll: 0)
@@ -496,7 +496,7 @@ Fred is ready to level up
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . E . .
@@ -508,11 +508,11 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.FOVRange = 5;
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(2, 0, 4));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 4));
+            jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act 1: get the FOV
             //List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
@@ -562,15 +562,15 @@ Fred is ready to level up
             Assert.AreEqual(4, result.DamageDealt);
             Assert.AreEqual(true, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(1, jeff.HitpointsCurrent);
+            Assert.AreEqual(1, jethro.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with area effect Grenade aimed at <2, 0, 4>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 0)
-4 damage dealt to character Jeff, HP is now 1
+4 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 High cover downgraded to low cover at <2, 0, 3>
 ";
@@ -584,10 +584,10 @@ High cover downgraded to low cover at <2, 0, 3>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = null;
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -605,11 +605,11 @@ High cover downgraded to low cover at <2, 0, 3>
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.UtilityWeaponEquipped = null;
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -619,11 +619,11 @@ High cover downgraded to low cover at <2, 0, 3>
         }
 
         [TestMethod]
-        public void FredThrowsGrenadeAndMissesJeffTest()
+        public void FredThrowsGrenadeAndMissesJethroTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -634,11 +634,11 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jeff = CharacterPool.CreateJeffBaddie(map, new Vector3(1, 0, 3));
-            jeff.HitpointsCurrent = 4;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(9, 0, 9);
-            List<Character> characterList = new List<Character>() { fred, jeff };
+            List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
@@ -648,7 +648,7 @@ High cover downgraded to low cover at <2, 0, 3>
             Assert.AreEqual(0, result.DamageDealt);
             Assert.AreEqual(false, result.IsHit);
             Assert.AreEqual(false, result.IsCriticalHit);
-            Assert.AreEqual(4, jeff.HitpointsCurrent);
+            Assert.AreEqual(4, jethro.HitpointsCurrent);
             Assert.AreEqual(00, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"

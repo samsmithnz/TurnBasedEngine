@@ -19,7 +19,7 @@ namespace Battle.Tests.Scenarios
         //Enemy is behind cover and not visible.
         //Throw grenade to destory cover and make him visible.
         [TestMethod]
-        public void JeffIsHidingBehindCoverScenarioTest()
+        public void JethroIsHidingBehindCoverScenarioTest()
         {
             //Arrange
             Mission mission = new Mission
@@ -45,12 +45,12 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { fred }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(15, 0, 10));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 10));
+            jethro.HitpointsCurrent = 5;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jeff }
+                Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
@@ -68,7 +68,7 @@ namespace Battle.Tests.Scenarios
             //Act
 
             //Turn 1 - Team 1 starts
-            //Fred cannot see Jeff, who is hiding behind cover
+            //Fred cannot see Jethro, who is hiding behind cover
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
             List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(0, characters.Count);
@@ -131,11 +131,11 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             EncounterResult encounter1 = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, team2.Characters, mission.Map, diceRolls, targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>
-Characters in affected area: Jeff
+Characters in affected area: Jethro
 Damage range: 3-4, (dice roll: 100)
 Critical chance: 0, (dice roll: 100)
 Critical damage range: 3-4, (dice roll: 100)
-4 damage dealt to character Jeff, HP is now 1
+4 damage dealt to character Jethro, HP is now 1
 10 XP added to character Fred, for a total of 10 XP
 High cover downgraded to low cover at <14, 0, 8>
 Low cover downgraded to no cover at <14, 0, 7>
@@ -217,15 +217,15 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 
             //Assert
             Assert.AreEqual(1, fred.MissionsCompleted);
-            Assert.AreEqual(1, jeff.MissionsCompleted);
+            Assert.AreEqual(1, jethro.MissionsCompleted);
             Assert.AreEqual(0, fred.TotalShots);
             Assert.AreEqual(1, fred.TotalHits);
             Assert.AreEqual(0, fred.TotalKills);
             Assert.AreEqual(4, fred.TotalDamage);
-            Assert.AreEqual(0, jeff.TotalShots);
-            Assert.AreEqual(0, jeff.TotalHits);
-            Assert.AreEqual(0, jeff.TotalKills);
-            Assert.AreEqual(0, jeff.TotalDamage);
+            Assert.AreEqual(0, jethro.TotalShots);
+            Assert.AreEqual(0, jethro.TotalHits);
+            Assert.AreEqual(0, jethro.TotalKills);
+            Assert.AreEqual(0, jethro.TotalDamage);
         }
     }
 }

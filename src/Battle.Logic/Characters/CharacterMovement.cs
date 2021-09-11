@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Encounters;
+using Battle.Logic.GameController;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
@@ -9,12 +10,17 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)
+        public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<ActionResult> results = new List<ActionResult>();
 
-            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
+            //If you try to move to a square that is occupied, this can fail - return null
+            if (pathFindingResult.Path.Count == 0 )
+            {
+                return null;
+            }
+            if ( pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
             }
@@ -44,6 +50,10 @@ namespace Battle.Logic.Characters
                 //Move to the next step
                 characterMoving.SetLocation(step, map);
                 characterMoving = FieldOfView.UpdateCharacterFOV(map, characterMoving);
+                if (team != null)
+                {
+                    FieldOfView.UpdateTeamFOV(map, team);
+                }
                 result.FOVMap = (string[,,])characterMoving.FOVMap.Clone(); //clone the array, so we don't create a link and capture the point in time
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
                 if (overWatchedCharacters != null && totalActionPoints > 0)

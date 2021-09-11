@@ -26,7 +26,169 @@ namespace Battle.Tests.Map
         }
 
         [TestMethod]
-        public void TeamTestMultipleCharactersFOVTest()
+        public void TeamMultipleCharactersMovingFOVTest()
+        {
+            //Arrange
+            int xMax = 20;
+            int zMax = 20;
+            Mission mission = new Mission
+            {
+                Map = MapCore.InitializeMap(xMax, 1, zMax)
+            };
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1));
+            fred.FOVRange = 5;
+            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0));
+            harry.FOVRange = 5;
+            Team team1 = new Team()
+            {
+                Name = "Good guys",
+                Characters = new List<Character>() { fred, harry }
+            };
+            mission.Teams.Add(team1);
+
+            //Check before we move
+            FieldOfView.UpdateCharacterFOV(mission.Map, fred);
+            string fov0MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            string expectedFov0MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. P . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+";
+            Assert.AreEqual(expectedFov0MapString, fov0MapString);
+
+            Vector3 location = new Vector3(0, 0, 13);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, location, mission.Map);
+            CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, mission.RandomNumbers, null, team1);
+
+            string fov1MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
+            string expectedFov1MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+";
+            Assert.AreEqual(expectedFov1MapString, fov1MapString);
+
+
+            //Check before we move
+            FieldOfView.UpdateCharacterFOV(mission.Map, harry);
+            string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
+            string expectedFov2MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+";
+            Assert.AreEqual(expectedFov2MapString, fov2MapString);
+
+            Vector3 location2 = new Vector3(13, 0, 0);
+            PathFindingResult pathFindingResult2 = PathFinding.FindPath(harry.Location, location2, mission.Map);
+            CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null, team1);
+
+            string fov4MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
+            string expectedFov4MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . P . . . . . ▓ 
+";
+            Assert.AreEqual(expectedFov4MapString, fov4MapString);
+
+            FieldOfView.UpdateTeamFOV(mission.Map, team1);
+            string fov5MapString = MapCore.GetMapStringWithMapMask(mission.Map, team1.FOVMap);
+            string expectedFov5MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . P . . . . . ▓ 
+";
+            Assert.AreEqual(expectedFov5MapString, fov5MapString);
+
+        }
+
+        [TestMethod]
+        public void TeamMultipleCharactersFOVTest()
         {
             //Arrange
             string path = _rootPath + @"\SaveGames\Saves\SaveFOV002.json";
@@ -279,7 +441,7 @@ namespace Battle.Tests.Map
             int zMax = 50;
             Mission mission = new Mission
             {
-                Map = MapCore.InitializeMap(50, 1, 50)
+                Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
             List<int> MapRandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
             Queue<int> MapNumberQueue = new Queue<int>(MapRandomNumbers);
@@ -307,11 +469,11 @@ namespace Battle.Tests.Map
                 Characters = new List<Character>() { fred, harry }
             };
             mission.Teams.Add(team1);
-            Character jeff = CharacterPool.CreateJeffBaddie(mission.Map, new Vector3(19, 0, 19));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
             Team team2 = new Team()
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jeff }
+                Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
 
@@ -385,7 +547,7 @@ P P . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 
             Vector3 location = new Vector3(18, 0, 0);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, location, mission.Map);
-            List<ActionResult> actionResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, mission.RandomNumbers, null);
+            CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, mission.RandomNumbers, null, team1);
 
             string fov1MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedFov1MapString = @"
@@ -445,7 +607,7 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 
             Vector3 location2 = new Vector3(2, 0, 18);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(harry.Location, location2, mission.Map);
-            List<ActionResult> actionResults2 = CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null);
+            CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null, team1);
 
             string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
             string expectedFov2MapString = @"
@@ -483,7 +645,7 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 ░ ■ P . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . □ . . . . . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . □ . . . . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . . . . . . . □ . . . . . . . . . . . . . ■ ░ . . . . . ■ ▓ ░ . ■ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . . . . . . □ . . . . . . . . . . . . . ■ ░ . . . . . ■ ░ ░ . ■ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . . . . . . . . . . . . ■ . . . . . . . . . . □ . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . □ . . . . . . . . . . . . . ░ ░ . . . . . . . . . . . ■ . . . . . . ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . ■ . . . . . □ . . □ . . □ . . . . . . . ░ ░ . . . . ■ . □ . . . ░ ░ ░ ░ . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
@@ -571,47 +733,47 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 . . . . □ . ░ ░ ░ □ . . . ░ ░ . . . . ▓ ░ ░ . ░ ░ ░ . . ▓ . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . □ ▓ ░ ░ . . . . ░ . . . . ░ ▓ ░ . ░ ░ ░ □ . ░ . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . ■ . ░ ░ ░ . . . . ░ □ . . . ░ ░ ░ . ░ ░ . . ░ . . . . ▓ ▓ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ░ ░ . . . . ░ . . . . . ░ . . . . . . ░ . . . . ▓ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ░ . . . . . ░ . . . . . ░ . ░ . □ . ░ . . □ . . □ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ░ ░ . . . ░ . . . . □ . . . ░ . . ░ . . . . . . . ░ ▓ . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . ░ ░ ░ . . . ░ . . . ░ . . ░ . . . . . . . ░ . . . . ░ ░ . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ . . . . . . . . ░ . . ░ . . . . . . . ░ . . . . ░ . . . ░ ▓ ▓ . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ░ . . . ░ . . . ░ ░ . . . . ■ . . . ■ . ░ . . . ░ ░ . . . ■ . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ■ . . . . . . ■ ░ . . . . . . . . ░ ░ . . □ . . ░ ░ . . . . . ▓ . ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. □ . . . . . . . . . . . ░ . ░ . . . . . . ░ ░ ░ . . . . . ■ . . . . ░ ░ ░ . . . ▓ ■ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . . . . . . . ░ . ░ ░ . . . . □ . ░ ░ . ■ . □ . . . . . . . ░ . . . ░ ▓ . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . . . ■ . . . . ░ ░ . . . . . □ . ░ ░ □ . . . . . □ . . . . . ▓ . ░ ■ . □ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ 
-. . . . □ . □ . . . . ■ . ░ . . . . ░ . . . ░ ░ . . . . . ░ . . . . ░ ░ . ░ . ▓ . ■ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . . . . . . . ░ . . . . . ░ . . . ░ ░ . . . . . . . . . ░ ░ . ░ ░ . . . ░ ░ ▓ ░ ░ ▓ ▓ ▓ ▓ 
-. . . . . . . . . . . . . . . . ░ . ░ . . . . . □ □ . . . . □ . . ░ ░ . ░ . . . . ░ ▓ ░ ░ ░ ▓ ▓ ▓ ▓ 
-□ . . . . . . . . . ■ . . . ░ ░ ░ . ░ . . . . . . . . . ■ . . □ ░ ░ . ░ . ■ . . ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ 
-. . . . . . . . . . . . . ░ ░ ░ ░ . . . . . . . . . . . . . . . ░ ░ . ░ . . . ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ░ 
-. . . . . . . . . . . . . ░ ░ ░ . . ■ . . ░ ░ . . . . . . . . ░ ░ . ░ . . . ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ░ ▓ 
-. . . . . . . . . . . . . ■ . . . . . . . ░ ░ . . . □ . . . . ░ . ░ . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ 
-. . . . . . . □ . ■ . . □ . . . ░ . . . . . ■ . . . . . . . ■ ■ . ░ . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ▓ . 
-. . . . . . . . . ■ . . . . ■ . ■ . . . . ■ . . . . . □ . . . . ■ . . . ░ ░ . □ . . . ░ ░ ▓ ▓ . . . 
+. . . . . . ░ ░ . . . . ░ . . . . . ░ ░ . ░ ░ . . ░ . . . . ▓ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ░ ░ . . . . ░ . . . . . ░ . ░ ░ □ . ░ . . □ . ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ░ ░ . . . ░ . . . . □ ░ . ░ ░ . . ░ . . . . ░ ░ ░ ░ ▓ . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ░ ░ ░ . . . ░ . . . ░ . . ░ ░ . . ░ . . . ░ ░ ░ ░ ░ ░ ░ ░ . ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ■ ░ . . . . . . . . ░ ░ . ░ . . ░ . . . . ░ ░ ░ ░ . ░ ░ ░ ░ ░ ▓ ▓ . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ░ . . . ░ . . . ░ ░ . ░ . . ■ . . . ■ ░ ░ ░ ░ . ░ ░ ░ . . ░ . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ■ . . . . . . ■ ░ . ░ . . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . ▓ . ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. □ . . . . . . . ░ . . . ░ . ░ ░ . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . ░ ░ ░ ░ . . ▓ ■ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . . . . . . ░ . ░ ░ . . . . □ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . ░ ░ ░ . . . ░ ▓ . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . . ■ . . . . ░ ░ . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ . . □ ░ ░ ░ . . ▓ . ░ ■ . □ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ 
+. . . . □ . □ . . . . ■ . ░ . . . . ░ ░ ░ ░ ░ ░ ░ ░ . . . ░ ░ . . . ░ ░ ░ ░ . ▓ . ■ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . . . . . . ░ . . . . ░ ░ ░ ░ ░ ░ ░ . . . ░ ░ . . ░ ░ ░ ░ ░ ░ ░ . . . ░ ░ ▓ ░ ░ ▓ ▓ ▓ ▓ 
+. . . . . . . . . . . ░ . . . . ░ ░ ░ ░ ░ ░ . . □ ░ . . . ░ ░ ░ ░ ░ ░ . ░ . . . . ░ ▓ ░ ░ ░ ▓ ▓ ▓ ▓ 
+□ . . . . . . . . . ■ . . . ░ ░ ░ ░ ░ ░ . . . ░ . . ░ ░ ░ ░ ░ ░ ░ ░ . ░ ░ ░ . . ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ 
+. . . . . . . . . . . . . ░ ░ ░ ░ ░ . . ░ . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ░ 
+. . . . . . . . . . . . ░ ░ ░ ░ . . ■ . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ░ ▓ 
+. . . . . . . . . . . ░ ░ ░ . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ 
+. . . . . . . □ . ■ ░ ░ □ . . . ░ ░ ░ ░ ░ . ■ ░ ░ ░ ░ ░ . . ■ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ▓ ▓ ▓ . 
+. . . . . . . . . ■ . . . . ■ . ■ . . . . ■ ░ . . . . □ . . . . ■ ░ ░ ░ ░ ░ . □ . . . ░ ░ ▓ ▓ . . . 
 □ . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ░ ░ ▓ . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ░ ▓ . . . . . 
 ■ . . . . . . . . . . . . . . . . . . P □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ░ ■ P . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . 
 ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . □ . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . □ . . . . . . . . . . . □ . . . ▓ 
-. . . . . . . . . . . . □ . . . . . . . . . . . . . ■ . . . . . . ■ ░ ░ . ■ . . . . □ . . . . ▓ . . 
-. . . . . . . . . . . . . . . . ■ . . . . . . . . . . □ . . . . . ░ ░ ░ . . . . . . . . □ ■ . . ▓ ▓ 
-. . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . . ░ ░ ▓ ▓ 
-. . . ■ . . . . . □ . . □ . . □ . . . . . . . . . . . . . ■ . □ . . . . . . . . . . . . ░ ░ ▓ ▓ ░ ░ 
-. . . ░ . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . □ . . . . . ░ ▓ ▓ ░ ░ ░ ░ ░ 
-. . . ░ . . . ■ . . . . . . . . . . . . . . . . . . . . . . ■ . □ . . . . . . . ■ ▓ ▓ ░ ░ ░ ░ ░ ░ ░ 
-. . . . □ □ . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
-. . . □ . □ . . . ░ . ■ . . . . . . . . . . . . ■ □ . . . . . . . . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
-. . . . ░ . . . □ . ░ . □ . . . . . . . . . . . . . □ . . . . . . . . . . . . . . ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ 
-. . . □ ░ ░ . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ▓ ▓ ▓ ▓ ▓ . . □ . 
-. . . . ░ ░ . . . . . . . . . . . . . . . . . . . . . . . . ░ . . ■ . □ . . . ■ . . . . . . ▓ ▓ ▓ ▓ 
-. . . . . . . . ░ ■ ■ . . . ■ . . . . . . . . . . . ■ . . . . . ░ . . . . . . . . ■ ▓ ▓ . . . ■ ▓ ▓ 
-. . . . . . . . . . . . . . . . . . . . . . . . . . ■ ░ . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . . . . . . . . . . . . . P . . . . . . . . . . □ . □ . . . . . . . . . . . . . . . . ■ ▓ 
+. . . . . . . . . . . . □ . . . . . . . . . . . . . ■ ░ . . . . . ■ ░ ░ . ■ . . . . □ . . . . ▓ . . 
+. . . . . . . . . . . . . . . . ■ . . . . . . . . . . □ . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ . . □ ■ . . ▓ ▓ 
+. . . . . □ . . . . . . . . . . . . . ░ ░ . . . . . . . . . . . ■ . . . . . . ░ ░ ░ . . . . ░ ░ ▓ ▓ 
+. . . ■ . . . . . □ . . □ . . □ . . . . . . . ░ ░ . . . . ■ . □ . . . ░ ░ ░ ░ . . . . . ░ ░ ▓ ▓ ░ ░ 
+. . . ░ . . . . . . . . . . . . . . . . . . . . . . ░ ░ ░ . . . . ░ ░ . □ . . . ░ ░ ░ ▓ ▓ ░ ░ ░ ░ ░ 
+. . . ░ . . . ■ . . . . . . . . . . . . . . . . . . . . . ░ ░ ░ ░ . . . . ░ ░ ░ ■ ▓ ▓ ░ ░ ░ ░ ░ ░ ░ 
+. . . . ░ □ . . ░ . . . . . . . . . . . . . . . . . . . . . . . ░ ░ ░ ░ ░ . . ■ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
+. . . . ░ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
+. . . □ ░ □ . . . ░ . ■ . . . . . . . . . . . . ■ □ . . . . . . . . . . . . ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ 
+. . . . ░ . . . □ . ░ . ░ . . . . . . . . . . . . . ░ . . . . . . . . . . . . . . ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ 
+. . . □ ░ ░ . ■ . . ░ . ░ ░ . . . . . . . . . . . . . . ░ . . . . . . . . . . . . ▓ ▓ ▓ ▓ ▓ . . □ . 
+. . . . ░ ░ . . . . . ░ . ░ . . . . . . . . . . . . . . . . ░ . . ■ . □ . . . ■ ░ . . . . . ▓ ▓ ▓ ▓ 
+. . . . ░ ░ . . ░ ■ ■ ░ ░ . ░ . . . . . . . . . . . ■ . . . . . ░ . . ░ ░ . . . . ■ ▓ ▓ . . . ■ ▓ ▓ 
+. . . . ░ ░ . . ░ ░ ░ ░ ░ ░ . ░ . . . . . . . . . . ■ ░ . . . . . . ░ . . ░ ░ . ░ . . . . . . . . . 
+. . . . ░ ░ ░ . . ░ ░ ░ ░ ░ . ░ ░ . . . . . . . . . . . ░ ░ . . . . . . ░ . . ░ ░ . . . ■ ▓ ▓ ▓ ▓ ▓ 
+. . . . ░ ░ ░ . . ░ ░ ░ ░ ░ ░ . ░ ░ P . . . . . . . . . . ░ ░ ░ . . . . . ░ ░ . ░ . . . . . . . ■ ▓ 
 ";
             Assert.AreEqual(expectedFovMapString, teamFovMapString);
         }
