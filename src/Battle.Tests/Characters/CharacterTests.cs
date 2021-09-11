@@ -36,16 +36,16 @@ namespace Battle.Tests.Characters
         }
 
         [TestMethod]
-        public void CharacterJeffTest()
+        public void CharacterJethroTest()
         {
             //Arrange
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = true;
 
             //Act            
 
             //Assert
-            TestJeff(jeff);
+            TestJethro(jethro);
         }
 
         private static void TestFred(Character character, List<CharacterAction> actions)
@@ -89,10 +89,10 @@ namespace Battle.Tests.Characters
             Assert.AreEqual("1", actions[0].KeyBinding);
         }
 
-        private static void TestJeff(Character character)
+        private static void TestJethro(Character character)
         {
             Assert.IsNotNull(character);
-            Assert.AreEqual("Jeff", character.Name);
+            Assert.AreEqual("Jethro", character.Name);
             Assert.AreEqual(4, character.HitpointsMax);
             Assert.AreEqual(4, character.HitpointsCurrent);
             Assert.AreEqual(0, character.ArmorPointsMax);

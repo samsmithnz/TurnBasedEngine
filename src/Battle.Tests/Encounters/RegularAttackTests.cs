@@ -18,21 +18,21 @@ namespace Battle.Tests.Encounters
     public class RegularAttackTests
     {
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndHitsTest()
+        public void FredAttacksJethroWithRifleAndHitsTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jeff);
-            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jeff, map, false);
+            int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jethro);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jethro, map, false);
             DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, rifle);
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -46,18 +46,18 @@ namespace Battle.Tests.Encounters
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jethro, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndMissesHittingHighCoverTest()
+        public void FredAttacksJethroWithRifleAndMissesHittingHighCoverTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -65,12 +65,12 @@ Critical chance: 70, (dice roll: 0)
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = false;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -80,7 +80,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual(CoverType.HalfCover, map[8, 0, 9]);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 55, (dice roll: 44)
 High cover downgraded to low cover at <8, 0, 9>
 0 XP added to character Fred, for a total of 0 XP
@@ -89,7 +89,7 @@ High cover downgraded to low cover at <8, 0, 9>
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndMissesHittingLowCoverTest()
+        public void FredAttacksJethroWithRifleAndMissesHittingLowCoverTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -97,12 +97,12 @@ High cover downgraded to low cover at <8, 0, 9>
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = false;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -112,7 +112,7 @@ High cover downgraded to low cover at <8, 0, 9>
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual(CoverType.NoCover, map[8, 0, 9]);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 55, (dice roll: 44)
 Low cover downgraded to no cover at <8, 0, 9>
 0 XP added to character Fred, for a total of 0 XP
@@ -121,19 +121,19 @@ Low cover downgraded to no cover at <8, 0, 9>
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndMissesHittingNoCoverTest()
+        public void FredAttacksJethroWithRifleAndMissesHittingNoCoverTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = false;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -143,7 +143,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             Assert.AreEqual(new Vector3(8, 0, 9), result.MissedLocation);
             Assert.AreEqual("", map[8, 0, 9]);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 55, (dice roll: 44)
 0 XP added to character Fred, for a total of 0 XP
 ";
@@ -151,7 +151,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleModifiersAndHitsTest()
+        public void FredAttacksJethroWithRifleModifiersAndHitsTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -159,24 +159,24 @@ Missed: Chance to hit: 55, (dice roll: 44)
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             rifle.ChanceToHitAdjustment = 20;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = false;
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = false;
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 65, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jethro, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -190,29 +190,29 @@ Critical chance: 70, (dice roll: 0)
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = null;
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result == null);
         }
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleTest()
+        public void FredAttacksAndKillsJethroWithRifleTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -222,12 +222,12 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 20)
-5 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+5 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -235,18 +235,18 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleAndCriticalHitTest()
+        public void FredAttacksAndKillsJethroWithRifleAndCriticalHitTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -256,13 +256,13 @@ Fred is ready to level up
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+12 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -270,18 +270,18 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleAndCritsTest()
+        public void FredAttacksAndKillsJethroWithRifleAndCritsTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -291,21 +291,21 @@ Fred is ready to level up
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+5 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
-        //Fred hits Jeff with a rifle, causing 10 points of damage, killing him, and leveling up
+        //Fred hits Jethro with a rifle, causing 10 points of damage, killing him, and leveling up
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleCausingFredToLevelUpTest()
+        public void FredAttacksAndKillsJethroWithRifleCausingFredToLevelUpTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -313,12 +313,12 @@ Fred is ready to level up
             fred.XP = 0;
             fred.Level = 1;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 5;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -327,13 +327,13 @@ Fred is ready to level up
             Assert.AreEqual(1, result.SourceCharacter.Level);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now -7
-Jeff is killed
+12 damage dealt to character Jethro, HP is now -7
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -341,56 +341,56 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWhoIsInHalfCoverAndHitsTest()
+        public void FredAttacksJethroWithRifleWhoIsInHalfCoverAndHitsTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 85;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InHalfCover = true;
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InHalfCover = true;
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(10, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 75, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jethro, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWhoIsInFullCoverAndMissesTest()
+        public void FredAttacksJethroWithRifleWhoIsInFullCoverAndMissesTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 40, (dice roll: 55)
 0 XP added to character Fred, for a total of 0 XP
 ";
@@ -398,26 +398,26 @@ Missed: Chance to hit: 40, (dice roll: 55)
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWhoIsInFullCoverDiagAndMissesWithNegativeChanceToHitTest()
+        public void FredAttacksJethroWithRifleWhoIsInFullCoverDiagAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.ChanceToHit = 30;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 0, (dice roll: 65)
 0 XP added to character Fred, for a total of 0 XP
 ";
@@ -427,7 +427,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
 
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWhoIsInFullCoverStraightOnAndMissesWithNegativeChanceToHitTest()
+        public void FredAttacksJethroWithRifleWhoIsInFullCoverStraightOnAndMissesWithNegativeChanceToHitTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
@@ -435,20 +435,20 @@ Missed: Chance to hit: 0, (dice roll: 65)
             fred.ChanceToHit = 30;
             fred.XP = 50;
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.InFullCover = true;
-            jeff.SetLocation(new Vector3(5, 0, 0), map);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.InFullCover = true;
+            jethro.SetLocation(new Vector3(5, 0, 0), map);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(50, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 19, (dice roll: 65)
 0 XP added to character Fred, for a total of 50 XP
 ";
@@ -456,32 +456,32 @@ Missed: Chance to hit: 19, (dice roll: 65)
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndHitsWithPlus10DamageAbilityTest()
+        public void FredAttacksJethroWithRifleAndHitsWithPlus10DamageAbilityTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-15, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-22, (dice roll: 100)
-22 damage dealt to character Jeff, HP is now -7
-Jeff is killed
+22 damage dealt to character Jethro, HP is now -7
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -489,32 +489,32 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleAndHitsWithPlus5DamageTwiceAbilityTest()
+        public void FredAttacksJethroWithRifleAndHitsWithPlus5DamageTwiceAbilityTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.SharpShooterAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             Assert.AreEqual(-7, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(100, result.SourceCharacter.XP);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-15, (dice roll: 100)
 Critical chance: 70, (dice roll: 100)
 Critical damage range: 8-22, (dice roll: 100)
-22 damage dealt to character Jeff, HP is now -7
-Jeff is killed
+22 damage dealt to character Jethro, HP is now -7
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -522,19 +522,19 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleAndCriticalChanceAbilityBonusTest()
+        public void FredAttacksAndKillsJethroWithRifleAndCriticalChanceAbilityBonusTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -544,13 +544,13 @@ Fred is ready to level up
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 80, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)
-12 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+12 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -560,19 +560,19 @@ Fred is ready to level up
 
 
         [TestMethod]
-        public void FredAttacksAndKillsJeffWithRifleAndCriticalDamageAbilityBonusTest()
+        public void FredAttacksAndKillsJethroWithRifleAndCriticalDamageAbilityBonusTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -582,13 +582,13 @@ Fred is ready to level up
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 30)
 Critical damage range: 11-15, (dice roll: 100)
-15 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+15 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -596,11 +596,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindCoverAndInjuriesHimTest()
+        public void FredAttacksWithRifleJethroBehindCoverAndInjuriesHimTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . E . .
@@ -614,13 +614,13 @@ Fred is ready to level up
             fred.SetLocation(new Vector3(2, 0, 0), map);
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(2, 0, 4), map);
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -630,22 +630,22 @@ Fred is ready to level up
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 100, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 20, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 10
+5 damage dealt to character Jethro, HP is now 10
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffWhoIsFlankedAndKillsHimTest()
+        public void FredAttacksWithRifleJethroWhoIsFlankedAndKillsHimTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . . . .
@@ -659,13 +659,13 @@ Critical chance: 20, (dice roll: 0)
             fred.SetLocation(new Vector3(2, 0, 0), map);
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(1, 0, 3), map);
-            jeff.HitpointsCurrent = 15;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(1, 0, 3), map);
+            jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -675,13 +675,13 @@ Critical chance: 20, (dice roll: 0)
             Assert.AreEqual(100, result.SourceCharacter.XP);
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 100, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 70)
 Critical damage range: 11-15, (dice roll: 100)
-15 damage dealt to character Jeff, HP is now 0
-Jeff is killed
+15 damage dealt to character Jethro, HP is now 0
+Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
@@ -693,7 +693,7 @@ Fred is ready to level up
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //            E
@@ -707,14 +707,14 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(2, 0, 0), map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(5, 0, 5), map);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(5, 0, 5), map);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             try
             {
-                EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+                EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
             }
             catch (Exception ex)
             {
@@ -724,11 +724,11 @@ Fred is ready to level up
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindFullCoverAndHunkeredDownMissingHimTest()
+        public void FredAttacksWithRifleJethroBehindFullCoverAndHunkeredDownMissingHimTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . E . .
@@ -741,15 +741,15 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(2, 0, 0), map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(2, 0, 4), map);
-            jeff.HitpointsCurrent = 15;
-            jeff.InFullCover = true;
-            jeff.HunkeredDown = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.HitpointsCurrent = 15;
+            jethro.InFullCover = true;
+            jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -759,7 +759,7 @@ Fred is ready to level up
             Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 24, (dice roll: 65)
 0 XP added to character Fred, for a total of 0 XP
 ";
@@ -767,11 +767,11 @@ Missed: Chance to hit: 24, (dice roll: 65)
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindHalfCoverAndHunkeredDownMissingHimTest()
+        public void FredAttacksWithRifleJethroBehindHalfCoverAndHunkeredDownMissingHimTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . E . .
@@ -784,15 +784,15 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(2, 0, 0), map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(2, 0, 4), map);
-            jeff.HitpointsCurrent = 15;
-            jeff.InFullCover = true;
-            jeff.HunkeredDown = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.HitpointsCurrent = 15;
+            jethro.InFullCover = true;
+            jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -802,7 +802,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 24, (dice roll: 65)
 0 XP added to character Fred, for a total of 0 XP
 ";
@@ -810,11 +810,11 @@ Missed: Chance to hit: 24, (dice roll: 65)
         }
 
         [TestMethod]
-        public void FredAttacksWithRifleJeffBehindFullCoverAndHunkeredDownInjuriesHimTest()
+        public void FredAttacksWithRifleJethroBehindFullCoverAndHunkeredDownInjuriesHimTest()
         {
             //Arrange
             //  "P" = player/fred
-            //  "E" = enemy/jeff
+            //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
             //  . . E . .
@@ -827,15 +827,15 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(2, 0, 0), map);
             Weapon rifle = fred.WeaponEquipped;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.SetLocation(new Vector3(2, 0, 4), map);
-            jeff.HitpointsCurrent = 15;
-            jeff.InHalfCover = true;
-            jeff.HunkeredDown = true;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.HitpointsCurrent = 15;
+            jethro.InHalfCover = true;
+            jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -845,11 +845,11 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.SourceCharacter.LevelUpIsReady);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 64, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 0, hunkered down
-5 damage dealt to character Jeff, HP is now 10
+5 damage dealt to character Jethro, HP is now 10
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -857,45 +857,45 @@ Critical chance: 0, hunkered down
 
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWithNoAmmoTest()
+        public void FredAttacksJethroWithRifleWithNoAmmoTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             rifle.AmmoCurrent = 0;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
             //Assert.AreEqual(7, result.TargetCharacter.Hitpoints);
             //Assert.AreEqual(10, result.SourceCharacter.Experience);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Rifle has no ammo remaining and the attack cannot be completed
 ";
             Assert.AreEqual(log, result.LogString);
         }
 
         [TestMethod]
-        public void FredAttacksJeffWithRifleWithNoAmmoAndReloadsFirstTest()
+        public void FredAttacksJethroWithRifleWithNoAmmoAndReloadsFirstTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             rifle.AmmoCurrent = 0;
-            Character jeff = CharacterPool.CreateJeffBaddie(null, new Vector3(8, 0, 8));
-            jeff.HitpointsCurrent = 12;
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             fred.WeaponEquipped.Reload();
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jeff, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -903,11 +903,11 @@ Rifle has no ammo remaining and the attack cannot be completed
             Assert.AreEqual(10, result.SourceCharacter.XP);
             Assert.AreEqual(3, result.SourceCharacter.WeaponEquipped.AmmoCurrent);
             string log = @"
-Fred is attacking with Rifle, targeted on Jeff
+Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 80)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 0)
-5 damage dealt to character Jeff, HP is now 7
+5 damage dealt to character Jethro, HP is now 7
 10 XP added to character Fred, for a total of 10 XP
 ";
             Assert.AreEqual(log, result.LogString);

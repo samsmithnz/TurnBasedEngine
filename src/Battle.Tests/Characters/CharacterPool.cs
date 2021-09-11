@@ -50,12 +50,12 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJeffBaddie(string[,,] map, Vector3 location)
+        public static Character CreateJethroBaddie(string[,,] map, Vector3 location)
         {
-            Character jeff = new Character()
+            Character jethro = new Character()
             {
-                Name = "Jeff",
-                Background = "Jeff grew up on a farm, and likes ice cream",
+                Name = "Jethro",
+                Background = "Jethro grew up on a farm, and likes ice cream",
                 HitpointsMax = 4,
                 HitpointsCurrent = 4,
                 ArmorPointsMax = 0,
@@ -77,8 +77,8 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jeff.SetLocation(location , map);
-            return jeff;
+            jethro.SetLocation(location , map);
+            return jethro;
         }
 
         public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 location)
