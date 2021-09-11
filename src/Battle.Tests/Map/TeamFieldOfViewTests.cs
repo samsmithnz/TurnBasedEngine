@@ -37,10 +37,8 @@ namespace Battle.Tests.Map
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1));
             fred.FOVRange = 5;
-            //fred.SetLocation(new Vector3(0, 0, 1), mission.Map);
             Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0));
             harry.FOVRange = 5;
-            //harry.SetLocation(new Vector3(1, 0, 0), mission.Map);
             Team team1 = new Team()
             {
                 Name = "Good guys",
