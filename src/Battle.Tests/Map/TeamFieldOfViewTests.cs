@@ -35,14 +35,12 @@ namespace Battle.Tests.Map
             {
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
-            fred.MobilityRange = 5;
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1));
             fred.FOVRange = 5;
-            fred.SetLocation(new Vector3(0, 0, 1), mission.Map);
-            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(0, 0, 1));
-            harry.MobilityRange = 5;
+            //fred.SetLocation(new Vector3(0, 0, 1), mission.Map);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0));
             harry.FOVRange = 5;
-            harry.SetLocation(new Vector3(1, 0, 0), mission.Map);
+            //harry.SetLocation(new Vector3(1, 0, 0), mission.Map);
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -72,7 +70,7 @@ namespace Battle.Tests.Map
 . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
-. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 . P . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 ";
             Assert.AreEqual(expectedFov0MapString, fov0MapString);
@@ -105,6 +103,63 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 ░ ░ ░ ░ ░ ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
 ";
             Assert.AreEqual(expectedFov1MapString, fov1MapString);
+
+
+            //Check before we move
+            FieldOfView.UpdateCharacterFOV(mission.Map, harry);
+            string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
+            string expectedFov2MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. . . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+. P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+";
+            Assert.AreEqual(expectedFov2MapString, fov2MapString);
+
+            Vector3 location2 = new Vector3(13, 0, 0);
+            PathFindingResult pathFindingResult2 = PathFinding.FindPath(harry.Location, location2, mission.Map);
+            CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null, team1);
+
+            string fov4MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
+            string expectedFov4MapString = @"
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . ▓ ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . ▓ ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . . . . . . . ▓ 
+░ ░ ░ ░ ░ ░ ░ ░ . . . . . P . . . . . ▓ 
+";
+            Assert.AreEqual(expectedFov4MapString, fov4MapString);
         }
 
         [TestMethod]

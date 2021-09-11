@@ -15,7 +15,12 @@ namespace Battle.Logic.Characters
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<ActionResult> results = new List<ActionResult>();
 
-            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
+            //If you try to move to a square that is occupied, this can fail - return null
+            if (pathFindingResult.Path.Count == 0 )
+            {
+                return null;
+            }
+            if ( pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
             }
