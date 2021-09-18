@@ -264,7 +264,7 @@ namespace Battle.Logic.Map
                                 team.FOVMap[x, y, z] = FOV_CanSee;
                             }
                             //If the location has been visible in the past, but not now, set it as cannot see
-                            else if (character.FOVMap[x, y, z] == FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanNotSee )
+                            else if (character.FOVMap[x, y, z] == FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanNotSee)
                             {
                                 team.FOVMap[x, y, z] = FOV_CanNotSee;
                             }

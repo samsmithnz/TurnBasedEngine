@@ -16,11 +16,11 @@ namespace Battle.Logic.Characters
             List<ActionResult> results = new List<ActionResult>();
 
             //If you try to move to a square that is occupied, this can fail - return null
-            if (pathFindingResult.Path.Count == 0 )
+            if (pathFindingResult.Path.Count == 0)
             {
                 return null;
             }
-            if ( pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
+            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
             }
@@ -56,12 +56,12 @@ namespace Battle.Logic.Characters
                 }
                 //clone the array, so we don't create a link and capture the point in time
                 if (team != null)
-                {                 
+                {
                     result.FOVMap = (string[,,])team.FOVMap.Clone();
                 }
                 else
                 {
-                    result.FOVMap = (string[,,])characterMoving.FOVMap.Clone(); 
+                    result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
                 if (overWatchedCharacters != null && totalActionPoints > 0)

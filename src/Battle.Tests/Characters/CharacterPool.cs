@@ -35,7 +35,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetLocation(location , map);
+            fred.SetLocation(location, map);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -77,7 +77,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jethro.SetLocation(location , map);
+            jethro.SetLocation(location, map);
             return jethro;
         }
 

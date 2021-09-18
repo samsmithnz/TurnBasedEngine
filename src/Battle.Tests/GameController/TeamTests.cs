@@ -1,6 +1,5 @@
 using Battle.Logic.Characters;
 using Battle.Logic.GameController;
-using Battle.Logic.Items;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
