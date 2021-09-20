@@ -41,6 +41,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
+      continue-on-error: true
     - name: Build code in debug
       run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Pack code into NuGet package in release
