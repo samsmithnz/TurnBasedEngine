@@ -44,15 +44,16 @@ namespace Battle.Logic.Characters
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll failed
-                //TODO            }
-
-                character.InFullCover = true;
-                return new ActionResult()
-                {
-                    Log = log,
-                    StartLocation = startLocation,
-                    EndLocation = endLocation
-                };
+                //TODO
             }
+
+            character.InFullCover = true;
+            return new ActionResult()
+            {
+                Log = log,
+                StartLocation = startLocation,
+                EndLocation = endLocation
+            };
         }
     }
+}
