@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Encounters;
+using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
@@ -17,6 +18,12 @@ namespace Battle.Logic.Characters
             Vector3 endLocation = new Vector3(20, 0, 19);
 
             //1. Get a list of all possible moves
+            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementAIValues = new List<KeyValuePair<Vector3, int>>();
+            foreach (Vector3 item in movementPossibileTiles)
+            {
+                movementAIValues.Add(new KeyValuePair<Vector3, int>(item, 0));
+            }
 
             //2. Assign a value to each possible tile
 
