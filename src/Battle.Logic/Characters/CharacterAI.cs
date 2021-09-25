@@ -26,8 +26,11 @@ namespace Battle.Logic.Characters
             }
 
             //2. Assign a value to each possible tile
-
-            //3. Assign a move based on the intelligence check
+            //TODO
+            //3. Sort the values, highest first
+            //TODO
+            //4. Assign a move based on the intelligence check
+            //TODO
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
@@ -35,20 +38,21 @@ namespace Battle.Logic.Characters
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
+                //TODO
             }
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll failed
-            }
+                //TODO            }
 
-            character.InFullCover = true;
-            return new ActionResult()
-            {
-                Log = log,
-                StartLocation = startLocation,
-                EndLocation = endLocation
-            };
+                character.InFullCover = true;
+                return new ActionResult()
+                {
+                    Log = log,
+                    StartLocation = startLocation,
+                    EndLocation = endLocation
+                };
+            }
         }
     }
-}
