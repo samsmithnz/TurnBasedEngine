@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.Encounters;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.Characters
 {
@@ -12,6 +13,8 @@ namespace Battle.Logic.Characters
             {
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
+            Vector3 startLocation = character.Location;
+            Vector3 endLocation = new Vector3(20, 0, 19);
 
             //1. Get a list of all possible moves
 
@@ -36,8 +39,8 @@ namespace Battle.Logic.Characters
             return new ActionResult()
             {
                 Log = log,
-                StartLocation = new System.Numerics.Vector3(15, 0, 15),
-                EndLocation = new System.Numerics.Vector3(20, 0, 19)
+                StartLocation = startLocation,
+                EndLocation = endLocation
             };
         }
     }
