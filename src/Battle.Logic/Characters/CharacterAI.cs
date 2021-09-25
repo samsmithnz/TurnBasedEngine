@@ -15,6 +15,7 @@ namespace Battle.Logic.Characters
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
             Vector3 startLocation = character.Location;
+            //TODO: hard coded for now for the test to pass
             Vector3 endLocation = new Vector3(20, 0, 19);
 
             //1. Get a list of all possible moves
