@@ -2,6 +2,7 @@
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Battle.Logic.Characters
@@ -20,17 +21,11 @@ namespace Battle.Logic.Characters
 
             //1. Get a list of all possible moves
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
-            List<KeyValuePair<Vector3, int>> movementAIValues = new List<KeyValuePair<Vector3, int>>();
-            foreach (Vector3 item in movementPossibileTiles)
-            {
-                movementAIValues.Add(new KeyValuePair<Vector3, int>(item, 0));
-            }
 
             //2. Assign a value to each possible tile
-            //TODO
-            //3. Sort the values, highest first
-            //TODO
-            //4. Assign a move based on the intelligence check
+            List<KeyValuePair<Vector3, int>> movementAIValues = AssignPointsToEachTile(map, movementPossibileTiles);
+
+            //3. Assign a move based on the intelligence check
             //TODO
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
@@ -55,6 +50,20 @@ namespace Battle.Logic.Characters
                 StartLocation = startLocation,
                 EndLocation = endLocation
             };
+        }
+
+        public static List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Vector3> movementPossibileTiles)
+        {
+            List<KeyValuePair<Vector3, int>> movementAIValues = new List<KeyValuePair<Vector3, int>>();
+            foreach (Vector3 item in movementPossibileTiles)
+            {
+                movementAIValues.Add(new KeyValuePair<Vector3, int>(item, 0));
+            }
+
+            // Sort the values, highest first
+            movementAIValues = movementAIValues.OrderBy(x => x.Value).ToList();
+
+            return movementAIValues;
         }
     }
 }
