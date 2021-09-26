@@ -70,12 +70,15 @@ namespace Battle.Logic.Characters
             }
 
             //Create a list of opponent character locations
-            List<Vector3> locations = new List<Vector3>();
+            List<Vector3> attackerLocations = new List<Vector3>();
             foreach (Team team in teams)
             {
-                foreach (Character item in team.Characters)
+                if (team.Characters.Contains(character) == false)
                 {
-                    locations.Add(item.Location);
+                    foreach (Character item in team.Characters)
+                    {
+                        attackerLocations.Add(item.Location);
+                    }
                 }
             }
 
@@ -86,15 +89,14 @@ namespace Battle.Logic.Characters
                 Vector3 location = item.Key;
                 int currentScore = item.Value;
 
-                //if (map[(int)location.X, (int)location.Y, (int)location.Z] == "")
-                //{
-
-                //}
-
-                CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, locations);
+                CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, attackerLocations);
                 if (coverStateResult.InFullCover == true)
                 {
                     currentScore += 2;
+                }
+                else if (coverStateResult.InHalfCover == true)
+                {
+                    currentScore += 1;
                 }
                 //List<Character> fovCharacters = FieldOfView.GetCharactersInArea(characters, map, location, character.ShootingRange);
                 //foreach (Character fovCharacter in fovCharacters)
