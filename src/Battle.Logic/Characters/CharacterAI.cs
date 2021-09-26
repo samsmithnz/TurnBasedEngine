@@ -24,9 +24,7 @@ namespace Battle.Logic.Characters
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
             Vector3 startLocation = character.Location;
-            //TODO: hard coded for now for the test to pass
-            Vector3 endLocation = new Vector3(20, 0, 19);
-
+         
             //1. Get a list of all possible moves
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
 
@@ -34,7 +32,7 @@ namespace Battle.Logic.Characters
             List<KeyValuePair<Vector3, int>> movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
             //3. Assign a move based on the intelligence check
-            endLocation = movementAIValues[0].Key;
+            Vector3 endLocation = movementAIValues[0].Key;
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
