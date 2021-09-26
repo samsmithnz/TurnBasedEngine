@@ -79,7 +79,10 @@ namespace Battle.Logic.Characters
                 Vector3 location = item.Key;
                 int currentScore = item.Value;
 
-Matrix3x2 to tests
+                //if (map[(int)location.X, (int)location.Y, (int)location.Z] == "")
+                //{
+
+                //}
 
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, locations);
                 if (coverStateResult.IsInCover == true)
@@ -97,7 +100,7 @@ Matrix3x2 to tests
             }
 
             // Sort the values, highest first
-            movementAIValues = movementAIValues.OrderBy(x => x.Value).ToList();
+            movementAIValues = movementAIValues.OrderByDescending(x => x.Value).ToList();
 
             return movementAIValues;
         }

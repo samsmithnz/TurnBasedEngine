@@ -46,7 +46,7 @@ namespace Battle.Tests.Characters
 
             //Assert
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult.StartLocation);
-            Assert.AreEqual(new Vector3(20, 0, 19), actionResult.EndLocation);
+            Assert.AreEqual(new Vector3(18, 0, 19), actionResult.EndLocation);
             Assert.IsTrue(jethro.InFullCover);
         }
 
