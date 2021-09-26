@@ -128,7 +128,7 @@ namespace Battle.Logic.Encounters
             //This is where we will call the cover calculation
             CoverStateResult coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
 
-            return !coverState.IsInCover;
+            return !coverState.IsInFullCover;
         }
     }
 }

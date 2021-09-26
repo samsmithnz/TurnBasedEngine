@@ -39,7 +39,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -74,7 +74,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -109,7 +109,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.IsInFullCover == false);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -146,7 +146,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == false);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -181,7 +181,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == false);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -216,7 +216,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.IsInFullCover == false);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == false);
             Assert.IsTrue(coverResult.InSouthCover == false);
@@ -250,7 +250,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == false);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == true);
@@ -291,7 +291,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == true);
@@ -332,7 +332,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.IsInFullCover == true);
             Assert.IsTrue(coverResult.InNorthCover == true);
             Assert.IsTrue(coverResult.InEastCover == true);
             Assert.IsTrue(coverResult.InSouthCover == true);

@@ -92,7 +92,7 @@ namespace Battle.Logic.Characters
                 //}
 
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, locations);
-                if (coverStateResult.IsInCover == true)
+                if (coverStateResult.IsInFullCover == true)
                 {
                     currentScore += 2;
                 }

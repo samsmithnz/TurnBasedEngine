@@ -23,7 +23,7 @@ namespace Battle.Logic.Characters
 
             if (coverTiles.Count == 0)
             {
-                result.IsInCover = false;
+                result.IsInFullCover = false;
                 return result;
             }
             else
@@ -56,7 +56,7 @@ namespace Battle.Logic.Characters
 
             if (attackerLocations == null || attackerLocations.Count == 0)
             {
-                result.IsInCover = true;
+                result.IsInFullCover = true;
                 return result;
             }
             else
@@ -148,7 +148,7 @@ namespace Battle.Logic.Characters
 
                 }
 
-                result.IsInCover = !currentLocationIsFlanked;
+                result.IsInFullCover = !currentLocationIsFlanked;
                 return result;
             }
         }
