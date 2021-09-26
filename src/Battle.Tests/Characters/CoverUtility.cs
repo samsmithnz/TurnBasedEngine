@@ -6,7 +6,7 @@ namespace Battle.Tests.Characters
 {
     public class CoverUtility
     {
-        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, List<Vector3> coverLocations)
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, List<Vector3> highCoverLocations, List<Vector3> lowCoverLocations)
         {
             string[,,] map = new string[xMax, yMax, zMax];
 
@@ -20,12 +20,20 @@ namespace Battle.Tests.Characters
                 }
             }
 
-            //assign cover locations, (currently just "■", for "wall")
-            if (coverLocations != null && coverLocations.Count > 0)
+            //assign cover locations, (currently just "■", for "high cover wall")
+            if (highCoverLocations != null && highCoverLocations.Count > 0)
             {
-                foreach (Vector3 item in coverLocations)
+                foreach (Vector3 item in highCoverLocations)
                 {
                     map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.FullCover;
+                }
+            }
+            //assign cover locations, (currently just "□", for "low cover wall")
+            if (lowCoverLocations != null && lowCoverLocations.Count > 0)
+            {
+                foreach (Vector3 item in lowCoverLocations)
+                {
+                    map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.HalfCover;
                 }
             }
 
