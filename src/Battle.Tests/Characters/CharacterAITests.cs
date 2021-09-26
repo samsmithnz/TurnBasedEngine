@@ -24,11 +24,25 @@ namespace Battle.Tests.Characters
             };
             mission.Map[20, 0, 20] = CoverType.FullCover;
             mission.Map[18, 0, 18] = CoverType.HalfCover;
+            Team team1 = new Team()
+            {
+                Name = "Good guys",
+                Characters = new List<Character>() { },
+                Color = "Blue"
+            };
+            mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.SetLocation(new Vector3(15, 0, 15), mission.Map);
+            Team team2 = new Team()
+            {
+                Name = "Bad guys",
+                Characters = new List<Character>() { jethro },
+                Color = "Red"
+            };
+            mission.Teams.Add(team2);
 
             //Act            
-            ActionResult actionResult = CharacterAI.CalculateAction(mission.Map, jethro, mission.RandomNumbers);
+            ActionResult actionResult = CharacterAI.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
 
             //Assert
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult.StartLocation);

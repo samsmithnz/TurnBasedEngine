@@ -1,4 +1,5 @@
 ﻿using Battle.Logic.Encounters;
+using Battle.Logic.GameController;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterAI
     {
-        public static ActionResult CalculateAction(string[,,] map, Character character, RandomNumberQueue diceRolls)
+        public static ActionResult CalculateAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
@@ -23,7 +24,7 @@ namespace Battle.Logic.Characters
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
 
             //2. Assign a value to each possible tile
-            List<KeyValuePair<Vector3, int>> movementAIValues = AssignPointsToEachTile(map, null, character, movementPossibileTiles);
+            List<KeyValuePair<Vector3, int>> movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
             //3. Assign a move based on the intelligence check
             endLocation = movementAIValues[0].Key;
@@ -52,7 +53,7 @@ namespace Battle.Logic.Characters
             };
         }
 
-        public static List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Character> characters, Character character, List<Vector3> movementPossibileTiles)
+        public static List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<Vector3> movementPossibileTiles)
         {
             //initialize the list
             List<KeyValuePair<Vector3, int>> movementAIValues = new List<KeyValuePair<Vector3, int>>();
@@ -63,9 +64,12 @@ namespace Battle.Logic.Characters
 
             //Create a list of opponent character locations
             List<Vector3> locations = new List<Vector3>();
-            foreach (Character item in characters)
+            foreach (Team team in teams)
             {
-                locations.Add(item.Location);
+                foreach (Character item in team.Characters)
+                {
+                    locations.Add(item.Location);
+                }
             }
 
             //Loop through each key value pair
@@ -75,10 +79,7 @@ namespace Battle.Logic.Characters
                 Vector3 location = item.Key;
                 int currentScore = item.Value;
 
-                if (map[(int)location.X, (int)location.Y, (int)location.Z] == "")
-                {
-
-                }
+Matrix3x2 to tests
 
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, locations);
                 if (coverStateResult.IsInCover == true)
