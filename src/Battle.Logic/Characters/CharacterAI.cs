@@ -8,9 +8,16 @@ using System.Numerics;
 
 namespace Battle.Logic.Characters
 {
-    public static class CharacterAI
+    public class CharacterAI
     {
-        public static ActionResult CalculateAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
+        public List<KeyValuePair<Vector3, int>> movementAIValues;
+
+        public CharacterAI()
+        {
+            movementAIValues = new List<KeyValuePair<Vector3, int>>();
+        }
+
+        public ActionResult CalculateAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
@@ -53,10 +60,10 @@ namespace Battle.Logic.Characters
             };
         }
 
-        public static List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<Vector3> movementPossibileTiles)
+        public List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<Vector3> movementPossibileTiles)
         {
             //initialize the list
-            List<KeyValuePair<Vector3, int>> movementAIValues = new List<KeyValuePair<Vector3, int>>();
+            movementAIValues = new List<KeyValuePair<Vector3, int>>();
             foreach (Vector3 item in movementPossibileTiles)
             {
                 movementAIValues.Add(new KeyValuePair<Vector3, int>(item, 0));
@@ -104,5 +111,18 @@ namespace Battle.Logic.Characters
 
             return movementAIValues;
         }
+
+        public string CreateAIMap(string[,,] map)
+        {
+            if (movementAIValues == null)
+            {
+                return null;
+            }
+            else
+            {
+                return MapCore.GetMapStringWithItemValues(map, movementAIValues);
+            }
+        }
+
     }
 }
