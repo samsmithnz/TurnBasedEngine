@@ -43,7 +43,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -130,7 +130,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
         }
 
         [TestMethod]
@@ -159,7 +159,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
         }
 
         [TestMethod]
@@ -188,7 +188,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
         }
 
         [TestMethod]
@@ -217,7 +217,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
 
@@ -247,7 +247,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -305,7 +305,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInFullCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
     }
