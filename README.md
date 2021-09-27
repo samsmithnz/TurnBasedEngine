@@ -13,3 +13,4 @@ Currently supports
 - Grenades/area effects 
 - Basic Field of view
 - Reactions/ overwatch
+- [The very beginnings of AI](#115)
