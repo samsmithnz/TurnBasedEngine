@@ -15,13 +15,10 @@ namespace Battle.Logic.Map
                 foreach (Vector3 item in possibleTiles)
                 {
                     PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
-                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range * i)
+                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range * i && !verifiedTiles.Contains(item))
                     {
-                        if (verifiedTiles.Contains(item) == false)
-                        {
-                            verifiedTiles.Add(item);
-                            results.Add(new KeyValuePair<Vector3, int>(item, i));
-                        }
+                        verifiedTiles.Add(item);
+                        results.Add(new KeyValuePair<Vector3, int>(item, i));
                     }
                 }
             }
