@@ -61,17 +61,17 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destination = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == new Vector3(9, 0, 10))
+                if (item.Key == new Vector3(9, 0, 10))
                 {
-                    destination = item;
+                    destination = item.Key;
                 }
             }
             Assert.AreEqual(new Vector3(9, 0, 10), destination);
-            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, movementPossibileTiles);
+            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 

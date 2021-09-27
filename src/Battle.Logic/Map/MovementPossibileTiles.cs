@@ -5,37 +5,44 @@ namespace Battle.Logic.Map
 {
     public static class MovementPossibileTiles
     {
-        public static List<Vector3> GetMovementPossibileTiles(string[,,] map, Vector3 sourceLocation, int range)
+        public static List<KeyValuePair<Vector3, int>> GetMovementPossibileTiles(string[,,] map, Vector3 sourceLocation, int range, int actionPoints)
         {
-            List<Vector3> possibleTiles = MapCore.GetMapArea(map, sourceLocation, range, false);
+            List<KeyValuePair<Vector3, int>> results = new List<KeyValuePair<Vector3, int>>();
             List<Vector3> verifiedTiles = new List<Vector3>();
-            foreach (Vector3 item in possibleTiles)
+            for (int i = 1; i <= actionPoints; i++)
             {
-                PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
-                if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range)
+                List<Vector3> possibleTiles = MapCore.GetMapArea(map, sourceLocation, range * i, false);
+                foreach (Vector3 item in possibleTiles)
                 {
-                    verifiedTiles.Add(item);
+                    PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
+                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range)
+                    {
+                        if (verifiedTiles.Contains(item) == false)
+                        {
+                            verifiedTiles.Add(item);
+                            results.Add(new KeyValuePair<Vector3, int>(item, i));
+                        }
+                    }
                 }
             }
-            return verifiedTiles;
+            return results;
         }
 
-        //public static List<KeyValuePair<Vector3, int>> GetMovementPossibileTiles2(string[,,] map, Vector3 sourceLocation, int range, int actionPoints)
-        //{
-        //    List<Vector3> possibleTiles = MapCore.GetMapArea(map, sourceLocation, range, false);
-        //    List<Vector3> verifiedTiles = new List<Vector3>();
-        //    foreach (Vector3 item in possibleTiles)
-        //    {
-        //        PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
-        //        if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range)
-        //        {
-        //            verifiedTiles.Add(item);
-        //        }
-        //    }
-
-        //    List<KeyValuePair<Vector3, int>> results = new List<KeyValuePair<Vector3, int>>();
-
-        //    return results;
-        //}
+        public static List<Vector3> ExtractVectorListFromKeyValuePair(List<KeyValuePair<Vector3, int>> list, int filter = 0)
+        {
+            List<Vector3> results = new List<Vector3>();
+            foreach (KeyValuePair<Vector3, int> item in list)
+            {
+                if (filter == 0)
+                {
+                    results.Add(item.Key);
+                }
+                else if (item.Value == filter)
+                {
+                    results.Add(item.Key);
+                }
+            }
+            return results;
+        }
     }
 }

@@ -26,10 +26,10 @@ namespace Battle.Logic.Characters
             Vector3 startLocation = character.Location;
 
             //1. Get a list of all possible moves
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
             //2. Assign a value to each possible tile
-            movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
+            movementAIValues = AssignPointsToEachTile(map, teams, character, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
 
             //3. Assign a move based on the intelligence check
             Vector3 endLocation;
