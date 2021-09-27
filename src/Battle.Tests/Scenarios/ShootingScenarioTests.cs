@@ -26,6 +26,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
+            fred.ActionPointsCurrent = 1;
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -35,6 +36,7 @@ namespace Battle.Tests.Scenarios
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(20, 0, 10));
             jethro.HitpointsCurrent = 6;
+            jethro.ActionPointsCurrent = 1;
             Team team2 = new Team()
             {
                 Name = "Bad guys",

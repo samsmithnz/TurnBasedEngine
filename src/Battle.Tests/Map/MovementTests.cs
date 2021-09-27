@@ -90,6 +90,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 1);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            fred.ActionPointsCurrent = 1;
 
             //Act
             List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
@@ -137,6 +138,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             Vector3 destination = new Vector3(12, 0, 20);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.ActionPointsCurrent = 2;
 
             //Act
             List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
@@ -157,39 +159,39 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . o o o o o o o o P o o o o o o o . o o o o o o o o o o o o o o o o . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . P o o o o o o o . o o o o o o o o . . . . . . . . . . . 
-. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -222,9 +224,10 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             Vector3 destination = new Vector3(6, 0, 20);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.ActionPointsCurrent = 2;
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {

@@ -32,6 +32,7 @@ namespace Battle.Tests.Characters
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.SetLocation(new Vector3(15, 0, 15), mission.Map);
+            jethro.ActionPointsCurrent = 1;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
