@@ -42,13 +42,11 @@ namespace Battle.Tests.Characters
 
             //Act            
             CharacterAI ai = new CharacterAI();
-            ActionResult actionResult = ai.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            ActionResult actionResult1 = ai.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
+            ActionResult actionResult2 = ai.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
 
             //Assert
-            Assert.AreEqual(new Vector3(15, 0, 15), actionResult.StartLocation);
-            Assert.AreEqual(new Vector3(19, 0, 20), actionResult.EndLocation);
-            Assert.IsTrue(jethro.InFullCover);
             string mapResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -102,6 +100,21 @@ namespace Battle.Tests.Characters
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
+            string log1 = @"
+Jethro is processing AI, with intelligence 25
+Failed intelligence check: 25, (dice roll: 8)
+";
+            Assert.AreEqual(log1, actionResult1.LogString);
+            Assert.AreEqual(new Vector3(15, 0, 15), actionResult1.StartLocation);
+            Assert.AreEqual(new Vector3(10, 0, 19), actionResult1.EndLocation);
+            //Assert.IsTrue(jethro.InFullCover);
+            string log2 = @"
+Jethro is processing AI, with intelligence 25
+Successful intelligence check: 25, (dice roll: 81)
+";
+            Assert.AreEqual(log2, actionResult2.LogString);
+            Assert.AreEqual(new Vector3(15, 0, 15), actionResult2.StartLocation);
+            Assert.AreEqual(new Vector3(19, 0, 20), actionResult2.EndLocation);
         }
 
     }
