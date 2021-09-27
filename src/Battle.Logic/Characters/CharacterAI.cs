@@ -10,7 +10,7 @@ namespace Battle.Logic.Characters
 {
     public class CharacterAI
     {
-        public List<KeyValuePair<Vector3, int>> movementAIValues;
+        private List<KeyValuePair<Vector3, int>> movementAIValues;
 
         public CharacterAI()
         {
@@ -24,7 +24,7 @@ namespace Battle.Logic.Characters
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
             Vector3 startLocation = character.Location;
-         
+
             //1. Get a list of all possible moves
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
 
@@ -71,7 +71,7 @@ namespace Battle.Logic.Characters
             List<Vector3> attackerLocations = new List<Vector3>();
             foreach (Team team in teams)
             {
-                if (team.Characters.Contains(character) == false)
+                if (!team.Characters.Contains(character))
                 {
                     foreach (Character item in team.Characters)
                     {
@@ -88,11 +88,11 @@ namespace Battle.Logic.Characters
                 int currentScore = item.Value;
 
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, attackerLocations);
-                if (coverStateResult.InFullCover == true)
+                if (coverStateResult.InFullCover)
                 {
                     currentScore += 2;
                 }
-                else if (coverStateResult.InHalfCover == true)
+                else if (coverStateResult.InHalfCover)
                 {
                     currentScore += 1;
                 }
