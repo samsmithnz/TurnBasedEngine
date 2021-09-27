@@ -42,6 +42,7 @@ namespace Battle.Logic.Characters
         public int Level { get; set; }
         public bool LevelUpIsReady { get; set; }
         public int Speed { get; set; }
+        public int Intelligence { get; set; } //measured by percentage
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
         private Vector3 _location { get; set; }

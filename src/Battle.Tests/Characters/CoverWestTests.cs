@@ -28,7 +28,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -38,11 +38,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -67,11 +67,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -95,11 +95,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -123,11 +123,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -141,7 +141,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -151,11 +151,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -169,7 +169,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -179,11 +179,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -197,7 +197,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -207,11 +207,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
         }
 
         [TestMethod]
@@ -225,7 +225,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -235,11 +235,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
         }
 
         [TestMethod]
@@ -253,7 +253,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -263,11 +263,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
         [TestMethod]
@@ -282,7 +282,7 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(2, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 1)
             };
@@ -292,11 +292,11 @@ namespace Battle.Tests.Characters
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
         }
 
     }

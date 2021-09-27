@@ -30,15 +30,20 @@ namespace Battle.Tests.Characters
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
-            Assert.IsTrue(coverResult.InNorthCover == false);
-            Assert.IsTrue(coverResult.InEastCover == false);
-            Assert.IsTrue(coverResult.InSouthCover == false);
-            Assert.IsTrue(coverResult.InWestCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
         }
 
         [TestMethod]
@@ -52,20 +57,25 @@ namespace Battle.Tests.Characters
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == false);
-            Assert.IsTrue(coverResult.InNorthCover == false);
-            Assert.IsTrue(coverResult.InEastCover == false);
-            Assert.IsTrue(coverResult.InSouthCover == false);
-            Assert.IsTrue(coverResult.InWestCover == false);
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
         }
 
 
         [TestMethod]
-        public void Test_WithNorthCover_NoEnemy()
+        public void Test_WithNorthFullCover_NoEnemy()
         {
             // Arrange
             //  . ■ . 
@@ -74,26 +84,64 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 2)
             };
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
-            Assert.IsTrue(coverResult.InNorthCover == true);
-            Assert.IsTrue(coverResult.InEastCover == false);
-            Assert.IsTrue(coverResult.InSouthCover == false);
-            Assert.IsTrue(coverResult.InWestCover == false);
+            Assert.IsTrue(coverResult.InFullCover == true);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == true);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
         }
 
         [TestMethod]
-        public void Test_WithEastCover_NoEnemy()
+        public void Test_WithNorthHalfCover_NoEnemy()
+        {
+            // Arrange
+            //  . □ . 
+            //  . S .
+            //  . . . 
+            Vector3 startingLocation = new Vector3(1, 0, 1);
+            int width = 3;
+            int height = 3;
+            List<Vector3> lowCoverLocations = new List<Vector3>
+            {
+                new Vector3(1, 0, 2)
+            };
+            List<Vector3> enemyLocations = null;
+
+            // Act
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, lowCoverLocations);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
+
+            // Assert
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == true);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == true);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
+        }
+
+        [TestMethod]
+        public void Test_WithEastFullCover_NoEnemy()
         {
             // Arrange
             //  . . . 
@@ -102,26 +150,63 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(2, 0, 1)
             };
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
-            Assert.IsTrue(coverResult.InNorthCover == false);
-            Assert.IsTrue(coverResult.InEastCover == true);
-            Assert.IsTrue(coverResult.InSouthCover == false);
-            Assert.IsTrue(coverResult.InWestCover == false);
+            Assert.IsTrue(coverResult.InFullCover == true);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == true);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
+        }
+        [TestMethod]
+        public void Test_WithEastHalfCover_NoEnemy()
+        {
+            // Arrange
+            //  . . . 
+            //  . S □ 
+            //  . . . 
+            Vector3 startingLocation = new Vector3(1, 0, 1);
+            int width = 3;
+            int height = 3;
+            List<Vector3> halfCoverLocations = new List<Vector3>
+            {
+                new Vector3(2, 0, 1)
+            };
+            List<Vector3> enemyLocations = null;
+
+            // Act
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height,null, halfCoverLocations);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
+
+            // Assert
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == true);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == true);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
         }
 
         [TestMethod]
-        public void Test_WithSouthCover_NoEnemy()
+        public void Test_WithSouthFullCover_NoEnemy()
         {
             // Arrange
             //  . . . 
@@ -130,26 +215,64 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(1, 0, 0)
             };
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
-            Assert.IsTrue(coverResult.InNorthCover == false);
-            Assert.IsTrue(coverResult.InEastCover == false);
-            Assert.IsTrue(coverResult.InSouthCover == true);
-            Assert.IsTrue(coverResult.InWestCover == false);
+            Assert.IsTrue(coverResult.InFullCover == true);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == true);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
         }
 
         [TestMethod]
-        public void Test_WithWestCover_NoEnemy()
+        public void Test_WithSouthHalfCover_NoEnemy()
+        {
+            // Arrange
+            //  . . . 
+            //  . S . 
+            //  . □ . 
+            Vector3 startingLocation = new Vector3(1, 0, 1);
+            int width = 3;
+            int height = 3;
+            List<Vector3> halfCoverLocations = new List<Vector3>
+            {
+                new Vector3(1, 0, 0)
+            };
+            List<Vector3> enemyLocations = null;
+
+            // Act
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, halfCoverLocations);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
+
+            // Assert
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == true);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == true);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
+        }
+
+        [TestMethod]
+        public void Test_WithWestFullCover_NoEnemy()
         {
             // Arrange
             //  . . . 
@@ -158,22 +281,60 @@ namespace Battle.Tests.Characters
             Vector3 startingLocation = new Vector3(1, 0, 1);
             int width = 3;
             int height = 3;
-            List<Vector3> coverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new List<Vector3>
             {
                 new Vector3(0, 0, 1)
             };
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, coverLocations);
-            CoverStateResult coverResult = Logic.Characters.Characters.CalculateCover(map, startingLocation, enemyLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
-            Assert.IsTrue(coverResult.IsInCover == true);
-            Assert.IsTrue(coverResult.InNorthCover == false);
-            Assert.IsTrue(coverResult.InEastCover == false);
-            Assert.IsTrue(coverResult.InSouthCover == false);
-            Assert.IsTrue(coverResult.InWestCover == true);
+            Assert.IsTrue(coverResult.InFullCover == true);
+            Assert.IsTrue(coverResult.InHalfCover == false);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == true);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == false);
+        }
+
+        [TestMethod]
+        public void Test_WithWestHalfCover_NoEnemy()
+        {
+            // Arrange
+            //  . . . 
+            //  □ S . 
+            //  . . . 
+            Vector3 startingLocation = new Vector3(1, 0, 1);
+            int width = 3;
+            int height = 3;
+            List<Vector3> lowCoverLocations = new List<Vector3>
+            {
+                new Vector3(0, 0, 1)
+            };
+            List<Vector3> enemyLocations = null;
+
+            // Act
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, lowCoverLocations);
+            CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
+
+            // Assert
+            Assert.IsTrue(coverResult.InFullCover == false);
+            Assert.IsTrue(coverResult.InHalfCover == true);
+            Assert.IsTrue(coverResult.InNorthFullCover == false);
+            Assert.IsTrue(coverResult.InEastFullCover == false);
+            Assert.IsTrue(coverResult.InSouthFullCover == false);
+            Assert.IsTrue(coverResult.InWestFullCover == false);
+            Assert.IsTrue(coverResult.InNorthHalfCover == false);
+            Assert.IsTrue(coverResult.InEastHalfCover == false);
+            Assert.IsTrue(coverResult.InSouthHalfCover == false);
+            Assert.IsTrue(coverResult.InWestHalfCover == true);
         }
 
     }

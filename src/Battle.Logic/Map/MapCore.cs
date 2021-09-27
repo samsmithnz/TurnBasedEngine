@@ -154,6 +154,7 @@ namespace Battle.Logic.Map
         {
             foreach (Vector3 item in list)
             {
+                //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
                 if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
                 {
                     map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
@@ -185,6 +186,16 @@ namespace Battle.Logic.Map
 
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
+        }
+
+        public static string GetMapStringWithItemValues(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
+        {
+            string[,,] map = (string[,,])mapTemplate.Clone();
+            foreach (KeyValuePair<Vector3, int> item in list)
+            {
+                map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
+            }
+            return MapCore.GetMapString(map);
         }
 
         public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)
