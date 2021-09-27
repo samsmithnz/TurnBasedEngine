@@ -42,9 +42,9 @@ namespace Battle.Tests.Characters
 
             //Act            
             CharacterAI ai = new CharacterAI();
-            ActionResult actionResult1 = ai.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            ActionResult actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
-            ActionResult actionResult2 = ai.CalculateAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            ActionResult actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
 
             //Assert
             string mapResult = @"
