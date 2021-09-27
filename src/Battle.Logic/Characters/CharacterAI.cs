@@ -29,7 +29,7 @@ namespace Battle.Logic.Characters
             List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
 
             //2. Assign a value to each possible tile
-            List<KeyValuePair<Vector3, int>> movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
+            movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
             //3. Assign a move based on the intelligence check
             Vector3 endLocation = movementAIValues[0].Key;
