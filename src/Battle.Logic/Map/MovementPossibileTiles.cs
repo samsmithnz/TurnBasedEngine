@@ -15,7 +15,7 @@ namespace Battle.Logic.Map
                 foreach (Vector3 item in possibleTiles)
                 {
                     PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
-                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range)
+                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range * i)
                     {
                         if (verifiedTiles.Contains(item) == false)
                         {

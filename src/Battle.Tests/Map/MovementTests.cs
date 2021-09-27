@@ -305,7 +305,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
         }
 
         [TestMethod]
-        public void MovementRange8AndRange16LayedTest()
+        public void MovementRange8AndRange16LayeredTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
