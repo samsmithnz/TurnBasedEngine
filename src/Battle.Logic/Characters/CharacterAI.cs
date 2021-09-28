@@ -64,14 +64,17 @@ namespace Battle.Logic.Characters
             movementAIValues = movementPossibileTiles;
 
             //Create a list of opponent character locations
-            List<Vector3> attackerLocations = new List<Vector3>();
+            List<Character> opponentCharacters = new List<Character>();
+            List<Vector3> opponentLocations = new List<Vector3>();
             foreach (Team team in teams)
             {
+                //Exclude the characters team (Assume all other teams are the bad guys)
                 if (!team.Characters.Contains(character))
                 {
                     foreach (Character item in team.Characters)
                     {
-                        attackerLocations.Add(item.Location);
+                        opponentCharacters.Add(item);
+                        opponentLocations.Add(item.Location);
                     }
                 }
             }
@@ -83,9 +86,13 @@ namespace Battle.Logic.Characters
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
                 int currentScore = 0; //start at zero
+                                      //Move the character in a temp map to simulate the board for this situation
+                string[,,] fovMap = (string[,,])map.Clone();
+                fovMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "";
+                fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "";
 
                 //Cover calculation
-                CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, attackerLocations);
+                CoverStateResult coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.InFullCover)
                 {
                     currentScore += 2;
@@ -101,11 +108,18 @@ namespace Battle.Logic.Characters
                     currentScore += maxActionPoints - item.Value;
                 }
 
-                //List<Character> fovCharacters = FieldOfView.GetCharactersInArea(characters, map, location, character.ShootingRange);
-                //foreach (Character fovCharacter in fovCharacters)
-                //{
-
-                //}
+                //Upgrade positions that would flank opponents
+                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(opponentCharacters, fovMap, location, character.ShootingRange);
+                foreach (Character fovCharacter in fovCharacters)
+                {
+                    CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { character.Location });
+                    if (!coverStateResultOpponent.InFullCover || !coverStateResultOpponent.InHalfCover)
+                    {
+                        //Position flanks enemy
+                        currentScore += 2;
+                        break;
+                    }
+                }
 
                 KeyValuePair<Vector3, int> newItem = new KeyValuePair<Vector3, int>(location, currentScore);
                 movementAIValues[i] = newItem;

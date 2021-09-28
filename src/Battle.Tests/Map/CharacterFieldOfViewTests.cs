@@ -432,5 +432,55 @@ o o o o o o o o o o
             Assert.AreEqual(mapResult, mapString);
         }
 
+
+
+        [TestMethod]
+        public void FredCanFlankJethroInNorthCoverTest()
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            map[2, 0, 2] = CoverType.FullCover;
+            map[4, 0, 2] = CoverType.FullCover;
+            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            fred.SetLocation(new Vector3(5, 0, 2), map);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            jethro.SetLocation(new Vector3(2, 0, 1), map);
+            Team teamBaddie = new Team();
+            teamBaddie.Characters.Add(jethro);
+
+            //Act
+            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+
+            //Assert
+            Assert.IsTrue(characters != null);
+            Assert.AreEqual(1, characters.Count);
+            string mapResult = @"
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+o o o o o o o o o o 
+. o o o o o o o o o 
+. . . o o o o o o o 
+. . ■ . ■ P o o o o 
+. . P o o o o o o o 
+. o o o o o o o o o 
+";
+            Assert.AreEqual(mapResult, mapString);
+
+            //Now test cover for each character
+            
+            //Act
+            CoverStateResult coverStateResultPlayer = CharacterCover.CalculateCover(map, fred.Location, new List<Vector3>() { jethro.Location });
+            CoverStateResult coverStateResultEnemy = CharacterCover.CalculateCover(map, jethro.Location, new List<Vector3>() { fred.Location });
+
+            //Assert
+            Assert.IsTrue(coverStateResultPlayer.InFullCover);
+            Assert.IsTrue(coverStateResultPlayer.InWestFullCover);
+            Assert.IsTrue(!coverStateResultEnemy.InFullCover);
+            Assert.IsTrue(!coverStateResultEnemy.InSouthFullCover);
+        }
+
     }
 }
