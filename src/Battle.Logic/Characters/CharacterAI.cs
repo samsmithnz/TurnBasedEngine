@@ -84,10 +84,6 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                if (location == new Vector3(15, 0, 5))
-                {
-                    int j = 0;
-                }
                 //start at zero
                 int currentScore = 0;
                 //Move the character in a temp map to simulate the board for this situation

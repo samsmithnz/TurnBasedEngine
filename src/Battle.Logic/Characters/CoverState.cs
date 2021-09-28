@@ -13,7 +13,7 @@
             }
             set
             {
-                _isInFullCover = true;
+                _isInFullCover = value;
                 //If the player is flanked, ignore all cover bonuses
                 if (_isInFullCover)
                 {
