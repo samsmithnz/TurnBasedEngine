@@ -4,18 +4,18 @@
     {
         public bool InFullCover { get; set; }
         public bool InHalfCover { get; set; }
-        private bool _isInFullCover;
+        private bool _isFlanked;
         public bool IsFlanked
         {
             get
             {
-                return _isInFullCover;
+                return _isFlanked;
             }
             set
             {
-                _isInFullCover = value;
+                _isFlanked = value;
                 //If the player is flanked, ignore all cover bonuses
-                if (_isInFullCover)
+                if (_isFlanked)
                 {
                     InFullCover = false;
                     InHalfCover = false;
