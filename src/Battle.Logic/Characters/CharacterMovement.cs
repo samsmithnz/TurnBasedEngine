@@ -2,9 +2,11 @@
 using Battle.Logic.GameController;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 
 namespace Battle.Logic.Characters
 {
@@ -101,6 +103,21 @@ namespace Battle.Logic.Characters
             }
 
             return results;
+        }
+
+        public static string LogString(List<ActionResult> movementResults)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(Environment.NewLine);
+            foreach (ActionResult item in movementResults)
+            {
+                foreach (string log in item.Log)
+                {
+                    result.Append(log);
+                    result.Append(Environment.NewLine);
+                }
+            }
+            return result.ToString();
         }
 
         private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)

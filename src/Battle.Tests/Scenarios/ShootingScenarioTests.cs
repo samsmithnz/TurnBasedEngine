@@ -137,7 +137,7 @@ Fred is moving from <7, 0, 7> to <8, 0, 8>
 Fred is moving from <8, 0, 8> to <8, 0, 9>
 Fred is moving from <8, 0, 9> to <9, 0, 10>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
             //Fred aims at Jethro, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });

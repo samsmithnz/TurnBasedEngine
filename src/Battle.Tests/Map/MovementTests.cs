@@ -57,7 +57,7 @@ Fred is moving from <5, 0, 0> to <6, 0, 0>
 Fred is moving from <6, 0, 0> to <7, 0, 0>
 Fred is moving from <7, 0, 0> to <8, 0, 0>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -212,7 +212,7 @@ Fred is moving from <15, 0, 20> to <14, 0, 20>
 Fred is moving from <14, 0, 20> to <13, 0, 20>
 Fred is moving from <13, 0, 20> to <12, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
         }
 
@@ -304,7 +304,7 @@ Fred is moving from <9, 0, 20> to <8, 0, 20>
 Fred is moving from <8, 0, 20> to <7, 0, 20>
 Fred is moving from <7, 0, 20> to <6, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -396,7 +396,7 @@ Fred is moving from <9, 0, 20> to <8, 0, 20>
 Fred is moving from <8, 0, 20> to <7, 0, 20>
 Fred is moving from <7, 0, 20> to <6, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
     }
 }

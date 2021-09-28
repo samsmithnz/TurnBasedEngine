@@ -48,7 +48,7 @@ Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ Jethro is moving from <7, 0, 3> to <7, 0, 2>
 Jethro is moving from <7, 0, 2> to <6, 0, 1>
 Jethro is moving from <6, 0, 1> to <6, 0, 0>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -171,7 +171,7 @@ Jethro is killed
 100 XP added to character Fred, for a total of 100 XP
 Fred is ready to level up
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
         }
 
@@ -212,7 +212,7 @@ Jethro is moving from <7, 0, 3> to <7, 0, 2>
 Jethro is moving from <7, 0, 2> to <6, 0, 1>
 Jethro is moving from <6, 0, 1> to <6, 0, 0>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
     }
 }
