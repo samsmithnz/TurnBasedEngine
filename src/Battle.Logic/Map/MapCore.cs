@@ -89,7 +89,7 @@ namespace Battle.Logic.Map
                     if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
                     {
                         //If we find an object, stop adding tiles
-                        if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
                         {
                             //Add the wall
                             results.Add(fovItem);
@@ -112,8 +112,7 @@ namespace Battle.Logic.Map
                     }
                 }
             }
-
-            if (includeSourceLocation == true)
+            if (includeSourceLocation)
             {
                 results.Add(sourceLocation);
             }

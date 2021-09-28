@@ -20,7 +20,7 @@ namespace Battle.Logic.SaveGames
 
         public static bool CreateSaveGameFile(string path, string json, int number = 0)
         {
-            if (Directory.Exists(path) == false)
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
@@ -30,7 +30,7 @@ namespace Battle.Logic.SaveGames
                 fileNumber = number;
             }
             string fileName = $"Save{fileNumber:000}.json";
-            while (File.Exists(path + fileName) == true)
+            while (File.Exists(path + fileName))
             {
                 fileNumber++;
                 fileName = $"Save{fileNumber:000}.json";

@@ -169,7 +169,7 @@ namespace Battle.Logic.Characters
                             break;
                         }
                     }
-                    if (addedCharacter == false && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov) == true)
+                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
                     {
                         results.Add(character);
                     }
@@ -230,7 +230,7 @@ namespace Battle.Logic.Characters
 
         public bool LevelUpCharacter()
         {
-            if (LevelUpIsReady == true)
+            if (LevelUpIsReady)
             {
                 LevelUpIsReady = false;
                 HitpointsCurrent++;

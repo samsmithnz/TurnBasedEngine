@@ -24,9 +24,9 @@ namespace Battle.Logic.Encounters
             int toHit = sourceCharacter.ChanceToHit;
 
             //Target cover adjustments
-            if (targetCharacter.CoverState.InHalfCover == true)
+            if (targetCharacter.CoverState.InHalfCover)
             {
-                if (targetCharacter.HunkeredDown == true)
+                if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
                     toHit -= 40;
@@ -36,9 +36,9 @@ namespace Battle.Logic.Encounters
                     toHit -= 20;
                 }
             }
-            else if (targetCharacter.CoverState.InFullCover == true)
+            else if (targetCharacter.CoverState.InFullCover)
             {
-                if (targetCharacter.HunkeredDown == true)
+                if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
                     toHit -= 80;
@@ -58,7 +58,7 @@ namespace Battle.Logic.Encounters
 
             //Overwatch
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
                 toHit = (int)((float)toHit * 0.7f);
@@ -75,7 +75,7 @@ namespace Battle.Logic.Encounters
         {
             int chanceToCrit = weapon.CriticalChance;
             CoverState coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
-            if (isAreaEffectAttack == false && targetCharacter != null && coverState.IsFlanked == true)
+            if (!isAreaEffectAttack && targetCharacter != null && coverState.IsFlanked)
             {
                 //Add 50% for a flank
                 chanceToCrit += 50;
@@ -83,7 +83,7 @@ namespace Battle.Logic.Encounters
             chanceToCrit += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 chanceToCrit = 0;
             }

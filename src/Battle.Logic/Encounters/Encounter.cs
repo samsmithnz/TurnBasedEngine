@@ -265,7 +265,7 @@ namespace Battle.Logic.Encounters
                     highDamage = damageOptions.CriticalDamageHigh;
                 }
                 log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
-                if (isCriticalHit == true)
+                if (isCriticalHit)
                 {
                     log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
                 }
