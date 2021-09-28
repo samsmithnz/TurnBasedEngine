@@ -85,10 +85,10 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                //if (location == new Vector3(15, 0, 7))
-                //{
-                //    int j = 0;
-                //}
+                if (location == new Vector3(16, 0, 5))
+                {
+                    int j = 0;
+                }
                 //start at zero
                 int currentScore = 0;
                 //Move the character in a temp map to simulate the board for this situation
@@ -100,11 +100,11 @@ namespace Battle.Logic.Characters
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.InFullCover)
                 {
-                    currentScore += 2;
+                    currentScore += 4;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    currentScore += 1;
+                    currentScore += 3;
                 }
 
                 //Movement points
@@ -118,7 +118,7 @@ namespace Battle.Logic.Characters
                 foreach (Character fovCharacter in fovCharacters)
                 {
                     CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
-                    if (!coverStateResultOpponent.InFullCover || !coverStateResultOpponent.InHalfCover)
+                    if (!coverStateResultOpponent.InFullCover && !coverStateResultOpponent.InHalfCover)
                     {
                         //Position flanks enemy
                         currentScore += 2;
