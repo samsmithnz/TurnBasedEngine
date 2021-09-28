@@ -277,12 +277,12 @@ namespace Battle.Logic.Encounters
                         damageRollPercent);
 
             //Process armor shredding. This happens in addition to piercing, and therefore happens first
-            int armorShredded = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
+            int armorShredded = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
             targetCharacter.ArmorPointsCurrent -= armorShredded;
 
             //Now process any other damage with armor
             int armorAbsorbed = 0;
-            int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
+            int armorPiercing = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
             if (armorPiercing > 0)
             {
                 log.Add("Armor was ignored due to 'armor piercing' ability");
