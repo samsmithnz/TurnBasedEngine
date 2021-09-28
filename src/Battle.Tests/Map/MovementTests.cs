@@ -24,13 +24,13 @@ namespace Battle.Tests.Map
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
@@ -57,7 +57,7 @@ Fred is moving from <5, 0, 0> to <6, 0, 0>
 Fred is moving from <6, 0, 0> to <7, 0, 0>
 Fred is moving from <7, 0, 0> to <8, 0, 0>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
@@ -69,13 +69,13 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
 
@@ -90,15 +90,16 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(8, 0, 1);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            fred.ActionPointsCurrent = 1;
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
 
@@ -115,13 +116,13 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
 
@@ -137,59 +138,60 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             Vector3 destination = new Vector3(12, 0, 20);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.ActionPointsCurrent = 2;
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
             List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
-            string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . o o o o o o o o P o o o o o o o . o o o o o o o o o o o o o o o o . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . 
+. . . . . . . . . . . o o o o o o o o o o o o o o o o o o o . . . . . . . . . . 
 . . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . P o o o o o o o . o o o o o o o o . . . . . . . . . . . 
-. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . . o o o o o o o o o o o o o o o . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . o o o o o o o o o o o o o . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . o o o o o o o o o o o . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . o o o o o o o o o . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . o o o o o . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . o . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -210,7 +212,7 @@ Fred is moving from <15, 0, 20> to <14, 0, 20>
 Fred is moving from <14, 0, 20> to <13, 0, 20>
 Fred is moving from <13, 0, 20> to <12, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
         }
 
@@ -222,22 +224,23 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             Vector3 destination = new Vector3(6, 0, 20);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.ActionPointsCurrent = 2;
 
             //Act
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
             List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
-            string mapResult = MapCore.GetMapStringWithItems(map, movementPossibileTiles);
+            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -301,11 +304,11 @@ Fred is moving from <9, 0, 20> to <8, 0, 20>
 Fred is moving from <8, 0, 20> to <7, 0, 20>
 Fred is moving from <7, 0, 20> to <6, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
 
         [TestMethod]
-        public void MovementRange8AndRange16LayedTest()
+        public void MovementRange8AndRange16LayeredTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
@@ -314,20 +317,21 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
             Vector3 destination = new Vector3(6, 0, 20);
 
             //Act
-            List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 8);
-            List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, 16);
+            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTilesRange16)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == destination)
+                if (item.Key == destination)
                 {
-                    destinationCheck = item;
+                    destinationCheck = item.Key;
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
             List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
+            List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 1);
+            List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 2);
             string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -392,7 +396,7 @@ Fred is moving from <9, 0, 20> to <8, 0, 20>
 Fred is moving from <8, 0, 20> to <7, 0, 20>
 Fred is moving from <7, 0, 20> to <6, 0, 20>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
         }
     }
 }

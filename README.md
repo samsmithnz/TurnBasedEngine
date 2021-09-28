@@ -11,5 +11,6 @@ Currently supports
 - Basic attacks, between two characters, with weapon, special abilities, and range taken into account
 - Basic high and low cover, with cover destruction
 - Grenades/area effects 
-- Basic Field of view
+- Basic field of view
 - Reactions/ overwatch
+- [The very beginnings of AI](#115)

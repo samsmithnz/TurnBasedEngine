@@ -43,7 +43,7 @@ namespace Battle.Tests.Scenarios
                 mission.Map[x, 0, z] = CoverType.HalfCover;
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
-            fred.MobilityRange = 16;
+            fred.MobilityRange = 8;
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -51,6 +51,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
+            jethro.ActionPointsCurrent = 2;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
@@ -73,8 +74,8 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange);
-            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, movementPossibileTiles);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 

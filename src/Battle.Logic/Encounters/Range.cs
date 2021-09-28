@@ -5,7 +5,7 @@ namespace Battle.Logic.Encounters
 {
 
     //Largely sourced from here: https://www.ufopaedia.org/index.php/Chance_to_Hit_(EU2012)#Weapon_Range
-    //But couldn't get the formulas to work, so just dumped the numbers since there is less than a dozen options per gun
+    //But the formulas were overly complicated, so I just dumped the numbers since there is less than a dozen options per gun
     public static class Range
     {
         public static int GetDistance(Vector3 sourceLocation, Vector3 targetLocation)

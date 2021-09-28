@@ -4,7 +4,6 @@
     {
         public bool InFullCover { get; set; }
         public bool InHalfCover { get; set; }        
-
         public bool InNorthFullCover { get; set; }
         public bool InEastFullCover { get; set; }
         public bool InSouthFullCover { get; set; }

@@ -26,6 +26,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
+            fred.ActionPointsCurrent = 1;
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -35,6 +36,7 @@ namespace Battle.Tests.Scenarios
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(20, 0, 10));
             jethro.HitpointsCurrent = 6;
+            jethro.ActionPointsCurrent = 1;
             Team team2 = new Team()
             {
                 Name = "Bad guys",
@@ -61,17 +63,17 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destination = Vector3.Zero;
-            foreach (Vector3 item in movementPossibileTiles)
+            foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
-                if (item == new Vector3(9, 0, 10))
+                if (item.Key == new Vector3(9, 0, 10))
                 {
-                    destination = item;
+                    destination = item.Key;
                 }
             }
             Assert.AreEqual(new Vector3(9, 0, 10), destination);
-            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, movementPossibileTiles);
+            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -135,7 +137,7 @@ Fred is moving from <7, 0, 7> to <8, 0, 8>
 Fred is moving from <8, 0, 8> to <8, 0, 9>
 Fred is moving from <8, 0, 9> to <9, 0, 10>
 ";
-            Assert.AreEqual(log, ActionResultLog.LogString(movementResults));
+            Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
             //Fred aims at Jethro, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });

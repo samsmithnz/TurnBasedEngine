@@ -17,7 +17,7 @@ namespace Battle.Logic.Characters
             movementAIValues = new List<KeyValuePair<Vector3, int>>();
         }
 
-        public ActionResult CalculateAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
+        public ActionResult CalculateAIAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
@@ -26,13 +26,13 @@ namespace Battle.Logic.Characters
             Vector3 startLocation = character.Location;
 
             //1. Get a list of all possible moves
-            List<Vector3> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
             //2. Assign a value to each possible tile
             movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
             //3. Assign a move based on the intelligence check
-            Vector3 endLocation = movementAIValues[0].Key;
+            Vector3 endLocation;
 
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
@@ -40,13 +40,13 @@ namespace Battle.Logic.Characters
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
-                //TODO
+                endLocation = movementAIValues[0].Key;
             }
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll failed
-                //TODO
+                endLocation = movementAIValues[movementAIValues.Count - 1].Key;
             }
 
             character.InFullCover = true;
@@ -58,14 +58,10 @@ namespace Battle.Logic.Characters
             };
         }
 
-        public List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<Vector3> movementPossibileTiles)
+        public List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
             //initialize the list
-            movementAIValues = new List<KeyValuePair<Vector3, int>>();
-            foreach (Vector3 item in movementPossibileTiles)
-            {
-                movementAIValues.Add(new KeyValuePair<Vector3, int>(item, 0));
-            }
+            movementAIValues = movementPossibileTiles;
 
             //Create a list of opponent character locations
             List<Vector3> attackerLocations = new List<Vector3>();
@@ -81,12 +77,14 @@ namespace Battle.Logic.Characters
             }
 
             //Loop through each key value pair
+            int maxActionPoints = movementAIValues[movementAIValues.Count - 1].Value;
             for (int i = 0; i < movementAIValues.Count; i++)
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                int currentScore = item.Value;
+                int currentScore = 0; //start at zero
 
+                //Cover calculation
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, attackerLocations);
                 if (coverStateResult.InFullCover)
                 {
@@ -96,6 +94,13 @@ namespace Battle.Logic.Characters
                 {
                     currentScore += 1;
                 }
+
+                //Movement points
+                if (item.Value < maxActionPoints)
+                {
+                    currentScore += maxActionPoints - item.Value;
+                }
+
                 //List<Character> fovCharacters = FieldOfView.GetCharactersInArea(characters, map, location, character.ShootingRange);
                 //foreach (Character fovCharacter in fovCharacters)
                 //{
