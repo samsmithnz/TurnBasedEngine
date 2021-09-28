@@ -17,7 +17,7 @@ namespace Battle.Logic.Encounters
             int toHit = sourceCharacter.ChanceToHit;
 
             //Target cover adjustments
-            if (targetCharacter.InHalfCover == true)
+            if (targetCharacter.CoverState.InHalfCover == true)
             {
                 if (targetCharacter.HunkeredDown == true)
                 {
@@ -29,7 +29,7 @@ namespace Battle.Logic.Encounters
                     toHit -= 20;
                 }
             }
-            else if (targetCharacter.InFullCover == true)
+            else if (targetCharacter.CoverState.InFullCover == true)
             {
                 if (targetCharacter.HunkeredDown == true)
                 {
@@ -82,9 +82,9 @@ namespace Battle.Logic.Encounters
             return chanceToCrit;
         }
 
-        public static DamageOptions GetDamageRange(Character sourceCharacter, Weapon weapon)
+        public static DamageRange GetDamageRange(Character sourceCharacter, Weapon weapon)
         {
-            DamageOptions damageOptions = new DamageOptions();
+            DamageRange damageOptions = new DamageRange();
             int lowDamageAdjustment = 0;
             int highDamageAdjustment = 0;
 
@@ -122,13 +122,9 @@ namespace Battle.Logic.Encounters
 
         private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,,] map)
         {
-            Console.WriteLine(map.Length);
-            Console.WriteLine(sourceCharacter.Location);
-            Console.WriteLine(targetCharacter.Location);
             //This is where we will call the cover calculation
             CoverStateResult coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
-
-            return !coverState.InFullCover;
+            return coverState.IsFlanked;
         }
     }
 }

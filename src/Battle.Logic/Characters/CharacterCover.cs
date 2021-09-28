@@ -19,7 +19,6 @@ namespace Battle.Logic.Characters
             int coverLineEast = -1;
             int coverLineSouth = -1;
             int coverLineWest = -1;
-            bool currentLocationIsFlanked = false;
 
             if (coverTiles.Count == 0)
             {
@@ -103,17 +102,17 @@ namespace Battle.Logic.Characters
                     {
                         if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InEastFullCover && !result.InEastHalfCover) //No cover in North or East = always flanked by Northeast Enenmy
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InNorthFullCover || result.InNorthHalfCover) && enemyItem.Z <= coverLineNorth && !result.InEastFullCover) //There is cover in the North, but the enemy is past it + no East cover
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InEastFullCover || result.InEastHalfCover) && enemyItem.X <= coverLineEast && !result.InNorthFullCover) //There is cover in the East, but the enemy is past it + no North cover
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -123,17 +122,17 @@ namespace Battle.Logic.Characters
                     {
                         if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InNorthFullCover || result.InNorthHalfCover) && enemyItem.Z <= coverLineNorth && !result.InWestFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InWestFullCover || result.InWestHalfCover) && enemyItem.X >= coverLineWest && !result.InNorthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -143,17 +142,17 @@ namespace Battle.Logic.Characters
                     {
                         if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InEastFullCover && !result.InEastHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InSouthFullCover || result.InSouthHalfCover) && enemyItem.Z >= coverLineSouth && !result.InEastFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InEastFullCover || result.InEastHalfCover) && enemyItem.X <= coverLineEast && !result.InSouthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -163,29 +162,20 @@ namespace Battle.Logic.Characters
                     {
                         if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InSouthFullCover || result.InSouthHalfCover) && enemyItem.Z >= coverLineSouth && !result.InWestFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InWestFullCover || result.InWestHalfCover) && enemyItem.X >= coverLineWest && !result.InSouthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
-                }
-
-                if (result.InFullCover)
-                {
-                    result.InFullCover = !currentLocationIsFlanked;
-                }
-                if (result.InHalfCover)
-                {
-                    result.InHalfCover = !currentLocationIsFlanked;
                 }
             }
             return result;

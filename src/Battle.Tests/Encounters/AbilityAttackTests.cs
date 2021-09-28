@@ -29,7 +29,7 @@ namespace Battle.Tests.Encounters
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jethro, map, false);
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, rifle);
+            DamageRange damageOptions = EncounterCore.GetDamageRange(fred, rifle);
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert

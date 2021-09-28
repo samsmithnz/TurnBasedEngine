@@ -31,7 +31,7 @@ namespace Battle.Tests.Encounters
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jethro, map, false);
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, rifle);
+            DamageRange damageOptions = EncounterCore.GetDamageRange(fred, rifle);
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
 
             //Assert
@@ -66,7 +66,7 @@ Critical chance: 70, (dice roll: 0)
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = false;
+            jethro.CoverState.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -98,7 +98,7 @@ High cover downgraded to low cover at <8, 0, 9>
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = false;
+            jethro.CoverState.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -129,7 +129,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = false;
+            jethro.CoverState.InFullCover = false;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -160,7 +160,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
             Weapon rifle = fred.WeaponEquipped;
             rifle.ChanceToHitAdjustment = 20;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = false;
+            jethro.CoverState.InFullCover = false;
             jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -349,7 +349,7 @@ Fred is ready to level up
             fred.ChanceToHit = 85;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InHalfCover = true;
+            jethro.CoverState.InHalfCover = true;
             jethro.HitpointsCurrent = 12;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -379,7 +379,7 @@ Critical chance: 70, (dice roll: 0)
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -406,7 +406,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
             fred.ChanceToHit = 30;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -436,7 +436,7 @@ Missed: Chance to hit: 0, (dice roll: 65)
             fred.XP = 50;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
             jethro.SetLocation(new Vector3(5, 0, 0), map);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -535,8 +535,22 @@ Fred is ready to level up
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            string mapString = MapCore.GetMapString(map);
 
             //Assert
+            string mapResult = @"
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(mapResult, mapString);
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);
@@ -744,7 +758,7 @@ Fred is ready to level up
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.SetLocation(new Vector3(2, 0, 4), map);
             jethro.HitpointsCurrent = 15;
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -787,7 +801,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.SetLocation(new Vector3(2, 0, 4), map);
             jethro.HitpointsCurrent = 15;
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -830,7 +844,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.SetLocation(new Vector3(2, 0, 4), map);
             jethro.HitpointsCurrent = 15;
-            jethro.InHalfCover = true;
+            jethro.CoverState.InHalfCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 

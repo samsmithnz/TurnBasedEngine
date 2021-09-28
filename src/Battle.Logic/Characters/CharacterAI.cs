@@ -49,7 +49,6 @@ namespace Battle.Logic.Characters
                 endLocation = movementAIValues[movementAIValues.Count - 1].Key;
             }
 
-            character.InFullCover = true;
             return new ActionResult()
             {
                 Log = log,
@@ -85,7 +84,7 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                if (location == new Vector3(16, 0, 5))
+                if (location == new Vector3(15, 0, 5))
                 {
                     int j = 0;
                 }
@@ -98,7 +97,11 @@ namespace Battle.Logic.Characters
 
                 //Cover calculation
                 CoverStateResult coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
-                if (coverStateResult.InFullCover)
+                if (coverStateResult.IsFlanked)
+                {
+                    currentScore -= 2;
+                }
+                else if (coverStateResult.InFullCover)
                 {
                     currentScore += 4;
                 }
@@ -110,7 +113,7 @@ namespace Battle.Logic.Characters
                 //Movement points
                 if (item.Value < maxActionPoints)
                 {
-                    currentScore += maxActionPoints - item.Value;
+                    currentScore += maxActionPoints+1 - item.Value;
                 }
 
                 //Upgrade positions that would flank opponents
@@ -118,12 +121,17 @@ namespace Battle.Logic.Characters
                 foreach (Character fovCharacter in fovCharacters)
                 {
                     CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
-                    if (!coverStateResultOpponent.InFullCover && !coverStateResultOpponent.InHalfCover)
+                    if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
                         currentScore += 2;
                         break;
                     }
+                }
+
+                if (currentScore < 0)
+                {
+                    currentScore = 0;
                 }
 
                 KeyValuePair<Vector3, int> newItem = new KeyValuePair<Vector3, int>(location, currentScore);

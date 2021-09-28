@@ -72,6 +72,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -101,6 +102,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -130,6 +132,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -159,6 +162,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -188,6 +192,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -217,6 +222,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
@@ -247,6 +253,7 @@ namespace Battle.Tests.Characters
             CoverStateResult coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
+            Assert.IsTrue(coverResult.IsFlanked == true);
             Assert.IsTrue(coverResult.InFullCover == false);
         }
 
