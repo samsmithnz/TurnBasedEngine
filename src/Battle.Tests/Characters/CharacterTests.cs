@@ -112,7 +112,7 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(40, character.FOVRange);
             Assert.AreEqual(false, character.CoverState.InHalfCover);
-            Assert.AreEqual(false, character.CoverState.InFullCover);
+            Assert.AreEqual(true, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
         }

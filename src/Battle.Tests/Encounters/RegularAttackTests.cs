@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
+using Battle.Logic.GameController;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
@@ -525,29 +526,41 @@ Fred is ready to level up
         public void FredAttacksAndKillsJethroWithRifleAndCriticalChanceAbilityBonusTest()
         {
             //Arrange
-            string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Mission mission = new Mission();
+            mission.Map = MapCore.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            mission.Teams.Add(new Team()
+            {
+                Name = "good",
+                Characters = new List<Character> { fred }
+            });
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(8, 0, 8));
             jethro.HitpointsCurrent = 12;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.Teams.Add(new Team()
+            {
+                Name = "bad",
+                Characters = new List<Character> { jethro }
+            });
+            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll         
+            CharacterCover.RefreshCoverStates(mission);
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
-            string mapString = MapCore.GetMapString(map);
+            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, mission.Map, diceRolls);
+            string mapString = MapCore.GetMapString(mission.Map);
 
             //Assert
             string mapResult = @"
 . . . . . . . . . . 
+. . . . . . . . P . 
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
+. P . . . . . . . . 
 . . . . . . . . . . 
 ";
             Assert.AreEqual(mapResult, mapString);
@@ -559,7 +572,7 @@ Fred is ready to level up
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
-Hit: Chance to hit: 80, (dice roll: 65)
+Hit: Chance to hit: 81, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 80, (dice roll: 30)
 Critical damage range: 8-12, (dice roll: 100)

@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Map;
+﻿using Battle.Logic.GameController;
+using Battle.Logic.Map;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -24,6 +25,7 @@ namespace Battle.Logic.Characters
             {
                 result.InFullCover = false;
                 result.InHalfCover = false;
+                result.IsFlanked = true; //ignore cover/ the character isn't in cover
                 return result;
             }
             else
@@ -179,6 +181,36 @@ namespace Battle.Logic.Characters
                 }
             }
             return result;
+        }
+
+        public static bool RefreshCoverStates(Mission mission)
+        {
+            foreach (Team team in mission.Teams)
+            {
+                List<Vector3> opponents = GetOpponentCharacterLocations(mission.Teams, team.Name);
+
+                foreach (Character character in team.Characters)
+                {
+                    character.CoverState = CharacterCover.CalculateCover(mission.Map, character.Location, opponents);
+                }
+            }
+            return true;
+        }
+
+        private static List<Vector3> GetOpponentCharacterLocations(List<Team> teams, string currentTeamName)
+        {
+            List<Vector3> opponents = new List<Vector3>();
+            foreach (Team team in teams)
+            {
+                if (team.Name != currentTeamName)
+                {
+                    foreach (Character character in team.Characters)
+                    {
+                        opponents.Add(character.Location);
+                    }
+                }
+            }
+            return opponents;
         }
 
         /// <summary>
