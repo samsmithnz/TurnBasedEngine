@@ -432,8 +432,6 @@ o o o o o o o o o o
             Assert.AreEqual(mapResult, mapString);
         }
 
-
-
         [TestMethod]
         public void FredCanFlankJethroInNorthCoverTest()
         {
@@ -481,6 +479,5 @@ o o o o o o o o o o
             Assert.IsTrue(!coverStateResultEnemy.InFullCover);
             Assert.IsTrue(!coverStateResultEnemy.InSouthFullCover);
         }
-
     }
 }

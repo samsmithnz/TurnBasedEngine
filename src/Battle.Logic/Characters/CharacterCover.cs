@@ -101,7 +101,7 @@ namespace Battle.Logic.Characters
                     //Enemy is located NorthEast
                     if (enemyItem.Z >= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
-                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InEastFullCover) //No cover in North or East = always flanked by Northeast Enenmy
+                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InEastFullCover && !result.InEastHalfCover) //No cover in North or East = always flanked by Northeast Enenmy
                         {
                             currentLocationIsFlanked = true;
                             break;
@@ -121,7 +121,7 @@ namespace Battle.Logic.Characters
                     //Enemy is located NorthWest
                     if (enemyItem.Z >= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
-                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InWestFullCover)
+                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
                             currentLocationIsFlanked = true;
                             break;
@@ -141,7 +141,7 @@ namespace Battle.Logic.Characters
                     //Enemy is located SouthEast
                     if (enemyItem.Z <= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
-                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InEastFullCover)
+                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InEastFullCover && !result.InEastHalfCover)
                         {
                             currentLocationIsFlanked = true;
                             break;
@@ -161,7 +161,7 @@ namespace Battle.Logic.Characters
                     //Enemy is located SouthWest
                     if (enemyItem.Z <= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
-                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InWestFullCover)
+                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
                             currentLocationIsFlanked = true;
                             break;
@@ -179,8 +179,14 @@ namespace Battle.Logic.Characters
                     }
                 }
 
-                result.InFullCover = !currentLocationIsFlanked;
-                result.InHalfCover = !currentLocationIsFlanked;
+                if (result.InFullCover)
+                {
+                    result.InFullCover = !currentLocationIsFlanked;
+                }
+                if (result.InHalfCover)
+                {
+                    result.InHalfCover = !currentLocationIsFlanked;
+                }
             }
             return result;
         }

@@ -85,8 +85,13 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                int currentScore = 0; //start at zero
-                                      //Move the character in a temp map to simulate the board for this situation
+                if (location == new Vector3(15, 0, 7))
+                {
+                    int j = 0;
+                }
+                //start at zero
+                int currentScore = 0;
+                //Move the character in a temp map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
                 fovMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "";
                 fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "";
@@ -112,7 +117,7 @@ namespace Battle.Logic.Characters
                 List<Character> fovCharacters = FieldOfView.GetCharactersInArea(opponentCharacters, fovMap, location, character.ShootingRange);
                 foreach (Character fovCharacter in fovCharacters)
                 {
-                    CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { character.Location });
+                    CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
                     if (!coverStateResultOpponent.InFullCover || !coverStateResultOpponent.InHalfCover)
                     {
                         //Position flanks enemy
