@@ -22,6 +22,7 @@ namespace Battle.Logic.Characters
             {
                 return null;
             }
+            //Deduct action points for the movement
             if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
             {
                 characterMoving.ActionPointsCurrent -= 2;
