@@ -31,7 +31,7 @@ namespace Battle.Tests.Characters
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
-                CoverState = new CoverStateResult(),
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
@@ -73,7 +73,7 @@ namespace Battle.Tests.Characters
                 FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
-                CoverState = new CoverStateResult(),
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
@@ -101,7 +101,7 @@ namespace Battle.Tests.Characters
                 FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
-                CoverState = new CoverStateResult(),
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };

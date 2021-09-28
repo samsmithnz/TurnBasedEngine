@@ -12,9 +12,9 @@ namespace Battle.Logic.Characters
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverStateResult CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
+        public static CoverState CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
-            CoverStateResult result = new CoverStateResult();
+            CoverState result = new CoverState();
             List<Vector3> coverTiles = FindAdjacentCover(map, defenderPosition);
             int coverLineNorth = -1;
             int coverLineEast = -1;

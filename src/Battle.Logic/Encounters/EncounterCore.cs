@@ -74,7 +74,7 @@ namespace Battle.Logic.Encounters
         public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, bool isAreaEffectAttack)
         {
             int chanceToCrit = weapon.CriticalChance;
-            CoverStateResult coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
+            CoverState coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
             if (isAreaEffectAttack == false && targetCharacter != null && coverState.IsFlanked == true)
             {
                 //Add 50% for a flank

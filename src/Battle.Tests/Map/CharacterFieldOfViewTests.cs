@@ -470,8 +470,8 @@ o o o o o o o o o o
             //Now test cover for each character
             
             //Act
-            CoverStateResult coverStateResultPlayer = CharacterCover.CalculateCover(map, fred.Location, new List<Vector3>() { jethro.Location });
-            CoverStateResult coverStateResultEnemy = CharacterCover.CalculateCover(map, jethro.Location, new List<Vector3>() { fred.Location });
+            CoverState coverStateResultPlayer = CharacterCover.CalculateCover(map, fred.Location, new List<Vector3>() { jethro.Location });
+            CoverState coverStateResultEnemy = CharacterCover.CalculateCover(map, jethro.Location, new List<Vector3>() { fred.Location });
 
             //Assert
             Assert.IsTrue(coverStateResultPlayer.InFullCover);

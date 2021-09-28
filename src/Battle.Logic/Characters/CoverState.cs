@@ -1,6 +1,6 @@
 ﻿namespace Battle.Logic.Characters
 {
-    public class CoverStateResult
+    public class CoverState
     {
         public bool InFullCover { get; set; }
         public bool InHalfCover { get; set; }

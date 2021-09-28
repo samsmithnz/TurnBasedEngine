@@ -72,7 +72,7 @@ namespace Battle.Logic.Characters
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
-        public CoverStateResult CoverState { get; set; }
+        public CoverState CoverState { get; set; }
         public bool InOverwatch { get; set; }
         public bool HunkeredDown { get; set; }
 

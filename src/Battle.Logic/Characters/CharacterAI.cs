@@ -96,7 +96,7 @@ namespace Battle.Logic.Characters
                 fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "";
 
                 //Cover calculation
-                CoverStateResult coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
+                CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
                     currentScore -= 2;
@@ -120,7 +120,7 @@ namespace Battle.Logic.Characters
                 List<Character> fovCharacters = FieldOfView.GetCharactersInArea(opponentCharacters, fovMap, location, character.ShootingRange);
                 foreach (Character fovCharacter in fovCharacters)
                 {
-                    CoverStateResult coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
+                    CoverState coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
                     if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
