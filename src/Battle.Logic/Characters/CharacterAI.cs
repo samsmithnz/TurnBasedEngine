@@ -84,6 +84,10 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
+                //if (location == new Vector3(5, 0, 4))
+                //{
+                //    int j = 123;
+                //}
                 //start at zero
                 int currentScore = 0;
                 //Move the character in a temp map to simulate the board for this situation
@@ -121,7 +125,14 @@ namespace Battle.Logic.Characters
                     {
                         //Position flanks enemy
                         currentScore += 2;
-                        break;
+                    }
+
+                    //Do a reverse FOV from the perspective of the character
+                    List<Vector3> fovCharacterVisibleTiles = FieldOfView.GetFieldOfView(fovMap, fovCharacter.Location, fovCharacter.FOVRange);
+                    //reduce the score for those tiles - they are more dangerous to move into
+                    if (fovCharacterVisibleTiles.Contains(location))
+                    {
+                        currentScore -= 2;
                     }
                 }
 
