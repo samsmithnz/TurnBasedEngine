@@ -73,10 +73,10 @@ namespace Battle.Logic.Characters
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
-                        result.EncounterResults = new List<EncounterResult>();
+                        result.OverwatchEncounterResults = new List<EncounterResult>();
                         foreach (EncounterResult item in encounters)
                         {
-                            result.EncounterResults.Add(item);
+                            result.OverwatchEncounterResults.Add(item);
                             log.AddRange(item.Log);
                         }
                     }

@@ -57,7 +57,7 @@ namespace Battle.Logic.Characters
             };
         }
 
-        public List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
+        private List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
             //initialize the list
             movementAIValues = movementPossibileTiles;

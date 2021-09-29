@@ -151,7 +151,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(10, harry.XP);
             Assert.AreEqual(1, movementResults.Count);
-            Assert.AreEqual(2, movementResults[0].EncounterResults.Count);
+            Assert.AreEqual(2, movementResults[0].OverwatchEncounterResults.Count);
             string log = @"
 Jethro is moving from <8, 0, 8> to <8, 0, 7>
 Harry is attacking with Sniper Rifle, targeted on Jethro

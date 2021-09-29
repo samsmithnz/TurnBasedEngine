@@ -43,9 +43,11 @@ namespace Battle.Tests.Characters
 
             //Act            
             CharacterAI ai = new CharacterAI();
+            //Scenario 1: Failure
             ActionResult actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            //Scenario 2: Success
             ActionResult actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert
             string mapResult = @"
