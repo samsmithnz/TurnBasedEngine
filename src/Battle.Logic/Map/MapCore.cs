@@ -8,6 +8,14 @@ namespace Battle.Logic.Map
 {
     public static class MapCore
     {
+        /// <summary>
+        /// Initialize a map array
+        /// </summary>
+        /// <param name="xMax">x size</param>
+        /// <param name="yMax">y size</param>
+        /// <param name="zMax">z size</param>
+        /// <param name="initialString">The initial string to initialize the map with - usually ""</param>
+        /// <returns>The populated map/array</returns>
         public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = "")
         {
             string[,,] map = new string[xMax, yMax, zMax];
@@ -24,6 +32,7 @@ namespace Battle.Logic.Map
 
             return map;
         }
+
 
         public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
@@ -86,21 +95,24 @@ namespace Battle.Logic.Map
                 {
                     currentLength += lineSegment;
                     Vector3 fovItem = singleLineCheck[i];
-                    //If we find an object, stop adding tiles
-                    if (lookingForFOV == true && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+                    if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
                     {
-                        //Add the wall
-                        results.Add(fovItem);
-                        //Then break!
-                        break;
-                    }
-                    else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
-                    {
-                        //Don't add this one, it's the origin/ where the character is looking from
-                    }
-                    else
-                    {
-                        results.Add(fovItem);
+                        //If we find an object, stop adding tiles
+                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+                        {
+                            //Add the wall
+                            results.Add(fovItem);
+                            //Then break!
+                            break;
+                        }
+                        else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
+                        {
+                            //Don't add this one, it's the origin/ where the character is looking from
+                        }
+                        else
+                        {
+                            results.Add(fovItem);
+                        }
                     }
                     //We don't round, so this will extend the range a tiny part - but I think that is ok.
                     if (currentLength >= range)
@@ -109,8 +121,7 @@ namespace Battle.Logic.Map
                     }
                 }
             }
-
-            if (includeSourceLocation == true)
+            if (includeSourceLocation)
             {
                 results.Add(sourceLocation);
             }

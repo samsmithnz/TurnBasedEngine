@@ -1,6 +1,6 @@
 ﻿namespace Battle.Logic.Encounters
 {
-    public class DamageOptions
+    public class DamageRange
     {
         public int DamageLow { get; set; }
         public int DamageHigh { get; set; }

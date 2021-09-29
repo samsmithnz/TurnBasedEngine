@@ -40,7 +40,7 @@ namespace Battle.Tests.Characters
         {
             //Arrange
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.InFullCover = true;
+            jethro.CoverState.InFullCover = true;
 
             //Act            
 
@@ -69,8 +69,8 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(40, character.FOVRange);
-            Assert.AreEqual(false, character.InHalfCover);
-            Assert.AreEqual(false, character.InFullCover);
+            Assert.AreEqual(false, character.CoverState.InHalfCover);
+            Assert.AreEqual(false, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
             Assert.IsNotNull(character.Abilities);
@@ -111,8 +111,8 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(40, character.FOVRange);
-            Assert.AreEqual(false, character.InHalfCover);
-            Assert.AreEqual(true, character.InFullCover);
+            Assert.AreEqual(false, character.CoverState.InHalfCover);
+            Assert.AreEqual(true, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
         }
@@ -134,8 +134,8 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(8, character.MobilityRange);
             Assert.AreEqual(30, character.ShootingRange);
             Assert.AreEqual(40, character.FOVRange);
-            Assert.AreEqual(true, character.InHalfCover);
-            Assert.AreEqual(false, character.InFullCover);
+            Assert.AreEqual(false, character.CoverState.InHalfCover);
+            Assert.AreEqual(false, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
         }

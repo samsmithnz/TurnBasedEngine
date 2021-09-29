@@ -136,7 +136,7 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jethro, mission.Map, false);
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            DamageRange damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
             Assert.AreEqual(80, chanceToHit);
             Assert.AreEqual(70, chanceToCrit);
             Assert.AreEqual(3, damageOptions.DamageLow);

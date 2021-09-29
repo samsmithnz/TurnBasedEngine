@@ -30,9 +30,9 @@
         public static int GetExperience(bool successfulAction, bool successfulKill = false)
         {
             //hit
-            if (successfulAction == true)
+            if (successfulAction)
             {
-                if (successfulKill == true)
+                if (successfulKill)
                 {
                     return KillXP;
                 }

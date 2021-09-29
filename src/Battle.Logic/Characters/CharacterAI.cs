@@ -49,7 +49,6 @@ namespace Battle.Logic.Characters
                 endLocation = movementAIValues[movementAIValues.Count - 1].Key;
             }
 
-            character.InFullCover = true;
             return new ActionResult()
             {
                 Log = log,
@@ -64,14 +63,17 @@ namespace Battle.Logic.Characters
             movementAIValues = movementPossibileTiles;
 
             //Create a list of opponent character locations
-            List<Vector3> attackerLocations = new List<Vector3>();
+            List<Character> opponentCharacters = new List<Character>();
+            List<Vector3> opponentLocations = new List<Vector3>();
             foreach (Team team in teams)
             {
+                //Exclude the characters team (Assume all other teams are the bad guys)
                 if (!team.Characters.Contains(character))
                 {
                     foreach (Character item in team.Characters)
                     {
-                        attackerLocations.Add(item.Location);
+                        opponentCharacters.Add(item);
+                        opponentLocations.Add(item.Location);
                     }
                 }
             }
@@ -82,11 +84,24 @@ namespace Battle.Logic.Characters
             {
                 KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
-                int currentScore = 0; //start at zero
+                //if (location == new Vector3(5, 0, 4))
+                //{
+                //    int j = 123;
+                //}
+                //start at zero
+                int currentScore = 0;
+                //Move the character in a temp map to simulate the board for this situation
+                string[,,] fovMap = (string[,,])map.Clone();
+                fovMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "";
+                fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "";
 
                 //Cover calculation
-                CoverStateResult coverStateResult = CharacterCover.CalculateCover(map, location, attackerLocations);
-                if (coverStateResult.InFullCover)
+                CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
+                if (coverStateResult.IsFlanked)
+                {
+                    currentScore -= 1;
+                }
+                else if (coverStateResult.InFullCover)
                 {
                     currentScore += 2;
                 }
@@ -96,16 +111,35 @@ namespace Battle.Logic.Characters
                 }
 
                 //Movement points
-                if (item.Value < maxActionPoints)
+                if (item.Value <= maxActionPoints)
                 {
-                    currentScore += maxActionPoints - item.Value;
+                    currentScore += maxActionPoints + 2 - item.Value;
                 }
 
-                //List<Character> fovCharacters = FieldOfView.GetCharactersInArea(characters, map, location, character.ShootingRange);
-                //foreach (Character fovCharacter in fovCharacters)
-                //{
+                //Upgrade positions that would flank opponents
+                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(opponentCharacters, fovMap, location, character.ShootingRange);
+                foreach (Character fovCharacter in fovCharacters)
+                {
+                    CoverState coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
+                    if (coverStateResultOpponent.IsFlanked)
+                    {
+                        //Position flanks enemy
+                        currentScore += 2;
+                    }
 
-                //}
+                    //Do a reverse FOV from the perspective of the character
+                    List<Vector3> fovCharacterVisibleTiles = FieldOfView.GetFieldOfView(fovMap, fovCharacter.Location, fovCharacter.FOVRange);
+                    //reduce the score for those tiles - they are more dangerous to move into
+                    if (fovCharacterVisibleTiles.Contains(location))
+                    {
+                        currentScore -= 2;
+                    }
+                }
+
+                if (currentScore < 0)
+                {
+                    currentScore = 0;
+                }
 
                 KeyValuePair<Vector3, int> newItem = new KeyValuePair<Vector3, int>(location, currentScore);
                 movementAIValues[i] = newItem;

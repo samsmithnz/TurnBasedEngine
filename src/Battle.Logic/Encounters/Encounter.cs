@@ -11,6 +11,16 @@ namespace Battle.Logic.Encounters
 {
     public static class Encounter
     {
+        /// <summary>
+        /// An area attack (e.g. grenade) aqainst a character
+        /// </summary>
+        /// <param name="sourceCharacter">Source of the attack</param>
+        /// <param name="weapon">The weapon used</param>
+        /// <param name="allCharacters">A list of all characters on the map</param>
+        /// <param name="map">Current map</param>
+        /// <param name="diceRolls">Random number dice rolls (passed for repeatability)</param>
+        /// <param name="throwingTargetLocation">Location of area effect/grenade</param>
+        /// <returns>EncounterResult: details of how the event resolved</returns>
         public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,,] map, RandomNumberQueue diceRolls, Vector3 throwingTargetLocation)
         {
             int damageDealt;
@@ -106,6 +116,15 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
+        /// <summary>
+        /// A regular attack (e.g. shooting or hitting) against a character
+        /// </summary>
+        /// <param name="sourceCharacter">Source of the attack</param>
+        /// <param name="weapon">The weapon used</param>
+        /// <param name="targetCharacter">Target of the attack</param>
+        /// <param name="map">Current map</param>
+        /// <param name="diceRolls">Random number dice rolls (passed for repeatability)</param>
+        /// <returns>EncounterResult: details of how the event resolved</returns>
         public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, RandomNumberQueue diceRolls)
         {
             if (diceRolls == null || diceRolls.Count == 0)
@@ -133,7 +152,6 @@ namespace Battle.Logic.Encounters
 
                 //If the number rolled is higher than the chance to hit, the attack was successful!
                 int randomToHit = diceRolls.Dequeue();
-
                 if ((100 - toHitPercent) <= randomToHit)
                 {
                     log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
@@ -220,19 +238,23 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
-
         private static EncounterResult ProcessCharacterDamageAndExperience(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, RandomNumberQueue diceRolls, List<string> log, bool isAreaEffectAttack)
         {
             //Get damage 
             int damageRollPercent = diceRolls.Dequeue();
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
+            DamageRange damageOptions = EncounterCore.GetDamageRange(sourceCharacter, weapon);
             int lowDamage = damageOptions.DamageLow;
             int highDamage = damageOptions.DamageHigh;
             log.Add("Damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
 
             //Check if it was a critical hit
             bool isCriticalHit = false;
-            if (targetCharacter.HunkeredDown == false) // player can't be critically hit if hunkered down
+            // player can't be critically hit if hunkered down
+            if (targetCharacter.HunkeredDown )
+            {
+                log.Add("Critical chance: 0, hunkered down");
+            }
+            else
             {
                 int randomToCrit = diceRolls.Dequeue();
                 int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map, isAreaEffectAttack);
@@ -243,15 +265,11 @@ namespace Battle.Logic.Encounters
                     highDamage = damageOptions.CriticalDamageHigh;
                 }
                 log.Add("Critical chance: " + chanceToCrit.ToString() + ", (dice roll: " + randomToCrit.ToString() + ")");
-                if (isCriticalHit == true)
+                if (isCriticalHit)
                 {
                     log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
                 }
-            }
-            else
-            {
-                log.Add("Critical chance: 0, hunkered down");
-            }
+            } 
 
             //process damage
             int damageDealt = RandomNumber.ScaleRandomNumber(
@@ -259,12 +277,12 @@ namespace Battle.Logic.Encounters
                         damageRollPercent);
 
             //Process armor shredding. This happens in addition to piercing, and therefore happens first
-            int armorShredded = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
+            int armorShredded = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorShredding);
             targetCharacter.ArmorPointsCurrent -= armorShredded;
 
             //Now process any other damage with armor
             int armorAbsorbed = 0;
-            int armorPiercing = EncounterCore.ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
+            int armorPiercing = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
             if (armorPiercing > 0)
             {
                 log.Add("Armor was ignored due to 'armor piercing' ability");

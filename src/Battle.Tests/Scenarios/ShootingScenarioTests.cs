@@ -199,7 +199,7 @@ o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . 
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jethro, mission.Map, false);
-            DamageOptions damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            DamageRange damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
             Assert.AreEqual(80, chanceToHit);
             Assert.AreEqual(70, chanceToCrit);
             Assert.AreEqual(3, damageOptions.DamageLow);
@@ -227,7 +227,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(characters2[0], fred);
             int chanceToHit2 = EncounterCore.GetChanceToHit(jethro, jethro.WeaponEquipped, fred);
             int chanceToCrit2 = EncounterCore.GetChanceToCrit(jethro, jethro.WeaponEquipped, jethro, mission.Map, false);
-            DamageOptions damageOptions2 = EncounterCore.GetDamageRange(jethro, jethro.WeaponEquipped);
+            DamageRange damageOptions2 = EncounterCore.GetDamageRange(jethro, jethro.WeaponEquipped);
             Assert.AreEqual(72, chanceToHit2);
             Assert.AreEqual(70, chanceToCrit2);
             Assert.AreEqual(3, damageOptions2.DamageLow);
@@ -252,7 +252,7 @@ Missed: Chance to hit: 72, (dice roll: 0)
             Assert.AreEqual(characters3[0], jethro);
             int chanceToHit3 = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit3 = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jethro, mission.Map, false);
-            DamageOptions damageOptions3 = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
+            DamageRange damageOptions3 = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
             Assert.AreEqual(80, chanceToHit3);
             Assert.AreEqual(70, chanceToCrit3);
             Assert.AreEqual(3, damageOptions3.DamageLow);

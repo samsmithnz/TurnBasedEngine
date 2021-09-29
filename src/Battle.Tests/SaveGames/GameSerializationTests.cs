@@ -66,24 +66,7 @@ namespace Battle.Tests.SaveGames
 
             //Act
             string json = GameSerialization.SaveGame(mission);
-
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
-            int number = new DirectoryInfo(path).GetFiles().Length;
-            string fileName = $"Save{number:000}.json";
-            while (File.Exists(path + fileName) == true)
-            {
-                number++;
-                fileName = $"Save{number:000}.json";
-                if (number > 1000)
-                {
-                    //we don't want an infinite loop
-                    break;
-                }
-            }
-            File.WriteAllText(path + fileName, json);
+            GameSerialization.CreateSaveGameFile(path, json);
 
             //Assert
             Assert.IsTrue(Directory.Exists(path));

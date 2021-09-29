@@ -1,4 +1,5 @@
-﻿using Battle.Logic.Map;
+﻿using Battle.Logic.GameController;
+using Battle.Logic.Map;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -11,85 +12,88 @@ namespace Battle.Logic.Characters
         /// Calculate if the player is in cover. 
         /// </summary>
         /// <returns>True if the player is in cover</returns>
-        public static CoverStateResult CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
+        public static CoverState CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
-            CoverStateResult result = new CoverStateResult();
+            CoverState result = new CoverState();
             List<Vector3> coverTiles = FindAdjacentCover(map, defenderPosition);
             int coverLineNorth = -1;
             int coverLineEast = -1;
             int coverLineSouth = -1;
             int coverLineWest = -1;
-            bool currentLocationIsFlanked = false;
 
-            if (coverTiles.Count == 0)
+            //if (coverTiles.Count == 0)
+            //{
+            //    result.InFullCover = false;
+            //    result.InHalfCover = false;
+            //    if (attackerLocations.Count > 0)
+            //    {
+            //        result.IsFlanked = true; //ignore cover/ the character isn't in cover
+            //    }
+            //    return result;
+            //}
+            //else
+            //{
+            // Work out where the cover is relative to the player
+            foreach (Vector3 coverTileItem in coverTiles)
             {
-                result.InFullCover = false;
-                result.InHalfCover = false;
-                return result;
-            }
-            else
-            {
-                // Work out where the cover is relative to the player
-                foreach (Vector3 coverTileItem in coverTiles)
+                if (defenderPosition.X < coverTileItem.X)
                 {
-                    if (defenderPosition.X < coverTileItem.X)
+                    if (map[(int)defenderPosition.X + 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
                     {
-                        if (map[(int)defenderPosition.X + 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
-                        {
-                            result.InEastFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InEastHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineEast = Convert.ToInt32(coverTileItem.X) - 0;
+                        result.InEastFullCover = true;
+                        result.InFullCover = true;
                     }
-                    if (defenderPosition.X > coverTileItem.X)
+                    else
                     {
-                        if (map[(int)defenderPosition.X - 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
-                        {
-                            result.InWestFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InWestHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineWest = Convert.ToInt32(coverTileItem.X) + 0;
+                        result.InEastHalfCover = true;
+                        result.InHalfCover = true;
                     }
-                    if (defenderPosition.Z < coverTileItem.Z)
+                    coverLineEast = Convert.ToInt32(coverTileItem.X) - 0;
+                }
+                if (defenderPosition.X > coverTileItem.X)
+                {
+                    if (map[(int)defenderPosition.X - 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
                     {
-                        if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z + 1] == CoverType.FullCover)
-                        {
-                            result.InNorthFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InNorthHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineNorth = Convert.ToInt32(coverTileItem.Z) - 0;
+                        result.InWestFullCover = true;
+                        result.InFullCover = true;
                     }
-                    if (defenderPosition.Z > coverTileItem.Z)
+                    else
                     {
-                        if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z - 1] == CoverType.FullCover)
-                        {
-                            result.InSouthFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InSouthHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineSouth = Convert.ToInt32(coverTileItem.Z) + 0;
+                        result.InWestHalfCover = true;
+                        result.InHalfCover = true;
                     }
+                    coverLineWest = Convert.ToInt32(coverTileItem.X) + 0;
+                }
+                if (defenderPosition.Z < coverTileItem.Z)
+                {
+                    if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z + 1] == CoverType.FullCover)
+                    {
+                        result.InNorthFullCover = true;
+                        result.InFullCover = true;
+                    }
+                    else
+                    {
+                        result.InNorthHalfCover = true;
+                        result.InHalfCover = true;
+                    }
+                    coverLineNorth = Convert.ToInt32(coverTileItem.Z) - 0;
+                }
+                if (defenderPosition.Z > coverTileItem.Z)
+                {
+                    if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z - 1] == CoverType.FullCover)
+                    {
+                        result.InSouthFullCover = true;
+                        result.InFullCover = true;
+                    }
+                    else
+                    {
+                        result.InSouthHalfCover = true;
+                        result.InHalfCover = true;
+                    }
+                    coverLineSouth = Convert.ToInt32(coverTileItem.Z) + 0;
                 }
             }
+            //}
 
             if (attackerLocations != null && attackerLocations.Count > 0)
             {
@@ -101,19 +105,19 @@ namespace Battle.Logic.Characters
                     //Enemy is located NorthEast
                     if (enemyItem.Z >= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
-                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InEastFullCover) //No cover in North or East = always flanked by Northeast Enenmy
+                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InEastFullCover && !result.InEastHalfCover) //No cover in North or East = always flanked by Northeast Enenmy
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InNorthFullCover || result.InNorthHalfCover) && enemyItem.Z <= coverLineNorth && !result.InEastFullCover) //There is cover in the North, but the enemy is past it + no East cover
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InEastFullCover || result.InEastHalfCover) && enemyItem.X <= coverLineEast && !result.InNorthFullCover) //There is cover in the East, but the enemy is past it + no North cover
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -121,19 +125,19 @@ namespace Battle.Logic.Characters
                     //Enemy is located NorthWest
                     if (enemyItem.Z >= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
-                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InWestFullCover)
+                        if (!result.InNorthFullCover && !result.InNorthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InNorthFullCover || result.InNorthHalfCover) && enemyItem.Z <= coverLineNorth && !result.InWestFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InWestFullCover || result.InWestHalfCover) && enemyItem.X >= coverLineWest && !result.InNorthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -141,19 +145,19 @@ namespace Battle.Logic.Characters
                     //Enemy is located SouthEast
                     if (enemyItem.Z <= defenderPosition.Z && enemyItem.X >= defenderPosition.X)
                     {
-                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InEastFullCover)
+                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InEastFullCover && !result.InEastHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InSouthFullCover || result.InSouthHalfCover) && enemyItem.Z >= coverLineSouth && !result.InEastFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InEastFullCover || result.InEastHalfCover) && enemyItem.X <= coverLineEast && !result.InSouthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
@@ -161,28 +165,62 @@ namespace Battle.Logic.Characters
                     //Enemy is located SouthWest
                     if (enemyItem.Z <= defenderPosition.Z && enemyItem.X <= defenderPosition.X)
                     {
-                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InWestFullCover)
+                        if (!result.InSouthFullCover && !result.InSouthHalfCover && !result.InWestFullCover && !result.InWestHalfCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InSouthFullCover || result.InSouthHalfCover) && enemyItem.Z >= coverLineSouth && !result.InWestFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                         else if ((result.InWestFullCover || result.InWestHalfCover) && enemyItem.X >= coverLineWest && !result.InSouthFullCover)
                         {
-                            currentLocationIsFlanked = true;
+                            result.IsFlanked = true;
                             break;
                         }
                     }
                 }
-
-                result.InFullCover = !currentLocationIsFlanked;
-                result.InHalfCover = !currentLocationIsFlanked;
             }
+
+            //If the player is standing in the open, they are flanked
+            if (!result.InFullCover && !result.InHalfCover)
+            {
+                result.IsFlanked = true;
+            }
+
             return result;
+        }
+
+        public static bool RefreshCoverStates(Mission mission)
+        {
+            foreach (Team team in mission.Teams)
+            {
+                List<Vector3> opponents = GetOpponentCharacterLocations(mission.Teams, team.Name);
+
+                foreach (Character character in team.Characters)
+                {
+                    character.CoverState = CharacterCover.CalculateCover(mission.Map, character.Location, opponents);
+                }
+            }
+            return true;
+        }
+
+        private static List<Vector3> GetOpponentCharacterLocations(List<Team> teams, string currentTeamName)
+        {
+            List<Vector3> opponents = new List<Vector3>();
+            foreach (Team team in teams)
+            {
+                if (team.Name != currentTeamName)
+                {
+                    foreach (Character character in team.Characters)
+                    {
+                        opponents.Add(character.Location);
+                    }
+                }
+            }
+            return opponents;
         }
 
         /// <summary>

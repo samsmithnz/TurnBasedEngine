@@ -81,7 +81,7 @@ namespace Battle.Logic.Characters
                         }
                     }
                     //is the character still alive?
-                    if (overWatchResult.Item2 == false)
+                    if (!overWatchResult.Item2)
                     {
                         if (log.Count > 0)
                         {

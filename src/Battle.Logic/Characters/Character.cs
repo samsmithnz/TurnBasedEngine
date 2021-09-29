@@ -72,8 +72,7 @@ namespace Battle.Logic.Characters
         public Weapon WeaponEquipped { get; set; }
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
-        public bool InHalfCover { get; set; }
-        public bool InFullCover { get; set; }
+        public CoverState CoverState { get; set; }
         public bool InOverwatch { get; set; }
         public bool HunkeredDown { get; set; }
 
@@ -170,7 +169,7 @@ namespace Battle.Logic.Characters
                             break;
                         }
                     }
-                    if (addedCharacter == false && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov) == true)
+                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
                     {
                         results.Add(character);
                     }
@@ -231,7 +230,7 @@ namespace Battle.Logic.Characters
 
         public bool LevelUpCharacter()
         {
-            if (LevelUpIsReady == true)
+            if (LevelUpIsReady)
             {
                 LevelUpIsReady = false;
                 HitpointsCurrent++;

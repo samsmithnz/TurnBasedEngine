@@ -9,6 +9,13 @@ namespace Battle.Logic.Encounters
 {
     public static class EncounterCore
     {
+        /// <summary>
+        /// Get chance to hit 
+        /// </summary>
+        /// <param name="sourceCharacter">Character who is trying to hit target</param>
+        /// <param name="weapon">Weapon character is using</param>
+        /// <param name="targetCharacter">Character who is being targeted</param>
+        /// <returns>percentage int</returns>
         public static int GetChanceToHit(Character sourceCharacter, Weapon weapon, Character targetCharacter)
         {
             //Aim (unit stat + modifiers) - Defence (unit stat + modifiers) = total (clamped to 1%, if negative) + range modifier = final result
@@ -17,9 +24,9 @@ namespace Battle.Logic.Encounters
             int toHit = sourceCharacter.ChanceToHit;
 
             //Target cover adjustments
-            if (targetCharacter.InHalfCover == true)
+            if (targetCharacter.CoverState.InHalfCover)
             {
-                if (targetCharacter.HunkeredDown == true)
+                if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
                     toHit -= 40;
@@ -29,9 +36,9 @@ namespace Battle.Logic.Encounters
                     toHit -= 20;
                 }
             }
-            else if (targetCharacter.InFullCover == true)
+            else if (targetCharacter.CoverState.InFullCover)
             {
-                if (targetCharacter.HunkeredDown == true)
+                if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
                     toHit -= 80;
@@ -50,8 +57,8 @@ namespace Battle.Logic.Encounters
             toHit += Range.GetRangeModifier(weapon, distance);
 
             //Overwatch
-            int overwatchPenaltyRemoved = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
+            int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
                 toHit = (int)((float)toHit * 0.7f);
@@ -67,29 +74,36 @@ namespace Battle.Logic.Encounters
         public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, bool isAreaEffectAttack)
         {
             int chanceToCrit = weapon.CriticalChance;
-            if (isAreaEffectAttack == false && targetCharacter != null && TargetIsFlanked(sourceCharacter, targetCharacter, map) == true)
+            CoverState coverState = CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
+            if (!isAreaEffectAttack && coverState.IsFlanked)
             {
                 //Add 50% for a flank
                 chanceToCrit += 50;
             }
-            chanceToCrit += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
+            chanceToCrit += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
-            int overwatchPenaltyRemoved = ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch == true)
+            int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 chanceToCrit = 0;
             }
             return chanceToCrit;
         }
 
-        public static DamageOptions GetDamageRange(Character sourceCharacter, Weapon weapon)
+        /// <summary>
+        /// Get damage ranges
+        /// </summary>
+        /// <param name="sourceCharacter">Character who is trying to hit target</param>
+        /// <param name="weapon">Weapon being used</param>
+        /// <returns>DamageRange: including damage and critical hit ranges</returns>
+        public static DamageRange GetDamageRange(Character sourceCharacter, Weapon weapon)
         {
-            DamageOptions damageOptions = new DamageOptions();
+            DamageRange damageOptions = new DamageRange();
             int lowDamageAdjustment = 0;
             int highDamageAdjustment = 0;
 
             //Add abilities
-            highDamageAdjustment += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.Damage);
+            highDamageAdjustment += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.Damage);
 
             //Normal damage
             damageOptions.DamageLow = weapon.DamageRangeLow + lowDamageAdjustment;
@@ -100,14 +114,20 @@ namespace Battle.Logic.Encounters
             damageOptions.CriticalDamageHigh = damageOptions.DamageHigh;
 
             damageOptions.CriticalDamageLow += weapon.CriticalDamageLow;
-            damageOptions.CriticalDamageLow += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
+            damageOptions.CriticalDamageLow += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
             damageOptions.CriticalDamageHigh += weapon.CriticalDamageHigh;
-            damageOptions.CriticalDamageHigh += ProcessAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
+            damageOptions.CriticalDamageHigh += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalDamage);
 
             return damageOptions;
         }
 
-        public static int ProcessAbilitiesByType(List<Ability> abilities, AbilityType type)
+        /// <summary>
+        /// Add abilities adjustments by type
+        /// </summary>
+        /// <param name="abilities">List of abilities</param>
+        /// <param name="type">The type of ability to aggregate</param>
+        /// <returns>a total adjustment for this ability. Can be a positive or negative number</returns>
+        public static int AggregateAbilitiesByType(List<Ability> abilities, AbilityType type)
         {
             int adjustment = 0;
             foreach (Ability item in abilities)
@@ -120,15 +140,5 @@ namespace Battle.Logic.Encounters
             return adjustment;
         }
 
-        private static bool TargetIsFlanked(Character sourceCharacter, Character targetCharacter, string[,,] map)
-        {
-            Console.WriteLine(map.Length);
-            Console.WriteLine(sourceCharacter.Location);
-            Console.WriteLine(targetCharacter.Location);
-            //This is where we will call the cover calculation
-            CoverStateResult coverState = Characters.CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });
-
-            return !coverState.InFullCover;
-        }
     }
 }

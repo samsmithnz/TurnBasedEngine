@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFredHero(string[,,] map, Vector3 location)
+        public static Character CreateFredHero(string[,,] map, Vector3 startingLocation)
         {
             Character fred = new Character()
             {
@@ -31,12 +31,11 @@ namespace Battle.Tests.Characters
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
-                InHalfCover = false,
-                InFullCover = false,
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetLocation(location, map);
+            fred.SetLocation(startingLocation, map);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -51,7 +50,7 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJethroBaddie(string[,,] map, Vector3 location)
+        public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation)
         {
             Character jethro = new Character()
             {
@@ -74,16 +73,15 @@ namespace Battle.Tests.Characters
                 FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
-                InHalfCover = false,
-                InFullCover = false,
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jethro.SetLocation(location, map);
+            jethro.SetLocation(startingLocation, map);
             return jethro;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 location)
+        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation)
         {
             Character harry = new Character()
             {
@@ -103,12 +101,11 @@ namespace Battle.Tests.Characters
                 FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
-                InHalfCover = true,
-                InFullCover = false,
+                CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetLocation(location, map);
+            harry.SetLocation(startingLocation, map);
             return harry;
         }
     }
