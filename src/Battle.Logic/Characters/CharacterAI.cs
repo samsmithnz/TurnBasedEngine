@@ -95,21 +95,21 @@ namespace Battle.Logic.Characters
                 CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
-                    currentScore -= 2;
+                    currentScore -= 1;
                 }
                 else if (coverStateResult.InFullCover)
                 {
-                    currentScore += 4;
+                    currentScore += 2;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    currentScore += 3;
+                    currentScore += 1;
                 }
 
                 //Movement points
-                if (item.Value < maxActionPoints)
+                if (item.Value <= maxActionPoints)
                 {
-                    currentScore += maxActionPoints+1 - item.Value;
+                    currentScore += maxActionPoints + 2 - item.Value;
                 }
 
                 //Upgrade positions that would flank opponents

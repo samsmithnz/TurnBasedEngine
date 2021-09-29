@@ -21,76 +21,79 @@ namespace Battle.Logic.Characters
             int coverLineSouth = -1;
             int coverLineWest = -1;
 
-            if (coverTiles.Count == 0)
+            //if (coverTiles.Count == 0)
+            //{
+            //    result.InFullCover = false;
+            //    result.InHalfCover = false;
+            //    if (attackerLocations.Count > 0)
+            //    {
+            //        result.IsFlanked = true; //ignore cover/ the character isn't in cover
+            //    }
+            //    return result;
+            //}
+            //else
+            //{
+            // Work out where the cover is relative to the player
+            foreach (Vector3 coverTileItem in coverTiles)
             {
-                result.InFullCover = false;
-                result.InHalfCover = false;
-                result.IsFlanked = true; //ignore cover/ the character isn't in cover
-                return result;
-            }
-            else
-            {
-                // Work out where the cover is relative to the player
-                foreach (Vector3 coverTileItem in coverTiles)
+                if (defenderPosition.X < coverTileItem.X)
                 {
-                    if (defenderPosition.X < coverTileItem.X)
+                    if (map[(int)defenderPosition.X + 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
                     {
-                        if (map[(int)defenderPosition.X + 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
-                        {
-                            result.InEastFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InEastHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineEast = Convert.ToInt32(coverTileItem.X) - 0;
+                        result.InEastFullCover = true;
+                        result.InFullCover = true;
                     }
-                    if (defenderPosition.X > coverTileItem.X)
+                    else
                     {
-                        if (map[(int)defenderPosition.X - 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
-                        {
-                            result.InWestFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InWestHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineWest = Convert.ToInt32(coverTileItem.X) + 0;
+                        result.InEastHalfCover = true;
+                        result.InHalfCover = true;
                     }
-                    if (defenderPosition.Z < coverTileItem.Z)
+                    coverLineEast = Convert.ToInt32(coverTileItem.X) - 0;
+                }
+                if (defenderPosition.X > coverTileItem.X)
+                {
+                    if (map[(int)defenderPosition.X - 1, (int)defenderPosition.Y, (int)defenderPosition.Z] == CoverType.FullCover)
                     {
-                        if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z + 1] == CoverType.FullCover)
-                        {
-                            result.InNorthFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InNorthHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineNorth = Convert.ToInt32(coverTileItem.Z) - 0;
+                        result.InWestFullCover = true;
+                        result.InFullCover = true;
                     }
-                    if (defenderPosition.Z > coverTileItem.Z)
+                    else
                     {
-                        if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z - 1] == CoverType.FullCover)
-                        {
-                            result.InSouthFullCover = true;
-                            result.InFullCover = true;
-                        }
-                        else
-                        {
-                            result.InSouthHalfCover = true;
-                            result.InHalfCover = true;
-                        }
-                        coverLineSouth = Convert.ToInt32(coverTileItem.Z) + 0;
+                        result.InWestHalfCover = true;
+                        result.InHalfCover = true;
                     }
+                    coverLineWest = Convert.ToInt32(coverTileItem.X) + 0;
+                }
+                if (defenderPosition.Z < coverTileItem.Z)
+                {
+                    if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z + 1] == CoverType.FullCover)
+                    {
+                        result.InNorthFullCover = true;
+                        result.InFullCover = true;
+                    }
+                    else
+                    {
+                        result.InNorthHalfCover = true;
+                        result.InHalfCover = true;
+                    }
+                    coverLineNorth = Convert.ToInt32(coverTileItem.Z) - 0;
+                }
+                if (defenderPosition.Z > coverTileItem.Z)
+                {
+                    if (map[(int)defenderPosition.X, (int)defenderPosition.Y, (int)defenderPosition.Z - 1] == CoverType.FullCover)
+                    {
+                        result.InSouthFullCover = true;
+                        result.InFullCover = true;
+                    }
+                    else
+                    {
+                        result.InSouthHalfCover = true;
+                        result.InHalfCover = true;
+                    }
+                    coverLineSouth = Convert.ToInt32(coverTileItem.Z) + 0;
                 }
             }
+            //}
 
             if (attackerLocations != null && attackerLocations.Count > 0)
             {
@@ -180,6 +183,13 @@ namespace Battle.Logic.Characters
                     }
                 }
             }
+
+            //If the player is standing in the open, they are flanked
+            if (!result.InFullCover && !result.InHalfCover)
+            {
+                result.IsFlanked = true;
+            }
+
             return result;
         }
 
