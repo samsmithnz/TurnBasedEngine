@@ -526,8 +526,10 @@ Fred is ready to level up
         public void FredAttacksAndKillsJethroWithRifleAndCriticalChanceAbilityBonusTest()
         {
             //Arrange
-            Mission mission = new Mission();
-            mission.Map = MapCore.InitializeMap(10, 1, 10);
+            Mission mission = new Mission
+            {
+                Map = MapCore.InitializeMap(10, 1, 10)
+            };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;

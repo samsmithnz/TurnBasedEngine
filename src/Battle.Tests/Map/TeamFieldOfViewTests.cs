@@ -17,13 +17,13 @@ namespace Battle.Tests.Map
     [TestCategory("L1")]
     public class TeamFieldOfViewTests
     {
-        private string _rootPath;
+        //private string _rootPath;
 
-        [TestInitialize]
-        public void GameSerializationStartUp()
-        {
-            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        }
+        //[TestInitialize]
+        //public void GameSerializationStartUp()
+        //{
+        //    _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        //}
 
         [TestMethod]
         public void TeamFOVMovementTest()
@@ -1063,12 +1063,12 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(expectedFovMapString, teamFovMapString);
 
-            string jsonString = GameSerialization.SaveGame(mission);
-            string path = _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location).Replace("bin\\Debug\\netcoreapp3.1", "SaveGames\\Saves\\");
-            if (!File.Exists(path + "Save002.json"))
-            {
-                GameSerialization.CreateSaveGameFile(path, jsonString, 2);
-            }
+            //string jsonString = GameSerialization.SaveGame(mission);
+            //string path = _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location).Replace("bin\\Debug\\netcoreapp3.1", "SaveGames\\Saves\\");
+            //if (!File.Exists(path + "Save002.json"))
+            //{
+            //    GameSerialization.CreateSaveGameFile(path, jsonString, 2);
+            //}
         }
 
     }

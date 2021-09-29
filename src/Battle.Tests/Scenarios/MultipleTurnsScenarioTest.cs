@@ -19,7 +19,7 @@ namespace Battle.Tests.Scenarios
         public void MultipleTurnsTest()
         {
             //Arrange
-            bool teamIsDone = false;
+            bool teamIsDone;
             Mission mission = new Mission
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
