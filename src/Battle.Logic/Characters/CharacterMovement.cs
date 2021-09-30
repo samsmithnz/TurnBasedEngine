@@ -12,10 +12,10 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<ActionResult> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
+        public static List<MovementAction> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
-            List<ActionResult> results = new List<ActionResult>();
+            List<MovementAction> results = new List<MovementAction>();
 
             //If you try to move to a square that is occupied, this can fail - return null
             if (pathFindingResult.Path.Count == 0)
@@ -39,7 +39,7 @@ namespace Battle.Logic.Characters
                 {
                     characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString()
                 };
-                ActionResult result = new ActionResult();
+                MovementAction result = new MovementAction();
                 if (i == 0)
                 {
                     result.StartLocation = characterMoving.Location;
@@ -106,11 +106,11 @@ namespace Battle.Logic.Characters
             return results;
         }
 
-        public static string LogString(List<ActionResult> movementResults)
+        public static string LogString(List<MovementAction> movementResults)
         {
             StringBuilder result = new StringBuilder();
             result.Append(Environment.NewLine);
-            foreach (ActionResult item in movementResults)
+            foreach (MovementAction item in movementResults)
             {
                 foreach (string log in item.Log)
                 {

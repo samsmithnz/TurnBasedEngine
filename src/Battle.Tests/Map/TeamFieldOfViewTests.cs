@@ -132,7 +132,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 
             Vector3 location2 = new Vector3(13, 0, 0);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(harry.Location, location2, mission.Map);
-            List<ActionResult> actionResults = CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null, team1);
+            List<MovementAction> actionResults = CharacterMovement.MoveCharacter(harry, mission.Map, pathFindingResult2, mission.RandomNumbers, null, team1);
 
             string fovMovementString1 = actionResults[0].FOVMapString;
             string expectedFOVString1 = @"

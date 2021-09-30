@@ -106,7 +106,7 @@ namespace Battle.Tests.Scenarios
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location,
                 new Vector3(1, 0, 9),
                 mission.Map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred,
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred,
                 mission.Map,
                 pathFindingResult,
                 diceRolls,
