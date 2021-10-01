@@ -8,13 +8,13 @@ using System.Numerics;
 
 namespace Battle.Logic.Characters
 {
-    public class CharacterAI
+    public class CharacterAIFirstPass
     {
-        private List<KeyValuePair<Vector3, int>> aiValues;
+        private List<KeyValuePair<Vector3, int>> movementAIValues;
 
-        public CharacterAI()
+        public CharacterAIFirstPass()
         {
-            aiValues = new List<KeyValuePair<Vector3, int>>();
+            movementAIValues = new List<KeyValuePair<Vector3, int>>();
         }
 
         public MovementAction CalculateAIAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
@@ -29,23 +29,24 @@ namespace Battle.Logic.Characters
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
             //2. Assign a value to each possible tile
-            aiValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
+            movementAIValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
-            //3. Assign an action based on the intelligence check
+            //3. Assign a move based on the intelligence check
             Vector3 endLocation;
+
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
             if ((100 - character.Intelligence) <= randomInt)
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
-                endLocation = aiValues[0].Key;
+                endLocation = movementAIValues[0].Key;
             }
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll failed
-                endLocation = aiValues[aiValues.Count - 1].Key;
+                endLocation = movementAIValues[movementAIValues.Count - 1].Key;
             }
 
             return new MovementAction()
@@ -56,10 +57,10 @@ namespace Battle.Logic.Characters
             };
         }
 
-        private List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
+        public List<KeyValuePair<Vector3, int>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
             //initialize the list
-            aiValues = movementPossibileTiles;
+            movementAIValues = movementPossibileTiles;
 
             //Create a list of opponent character locations
             List<Character> opponentCharacters = new List<Character>();
@@ -78,10 +79,10 @@ namespace Battle.Logic.Characters
             }
 
             //Loop through each key value pair
-            int maxActionPoints = aiValues[aiValues.Count - 1].Value;
-            for (int i = 0; i < aiValues.Count; i++)
+            int maxActionPoints = movementAIValues[movementAIValues.Count - 1].Value;
+            for (int i = 0; i < movementAIValues.Count; i++)
             {
-                KeyValuePair<Vector3, int> item = aiValues[i];
+                KeyValuePair<Vector3, int> item = movementAIValues[i];
                 Vector3 location = item.Key;
                 //if (location == new Vector3(5, 0, 4))
                 //{
@@ -135,35 +136,30 @@ namespace Battle.Logic.Characters
                     }
                 }
 
-                //Attack, but not on the last action point
-                if (maxActionPoints - item.Value >= 1)
-                {
-                }
-
                 if (currentScore < 0)
                 {
                     currentScore = 0;
                 }
 
                 KeyValuePair<Vector3, int> newItem = new KeyValuePair<Vector3, int>(location, currentScore);
-                aiValues[i] = newItem;
+                movementAIValues[i] = newItem;
             }
 
             // Sort the values, highest first
-            aiValues = aiValues.OrderByDescending(x => x.Value).ToList();
+            movementAIValues = movementAIValues.OrderByDescending(x => x.Value).ToList();
 
-            return aiValues;
+            return movementAIValues;
         }
 
         public string CreateAIMap(string[,,] map)
         {
-            if (aiValues == null)
+            if (movementAIValues == null)
             {
                 return null;
             }
             else
             {
-                return MapCore.GetMapStringWithItemValues(map, aiValues);
+                return MapCore.GetMapStringWithItemValues(map, movementAIValues);
             }
         }
 
