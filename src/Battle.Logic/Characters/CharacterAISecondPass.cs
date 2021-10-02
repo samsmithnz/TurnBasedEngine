@@ -147,6 +147,12 @@ namespace Battle.Logic.Characters
                     if (opponentCharacters.Count == 0)
                     {
                         moveScore = baseScore;
+                        moveScore += 3;
+                        //Normalize and record the score + target
+                        if (moveScore < 0)
+                        {
+                            moveScore = 0;
+                        }
                         possibleOptions.Add(new AIAction()
                         {
                             Score = moveScore,
@@ -214,6 +220,7 @@ namespace Battle.Logic.Characters
                 {
                     //double move - no bonuses
                     moveLongScore = baseScore;
+                    moveLongScore += 2;
 
                     //Normalize and record the score + target
                     if (moveLongScore < 0)
