@@ -29,11 +29,4 @@ namespace Battle.Logic.Encounters
         }
 
     }
-
-    public enum ActionType
-    {
-        Unknown = 0,
-        Movement = 1,
-        Attack = 2
-    }
 }

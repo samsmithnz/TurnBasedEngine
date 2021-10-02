@@ -58,14 +58,18 @@ namespace Battle.Logic.Characters
 
         private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
+            List<KeyValuePair<Vector3, AIAction>> results = new List<KeyValuePair<Vector3, AIAction>>();
+
             //Preprocess a list of opponent characters and a list of character locations
             List<Character> opponentCharacters = new List<Character>();
             List<Vector3> opponentLocations = new List<Vector3>();
+            Team opponentTeam = new Team();
             foreach (Team team in teams)
             {
                 //Exclude the characters team (Assume all other teams are the bad guys)
                 if (!team.Characters.Contains(character))
                 {
+                    opponentTeam = team;
                     foreach (Character item in team.Characters)
                     {
                         opponentCharacters.Add(item);
@@ -78,15 +82,25 @@ namespace Battle.Logic.Characters
             int maxActionPoints = movementPossibileTiles[movementPossibileTiles.Count - 1].Value;
             for (int i = 0; i < movementPossibileTiles.Count; i++)
             {
+                List<AIAction> possibleOptions = new List<AIAction>();
                 KeyValuePair<Vector3, int> item = movementPossibileTiles[i];
                 Vector3 location = item.Key;
+                string targetName = "";
+                Vector3 targetLocation = Vector3.Zero;
+                int baseScore = 0;
+                int moveScore = 0;
+                int moveLongScore = 0;
+                int moveThenShootScore = 0;
+                //int moveWithAllActionPointsbaseScore = 0;
+                //int moveThenHunkerScore = 0;
+                //int shootFromCurrentLocationScore = 0;
+
                 //if (location == new Vector3(5, 0, 4))
                 //{
                 //    int j = 123;
                 //}
-                //start at zero
-                int currentScore = 0;
-                //Move the character in a temp map to simulate the board for this situation
+
+                //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
                 fovMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "";
                 fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "";
@@ -95,21 +109,15 @@ namespace Battle.Logic.Characters
                 CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
-                    currentScore -= 1;
+                    baseScore -= 1;
                 }
                 else if (coverStateResult.InFullCover)
                 {
-                    currentScore += 2;
+                    baseScore += 2;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    currentScore += 1;
-                }
-
-                //Movement points
-                if (item.Value <= maxActionPoints)
-                {
-                    currentScore += maxActionPoints + 2 - item.Value;
+                    baseScore += 1;
                 }
 
                 //Upgrade positions that would flank opponents
@@ -120,7 +128,7 @@ namespace Battle.Logic.Characters
                     if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
-                        currentScore += 2;
+                        baseScore += 2;
                     }
 
                     //Do a reverse FOV from the perspective of the character
@@ -128,41 +136,124 @@ namespace Battle.Logic.Characters
                     //reduce the score for those tiles - they are more dangerous to move into
                     if (fovCharacterVisibleTiles.Contains(location))
                     {
-                        currentScore -= 2;
+                        baseScore -= 2;
                     }
                 }
 
-                //Attack, but not on the last action point
-                if (maxActionPoints - item.Value >= 1)
+                //If there are movement points left, consider shooting options.
+                if (item.Value == 1)
                 {
+                    //If there are no opponents in view, just return a walk
+                    if (opponentCharacters.Count == 0)
+                    {
+                        moveScore = baseScore;
+                        possibleOptions.Add(new AIAction()
+                        {
+                            Score = moveScore,
+                            StartLocation = character.Location,
+                            EndLocation = location,
+                            TargetName = targetName,
+                            TargetLocation = targetLocation,
+                            ActionType = ActionType.Attack
+                        });
+                    }
+                    else
+                    {
+                        moveThenShootScore = baseScore;
+
+                        //Calculate chance to hit
+                        List<Character> characters = character.GetCharactersInView(fovMap, new List<Team>() { opponentTeam });
+                        foreach (Character opponentCharacter in characters)
+                        {
+                            int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
+                            targetName = opponentCharacter.Name;
+                            targetLocation = opponentCharacter.Location;
+                            if (chanceToHit >= 95)
+                            {
+                                moveThenShootScore += 5;
+                            }
+                            else if (chanceToHit >= 90)
+                            {
+                                moveThenShootScore += 4;
+                            }
+                            else if (chanceToHit >= 80)
+                            {
+                                moveThenShootScore += 3;
+                            }
+                            else if (chanceToHit >= 65)
+                            {
+                                moveThenShootScore += 2;
+                            }
+                            else if (chanceToHit >= 50)
+                            {
+                                moveThenShootScore += 1;
+                            }
+                            else //(chanceToHit < 50)
+                            {
+                                moveThenShootScore += 0;
+                            }
+
+                            //Normalize and record the score + target
+                            if (moveThenShootScore < 0)
+                            {
+                                moveThenShootScore = 0;
+                            }
+                            possibleOptions.Add(new AIAction()
+                            {
+                                Score = moveThenShootScore,
+                                StartLocation = character.Location,
+                                EndLocation = location,
+                                TargetName = targetName,
+                                TargetLocation = targetLocation,
+                                ActionType = ActionType.Attack
+                            });
+                        }
+                    }
+                }
+                else if (item.Value == 2)
+                {
+                    //double move - no bonuses
+                    moveLongScore = baseScore;
+
+                    //Normalize and record the score + target
+                    if (moveLongScore < 0)
+                    {
+                        moveLongScore = 0;
+                    }
+                    possibleOptions.Add(new AIAction()
+                    {
+                        Score = moveLongScore,
+                        StartLocation = character.Location,
+                        EndLocation = location,
+                        ActionType = ActionType.Movement
+                    });
                 }
 
-                if (currentScore < 0)
-                {
-                    currentScore = 0;
-                }
-
-                KeyValuePair<Vector3, int> newItem = new KeyValuePair<Vector3, int>(location, currentScore);
-                //aiValues[i] = newItem;
+                //Order the final options
+                possibleOptions = possibleOptions.OrderByDescending(x => x.Score).ToList();
+                //Get the best first option
+                KeyValuePair<Vector3, AIAction> newItem = new KeyValuePair<Vector3, AIAction>(location, possibleOptions[0]);
+                results.Add(newItem);
             }
 
             // Sort the values, highest first
-            //aiValues = aiValues.OrderByDescending(x => x.Value).ToList();
+            results = results.OrderByDescending(x => x.Value.Score).ToList();
 
-            return aiValues;
+            return results;
         }
 
-        //public string CreateAIMap(string[,,] map)
-        //{
-        //    if (aiValues == null)
-        //    {
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        return MapCore.GetMapStringWithItemValues(map, aiValues);
-        //    }
-        //}
+
+        public string CreateAIMap(string[,,] map)
+        {
+            if (aiValues == null)
+            {
+                return null;
+            }
+            else
+            {
+                return MapCore.GetMapStringWithAIValuesSecond(map, aiValues);
+            }
+        }
 
     }
 }

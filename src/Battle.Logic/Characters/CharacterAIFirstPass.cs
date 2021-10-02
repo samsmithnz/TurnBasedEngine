@@ -159,7 +159,7 @@ namespace Battle.Logic.Characters
             }
             else
             {
-                return MapCore.GetMapStringWithItemValues(map, movementAIValues);
+                return MapCore.GetMapStringWithAIValuesFirst(map, movementAIValues);
             }
         }
 
