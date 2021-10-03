@@ -10,7 +10,7 @@ namespace Battle.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]
-    public class CharacterAITests
+    public class CharacterAIFirstPassTests
     {
 
         [TestMethod]
@@ -42,10 +42,12 @@ namespace Battle.Tests.Characters
             mission.Teams.Add(team2);
 
             //Act            
-            CharacterAI ai = new CharacterAI();
-            ActionResult actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            CharacterAIFirstPass ai = new CharacterAIFirstPass();
+            //Scenario 1: Failure
+            MovementAction actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            //Scenario 2: Success
+            MovementAction actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
-            ActionResult actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
 
             //Assert
             string mapResult = @"
@@ -158,8 +160,8 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.RandomNumbers.Dequeue();
 
             //Act            
-            CharacterAI ai = new CharacterAI();
-            ActionResult actionResult = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            CharacterAIFirstPass ai = new CharacterAIFirstPass();
+            MovementAction actionResult = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert         

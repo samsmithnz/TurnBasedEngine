@@ -8,16 +8,16 @@ using System.Numerics;
 
 namespace Battle.Logic.Characters
 {
-    public class CharacterAI
+    public class CharacterAIFirstPass
     {
         private List<KeyValuePair<Vector3, int>> movementAIValues;
 
-        public CharacterAI()
+        public CharacterAIFirstPass()
         {
             movementAIValues = new List<KeyValuePair<Vector3, int>>();
         }
 
-        public ActionResult CalculateAIAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
+        public MovementAction CalculateAIAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
@@ -49,7 +49,7 @@ namespace Battle.Logic.Characters
                 endLocation = movementAIValues[movementAIValues.Count - 1].Key;
             }
 
-            return new ActionResult()
+            return new MovementAction()
             {
                 Log = log,
                 StartLocation = startLocation,
@@ -159,7 +159,7 @@ namespace Battle.Logic.Characters
             }
             else
             {
-                return MapCore.GetMapStringWithItemValues(map, movementAIValues);
+                return MapCore.GetMapStringWithAIValuesFirst(map, movementAIValues);
             }
         }
 

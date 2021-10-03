@@ -35,7 +35,7 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls, null, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls, null, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -152,7 +152,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
             string mapExpected = @"
@@ -238,7 +238,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
@@ -328,7 +328,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
 
             List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 1);
             List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 2);

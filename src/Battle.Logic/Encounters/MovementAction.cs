@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Battle.Logic.Encounters
 {
-    public class ActionResult
+    public class MovementAction
     {
         public Vector3 StartLocation { get; set; }
         public Vector3 EndLocation { get; set; }
         public string[,,] FOVMap { get; set; }
         public string FOVMapString { get; set; }
-        public List<EncounterResult> EncounterResults { get; set; }
+        public List<EncounterResult> OverwatchEncounterResults { get; set; }
         public List<string> Log { get; set; }
         public string LogString
         {
@@ -27,5 +27,6 @@ namespace Battle.Logic.Encounters
                 return result.ToString();
             }
         }
+
     }
 }

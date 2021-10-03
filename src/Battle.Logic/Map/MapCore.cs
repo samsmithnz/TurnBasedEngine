@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Battle.Logic.Encounters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -135,7 +136,7 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,,] map)
+        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
             //int yMax = map.GetLength(1);
@@ -145,18 +146,33 @@ namespace Battle.Logic.Map
             int y = 0;
             for (int z = zMax - 1; z >= 0; z--)
             {
+                StringBuilder sbLine = new StringBuilder();
                 for (int x = 0; x < xMax; x++)
                 {
                     if (map[x, y, z] != "")
                     {
-                        sb.Append(map[x, y, z] + " ");
+                        sbLine.Append(map[x, y, z] + " ");
                     }
                     else
                     {
-                        sb.Append(". ");
+                        sbLine.Append(". ");
                     }
                 }
-                sb.Append(Environment.NewLine);
+                sbLine.Append(Environment.NewLine);
+                //If there is nothing on the map line, don't display it.
+                //This optimizes the ASCII maps to remove white space
+                if (stripOutBlanks)
+                {
+                    int dotCount = sbLine.ToString().Split('.').Count() - 1;
+                    if (dotCount < xMax)
+                    {
+                        sb.Append(sbLine.ToString());
+                    }
+                }
+                else
+                {
+                    sb.Append(sbLine.ToString());
+                }
             }
             return sb.ToString();
         }
@@ -199,7 +215,7 @@ namespace Battle.Logic.Map
             return mapString;
         }
 
-        public static string GetMapStringWithItemValues(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
+        public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
         {
             string[,,] map = (string[,,])mapTemplate.Clone();
             foreach (KeyValuePair<Vector3, int> item in list)
@@ -207,6 +223,16 @@ namespace Battle.Logic.Map
                 map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
             }
             return MapCore.GetMapString(map);
+        }
+
+        public static string GetMapStringWithAIValuesSecond(string[,,] mapTemplate, List<KeyValuePair<Vector3, AIAction>> list)
+        {
+            string[,,] map = (string[,,])mapTemplate.Clone();
+            foreach (KeyValuePair<Vector3, AIAction> item in list)
+            {
+                map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.Score.ToString();
+            }
+            return MapCore.GetMapString(map, true);
         }
 
         public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)

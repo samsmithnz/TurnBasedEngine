@@ -128,7 +128,7 @@ o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
             PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, mission.Map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, null, team1);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, mission.Map, pathFindingResult, diceRolls, null, team1);
             Assert.AreEqual(5, movementResults.Count);
             string log = @"
 Fred is moving from <5, 0, 5> to <6, 0, 6>

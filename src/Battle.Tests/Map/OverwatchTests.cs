@@ -28,7 +28,7 @@ namespace Battle.Tests.Map
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -65,7 +65,7 @@ Fred is ready to level up
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -102,7 +102,7 @@ Fred is ready to level up
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -142,7 +142,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -151,7 +151,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             Assert.AreEqual(100, fred.XP);
             Assert.AreEqual(10, harry.XP);
             Assert.AreEqual(1, movementResults.Count);
-            Assert.AreEqual(2, movementResults[0].EncounterResults.Count);
+            Assert.AreEqual(2, movementResults[0].OverwatchEncounterResults.Count);
             string log = @"
 Jethro is moving from <8, 0, 8> to <8, 0, 7>
 Harry is attacking with Sniper Rifle, targeted on Jethro
@@ -190,7 +190,7 @@ Fred is ready to level up
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<ActionResult> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
