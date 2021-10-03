@@ -23,8 +23,7 @@ namespace Battle.Logic.Characters
             {
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
-            Vector3 startLocation = character.Location;
-
+            
             //1. Start with a list of all possible moves, a location, and number of movement points to that location
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
@@ -32,28 +31,24 @@ namespace Battle.Logic.Characters
             aiValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
 
             //3. Assign an action based on the intelligence check
-            Vector3 endLocation;
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
+            AIAction aiActionResult;
             if ((100 - character.Intelligence) <= randomInt)
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
-                endLocation = aiValues[0].Key;
+                aiActionResult = aiValues[0].Value;
             }
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll failed
-                endLocation = aiValues[aiValues.Count - 1].Key;
+                aiActionResult = aiValues[aiValues.Count - 1].Value;
             }
 
-            return new AIAction()
-            {
-                Log = log,
-                StartLocation = startLocation,
-                EndLocation = endLocation
-            };
+            aiActionResult.Log = log;
+            return aiActionResult;
         }
 
         private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
@@ -152,14 +147,13 @@ namespace Battle.Logic.Characters
                         {
                             moveScore = 0;
                         }
-                        possibleOptions.Add(new AIAction()
+                        possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
                         {
                             Score = moveScore,
                             StartLocation = character.Location,
                             EndLocation = location,
                             TargetName = targetName,
-                            TargetLocation = targetLocation,
-                            ActionType = ActionTypeEnum.Attack
+                            TargetLocation = targetLocation
                         });
                     }
                     else
@@ -178,14 +172,13 @@ namespace Battle.Logic.Characters
                         {
                             //No characters in view, record a score of 0 - this move achieves nothing
                             moveThenShootScore = 0;
-                            possibleOptions.Add(new AIAction()
+                            possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
                             {
                                 Score = moveThenShootScore,
                                 StartLocation = character.Location,
                                 EndLocation = location,
                                 TargetName = targetName,
-                                TargetLocation = targetLocation,
-                                ActionType = ActionTypeEnum.Attack
+                                TargetLocation = targetLocation
                             });
                         }
                         else
@@ -225,14 +218,13 @@ namespace Battle.Logic.Characters
                                 {
                                     moveThenShootScore = 0;
                                 }
-                                possibleOptions.Add(new AIAction()
+                                possibleOptions.Add(new AIAction(ActionTypeEnum.Attack)
                                 {
                                     Score = moveThenShootScore,
                                     StartLocation = character.Location,
                                     EndLocation = location,
                                     TargetName = targetName,
-                                    TargetLocation = targetLocation,
-                                    ActionType = ActionTypeEnum.Attack
+                                    TargetLocation = targetLocation
                                 });
                             }
                         }
@@ -249,12 +241,11 @@ namespace Battle.Logic.Characters
                     {
                         moveLongScore = 0;
                     }
-                    possibleOptions.Add(new AIAction()
+                    possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
                     {
                         Score = moveLongScore,
                         StartLocation = character.Location,
-                        EndLocation = location,
-                        ActionType = ActionTypeEnum.Move
+                        EndLocation = location
                     });
                 }
 

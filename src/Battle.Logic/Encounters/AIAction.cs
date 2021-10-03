@@ -7,6 +7,10 @@ namespace Battle.Logic.Encounters
 {
     public class AIAction
     {
+        public AIAction(ActionTypeEnum actionType)
+        {
+            ActionType = actionType;
+        }
         public int Score { get; set; }
         public ActionTypeEnum ActionType { get; set; }
         public string TargetName { get; set; }
