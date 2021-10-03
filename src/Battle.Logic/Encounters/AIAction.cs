@@ -8,7 +8,7 @@ namespace Battle.Logic.Encounters
     public class AIAction
     {
         public int Score { get; set; }
-        public ActionType ActionType { get; set; }
+        public ActionTypeEnum ActionType { get; set; }
         public string TargetName { get; set; }
         public Vector3 TargetLocation { get; set; }
         public Vector3 StartLocation { get; set; }
@@ -31,10 +31,10 @@ namespace Battle.Logic.Encounters
 
     }
 
-    public enum ActionType
+    public enum ActionTypeEnum
     {
         Unknown = 0,
-        Movement = 1,
+        Move = 1,
         Attack = 2
     }
 }

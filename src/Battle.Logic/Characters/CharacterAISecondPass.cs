@@ -160,7 +160,7 @@ namespace Battle.Logic.Characters
                             EndLocation = location,
                             TargetName = targetName,
                             TargetLocation = targetLocation,
-                            ActionType = ActionType.Attack
+                            ActionType = ActionTypeEnum.Attack
                         });
                     }
                     else
@@ -186,7 +186,7 @@ namespace Battle.Logic.Characters
                                 EndLocation = location,
                                 TargetName = targetName,
                                 TargetLocation = targetLocation,
-                                ActionType = ActionType.Attack
+                                ActionType = ActionTypeEnum.Attack
                             });
                         }
                         else
@@ -233,7 +233,7 @@ namespace Battle.Logic.Characters
                                     EndLocation = location,
                                     TargetName = targetName,
                                     TargetLocation = targetLocation,
-                                    ActionType = ActionType.Attack
+                                    ActionType = ActionTypeEnum.Attack
                                 });
                             }
                         }
@@ -255,7 +255,7 @@ namespace Battle.Logic.Characters
                         Score = moveLongScore,
                         StartLocation = character.Location,
                         EndLocation = location,
-                        ActionType = ActionType.Movement
+                        ActionType = ActionTypeEnum.Move
                     });
                 }
 
