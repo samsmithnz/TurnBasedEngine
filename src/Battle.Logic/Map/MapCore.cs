@@ -161,7 +161,7 @@ namespace Battle.Logic.Map
                 sbLine.Append(Environment.NewLine);
                 //If there is nothing on the map line, don't display it.
                 //This optimizes the ASCII maps to remove white space
-                if (stripOutBlanks == true)
+                if (stripOutBlanks)
                 {
                     int dotCount = sbLine.ToString().Split('.').Count() - 1;
                     if (dotCount < xMax)

@@ -79,7 +79,6 @@ namespace Battle.Logic.Characters
             }
 
             //Loop through each movement possibility, assigning scores and then choosing the best one
-            int maxActionPoints = movementPossibileTiles[movementPossibileTiles.Count - 1].Value;
             for (int i = 0; i < movementPossibileTiles.Count; i++)
             {
                 List<AIAction> possibleOptions = new List<AIAction>();
@@ -257,11 +256,6 @@ namespace Battle.Logic.Characters
                         EndLocation = location,
                         ActionType = ActionTypeEnum.Move
                     });
-                }
-
-                if (possibleOptions.Count == 0)
-                {
-                    int x = 5;
                 }
 
                 //Order the final options
