@@ -169,41 +169,10 @@ namespace Battle.Logic.Characters
 
                         //Calculate chance to hit
                         List<Character> characters = character.GetCharactersInView(fovMap, new List<Team>() { opponentTeam });
-                        foreach (Character opponentCharacter in characters)
+                        if (characters.Count == 0)
                         {
-                            int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
-                            targetName = opponentCharacter.Name;
-                            targetLocation = opponentCharacter.Location;
-                            if (chanceToHit >= 95)
-                            {
-                                moveThenShootScore += 5;
-                            }
-                            else if (chanceToHit >= 90)
-                            {
-                                moveThenShootScore += 4;
-                            }
-                            else if (chanceToHit >= 80)
-                            {
-                                moveThenShootScore += 3;
-                            }
-                            else if (chanceToHit >= 65)
-                            {
-                                moveThenShootScore += 2;
-                            }
-                            else if (chanceToHit >= 50)
-                            {
-                                moveThenShootScore += 1;
-                            }
-                            else //(chanceToHit < 50)
-                            {
-                                moveThenShootScore += 0;
-                            }
-
-                            //Normalize and record the score + target
-                            if (moveThenShootScore < 0)
-                            {
-                                moveThenShootScore = 0;
-                            }
+                            //No characters in view, record a score of 0 - this move achieves nothing
+                            moveThenShootScore = 0;
                             possibleOptions.Add(new AIAction()
                             {
                                 Score = moveThenShootScore,
@@ -213,6 +182,54 @@ namespace Battle.Logic.Characters
                                 TargetLocation = targetLocation,
                                 ActionType = ActionType.Attack
                             });
+                        }
+                        else
+                        {
+                            foreach (Character opponentCharacter in characters)
+                            {
+                                int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
+                                targetName = opponentCharacter.Name;
+                                targetLocation = opponentCharacter.Location;
+                                if (chanceToHit >= 95)
+                                {
+                                    moveThenShootScore += 5;
+                                }
+                                else if (chanceToHit >= 90)
+                                {
+                                    moveThenShootScore += 4;
+                                }
+                                else if (chanceToHit >= 80)
+                                {
+                                    moveThenShootScore += 3;
+                                }
+                                else if (chanceToHit >= 65)
+                                {
+                                    moveThenShootScore += 2;
+                                }
+                                else if (chanceToHit >= 50)
+                                {
+                                    moveThenShootScore += 1;
+                                }
+                                else //(chanceToHit < 50)
+                                {
+                                    moveThenShootScore += 0;
+                                }
+
+                                //Normalize and record the score + target
+                                if (moveThenShootScore < 0)
+                                {
+                                    moveThenShootScore = 0;
+                                }
+                                possibleOptions.Add(new AIAction()
+                                {
+                                    Score = moveThenShootScore,
+                                    StartLocation = character.Location,
+                                    EndLocation = location,
+                                    TargetName = targetName,
+                                    TargetLocation = targetLocation,
+                                    ActionType = ActionType.Attack
+                                });
+                            }
                         }
                     }
                 }
@@ -234,6 +251,11 @@ namespace Battle.Logic.Characters
                         EndLocation = location,
                         ActionType = ActionType.Movement
                     });
+                }
+
+                if (possibleOptions.Count == 0)
+                {
+                    int x = 5;
                 }
 
                 //Order the final options
