@@ -41,6 +41,7 @@ namespace Battle.Logic.Map
             List<Character> results = new List<Character>();
 
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, shootingRange);
+            //string fovMap = MapCore.GetMapStringWithItems(map, fov);
             foreach (Team team in teams)
             {
                 foreach (Character character in team.Characters)

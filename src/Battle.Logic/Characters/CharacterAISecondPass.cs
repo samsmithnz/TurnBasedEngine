@@ -167,16 +167,14 @@ namespace Battle.Logic.Characters
                     {
                         moveThenShootScore = baseScore;
 
-                        if (location == new Vector3(15,0,5))
-                        {
-                            int hj = 234;
-                        }
+                        //if (location == new Vector3(15,0,5))
+                        //{
+                        //    int hj = 234;
+                        //}
 
                         //Calculate chance to hit
-                        List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
-
-                        List<Character> characters = character.GetCharactersInView(fovMap, new List<Team>() { opponentTeam });
-                        characters = FieldOfView.GetCharactersInView(fovMap, location, character.ShootingRange, new List<Team>() { opponentTeam });
+                        //List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
+                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, character.ShootingRange, new List<Team>() { opponentTeam });
                         if (characters.Count == 0)
                         {
                             //No characters in view, record a score of 0 - this move achieves nothing
