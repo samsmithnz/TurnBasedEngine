@@ -152,31 +152,7 @@ namespace Battle.Logic.Characters
 
         public List<Character> GetCharactersInView(string[,,] map, List<Team> teams)
         {
-            List<Character> results = new List<Character>();
-
-            List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
-            foreach (Team team in teams)
-            {
-                foreach (Character character in team.Characters)
-                {
-                    bool addedCharacter = false;
-                    foreach (Vector3 fovLocation in fov)
-                    {
-                        if (character.Location == fovLocation)
-                        {
-                            addedCharacter = true;
-                            results.Add(character);
-                            break;
-                        }
-                    }
-                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
-                    {
-                        results.Add(character);
-                    }
-                }
-            }
-
-            return results;
+            return FieldOfView.GetCharactersInView(map, Location, ShootingRange, teams);
         }
 
         public string GetCharactersInViewMapString(string[,,] map, List<Team> teams)
@@ -194,38 +170,6 @@ namespace Battle.Logic.Characters
             string mapString = MapCore.GetMapString(mapFov);
 
             return mapString;
-        }
-
-        //If a player is behind cover, but adjacent squares are open/in the players FOV, then the player is visible too
-        private static bool CharacterLocationIsAdjacentToFOVList(string[,,] map, Vector3 location, List<Vector3> list)
-        {
-            //Look at the location.
-            //Is the player in cover? 
-            //Are adjacent spots visible? 
-
-            foreach (Vector3 item in list)
-            {
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
-                {
-                    if (item.X - 1 == location.X && item.Z == location.Z)
-                    {
-                        return true;
-                    }
-                    else if (item.X + 1 == location.X && item.Z == location.Z)
-                    {
-                        return true;
-                    }
-                    else if (item.X == location.X && item.Z - 1 == location.Z)
-                    {
-                        return true;
-                    }
-                    else if (item.X == location.X && item.Z + 1 == location.Z)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
 
         public bool LevelUpCharacter()
