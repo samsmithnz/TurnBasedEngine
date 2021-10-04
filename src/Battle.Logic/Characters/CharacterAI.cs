@@ -8,11 +8,11 @@ using System.Numerics;
 
 namespace Battle.Logic.Characters
 {
-    public class CharacterAISecondPass
+    public class CharacterAI
     {
         private List<KeyValuePair<Vector3, AIAction>> aiValues;
 
-        public CharacterAISecondPass()
+        public CharacterAI()
         {
             aiValues = new List<KeyValuePair<Vector3, AIAction>>();
         }

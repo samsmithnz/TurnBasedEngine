@@ -10,7 +10,7 @@ namespace Battle.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]
-    public class CharacterAIFirstPassTests
+    public class CharacterAITests
     {
 
         [TestMethod]
@@ -42,33 +42,15 @@ namespace Battle.Tests.Characters
             mission.Teams.Add(team2);
 
             //Act            
-            CharacterAIFirstPass ai = new CharacterAIFirstPass();
+            CharacterAI ai = new CharacterAI();
             //Scenario 1: Failure
-            MovementAction actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            AIAction actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             //Scenario 2: Success
-            MovementAction actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            AIAction actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert
             string mapResult = @"
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -110,7 +92,8 @@ Failed intelligence check: 25, (dice roll: 8)
             Assert.AreEqual(log1, actionResult1.LogString);
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult1.StartLocation);
             Assert.AreEqual(new Vector3(4, 0, 26), actionResult1.EndLocation);
-            //Assert.IsTrue(jethro.InFullCover);
+            Assert.AreEqual(ActionTypeEnum.Move, actionResult1.ActionType);
+
             string log2 = @"
 Jethro is processing AI, with intelligence 25
 Successful intelligence check: 25, (dice roll: 81)
@@ -118,6 +101,7 @@ Successful intelligence check: 25, (dice roll: 81)
             Assert.AreEqual(log2, actionResult2.LogString);
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult2.StartLocation);
             Assert.AreEqual(new Vector3(19, 0, 20), actionResult2.EndLocation);
+            Assert.AreEqual(ActionTypeEnum.Move, actionResult2.ActionType);
         }
 
 
@@ -130,7 +114,7 @@ Successful intelligence check: 25, (dice roll: 81)
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[5, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 5] = CoverType.FullCover;
+            mission.Map[14, 0, 5] = CoverType.HalfCover; //half cover here!
             mission.Map[14, 0, 6] = CoverType.HalfCover; //half cover here!
             mission.Map[14, 0, 7] = CoverType.HalfCover; //half cover here!
             mission.Map[14, 0, 8] = CoverType.FullCover;
@@ -160,35 +144,12 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.RandomNumbers.Dequeue();
 
             //Act            
-            CharacterAIFirstPass ai = new CharacterAIFirstPass();
-            MovementAction actionResult = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            CharacterAI ai = new CharacterAI();
+            AIAction actionResult = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert         
             string mapResult = @"
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -198,22 +159,22 @@ Successful intelligence check: 25, (dice roll: 81)
 . . . . . . 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . 1 1 1 1 1 1 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 1 1 1 1 1 1 0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 1 1 1 1 1 1 1 0 0 0 0 0 2 2 2 2 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 1 1 1 1 1 1 0 0 0 0 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 1 1 1 1 1 1 0 0 0 0 ■ 5 2 2 2 2 2 2 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . 
-. . . . . 1 1 1 1 0 0 0 0 0 ■ 5 2 2 2 2 2 2 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . 
-. . . . . 1 1 1 1 0 0 0 0 0 ■ 5 2 2 2 2 2 2 2 1 1 1 1 1 1 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 1 1 0 0 0 0 0 . ■ 5 2 2 2 2 2 2 2 1 1 1 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 1 1 0 0 0 0 0 . ■ P 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 . ■ 5 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 . ■ 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 □ 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . . . . ■ 1 1 1 1 1 1 1 1 □ 4 2 2 2 2 2 2 1 1 1 1 3 3 3 3 . . . . . . . . . . . . . . . . . . . . 
-. . . . . P 1 1 1 1 1 1 1 2 ■ 7 4 4 4 4 4 3 3 3 3 3 3 3 3 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 1 1 1 1 1 3 3 3 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 1 1 1 1 1 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . 1 1 1 1 1 1 0 0 0 0 2 0 0 0 0 0 0 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . 1 1 1 1 1 1 0 0 0 0 ■ 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 0 0 0 0 0 ■ 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 0 0 0 0 0 ■ 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 . . . . . . . . . . . . . . . . . . . 
+. . . . . . 1 1 0 0 0 0 0 . ■ 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
+. . . . . . 1 1 0 0 0 0 0 . ■ P 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . 
+. . . . . . . 0 0 0 0 0 0 . ■ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
+. . . . . . . 0 0 0 0 0 0 . ■ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
+. . . . . . 0 0 0 0 0 0 0 0 □ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
+. . . . . ■ 1 1 1 1 1 1 1 1 □ 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . 
+. . . . . P 1 1 1 1 1 1 1 1 □ 3 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 
 ";
@@ -224,8 +185,8 @@ Successful intelligence check: 25, (dice roll: 81)
 ";
             Assert.AreEqual(log1, actionResult.LogString);
             Assert.AreEqual(new Vector3(15, 0, 10), actionResult.StartLocation);
-            Assert.AreEqual(new Vector3(15, 0, 5), actionResult.EndLocation);
-
+            Assert.AreEqual(new Vector3(15, 0, 6), actionResult.EndLocation);
+            Assert.AreEqual(ActionTypeEnum.Attack, actionResult.ActionType);
         }
 
     }
