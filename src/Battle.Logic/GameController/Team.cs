@@ -12,6 +12,7 @@ namespace Battle.Logic.GameController
         }
 
         public string Name { get; set; }
+        public bool IsAITeam { get; set; }
         public List<Character> Characters { get; set; }
         public string Color { get; set; }
         public string[,,] FOVMap { get; set; }
