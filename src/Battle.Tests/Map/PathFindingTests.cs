@@ -20,7 +20,7 @@ namespace Battle.Tests.Map
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -52,7 +52,7 @@ namespace Battle.Tests.Map
             map[4, 0, 1] = CoverType.FullCover;
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -84,7 +84,7 @@ namespace Battle.Tests.Map
             map[3, 0, 0] = CoverType.FullCover;
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -128,7 +128,7 @@ namespace Battle.Tests.Map
             map[6, 0, 0] = CoverType.FullCover;
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -149,14 +149,14 @@ namespace Battle.Tests.Map
             string[,,] map = CreateGiantMap();
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.AreEqual(97, PathFindingResult.Path.Count);
-            CreateDebugPictureOfMapAndRoute(70, 1, 40, PathFindingResult.Path, map);
+            CreateDebugPictureOfMapAndRoute(map, 70, 1, 40, PathFindingResult.Path);
         }
 
         [TestMethod]
@@ -185,7 +185,7 @@ namespace Battle.Tests.Map
             Vector3 endLocation = new Vector3(2, 0, 4);
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -221,7 +221,7 @@ namespace Battle.Tests.Map
             map[3, 0, 3] = CoverType.FullCover;
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(startLocation, endLocation, map);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Assert
             Assert.IsNotNull(PathFindingResult);
@@ -233,7 +233,7 @@ namespace Battle.Tests.Map
 
         #region "private helper functions"
 
-        private static void CreateDebugPictureOfMapAndRoute(int xMax, int yMax, int zMax, List<Vector3> path, string[,,] map)
+        private static void CreateDebugPictureOfMapAndRoute(string[,,] map, int xMax, int yMax, int zMax, List<Vector3> path)
         {
             string[,,] mapDebug = new string[xMax, yMax, zMax];
             int y = 0;

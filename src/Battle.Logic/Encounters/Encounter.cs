@@ -21,7 +21,7 @@ namespace Battle.Logic.Encounters
         /// <param name="diceRolls">Random number dice rolls (passed for repeatability)</param>
         /// <param name="throwingTargetLocation">Location of area effect/grenade</param>
         /// <returns>EncounterResult: details of how the event resolved</returns>
-        public static EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter, Weapon weapon, List<Character> allCharacters, string[,,] map, RandomNumberQueue diceRolls, Vector3 throwingTargetLocation)
+        public static EncounterResult AttackCharacterWithAreaOfEffect(string[,,] map, Character sourceCharacter, Weapon weapon, List<Character> allCharacters, RandomNumberQueue diceRolls, Vector3 throwingTargetLocation)
         {
             int damageDealt;
             bool isHit = false;
@@ -36,7 +36,7 @@ namespace Battle.Logic.Encounters
             log.Add(sourceCharacter.Name + " is attacking with area effect " + weapon.Name + " aimed at " + throwingTargetLocation.ToString());
 
             //Get the targets in the area affected
-            List<Character> areaEffectTargets = FieldOfView.GetCharactersInArea(allCharacters, map, throwingTargetLocation, weapon.AreaEffectRadius);
+            List<Character> areaEffectTargets = FieldOfView.GetCharactersInArea(map, allCharacters, throwingTargetLocation, weapon.AreaEffectRadius);
             StringBuilder names = new StringBuilder();
             foreach (Character item in areaEffectTargets)
             {
@@ -59,7 +59,7 @@ namespace Battle.Logic.Encounters
             int totalArmorShredded = 0;
             foreach (Character targetCharacter in areaEffectTargets)
             {
-                EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, true);
+                EncounterResult tempResult = ProcessCharacterDamageAndExperience(map, sourceCharacter, weapon, targetCharacter, diceRolls, log, true);
                 sourceCharacter = tempResult.SourceCharacter;
                 damageDealt = tempResult.DamageDealt;
                 totalDamageDealt += damageDealt;
@@ -125,7 +125,7 @@ namespace Battle.Logic.Encounters
         /// <param name="map">Current map</param>
         /// <param name="diceRolls">Random number dice rolls (passed for repeatability)</param>
         /// <returns>EncounterResult: details of how the event resolved</returns>
-        public static EncounterResult AttackCharacter(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, RandomNumberQueue diceRolls)
+        public static EncounterResult AttackCharacter(string[,,] map, Character sourceCharacter, Weapon weapon, Character targetCharacter, RandomNumberQueue diceRolls)
         {
             if (diceRolls == null || diceRolls.Count == 0)
             {
@@ -156,7 +156,7 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
-                    EncounterResult tempResult = ProcessCharacterDamageAndExperience(sourceCharacter, weapon, targetCharacter, map, diceRolls, log, false);
+                    EncounterResult tempResult = ProcessCharacterDamageAndExperience(map, sourceCharacter, weapon, targetCharacter, diceRolls, log, false);
                     sourceCharacter = tempResult.SourceCharacter;
                     targetCharacter = tempResult.TargetCharacter;
                     armorAbsorbed = tempResult.ArmorAbsorbed;
@@ -178,7 +178,7 @@ namespace Battle.Logic.Encounters
                     //Randomize x,y,z coordinates.
                     //Aim and shoot at that new target and see if we hit anything
                     //do this by doubling the lines. 
-                    missedLocation = FieldOfView.MissedShot(sourceCharacter.Location, targetCharacter.Location, map, missedByPercent);
+                    missedLocation = FieldOfView.MissedShot(map, sourceCharacter.Location, targetCharacter.Location, missedByPercent);
 
                     //Remove cover at this location
                     if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != "")
@@ -238,7 +238,7 @@ namespace Battle.Logic.Encounters
             return result;
         }
 
-        private static EncounterResult ProcessCharacterDamageAndExperience(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, RandomNumberQueue diceRolls, List<string> log, bool isAreaEffectAttack)
+        private static EncounterResult ProcessCharacterDamageAndExperience(string[,,] map, Character sourceCharacter, Weapon weapon, Character targetCharacter, RandomNumberQueue diceRolls, List<string> log, bool isAreaEffectAttack)
         {
             //Get damage 
             int damageRollPercent = diceRolls.Dequeue();
@@ -250,14 +250,14 @@ namespace Battle.Logic.Encounters
             //Check if it was a critical hit
             bool isCriticalHit = false;
             // player can't be critically hit if hunkered down
-            if (targetCharacter.HunkeredDown )
+            if (targetCharacter.HunkeredDown)
             {
                 log.Add("Critical chance: 0, hunkered down");
             }
             else
             {
                 int randomToCrit = diceRolls.Dequeue();
-                int chanceToCrit = EncounterCore.GetChanceToCrit(sourceCharacter, weapon, targetCharacter, map, isAreaEffectAttack);
+                int chanceToCrit = EncounterCore.GetChanceToCrit(map, sourceCharacter, weapon, targetCharacter, isAreaEffectAttack);
                 if ((100 - chanceToCrit) <= randomToCrit)
                 {
                     isCriticalHit = true;
@@ -269,7 +269,7 @@ namespace Battle.Logic.Encounters
                 {
                     log.Add("Critical damage range: " + lowDamage.ToString() + "-" + highDamage.ToString() + ", (dice roll: " + damageRollPercent + ")");
                 }
-            } 
+            }
 
             //process damage
             int damageDealt = RandomNumber.ScaleRandomNumber(

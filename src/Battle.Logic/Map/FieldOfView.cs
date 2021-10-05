@@ -19,7 +19,7 @@ namespace Battle.Logic.Map
             return MapCore.GetMapArea(map, location, range, true);
         }
 
-        public static List<Character> GetCharactersInArea(List<Character> characters, string[,,] map, Vector3 location, int range)
+        public static List<Character> GetCharactersInArea(string[,,] map, List<Character> characters, Vector3 location, int range)
         {
             List<Character> results = new List<Character>();
             List<Vector3> area = MapCore.GetMapArea(map, location, range, false, true);
@@ -62,7 +62,7 @@ namespace Battle.Logic.Map
                     }
                 }
             }
-            return results; 
+            return results;
         }
 
 
@@ -101,10 +101,10 @@ namespace Battle.Logic.Map
 
 
         //Follow the missed shot to find the target
-        public static Vector3 MissedShot(Vector3 source, Vector3 target, string[,,] map, int missedByPercent)
+        public static Vector3 MissedShot(string[,,] map, Vector3 source, Vector3 target, int missedByPercent)
         {
             //Get the final missed location the projectile is heading down
-            Vector3 finalLocation = GetMissedLocation(source, target, map, missedByPercent);
+            Vector3 finalLocation = GetMissedLocation(map, source, target, missedByPercent);
 
             //Get all of the points along this line to the final location
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
@@ -133,7 +133,7 @@ namespace Battle.Logic.Map
         }
 
         //Get the final location - which will usually be just off the map
-        public static Vector3 GetMissedLocation(Vector3 source, Vector3 target, string[,,] map, int missedByPercent)
+        public static Vector3 GetMissedLocation(string[,,] map, Vector3 source, Vector3 target, int missedByPercent)
         {
             int xMax = map.GetLength(0);
             int yMax = map.GetLength(1);

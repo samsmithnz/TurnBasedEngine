@@ -12,7 +12,7 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<MovementAction> MoveCharacter(Character characterMoving, string[,,] map, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
+        public static List<MovementAction> MoveCharacter(string[,,] map, Character characterMoving, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<MovementAction> results = new List<MovementAction>();
@@ -51,7 +51,7 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.SetLocation(step, map);
+                characterMoving.SetLocation(map, step);
                 characterMoving = FieldOfView.UpdateCharacterFOV(map, characterMoving);
                 if (team != null)
                 {
@@ -69,7 +69,7 @@ namespace Battle.Logic.Characters
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
                 if (overWatchedCharacters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(characterMoving, map, diceRolls, overWatchedCharacters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, overWatchedCharacters);
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
@@ -121,7 +121,7 @@ namespace Battle.Logic.Characters
             return result.ToString();
         }
 
-        private static (List<EncounterResult>, bool) Overwatch(Character characterMoving, string[,,] map, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)
+        private static (List<EncounterResult>, bool) Overwatch(string[,,] map, Character characterMoving, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters = null)
         {
             List<EncounterResult> results = new List<EncounterResult>();
             EncounterResult result = null;
@@ -134,7 +134,7 @@ namespace Battle.Logic.Characters
                     if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
                     {
                         //Act
-                        result = Encounter.AttackCharacter(character, character.WeaponEquipped, characterMoving, map, diceRolls);
+                        result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
                         results.Add(result);
                         //The character uses their overwatch charge
                         character.InOverwatch = false;

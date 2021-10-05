@@ -115,7 +115,7 @@ namespace Battle.Logic.Characters
                 }
 
                 //Upgrade positions that would flank opponents
-                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(opponentCharacters, fovMap, location, character.ShootingRange);
+                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(fovMap, opponentCharacters, location, character.ShootingRange);
                 foreach (Character fovCharacter in fovCharacters)
                 {
                     CoverState coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });

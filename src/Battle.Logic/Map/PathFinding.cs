@@ -15,7 +15,7 @@ namespace Battle.Logic.Map
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathFindingResult FindPath(Vector3 startLocation, Vector3 endLocation, string[,,] map)
+        public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
         {
             _endLocation = endLocation;
             InitializeTiles(map);

@@ -38,7 +38,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
+            fred.SetLocation(mission.Map, new Vector3(5, 0, 5));
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -128,7 +128,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 
             //Throw grenade in front of wall
             Vector3 targetThrowingLocation = new Vector3(13, 0, 10);
-            EncounterResult encounter1 = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, team2.Characters, mission.Map, diceRolls, targetThrowingLocation);
+            EncounterResult encounter1 = Encounter.AttackCharacterWithAreaOfEffect(mission.Map, fred, fred.UtilityWeaponEquipped, team2.Characters, diceRolls, targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>
 Characters in affected area: Jethro

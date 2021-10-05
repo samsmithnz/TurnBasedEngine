@@ -39,7 +39,7 @@ namespace Battle.Tests.Encounters
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -87,7 +87,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -138,7 +138,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -189,7 +189,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -237,7 +237,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -286,7 +286,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -343,7 +343,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -400,7 +400,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -457,7 +457,7 @@ Fred is ready to level up
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -533,7 +533,7 @@ Fred is ready to level up
             Assert.AreEqual(expectedString, fredFOVString);
 
             //Act 2: Now destroy the cover
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
@@ -590,7 +590,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -612,7 +612,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -641,7 +641,7 @@ High cover downgraded to low cover at <2, 0, 3>
             List<Character> characterList = new List<Character>() { fred, jethro };
 
             //Act
-            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(fred, fred.UtilityWeaponEquipped, characterList, map, diceRolls, targetThrowingLocation);
+            EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
 
             //Assert
             Assert.IsTrue(result != null);

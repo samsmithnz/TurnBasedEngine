@@ -31,7 +31,7 @@ namespace Battle.Tests.Characters
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(15, 0, 15), mission.Map);
+            jethro.SetLocation(mission.Map, new Vector3(15, 0, 15));
             jethro.ActionPointsCurrent = 2;
             Team team2 = new Team()
             {
@@ -125,7 +125,7 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(5, 0, 5), mission.Map);
+            fred.SetLocation(mission.Map, new Vector3(5, 0, 5));
             Team team1 = new Team()
             {
                 Name = "Good guys",
