@@ -53,7 +53,7 @@ namespace Battle.Logic.Characters
                 return _location;
             }
         }
-        public void SetLocation(Vector3 characterLocation, string[,,] map)
+        public void SetLocation(string[,,] map, Vector3 characterLocation)
         {
             if (map != null)
             {

@@ -135,7 +135,7 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             Assert.AreEqual(characters[0], jethro);
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
-            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, fred.WeaponEquipped, jethro, mission.Map, false);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);
             DamageRange damageOptions = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
             Assert.AreEqual(80, chanceToHit);
             Assert.AreEqual(70, chanceToCrit);
@@ -143,10 +143,10 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jethro, and misses 
-            EncounterResult encounter1 = Encounter.AttackCharacter(fred,
+            EncounterResult encounter1 = Encounter.AttackCharacter(mission.Map, 
+                    fred,
                     fred.WeaponEquipped,
                     jethro,
-                    mission.Map,
                     mission.RandomNumbers);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jethro
@@ -158,10 +158,10 @@ Low cover downgraded to no cover at <5, 0, 5>
             Assert.AreEqual(new Vector3(5, 0, 5), encounter1.MissedLocation);
 
             //Fred shoots at Jethro, and hits him. 
-            EncounterResult encounter2 = Encounter.AttackCharacter(fred,
+            EncounterResult encounter2 = Encounter.AttackCharacter(mission.Map, 
+                    fred,
                     fred.WeaponEquipped,
                     jethro,
-                    mission.Map,
                     mission.RandomNumbers);
             string log2 = @"
 Fred is attacking with Rifle, targeted on Jethro

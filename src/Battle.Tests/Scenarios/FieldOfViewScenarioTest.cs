@@ -103,11 +103,11 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(expectedJethroFOV, jethroFOVMapString);
 
             //Act, part 2 - moving up the Y axis
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location,
-                new Vector3(1, 0, 9),
-                mission.Map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred,
-                mission.Map,
+            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map,
+                fred.Location,
+                new Vector3(1, 0, 9));
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map, 
+                fred,
                 pathFindingResult,
                 diceRolls,
                 new List<Character>() { jethro },

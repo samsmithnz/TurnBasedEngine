@@ -27,8 +27,8 @@ namespace Battle.Tests.Map
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -64,8 +64,8 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -101,8 +101,8 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -141,8 +141,8 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -189,8 +189,8 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(jethro.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(jethro, map, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);

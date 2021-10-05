@@ -71,7 +71,7 @@ namespace Battle.Logic.Encounters
             return toHit;
         }
 
-        public static int GetChanceToCrit(Character sourceCharacter, Weapon weapon, Character targetCharacter, string[,,] map, bool isAreaEffectAttack)
+        public static int GetChanceToCrit(string[,,] map, Character sourceCharacter, Weapon weapon, Character targetCharacter, bool isAreaEffectAttack)
         {
             int chanceToCrit = weapon.CriticalChance;
             CoverState coverState = CharacterCover.CalculateCover(map, targetCharacter.Location, new List<Vector3>() { sourceCharacter.Location });

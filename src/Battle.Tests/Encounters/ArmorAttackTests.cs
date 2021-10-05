@@ -30,7 +30,7 @@ namespace Battle.Tests.Encounters
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -62,7 +62,7 @@ Armor prevented 5 damage to character Jethro
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -94,7 +94,7 @@ Armor prevented 3 damage to character Jethro
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -127,7 +127,7 @@ Armor prevented 2 damage to character Jethro
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -163,7 +163,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -197,7 +197,7 @@ Armor prevented 1 damage to character Jethro
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -231,7 +231,7 @@ Armor prevented 5 damage to character Jethro
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);

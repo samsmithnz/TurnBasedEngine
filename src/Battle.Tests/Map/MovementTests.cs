@@ -24,7 +24,7 @@ namespace Battle.Tests.Map
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -34,8 +34,8 @@ namespace Battle.Tests.Map
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, diceRolls, null, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, diceRolls, null, null);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -93,7 +93,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             fred.ActionPointsCurrent = 1;
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -116,7 +116,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -136,12 +136,12 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(12, 0, 20);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(20, 0, 20), map);
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            fred.SetLocation(map, new Vector3(20, 0, 20));
             fred.ActionPointsCurrent = 2;
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -151,10 +151,10 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, null);
 
-            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
+            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -223,11 +223,11 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Vector3 destination = new Vector3(6, 0, 20);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.SetLocation(map, new Vector3(20, 0, 20));
             fred.ActionPointsCurrent = 2;
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -237,8 +237,8 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, null);
 
             string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
@@ -313,11 +313,11 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
             //Arrange
             string[,,] map = MapCore.InitializeMap(40, 1, 40);
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(20, 0, 20), map);
+            fred.SetLocation(map, new Vector3(20, 0, 20));
             Vector3 destination = new Vector3(6, 0, 20);
 
             //Act
-            List<KeyValuePair<Vector3,int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
             Vector3 destinationCheck = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -327,8 +327,8 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
                 }
             }
             Assert.AreEqual(destination, destinationCheck);
-            PathFindingResult pathFindingResult = PathFinding.FindPath(fred.Location, destination, map);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(fred, map, pathFindingResult, null, null, null);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, null);
 
             List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 1);
             List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 2);

@@ -31,9 +31,9 @@ namespace Battle.Tests.Encounters
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jethro);
-            int chanceToCrit = EncounterCore.GetChanceToCrit(fred, rifle, jethro, map, false);
+            int chanceToCrit = EncounterCore.GetChanceToCrit(map, fred, rifle, jethro, false);
             DamageRange damageOptions = EncounterCore.GetDamageRange(fred, rifle);
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -71,7 +71,7 @@ Critical chance: 70, (dice roll: 0)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -103,7 +103,7 @@ High cover downgraded to low cover at <8, 0, 9>
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -134,7 +134,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -166,7 +166,7 @@ Missed: Chance to hit: 55, (dice roll: 44)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -195,7 +195,7 @@ Critical chance: 70, (dice roll: 0)
             RandomNumberQueue diceRolls = null;
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -213,7 +213,7 @@ Critical chance: 70, (dice roll: 0)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 20 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -247,7 +247,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -282,7 +282,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -319,7 +319,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -355,7 +355,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -384,7 +384,7 @@ Critical chance: 70, (dice roll: 0)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 55 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -411,7 +411,7 @@ Missed: Chance to hit: 40, (dice roll: 55)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -438,11 +438,11 @@ Missed: Chance to hit: 0, (dice roll: 65)
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
             jethro.CoverState.InFullCover = true;
-            jethro.SetLocation(new Vector3(5, 0, 0), map);
+            jethro.SetLocation(map, new Vector3(5, 0, 0));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -469,7 +469,7 @@ Missed: Chance to hit: 19, (dice roll: 65)
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -502,7 +502,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -549,7 +549,7 @@ Fred is ready to level up
             CharacterCover.RefreshCoverStates(mission);
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, mission.Map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(mission.Map, fred, rifle, jethro, diceRolls);
             string mapString = MapCore.GetMapString(mission.Map);
 
             //Assert
@@ -601,7 +601,7 @@ Fred is ready to level up
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -640,16 +640,16 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.SetLocation(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -685,16 +685,16 @@ Critical chance: 20, (dice roll: 0)
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BringEmOnAbility());
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(1, 0, 3), map);
+            jethro.SetLocation(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 15;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 70 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -734,16 +734,16 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(5, 0, 5), map);
+            jethro.SetLocation(map, new Vector3(5, 0, 5));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 65, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             try
             {
-                EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+                EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
             }
             catch (Exception ex)
             {
@@ -768,17 +768,17 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.SetLocation(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 15;
             jethro.CoverState.InFullCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -811,17 +811,17 @@ Missed: Chance to hit: 24, (dice roll: 65)
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.HalfCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.SetLocation(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 15;
             jethro.CoverState.InFullCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -854,17 +854,17 @@ Missed: Chance to hit: 24, (dice roll: 65)
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            fred.SetLocation(new Vector3(2, 0, 0), map);
+            fred.SetLocation(map, new Vector3(2, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
-            jethro.SetLocation(new Vector3(2, 0, 4), map);
+            jethro.SetLocation(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 15;
             jethro.CoverState.InHalfCover = true;
             jethro.HunkeredDown = true;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -897,7 +897,7 @@ Critical chance: 0, hunkered down
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -924,7 +924,7 @@ Rifle has no ammo remaining and the attack cannot be completed
 
             //Act
             fred.WeaponEquipped.Reload();
-            EncounterResult result = Encounter.AttackCharacter(fred, rifle, jethro, map, diceRolls);
+            EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
 
             //Assert
             Assert.IsTrue(result != null);

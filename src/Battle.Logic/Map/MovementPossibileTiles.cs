@@ -17,7 +17,7 @@ namespace Battle.Logic.Map
                 foreach (Vector3 item in possibleTiles)
                 {
                     //Find a path to this target location
-                    PathFindingResult result = PathFinding.FindPath(sourceLocation, item, map);
+                    PathFindingResult result = PathFinding.FindPath(map, sourceLocation, item);
                    //If we could find a path, the cost of the path is within the range, and we haven't already identified a route to this tile, add it
                     if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range * i && !verifiedTiles.Contains(item))
                     {
