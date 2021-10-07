@@ -89,8 +89,9 @@ Jethro is processing AI, with intelligence 25
 Failed intelligence check: 25, (dice roll: 8)
 ";
             Assert.AreEqual(log1, actionResult1.LogString);
+            Assert.AreEqual(4, actionResult1.Score);
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult1.StartLocation);
-            Assert.AreEqual(new Vector3(4, 0, 26), actionResult1.EndLocation);
+            Assert.AreEqual(new Vector3(17, 0, 18), actionResult1.EndLocation);
             Assert.AreEqual(ActionTypeEnum.Move, actionResult1.ActionType);
 
             string log2 = @"
