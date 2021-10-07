@@ -30,7 +30,7 @@ namespace Battle.Tests.Characters
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15)); 
             jethro.ActionPointsCurrent = 2;
             Team team2 = new Team()
             {
