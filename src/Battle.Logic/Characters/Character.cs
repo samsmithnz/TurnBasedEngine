@@ -55,13 +55,13 @@ namespace Battle.Logic.Characters
         }
         public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange)
         {
+            FOVRange = fovRange;
             if (map != null)
             {
                 //Set the previous location on the map to blank (the character is no longer there)
                 map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
-                FOVRange = fovRange;
                 UpdateCharacterFOV(map);
             }
             _location = characterLocation;
