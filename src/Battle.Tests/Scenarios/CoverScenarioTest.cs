@@ -37,8 +37,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[14, 0, 12] = CoverType.FullCover;
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 0));
-            fred.SetLocation(mission.Map, new Vector3(5, 0, 5));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
             Team team1 = new Team()
             {
                 Name = "Good guys",

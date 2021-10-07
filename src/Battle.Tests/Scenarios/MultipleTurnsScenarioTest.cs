@@ -24,8 +24,7 @@ namespace Battle.Tests.Scenarios
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
-            fred.SetLocation(mission.Map, new Vector3(4, 0, 4));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -33,8 +32,7 @@ namespace Battle.Tests.Scenarios
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(20, 0, 10));
-            jethro.SetLocation(mission.Map, new Vector3(12, 0, 12));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
             Team team2 = new Team()
             {
                 Name = "Bad guys",

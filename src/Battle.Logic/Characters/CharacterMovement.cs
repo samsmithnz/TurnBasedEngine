@@ -51,7 +51,7 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.SetLocation(map, step);
+                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange);
                 if (team != null)
                 {
                     FieldOfView.UpdateTeamFOV(map, team);

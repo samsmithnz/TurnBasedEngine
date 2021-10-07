@@ -53,7 +53,7 @@ namespace Battle.Logic.Characters
                 return _location;
             }
         }
-        public void SetLocation(string[,,] map, Vector3 characterLocation)
+        public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange)
         {
             if (map != null)
             {
@@ -61,28 +61,14 @@ namespace Battle.Logic.Characters
                 map[(int)_location.X, (int)_location.Y, (int)_location.Z] = "";
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
+                FOVRange = fovRange;
                 UpdateCharacterFOV(map);
             }
             _location = characterLocation;
         }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
-        private int _fovRange;
-        public int FOVRange
-        {
-            get
-            {
-                return _fovRange;
-            }
-        }
-        public void SetFOVRange(string[,,] map, int range)
-        {
-            _fovRange = range;
-            if (map != null)
-            {
-                UpdateCharacterFOV(map);
-            }
-        }
+        public int FOVRange { get; set; }        
         public string[,,] FOVMap { get; set; }
         public HashSet<Vector3> FOVHistory { get; set; }
         public Weapon WeaponEquipped { get; set; }
