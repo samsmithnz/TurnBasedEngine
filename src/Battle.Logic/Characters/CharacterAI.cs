@@ -23,7 +23,7 @@ namespace Battle.Logic.Characters
             {
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
-            
+
             //1. Start with a list of all possible moves, a location, and number of movement points to that location
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
@@ -33,7 +33,7 @@ namespace Battle.Logic.Characters
             //3. Assign an action based on the intelligence check
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
-            AIAction aiActionResult;
+            AIAction aiActionResult = null;
             if ((100 - character.Intelligence) <= randomInt)
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
@@ -43,8 +43,22 @@ namespace Battle.Logic.Characters
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
-                //roll failed
-                aiActionResult = aiValues[aiValues.Count - 1].Value;
+                //roll failed, make a sub-optimal move (the next highest ranked score)
+                int highestScore = aiValues[0].Value.Score;
+                for (int i = 0; i < aiValues.Count; i++)
+                {
+                    //Find the next highest ranking score
+                    if (aiValues[i].Value.Score < highestScore)
+                    {
+                        aiActionResult = aiValues[i].Value;
+                        break;
+                    }
+                }
+                //Double check - if it's still not assigned, assign the last value
+                if (aiActionResult == null)
+                {
+                    aiActionResult = aiValues[aiValues.Count - 1].Value;
+                }
             }
 
             aiActionResult.Log = log;
