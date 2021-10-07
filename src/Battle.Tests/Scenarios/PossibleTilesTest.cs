@@ -39,7 +39,7 @@ namespace Battle.Tests.Scenarios
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
 
             //Assert
-            Assert.AreEqual(175, movementPossibileTiles.Count);
+            Assert.AreEqual(339, movementPossibileTiles.Count);
         }
     }
 }
