@@ -47,6 +47,7 @@ namespace Battle.Logic.Characters
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
         private Vector3 _location { get; set; }
+        //TODO: Location should never be set here- but I need this for serialization. Need to figure this out later
         public Vector3 Location
         {
             get
