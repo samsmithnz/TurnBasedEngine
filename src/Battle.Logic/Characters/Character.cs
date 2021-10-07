@@ -14,7 +14,6 @@ namespace Battle.Logic.Characters
             Abilities = new List<Ability>();
             Effects = new List<Effect>();
             FOVHistory = new HashSet<Vector3>();
-            CoverState = new CoverState();
         }
 
         public string Name { get; set; }
@@ -52,6 +51,10 @@ namespace Battle.Logic.Characters
             get
             {
                 return _location;
+            }
+            set
+            {
+                _location = value;
             }
         }
         //This needs to be a separate function, as we want to include the current map to build the fov/field of view calcualtions

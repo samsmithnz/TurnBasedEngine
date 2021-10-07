@@ -36,13 +36,7 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
-            foreach (Team team in mission.Teams)
-            {
-                foreach (Character character in team.Characters)
-                {
-                    character.CoverState = new CoverState();
-                }
-            }
+            mission.MoveToNextTurn();
             CharacterAI ai = new CharacterAI();
             AIAction aIAction = ai.CalculateAIAction(mission.Map, 
                 mission.Teams, 
@@ -50,7 +44,9 @@ namespace Battle.Tests.Scenarios
                 mission.RandomNumbers);
 
             //Assert
-            //Assert.AreEqual(175, movementPossibileTiles.Count);
+            Assert.AreEqual(ActionTypeEnum.Move, aIAction.ActionType);
+            Assert.AreEqual(new Vector3(19,0,19), aIAction.StartLocation);
+            Assert.AreEqual(new Vector3(25,0,23), aIAction.EndLocation);            
         }
     }
 }
