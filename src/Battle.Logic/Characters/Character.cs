@@ -53,11 +53,12 @@ namespace Battle.Logic.Characters
                 return _location;
             }
         }
+        //This needs to be a separate function, as we want to include the current map to build the fov/field of view calcualtions
         public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange)
         {
             FOVRange = fovRange;
             Vector3 previousLocation = _location;
-            _location = characterLocation;
+            _location = characterLocation; //set the location before we start the fov recalculation
             if (map != null)
             {
                 //Set the previous location on the map to blank (the character is no longer there)
