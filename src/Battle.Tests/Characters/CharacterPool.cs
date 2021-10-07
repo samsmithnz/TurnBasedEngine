@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFredHero(string[,,] map, Vector3 startingLocation)
+        public static Character CreateFredHero(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character fred = new Character()
             {
@@ -27,7 +27,6 @@ namespace Battle.Tests.Characters
                 Intelligence = 75,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
@@ -35,7 +34,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetLocation(map, startingLocation);
+            fred.SetLocationAndRange(map, startingLocation, fovRange);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -50,7 +49,7 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation)
+        public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character jethro = new Character()
             {
@@ -70,18 +69,17 @@ namespace Battle.Tests.Characters
                 Intelligence = 25,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jethro.SetLocation(map, startingLocation);
+            jethro.SetLocationAndRange(map, startingLocation, fovRange);
             return jethro;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation)
+        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character harry = new Character()
             {
@@ -98,14 +96,13 @@ namespace Battle.Tests.Characters
                 ActionPointsCurrent = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetLocation(map, startingLocation);
+            harry.SetLocationAndRange(map, startingLocation,fovRange);
             return harry;
         }
     }

@@ -506,8 +506,7 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            fred.FOVRange = 5;
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0), 5);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
@@ -516,7 +515,6 @@ Fred is ready to level up
 
             //Act 1: get the FOV
             //List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
-            fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fredFOVString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
             string expectedString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 

@@ -20,10 +20,10 @@ namespace Battle.Tests.Map
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -57,10 +57,10 @@ Fred is ready to level up
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             fred.Abilities.Add(AbilityPool.OpportunistAbility());
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -94,10 +94,10 @@ Fred is ready to level up
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             //Weapon rifle = fred.WeaponEquiped;
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
@@ -132,11 +132,11 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             jethro.HitpointsCurrent = 25;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -181,11 +181,11 @@ Fred is ready to level up
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Vector3 destination = new Vector3(6, 0, 0);
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act

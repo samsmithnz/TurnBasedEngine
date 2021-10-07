@@ -2,14 +2,11 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.GameController;
 using Battle.Logic.Map;
-using Battle.Logic.SaveGames;
 using Battle.Logic.Utility;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
-using System.Reflection;
 
 namespace Battle.Tests.Map
 {
@@ -35,10 +32,8 @@ namespace Battle.Tests.Map
             {
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1));
-            fred.FOVRange = 5;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0));
-            harry.FOVRange = 5;
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1), 5);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0),5 );
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -47,7 +42,6 @@ namespace Battle.Tests.Map
             mission.Teams.Add(team1);
 
             //Check before we move
-            FieldOfView.UpdateCharacterFOV(mission.Map, fred);
             string fov0MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedFov0MapString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
@@ -104,7 +98,6 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 
 
             //Check before we move
-            FieldOfView.UpdateCharacterFOV(mission.Map, harry);
             string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
             string expectedFov2MapString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
@@ -746,8 +739,8 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
                 mission.Map[x, 0, z] = CoverType.HalfCover;
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
-            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(0, 0, 1));
             fred.MobilityRange = 16;
+            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(0, 0, 1));
             harry.MobilityRange = 16;
             Team team1 = new Team()
             {
@@ -775,7 +768,6 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
             Assert.AreEqual(8, mission.RandomNumbers.Queue[0]);
 
             //Check before we move
-            FieldOfView.UpdateCharacterFOV(mission.Map, fred);
             string fov0MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedFov0MapString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 
