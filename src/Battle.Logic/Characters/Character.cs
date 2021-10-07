@@ -138,7 +138,6 @@ namespace Battle.Logic.Characters
                 {
                     options.Add(new CharacterAction() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
-
                 options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
             }
 
@@ -154,7 +153,7 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<Character> GetCharactersInView(string[,,] map, List<Team> teams)
+        public List<Character> GetCharactersInRangeWithCurrentWeapon(string[,,] map, List<Team> teams)
         {
             return FieldOfView.GetCharactersInView(map, Location, ShootingRange, teams);
         }

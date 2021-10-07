@@ -69,7 +69,7 @@ namespace Battle.Tests.Scenarios
             //Turn 1 - Team 1 starts
             //Fred cannot see Jethro, who is hiding behind cover
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(0, characters.Count);
             string mapResult1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -155,7 +155,7 @@ High cover downgraded to low cover at <14, 0, 10>
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
 
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters2 = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
+            List<Character> characters2 = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(1, characters2.Count);
             string mapResult2 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 

@@ -25,7 +25,7 @@ namespace Battle.Tests.Map
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -61,7 +61,7 @@ P o o o o o o o o o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
@@ -111,7 +111,7 @@ P o o o o o o o o o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
@@ -160,7 +160,7 @@ o o o o o o o o P o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -196,7 +196,7 @@ o o o o o o o o P o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -231,7 +231,7 @@ o o o o o o o o . .
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -265,7 +265,7 @@ o o o o o o o o o o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -300,7 +300,7 @@ o o o o o o o o o o
 
             //Act
             string mapString = jethro.GetCharactersInViewMapString(map, new List<Team> { teamGood });
-            List<Character> characters = jethro.GetCharactersInView(map, new List<Team> { teamGood });
+            List<Character> characters = jethro.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamGood });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -335,7 +335,7 @@ P . . . . . . . . .
 
             //Act
             string mapString = jethro.GetCharactersInViewMapString(map, new List<Team> { teamGood });
-            List<Character> characters = jethro.GetCharactersInView(map, new List<Team> { teamGood });
+            List<Character> characters = jethro.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamGood });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -368,7 +368,7 @@ P o o o o . . . . .
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -398,7 +398,7 @@ o o o o o o o o o o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team>());
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team>());
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team>());
 
             //Assert
             Assert.IsTrue(characters != null);
@@ -433,7 +433,7 @@ o o o o o o o o o o
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
 
             //Assert
             Assert.IsTrue(characters != null);

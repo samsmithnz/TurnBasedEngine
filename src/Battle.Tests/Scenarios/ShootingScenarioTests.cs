@@ -141,7 +141,7 @@ Fred is moving from <8, 0, 9> to <9, 0, 10>
 
             //Fred aims at Jethro, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
+            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(characters[0], jethro);
             string mapResult1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -223,7 +223,7 @@ Critical chance: 70, (dice roll: 0)
 
             //Turn 1 - Team 2 starts
             //Jethro aims back and misses
-            List<Character> characters2 = jethro.GetCharactersInView(mission.Map, new List<Team>() { team1 });
+            List<Character> characters2 = jethro.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team1 });
             Assert.AreEqual(characters2[0], fred);
             int chanceToHit2 = EncounterCore.GetChanceToHit(jethro, jethro.WeaponEquipped, fred);
             int chanceToCrit2 = EncounterCore.GetChanceToCrit(mission.Map, jethro, jethro.WeaponEquipped, jethro, false);
@@ -248,7 +248,7 @@ Missed: Chance to hit: 72, (dice roll: 0)
 
             //Turn 2 - Team 1 starts
             //Fred shoots again, and kills Jethro.
-            List<Character> characters3 = fred.GetCharactersInView(mission.Map, new List<Team>() { team2 });
+            List<Character> characters3 = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(characters3[0], jethro);
             int chanceToHit3 = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit3 = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);
