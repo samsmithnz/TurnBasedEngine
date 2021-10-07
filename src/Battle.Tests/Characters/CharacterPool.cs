@@ -7,7 +7,7 @@ namespace Battle.Tests.Characters
 {
     public static class CharacterPool
     {
-        public static Character CreateFredHero(string[,,] map, Vector3 startingLocation)
+        public static Character CreateFredHero(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character fred = new Character()
             {
@@ -34,8 +34,8 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetFOVRange(map, 40);
             fred.SetLocation(map, startingLocation);
+            fred.SetFOVRange(map, fovRange);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -50,7 +50,7 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
-        public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation)
+        public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character jethro = new Character()
             {
@@ -76,12 +76,12 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jethro.SetFOVRange(map, 40);
             jethro.SetLocation(map, startingLocation);
+            jethro.SetFOVRange(map, fovRange);
             return jethro;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation)
+        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character harry = new Character()
             {
@@ -104,8 +104,8 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetFOVRange(map, 40);
             harry.SetLocation(map, startingLocation);
+            harry.SetFOVRange(map, fovRange);
             return harry;
         }
     }

@@ -506,8 +506,7 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            fred.SetFOVRange(map, 5) ;
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0), 5);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 5;
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
