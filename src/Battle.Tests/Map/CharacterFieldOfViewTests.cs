@@ -54,8 +54,8 @@ P o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
-            Character jethro = CharacterPool.CreateJethroBaddie(null, new Vector3(8, 0, 8));
+            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             Team teamBaddie = new Team();
             teamBaddie.Characters.Add(jethro);
 
