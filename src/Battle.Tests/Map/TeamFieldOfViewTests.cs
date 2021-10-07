@@ -33,9 +33,9 @@ namespace Battle.Tests.Map
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1));
-            fred.FOVRange = 5;
+            fred.SetFOVRange(mission.Map, 5);
             Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0));
-            harry.FOVRange = 5;
+            harry.SetFOVRange(mission.Map, 5);
             Team team1 = new Team()
             {
                 Name = "Good guys",

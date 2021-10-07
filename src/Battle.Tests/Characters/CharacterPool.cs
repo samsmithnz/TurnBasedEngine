@@ -27,7 +27,6 @@ namespace Battle.Tests.Characters
                 Intelligence = 75,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
@@ -35,6 +34,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
+            fred.SetFOVRange(map, 40);
             fred.SetLocation(map, startingLocation);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
@@ -70,13 +70,13 @@ namespace Battle.Tests.Characters
                 Intelligence = 25,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateShotgun(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
+            jethro.SetFOVRange(map, 40);
             jethro.SetLocation(map, startingLocation);
             return jethro;
         }
@@ -98,13 +98,13 @@ namespace Battle.Tests.Characters
                 ActionPointsCurrent = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                FOVRange = 40,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 CoverState = new CoverState(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
+            harry.SetFOVRange(map, 40);
             harry.SetLocation(map, startingLocation);
             return harry;
         }

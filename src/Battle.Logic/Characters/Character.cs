@@ -67,7 +67,22 @@ namespace Battle.Logic.Characters
         }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
-        public int FOVRange { get; set; }
+        private int _fovRange;
+        public int FOVRange
+        {
+            get
+            {
+                return _fovRange;
+            }
+        }
+        public void SetFOVRange(string[,,] map, int range)
+        {
+            _fovRange = range;
+            if (map != null)
+            {
+                UpdateCharacterFOV(map);
+            }
+        }
         public string[,,] FOVMap { get; set; }
         public HashSet<Vector3> FOVHistory { get; set; }
         public Weapon WeaponEquipped { get; set; }
