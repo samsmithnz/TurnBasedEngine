@@ -97,8 +97,9 @@ namespace Battle.Tests.Scenarios
 
             //Assert
             Assert.AreEqual(ActionTypeEnum.Attack, aIAction.ActionType);
+            Assert.AreEqual(5, aIAction.Score);
             Assert.AreEqual(new Vector3(19,0,19), aIAction.StartLocation);
-            Assert.AreEqual(new Vector3(19,0,21), aIAction.EndLocation);
+            Assert.AreEqual(new Vector3(13,0,15), aIAction.EndLocation);
             Assert.AreEqual(mapResult, mapString);
         }
     }
