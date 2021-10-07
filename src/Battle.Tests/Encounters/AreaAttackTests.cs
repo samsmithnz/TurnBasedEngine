@@ -516,7 +516,6 @@ Fred is ready to level up
 
             //Act 1: get the FOV
             //List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
-            fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fredFOVString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
             string expectedString = @"
 ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ 

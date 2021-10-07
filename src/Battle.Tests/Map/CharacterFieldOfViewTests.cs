@@ -62,7 +62,6 @@ P o o o o o o o o o
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
             List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
-            fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
@@ -114,7 +113,6 @@ P o o o o o o o o o
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
             List<Character> characters = fred.GetCharactersInView(map, new List<Team> { teamBaddie });
-            fred = FieldOfView.UpdateCharacterFOV(map, fred);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert

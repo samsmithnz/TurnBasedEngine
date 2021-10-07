@@ -53,7 +53,6 @@ namespace Battle.Tests.Scenarios
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //act
-            fred = FieldOfView.UpdateCharacterFOV(mission.Map, fred);
             string fovMapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string mapString = MapCore.GetMapString(mission.Map);
 
@@ -86,7 +85,6 @@ namespace Battle.Tests.Scenarios
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
 
-            jethro = FieldOfView.UpdateCharacterFOV(mission.Map, jethro);
             string jethroFOVMapString = MapCore.GetMapStringWithMapMask(mission.Map, jethro.FOVMap);
             string expectedJethroFOV = @"
 ▓ ▓ ▓ ▓ ▓ ■ . . . . 

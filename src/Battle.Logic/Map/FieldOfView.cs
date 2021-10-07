@@ -133,7 +133,7 @@ namespace Battle.Logic.Map
         }
 
         //Get the final location - which will usually be just off the map
-        public static Vector3 GetMissedLocation(string[,,] map, Vector3 source, Vector3 target, int missedByPercent)
+        public static Vector3 GetMissedLocation(string[,,] map, Vector3 source, Vector3 target, int missedByPercent = 0)
         {
             int xMax = map.GetLength(0);
             int yMax = map.GetLength(1);
@@ -251,51 +251,6 @@ namespace Battle.Logic.Map
             return points;
         }
 
-        public static Character UpdateCharacterFOV(string[,,] map, Character character)
-        {
-            int xMax = map.GetLength(0);
-            int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
-
-            if (character.FOVMap == null)
-            {
-                character.FOVMap = MapCore.InitializeMap(xMax, yMax, zMax, FOV_Unknown);
-            }
-            List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
-            foreach (Vector3 item in fov)
-            {
-                character.FOVHistory.Add(item);
-            }
-            string[,,] inverseMap = MapCore.InitializeMap(xMax, yMax, zMax);
-            //Set the player position to visible
-            inverseMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "P";
-            //Set the map to all of the visible positions
-            foreach (Vector3 item in fov)
-            {
-                inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_CanNotSee;
-            }
-            //Now that we have the inverse map, reverse it to show areas that are not visible
-            for (int y = 0; y < 1; y++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    for (int z = 0; z < zMax; z++)
-                    {
-                        if (inverseMap[x, y, z] != "")
-                        {
-                            character.FOVMap[x, y, z] = FOV_CanSee;
-                        }
-                        else if (character.FOVHistory.Contains(new Vector3(x, y, z)))
-                        {
-                            character.FOVMap[x, y, z] = FOV_CanNotSee;
-                        }
-                    }
-
-                }
-            }
-            return character;
-        }
-
         public static Team UpdateTeamFOV(string[,,] map, Team team)
         {
             int xMax = map.GetLength(0);
@@ -309,7 +264,6 @@ namespace Battle.Logic.Map
             }
             foreach (Character character in team.Characters)
             {
-                UpdateCharacterFOV(map, character);
                 foreach (Vector3 item in character.FOVHistory)
                 {
                     team.FOVHistory.Add(item);

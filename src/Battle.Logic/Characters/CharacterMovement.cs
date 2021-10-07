@@ -52,7 +52,6 @@ namespace Battle.Logic.Characters
 
                 //Move to the next step
                 characterMoving.SetLocation(map, step);
-                characterMoving = FieldOfView.UpdateCharacterFOV(map, characterMoving);
                 if (team != null)
                 {
                     FieldOfView.UpdateTeamFOV(map, team);
