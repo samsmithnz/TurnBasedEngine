@@ -14,6 +14,7 @@ namespace Battle.Logic.Characters
             Abilities = new List<Ability>();
             Effects = new List<Effect>();
             FOVHistory = new HashSet<Vector3>();
+            CoverState = new CoverState();
         }
 
         public string Name { get; set; }
