@@ -13,6 +13,7 @@ namespace Battle.Logic.GameController
 
         public string Name { get; set; }
         public bool IsAITeam { get; set; }
+        //public int CurrentCharacterIndex { get; set; }
         public List<Character> Characters { get; set; }
         public string Color { get; set; }
         public string[,,] FOVMap { get; set; }
@@ -30,6 +31,16 @@ namespace Battle.Logic.GameController
             }
             return null;
         }
+
+        //public void NextCharacter()
+        //{
+        //    CurrentCharacterIndex++;
+        //}
+
+        //public void PreviousCharacter()
+        //{
+        //    CurrentCharacterIndex--;
+        //}
 
 
     }
