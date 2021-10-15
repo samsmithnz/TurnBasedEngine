@@ -13,31 +13,41 @@ namespace Battle.Logic.Utility
         {
             bool foundFreeCharacter = false;
 
+            //Move to the next character
             index++;
+            //if we overflow, move to the front of the list
             if (index > characters.Count - 1)
             {
                 index = 0;
             }
 
-            for (int i = index; i <= characters.Count - 1; i++)
+            //Double check that this character has action points. If the do not, start to loop through the list of characters
+            if (characters[index].ActionPointsCurrent > 0)
             {
-                if (characters[i].ActionPointsCurrent > 0)
-                {
-                    foundFreeCharacter = true;
-                    index = i;
-                    break;
-                }
+                foundFreeCharacter = true;
             }
-            if (foundFreeCharacter == false)
+            else
             {
-                //look in the first half of the list
-                for (int i = 0; i <= index; i++)
+                for (int i = index; i <= characters.Count - 1; i++)
                 {
                     if (characters[i].ActionPointsCurrent > 0)
                     {
                         foundFreeCharacter = true;
                         index = i;
                         break;
+                    }
+                }
+                if (foundFreeCharacter == false)
+                {
+                    //look in the first half of the list
+                    for (int i = 0; i <= index; i++)
+                    {
+                        if (characters[i].ActionPointsCurrent > 0)
+                        {
+                            foundFreeCharacter = true;
+                            index = i;
+                            break;
+                        }
                     }
                 }
             }
@@ -55,31 +65,41 @@ namespace Battle.Logic.Utility
         {
             bool foundFreeCharacter = false;
 
+            //Move to the previous character
             index--;
+            //if we overflow, move to the end of the list
             if (index < 0)
             {
                 index = characters.Count - 1;
             }
 
-            for (int i = index; i >= 0; i--)
+            //Double check that this character has action points. If the do not, start to loop through the list of characters
+            if (characters[index].ActionPointsCurrent > 0)
             {
-                if (characters[i].ActionPointsCurrent > 0)
-                {
-                    foundFreeCharacter = true;
-                    index = i;
-                    break;
-                }
+                foundFreeCharacter = true;
             }
-            if (foundFreeCharacter == false)
+            else
             {
-                //look in the second half of the list
-                for (int i = characters.Count - 1; i >= index; i--)
+                for (int i = index; i >= 0; i--)
                 {
                     if (characters[i].ActionPointsCurrent > 0)
                     {
                         foundFreeCharacter = true;
                         index = i;
                         break;
+                    }
+                }
+                if (foundFreeCharacter == false)
+                {
+                    //look in the second half of the list
+                    for (int i = characters.Count - 1; i >= index; i--)
+                    {
+                        if (characters[i].ActionPointsCurrent > 0)
+                        {
+                            foundFreeCharacter = true;
+                            index = i;
+                            break;
+                        }
                     }
                 }
             }
