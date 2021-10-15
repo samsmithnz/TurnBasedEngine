@@ -30,7 +30,7 @@ namespace Battle.Logic.Utility
             {
                 for (int i = index; i <= characters.Count - 1; i++)
                 {
-                    if (characters[i].ActionPointsCurrent > 0)
+                    if (characters[i].HitpointsCurrent > 0 && characters[i].ActionPointsCurrent > 0)
                     {
                         foundFreeCharacter = true;
                         index = i;
@@ -42,7 +42,7 @@ namespace Battle.Logic.Utility
                     //look in the first half of the list
                     for (int i = 0; i <= index; i++)
                     {
-                        if (characters[i].ActionPointsCurrent > 0)
+                        if (characters[i].HitpointsCurrent > 0 && characters[i].ActionPointsCurrent > 0)
                         {
                             foundFreeCharacter = true;
                             index = i;

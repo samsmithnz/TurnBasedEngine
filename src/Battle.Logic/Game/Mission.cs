@@ -2,7 +2,7 @@
 using Battle.Logic.Utility;
 using System.Collections.Generic;
 
-namespace Battle.Logic.GameController
+namespace Battle.Logic.Game
 {
     public class Mission
     {

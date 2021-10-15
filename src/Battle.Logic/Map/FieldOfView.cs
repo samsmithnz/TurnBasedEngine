@@ -1,5 +1,5 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.GameController;
+using Battle.Logic.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;

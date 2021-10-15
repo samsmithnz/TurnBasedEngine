@@ -1,8 +1,9 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.GameController
+namespace Battle.Logic.Game
 {
     public class Team
     {
@@ -13,7 +14,7 @@ namespace Battle.Logic.GameController
 
         public string Name { get; set; }
         public bool IsAITeam { get; set; }
-        //public int CurrentCharacterIndex { get; set; }
+        public int CurrentCharacterIndex { get; set; }
         public List<Character> Characters { get; set; }
         public string Color { get; set; }
         public string[,,] FOVMap { get; set; }
@@ -32,15 +33,15 @@ namespace Battle.Logic.GameController
             return null;
         }
 
-        //public void NextCharacter()
-        //{
-        //    CurrentCharacterIndex++;
-        //}
+        public void NextCharacter()
+        {
+            CurrentCharacterIndex = WrappingList.FindNextIndex(CurrentCharacterIndex, Characters);
+        }
 
-        //public void PreviousCharacter()
-        //{
-        //    CurrentCharacterIndex--;
-        //}
+        public void PreviousCharacter()
+        {
+            CurrentCharacterIndex = WrappingList.FindPreviousIndex(CurrentCharacterIndex, Characters);
+        }
 
 
     }
