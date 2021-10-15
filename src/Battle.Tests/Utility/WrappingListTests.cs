@@ -123,7 +123,7 @@ namespace Battle.Tests.Utility
             //Arrange
             int index = 0;
             List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent =0 });
+            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 0 });
             characters.Add(new Character() { Name = "B", ActionPointsCurrent = 0 });
             characters.Add(new Character() { Name = "C", ActionPointsCurrent = 0 });
 
