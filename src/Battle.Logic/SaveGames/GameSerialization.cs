@@ -1,4 +1,4 @@
-﻿using Battle.Logic.GameController;
+﻿using Battle.Logic.Game;
 using Newtonsoft.Json;
 using System.IO;
 

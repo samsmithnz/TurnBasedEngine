@@ -1,5 +1,5 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.GameController;
+using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

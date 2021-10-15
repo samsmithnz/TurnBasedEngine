@@ -1,4 +1,4 @@
-using Battle.Logic.GameController;
+using Battle.Logic.Game;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;

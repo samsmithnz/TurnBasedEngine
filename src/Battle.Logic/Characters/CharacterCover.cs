@@ -1,4 +1,4 @@
-﻿using Battle.Logic.GameController;
+﻿using Battle.Logic.Game;
 using Battle.Logic.Map;
 using System;
 using System.Collections.Generic;

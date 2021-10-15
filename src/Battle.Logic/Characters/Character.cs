@@ -1,5 +1,5 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.GameController;
+using Battle.Logic.Game;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using System.Collections.Generic;
