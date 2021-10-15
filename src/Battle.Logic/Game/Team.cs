@@ -20,29 +20,33 @@ namespace Battle.Logic.Game
         public string[,,] FOVMap { get; set; }
         public HashSet<Vector3> FOVHistory { get; set; }
 
-        //get the first character on the team with action points
-        public Character GetCharacterWithActionPoints()
+        public Character GetNextCharacter()
         {
-            foreach (Character character in Characters)
+            (int, Character) result = TeamUtility.GetNextCharacter(CurrentCharacterIndex, Characters);
+            if (result.Item1 >= 0)
             {
-                if (character.ActionPointsCurrent > 0)
-                {
-                    return character;
-                }
+                CurrentCharacterIndex = result.Item1;
+                return result.Item2;
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
-        public void NextCharacter()
+        public Character GetPreviousCharacter()
         {
-            CurrentCharacterIndex = WrappingList.FindNextIndex(CurrentCharacterIndex, Characters);
+            (int, Character) result = TeamUtility.GetPreviousCharacter(CurrentCharacterIndex, Characters);
+            if (result.Item1 >= 0)
+            {
+                CurrentCharacterIndex = result.Item1;
+                return result.Item2;
+            }
+            else
+            {
+                return null;
+            }
         }
-
-        public void PreviousCharacter()
-        {
-            CurrentCharacterIndex = WrappingList.FindPreviousIndex(CurrentCharacterIndex, Characters);
-        }
-
 
     }
 }
