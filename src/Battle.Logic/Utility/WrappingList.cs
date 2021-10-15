@@ -1,10 +1,11 @@
 ﻿using Battle.Logic.Characters;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Battle.Logic.Utility
 {
+    /// <summary>
+    /// A wrapping list object, that allows you to move forward or backwards through a list, wrapping to the beginning/end, if required
+    /// </summary>
     public static class WrappingList
     {
         //Move to the next item in the character list with action points
