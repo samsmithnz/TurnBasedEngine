@@ -39,6 +39,7 @@ namespace Battle.Logic.Characters
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
                 aiActionResult = aiValues[0].Value;
+                aiActionResult.IntelligenceCheckSuccessful = true;
             }
             else
             {

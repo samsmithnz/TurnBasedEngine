@@ -10,8 +10,10 @@ namespace Battle.Logic.Encounters
         public AIAction(ActionTypeEnum actionType)
         {
             ActionType = actionType;
+            IntelligenceCheckSuccessful = false;
         }
         public int Score { get; set; }
+        public bool IntelligenceCheckSuccessful { get; set; }
         public ActionTypeEnum ActionType { get; set; }
         public string TargetName { get; set; }
         public Vector3 TargetLocation { get; set; }
