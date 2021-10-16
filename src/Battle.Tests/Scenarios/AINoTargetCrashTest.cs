@@ -101,7 +101,7 @@ namespace Battle.Tests.Scenarios
 
             //Assert
             Assert.IsTrue(aIAction.IntelligenceCheckSuccessful==false);
-            Assert.AreEqual(ActionTypeEnum.Attack, aIAction.ActionType);
+            Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction.ActionType);
             Assert.AreEqual(6, aIAction.Score);
             Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
             Assert.AreEqual(new Vector3(16, 0, 23), aIAction.EndLocation);
@@ -167,7 +167,7 @@ namespace Battle.Tests.Scenarios
 ";
 
             //Assert
-            Assert.AreEqual(ActionTypeEnum.Attack, aIAction2.ActionType);
+            Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction2.ActionType);
             Assert.AreEqual(5, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
             Assert.AreEqual(new Vector3(25, 0, 29), aIAction2.EndLocation);
