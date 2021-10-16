@@ -100,14 +100,23 @@ namespace Battle.Tests.Scenarios
 ";
 
             //Assert
-            Assert.IsTrue(aIAction.IntelligenceCheckSuccessful==false);
+            Assert.IsTrue(aIAction.IntelligenceCheckSuccessful == false);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction.ActionType);
             Assert.AreEqual(6, aIAction.Score);
             Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
             Assert.AreEqual(new Vector3(16, 0, 23), aIAction.EndLocation);
             Assert.AreEqual(mapStringExpected, mapString);
 
-            //process AI for character 1
+            //Now run the action
+            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, aIAction.StartLocation, aIAction.EndLocation);
+            CharacterMovement.MoveCharacter(mission.Map,
+                mission.Teams[1].Characters[0],
+                pathFindingResult,
+                mission.RandomNumbers,
+                null,
+                mission.Teams[1]);
+
+            //process AI for character 2
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 mission.Teams,
@@ -140,11 +149,11 @@ namespace Battle.Tests.Scenarios
 . . . . . . . . . . . . . 0 1 1 1 1 4 3 0 1 3 0 0 2 2 0 0 0 0 2 1 1 4 1 1 1 3 1 □ . . □ . . . . . . 
 . . . . . . . . . . . . . 2 3 0 1 1 ■ 2 1 0 0 0 2 1 1 0 0 0 0 ■ 4 1 ■ 4 1 1 □ 3 □ . . . . . . . . . 
 . . . . . . . . . . . . . ■ 0 1 3 3 1 1 1 1 4 1 1 1 □ 1 0 0 2 4 1 0 1 0 1 3 1 . . . . . . . . . . . 
-. . . . . . . □ . ■ . . □ . 4 3 4 1 0 0 1 4 ■ 6 1 0 0 1 0 0 ■ ■ 2 1 0 0 0 □ 3 . . . . . . . . . ■ . 
-. . . . . . . . . ■ . . . . ■ 1 ■ 2 0 1 1 ■ 4 1 3 0 0 □ 1 0 0 0 ■ 2 0 0 0 0 . □ . . . □ . . . . . . 
+. . . . . . . □ . ■ . . □ . 4 3 P 1 0 0 1 4 ■ 6 1 0 0 1 0 0 ■ ■ 2 1 0 0 0 □ 3 . . . . . . . . . ■ . 
+. . . . . . . . . ■ . . . . ■ . ■ 2 0 1 1 ■ 4 1 3 0 0 □ 1 0 0 0 ■ 2 0 0 0 0 . □ . . . □ . . . . . . 
 □ . . . □ . . . . . . . . . . . 0 0 1 1 1 1 1 3 1 0 0 0 0 0 0 1 0 0 0 0 0 . . . . . . . ■ . . . . . 
 . . . . . . . . . . . . . . . . . 1 3 1 3 1 3 3 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . 
-■ . . . . . . . . . . . . . . . . . . P □ 5 3 0 0 0 1 0 0 0 0 0 . 0 . . . . . . . . . . . . . . . . 
+■ . . . . . . . . . . . . . . . . . . 1 □ 5 3 0 0 0 1 0 0 0 0 0 . 0 . . . . . . . . . . . . . . . . 
 . ■ . . . . . . . . . . . . . □ . . . . . . 1 0 1 1 1 0 0 0 0 . □ . . . . . . . . . . . . . . . . . 
 ■ . . . . . . . . . . . . . . . . . . . . . . . 3 1 1 . 0 . . . . . . . . . . . . □ . . □ . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . □ . . . . . . . . . . . □ . . . . 
@@ -167,6 +176,7 @@ namespace Battle.Tests.Scenarios
 ";
 
             //Assert
+            Assert.IsTrue(aIAction.IntelligenceCheckSuccessful == false);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction2.ActionType);
             Assert.AreEqual(5, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
