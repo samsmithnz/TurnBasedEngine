@@ -143,7 +143,7 @@ Fred is moving from <8, 0, 9> to <9, 0, 10>
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
             List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(characters[0], jethro);
-            string mapResult1 = @"
+            string mapStringExpected1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -195,7 +195,7 @@ o o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . 
 o o o o . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . 
 o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult1, mapString1);
+            Assert.AreEqual(mapStringExpected1, mapString1);
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);

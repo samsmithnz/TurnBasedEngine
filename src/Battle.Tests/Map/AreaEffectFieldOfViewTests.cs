@@ -28,14 +28,14 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(3, 0, 4), results[1]);
             Assert.AreEqual(new Vector3(4, 0, 3), results[2]);
             Assert.AreEqual(location, results[3]);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . o o 
 . . . o o 
 . . . . . 
 . . . . . 
 . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -59,14 +59,14 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(1, 0, 2), results[3]);
             Assert.AreEqual(new Vector3(2, 0, 0), results[4]);
             Assert.AreEqual(location, results[8]);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . 
 . . . . . 
 o o o . . 
 o o o . . 
 o o o . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -88,14 +88,14 @@ o o o . .
             Assert.AreEqual(new Vector3(1, 0, 0), results[1]);
             Assert.AreEqual(new Vector3(1, 0, 1), results[2]);
             Assert.AreEqual(location, results[3]);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . 
 . . . . . 
 . . . . . 
 o o . . . 
 o o . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
 
@@ -117,7 +117,7 @@ o o . . .
             Assert.AreEqual(new Vector3(3, 0, 3), results[0]);
             Assert.AreEqual(new Vector3(7, 0, 6), results[43]);
             Assert.AreEqual(location, results[44]);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . o o o o o . . . 
@@ -129,7 +129,7 @@ o o . . .
 . . o o o o o . . . 
 . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -150,7 +150,7 @@ o o . . .
             Assert.AreEqual(new Vector3(0, 0, 1), results[0]);
             Assert.AreEqual(new Vector3(3, 0, 2), results[13]);
             Assert.AreEqual(location, results[14]);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
@@ -162,7 +162,7 @@ o o o o . . . . . .
 o o o o . . . . . . 
 o o o o . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
 

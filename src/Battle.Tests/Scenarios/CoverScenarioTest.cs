@@ -71,7 +71,7 @@ namespace Battle.Tests.Scenarios
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
             List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(0, characters.Count);
-            string mapResult1 = @"
+            string mapStringExpected1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -123,7 +123,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult1, mapString1);
+            Assert.AreEqual(mapStringExpected1, mapString1);
 
             //Throw grenade in front of wall
             Vector3 targetThrowingLocation = new Vector3(13, 0, 10);
@@ -157,7 +157,7 @@ High cover downgraded to low cover at <14, 0, 10>
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
             List<Character> characters2 = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
             Assert.AreEqual(1, characters2.Count);
-            string mapResult2 = @"
+            string mapStringExpected2 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -209,7 +209,7 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
 o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult2, mapString2);
+            Assert.AreEqual(mapStringExpected2, mapString2);
 
             //End of of battle
             mission.EndMission();

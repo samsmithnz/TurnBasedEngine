@@ -31,7 +31,7 @@ namespace Battle.Tests.Map
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
             Assert.AreEqual("Jethro", characters[0].Name);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o o o o 
@@ -43,7 +43,7 @@ o o o o o o o o o o
 o o o o o o o o o o 
 P o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ P o o o o o o o o o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o . 
 o o o o o o o o P . 
 o o o o o o o ■ ■ ■ 
@@ -79,7 +79,7 @@ o o o o o o o o o o
 o o o o o o o o o o 
 P o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
 
             string expectedFOV = @"
 . . . . . . . . . ▓ 
@@ -165,7 +165,7 @@ o o o o o o o o P o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o . . 
 o o o o o o o o P . 
 o o o o o o o o ■ ■ 
@@ -177,7 +177,7 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o P o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
 
@@ -201,7 +201,7 @@ o o o o o o o o P o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o o o o 
@@ -213,7 +213,7 @@ o o o o o o o o ■ ■
 o o o o o o o o P . 
 o o o o o o o o . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
 
@@ -236,7 +236,7 @@ o o o o o o o o . .
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 
 o P o o o o o o ■ P 
@@ -248,7 +248,7 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
 
@@ -270,7 +270,7 @@ o o o o o o o o o o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 
 P ■ o o o o o o o P 
@@ -282,7 +282,7 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -305,7 +305,7 @@ o o o o o o o o o o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(0, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o ■ ■ ■ 
@@ -317,7 +317,7 @@ o o . . . . . . . .
 . . . . . . . . . . 
 P . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -340,7 +340,7 @@ P . . . . . . . . .
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o □ ■ ■ 
@@ -352,7 +352,7 @@ o o o o o o . . . .
 o o o o o . . . . . 
 P o o o o . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -373,7 +373,7 @@ P o o o o . . . . .
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o . . . o o o o o o 
 o . . . o o o o o o 
 o o . o o o o o o o 
@@ -385,7 +385,7 @@ o o P o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -403,7 +403,7 @@ o o o o o o o o o o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(0, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . 
 . . . . . . . . . . . 
 . . . o o o o o . . . 
@@ -416,7 +416,7 @@ o o o o o o o o o o
 . . . . . . . . . . . 
 . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
 
         [TestMethod]
@@ -438,7 +438,7 @@ o o o o o o o o o o
             //Assert
             Assert.IsTrue(characters != null);
             Assert.AreEqual(1, characters.Count);
-            string mapResult = @"
+            string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -450,7 +450,7 @@ o o o o o o o o o o
 . . P o o o o o o o 
 . o o o o o o o o o 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
 
             //Now test cover for each character
             

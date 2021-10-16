@@ -49,7 +49,7 @@ namespace Battle.Tests.Characters
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -83,7 +83,7 @@ namespace Battle.Tests.Characters
 . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
             string log1 = @"
 Jethro is processing AI, with intelligence 25
 Failed intelligence check: 25, (dice roll: 8)
@@ -92,7 +92,7 @@ Failed intelligence check: 25, (dice roll: 8)
             Assert.AreEqual(4, actionResult1.Score);
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult1.StartLocation);
             Assert.AreEqual(new Vector3(17, 0, 18), actionResult1.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.Move, actionResult1.ActionType);
+            Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult1.ActionType);
 
             string log2 = @"
 Jethro is processing AI, with intelligence 25
@@ -101,7 +101,7 @@ Successful intelligence check: 25, (dice roll: 81)
             Assert.AreEqual(log2, actionResult2.LogString);
             Assert.AreEqual(new Vector3(15, 0, 15), actionResult2.StartLocation);
             Assert.AreEqual(new Vector3(19, 0, 20), actionResult2.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.Move, actionResult2.ActionType);
+            Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult2.ActionType);
         }
 
 
@@ -148,7 +148,7 @@ Successful intelligence check: 25, (dice roll: 81)
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert         
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -177,7 +177,7 @@ Successful intelligence check: 25, (dice roll: 81)
 . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
             string log1 = @"
 Jethro is processing AI, with intelligence 25
 Successful intelligence check: 25, (dice roll: 81)
@@ -185,7 +185,7 @@ Successful intelligence check: 25, (dice roll: 81)
             Assert.AreEqual(log1, actionResult.LogString);
             Assert.AreEqual(new Vector3(15, 0, 10), actionResult.StartLocation);
             Assert.AreEqual(new Vector3(15, 0, 6), actionResult.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.Attack, actionResult.ActionType);
+            Assert.AreEqual(ActionTypeEnum.MoveThenAttack, actionResult.ActionType);
         }
 
     }
