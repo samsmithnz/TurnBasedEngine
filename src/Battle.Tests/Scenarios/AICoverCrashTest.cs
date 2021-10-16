@@ -43,7 +43,7 @@ namespace Battle.Tests.Scenarios
                 mission.Teams[1].Characters[0], 
                 mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
 . . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 
 . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . 
@@ -100,7 +100,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(5, aIAction.Score);
             Assert.AreEqual(new Vector3(19,0,19), aIAction.StartLocation);
             Assert.AreEqual(new Vector3(13,0,15), aIAction.EndLocation);
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
         }
     }
 }

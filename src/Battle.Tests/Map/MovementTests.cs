@@ -153,7 +153,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
             List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, null);
 
-            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
+            string mapStringExpected = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -198,7 +198,7 @@ Fred is moving from <7, 0, 0> to <8, 0, 0>
 ";
 
             //Assert
-            Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(mapExpected, mapStringExpected);
             Assert.AreEqual(1, fred.ActionPointsCurrent);
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
@@ -238,7 +238,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
             List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, null);
 
-            string mapResult = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
+            string mapStringExpected = MapCore.GetMapStringWithItems(map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -283,7 +283,7 @@ Fred is moving from <13, 0, 20> to <12, 0, 20>
 ";
 
             //Assert
-            Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(mapExpected, mapStringExpected);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             Assert.AreEqual(14, movementResults.Count);
             string log = @"
@@ -329,7 +329,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
 
             List<Vector3> movementPossibileTilesRange8 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 1);
             List<Vector3> movementPossibileTilesRange16 = MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles, 2);
-            string mapResult = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
+            string mapStringExpected = MapCore.GetMapStringWithItemLayers(map, movementPossibileTilesRange16, movementPossibileTilesRange8);
             string mapExpected = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -374,7 +374,7 @@ Fred is moving from <7, 0, 20> to <6, 0, 20>
 ";
 
             //Assert
-            Assert.AreEqual(mapExpected, mapResult);
+            Assert.AreEqual(mapExpected, mapStringExpected);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             Assert.AreEqual(14, movementResults.Count);
             string log = @"

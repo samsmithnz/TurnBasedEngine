@@ -552,7 +552,7 @@ Fred is ready to level up
             string mapString = MapCore.GetMapString(mission.Map);
 
             //Assert
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . 
 . . . . . . . . P . 
 . . . . . . . . . . 
@@ -564,7 +564,7 @@ Fred is ready to level up
 . P . . . . . . . . 
 . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);

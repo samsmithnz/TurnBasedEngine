@@ -49,7 +49,7 @@ namespace Battle.Tests.Characters
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -83,7 +83,7 @@ namespace Battle.Tests.Characters
 . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
             string log1 = @"
 Jethro is processing AI, with intelligence 25
 Failed intelligence check: 25, (dice roll: 8)
@@ -148,7 +148,7 @@ Successful intelligence check: 25, (dice roll: 81)
             string mapString = ai.CreateAIMap(mission.Map);
 
             //Assert         
-            string mapResult = @"
+            string mapStringExpected = @"
 . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 1 1 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . 1 1 1 1 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -177,7 +177,7 @@ Successful intelligence check: 25, (dice roll: 81)
 . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapResult, mapString);
+            Assert.AreEqual(mapStringExpected, mapString);
             string log1 = @"
 Jethro is processing AI, with intelligence 25
 Successful intelligence check: 25, (dice roll: 81)
