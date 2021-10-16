@@ -40,7 +40,8 @@ namespace Battle.Logic.Encounters
     public enum ActionTypeEnum
     {
         Unknown = 0,
-        Move = 1,
-        Attack = 2
+        DoubleMove = 1,
+        MoveThenAttack = 2,
+        StayInPositionThenAttack = 3
     }
 }

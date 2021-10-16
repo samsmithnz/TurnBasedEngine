@@ -162,7 +162,7 @@ namespace Battle.Logic.Characters
                         {
                             moveScore = 0;
                         }
-                        possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
+                        possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                         {
                             Score = moveScore,
                             StartLocation = character.Location,
@@ -187,7 +187,7 @@ namespace Battle.Logic.Characters
                         {
                             //No characters in view, record a score of 0 - this move achieves nothing
                             moveThenShootScore = 0;
-                            possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
+                            possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                             {
                                 Score = moveThenShootScore,
                                 StartLocation = character.Location,
@@ -233,7 +233,7 @@ namespace Battle.Logic.Characters
                                 {
                                     moveThenShootScore = 0;
                                 }
-                                possibleOptions.Add(new AIAction(ActionTypeEnum.Attack)
+                                possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                                 {
                                     Score = moveThenShootScore,
                                     StartLocation = character.Location,
@@ -256,7 +256,7 @@ namespace Battle.Logic.Characters
                     {
                         moveLongScore = 0;
                     }
-                    possibleOptions.Add(new AIAction(ActionTypeEnum.Move)
+                    possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                     {
                         Score = moveLongScore,
                         StartLocation = character.Location,
