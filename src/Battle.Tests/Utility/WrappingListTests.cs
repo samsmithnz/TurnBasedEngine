@@ -14,10 +14,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -32,10 +34,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -50,10 +54,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -68,10 +74,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "C", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 0 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -86,10 +94,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", HitpointsCurrent = 1, ActionPointsCurrent = 0 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent =0 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -104,10 +114,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", HitpointsCurrent = 1, ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 0 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -122,10 +134,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 0 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 0 },
+                new Character() { Name = "B", ActionPointsCurrent = 0 },
+                new Character() { Name = "C", ActionPointsCurrent = 0 }
+            };
 
             //Act
             index = WrappingList.FindNextIndex(index, characters);
@@ -142,10 +156,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -160,10 +176,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -178,10 +196,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -196,10 +216,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 0 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 0 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -214,10 +236,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 0 },
+                new Character() { Name = "B", ActionPointsCurrent = 1 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -232,10 +256,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 1 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 1 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 1 },
+                new Character() { Name = "B", ActionPointsCurrent = 0 },
+                new Character() { Name = "C", ActionPointsCurrent = 1 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
@@ -250,10 +276,12 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>();
-            characters.Add(new Character() { Name = "A", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "B", ActionPointsCurrent = 0 });
-            characters.Add(new Character() { Name = "C", ActionPointsCurrent = 0 });
+            List<Character> characters = new List<Character>
+            {
+                new Character() { Name = "A", ActionPointsCurrent = 0 },
+                new Character() { Name = "B", ActionPointsCurrent = 0 },
+                new Character() { Name = "C", ActionPointsCurrent = 0 }
+            };
 
             //Act
             index = WrappingList.FindPreviousIndex(index, characters);
