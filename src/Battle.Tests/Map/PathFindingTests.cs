@@ -298,6 +298,42 @@ namespace Battle.Tests.Map
             Assert.AreEqual("3, 0: Untested", result);
         }
 
+        [TestMethod]
+        public void Test_WithoutWalls_CanFindPathNextDoor()
+        {
+            //Arrange
+            Vector3 startLocation = new Vector3(25, 0, 30);
+            Vector3 endLocation = new Vector3(25, 0, 29);
+            string[,,] map = MapCore.InitializeMap(50, 1, 50);
+
+            //Act
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+
+            //Assert
+            Assert.IsNotNull(PathFindingResult);
+            Assert.IsNotNull(PathFindingResult.Path);
+            Assert.IsTrue(PathFindingResult.Path.Any());
+            Assert.AreEqual(1, PathFindingResult.Path.Count);
+            Assert.AreEqual("<25, 0, 29>", PathFindingResult.Path[0].ToString());
+        }
+
+        [TestMethod]
+        public void Test_WithoutWalls_NoMovement()
+        {
+            //Arrange
+            Vector3 startLocation = new Vector3(1, 0, 2);
+            Vector3 endLocation = new Vector3(1, 0, 2);
+            string[,,] map = MapCore.InitializeMap(7, 1, 5);
+
+            //Act
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+
+            //Assert
+            Assert.IsNotNull(PathFindingResult);
+            Assert.IsNotNull(PathFindingResult.Path);
+            Assert.AreEqual(0, PathFindingResult.Path.Count);
+        }
+
 
         #region "Create huge map"
 
