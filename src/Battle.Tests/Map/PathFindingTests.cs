@@ -302,9 +302,9 @@ namespace Battle.Tests.Map
         public void Test_WithoutWalls_CanFindPathNextDoor()
         {
             //Arrange
-            Vector3 startLocation = new Vector3(1, 0, 2);
-            Vector3 endLocation = new Vector3(2, 0, 2);
-            string[,,] map = MapCore.InitializeMap(7, 1, 5);
+            Vector3 startLocation = new Vector3(25, 0, 30);
+            Vector3 endLocation = new Vector3(25, 0, 29);
+            string[,,] map = MapCore.InitializeMap(50, 1, 50);
 
             //Act
             PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -314,7 +314,7 @@ namespace Battle.Tests.Map
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.AreEqual(1, PathFindingResult.Path.Count);
-            Assert.AreEqual("<2, 0, 2>", PathFindingResult.Path[0].ToString());
+            Assert.AreEqual("<25, 0, 29>", PathFindingResult.Path[0].ToString());
         }
 
         [TestMethod]
