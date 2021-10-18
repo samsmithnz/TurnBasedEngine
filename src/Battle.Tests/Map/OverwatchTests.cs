@@ -32,7 +32,7 @@ namespace Battle.Tests.Map
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team2, team1, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -73,7 +73,7 @@ Fred is ready to level up
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team2, team1, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -113,7 +113,7 @@ Fred is ready to level up
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team2, team1, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -158,7 +158,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team2, team1, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -207,11 +207,13 @@ Fred is ready to level up
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             Team team2 = new Team();
             team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team2, team1, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -222,8 +224,11 @@ Fred is ready to level up
             Assert.AreEqual(8, movementResults.Count);
             string log = @"
 Jethro is moving from <8, 0, 8> to <8, 0, 7>
+Harry is attacking with Sniper Rifle, targeted on Jethro
+Missed: Chance to hit: 42, (dice roll: 0)
+0 XP added to character Harry, for a total of 0 XP
 Fred is attacking with Rifle, targeted on Jethro
-Missed: Chance to hit: 56, (dice roll: 0)
+Missed: Chance to hit: 56, (dice roll: 1)
 0 XP added to character Fred, for a total of 0 XP
 Jethro is moving from <8, 0, 7> to <8, 0, 6>
 Jethro is moving from <8, 0, 6> to <8, 0, 5>
