@@ -52,6 +52,7 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
+            mission.UpdateTargetsForAllTeams();
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 

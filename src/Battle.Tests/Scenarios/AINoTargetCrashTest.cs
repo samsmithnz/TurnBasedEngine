@@ -36,6 +36,10 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
+            //mission.UpdateTargetsForAllTeams();
+            Character player1 = mission.Teams[0].Characters[0];
+            Character enemy1 = mission.Teams[1].Characters[0];
+            Character enemy2 = mission.Teams[1].Characters[1];
 
             //Move to enemy turn
             mission.MoveToNextTurn();
@@ -44,7 +48,7 @@ namespace Battle.Tests.Scenarios
             CharacterAI ai = new CharacterAI();
             AIAction aIAction = ai.CalculateAIAction(mission.Map,
                 mission.Teams,
-                mission.Teams[1].Characters[0],
+                enemy1,
                 mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
             string mapStringExpected = @"
@@ -110,17 +114,24 @@ namespace Battle.Tests.Scenarios
             //Now run the action
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, aIAction.StartLocation, aIAction.EndLocation);
             CharacterMovement.MoveCharacter(mission.Map,
-                mission.Teams[1].Characters[0],
+                enemy1,
                 pathFindingResult,
                 mission.Teams[1],
                 mission.Teams[0],
                 mission.RandomNumbers);
+            EncounterResult encounterResult = Encounter.AttackCharacter(mission.Map,
+                  enemy1,
+                  enemy1.WeaponEquipped,
+                  enemy1.TargetCharacters[0],
+                  mission.RandomNumbers);
+
+            Assert.AreEqual(false, encounterResult.IsHit);
 
             //process AI for character 2
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 mission.Teams,
-                mission.Teams[1].Characters[1],
+                enemy2,
                 mission.RandomNumbers);
             string mapString2 = ai2.CreateAIMap(mission.Map);
             string mapStringExpected2 = @"
@@ -149,9 +160,9 @@ namespace Battle.Tests.Scenarios
 . . . . . . . . . . . . . 0 1 1 1 1 4 3 0 1 3 0 0 2 2 0 0 0 0 2 1 1 4 1 1 1 3 1 □ . . □ . . . . . . 
 . . . . . . . . . . . . . 2 3 0 1 1 ■ 2 1 0 0 0 2 1 1 0 0 0 0 ■ 4 1 ■ 4 1 1 □ 3 □ . . . . . . . . . 
 . . . . . . . . . . . . . ■ 0 1 3 3 1 1 1 1 4 1 1 1 □ 1 0 0 2 4 1 0 1 0 1 3 1 . . . . . . . . . . . 
-. . . . . . . □ . ■ . . □ . 4 3 P 1 0 0 1 4 ■ 6 1 0 0 1 0 0 ■ ■ 2 1 0 0 0 □ 3 . . . . . . . . . ■ . 
-. . . . . . . . . ■ . . . . ■ . ■ 2 0 1 1 ■ 4 1 3 0 0 □ 1 0 0 0 ■ 2 0 0 0 0 . □ . . . □ . . . . . . 
-□ . . . □ . . . . . . . . . . . 0 0 1 1 1 1 1 3 1 0 0 0 0 0 0 1 0 0 0 0 0 . . . . . . . ■ . . . . . 
+. . . . . . . □ . ■ . . □ . 4 3 4 1 0 0 1 4 ■ 6 1 0 0 1 0 0 ■ ■ 2 1 0 0 0 □ 3 . . . . . . . . . ■ . 
+. . . . . . . . . ■ . . . . ■ 1 ■ 2 0 1 1 ■ 4 1 3 0 0 □ 1 0 0 0 ■ 2 0 0 0 0 . □ . . . □ . . . . . . 
+□ . . . □ . . . . . . . . . . . 0 P 1 1 1 1 1 3 1 0 0 0 0 0 0 1 0 0 0 0 0 . . . . . . . ■ . . . . . 
 . . . . . . . . . . . . . . . . . 1 3 1 3 1 3 3 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . 
 ■ . . . . . . . . . . . . . . . . . . 1 □ 5 3 0 0 0 1 0 0 0 0 0 . 0 . . . . . . . . . . . . . . . . 
 . ■ . . . . . . . . . . . . . □ . . . . . . 1 0 1 1 1 0 0 0 0 . □ . . . . . . . . . . . . . . . . . 
@@ -163,7 +174,7 @@ namespace Battle.Tests.Scenarios
 . . P ■ . . . . . □ . . □ . . □ . . . . . . . . . . . . . ■ . □ . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . □ . . . . . □ . . . . . . . 
 . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . . . ■ . □ . . . . . . . ■ . □ . . . . . . . 
-. . . . □ □ . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . □ . . . 
+. . . . □ . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . □ . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . 
 . . . □ . □ . . . □ . ■ . . . . . . . . . . . . ■ □ . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . □ . . . □ . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . 

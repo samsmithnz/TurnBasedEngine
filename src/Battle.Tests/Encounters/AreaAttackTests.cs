@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
+using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using Battle.Tests.Characters;
@@ -32,14 +33,22 @@ namespace Battle.Tests.Encounters
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 4;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -79,15 +88,23 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 2;
             jethro.ArmorPointsCurrent = 2;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro); 
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -130,15 +147,23 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 4;
             jethro.ArmorPointsCurrent = 2;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -181,15 +206,23 @@ Fred is ready to level up
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 4;
             jethro.ArmorPointsCurrent = 3;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -230,14 +263,22 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 5;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -276,17 +317,26 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
-            jethro.HitpointsCurrent = 4;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -333,17 +383,26 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
-            jethro.HitpointsCurrent = 4;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 1;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 4;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -390,17 +449,26 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
-            jethro.HitpointsCurrent = 15;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 15;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -447,17 +515,26 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility1());
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility2());
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
-            jethro.HitpointsCurrent = 6;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            jethro.HitpointsCurrent = 6;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -507,11 +584,17 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0), 5);
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 4));
             jethro.HitpointsCurrent = 5;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act 1: get the FOV
             //List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, fred.FOVRange);
@@ -532,6 +615,8 @@ Fred is ready to level up
 
             //Act 2: Now destroy the cover
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
@@ -582,13 +667,21 @@ High cover downgraded to low cover at <2, 0, 3>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = null;
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -603,14 +696,22 @@ High cover downgraded to low cover at <2, 0, 3>
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.UtilityWeaponEquipped = null;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 4;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -632,14 +733,22 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
             jethro.HitpointsCurrent = 4;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new Vector3(9, 0, 9);
             List<Character> characterList = new List<Character>() { fred, jethro };
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             EncounterResult result = Encounter.AttackCharacterWithAreaOfEffect(map, fred, fred.UtilityWeaponEquipped, characterList, diceRolls, targetThrowingLocation);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Assert
             Assert.IsTrue(result != null);
