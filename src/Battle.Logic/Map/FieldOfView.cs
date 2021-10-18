@@ -41,22 +41,24 @@ namespace Battle.Logic.Map
             List<Character> results = new List<Character>();
 
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, shootingRange);
-            //string fovMap = MapCore.GetMapStringWithItems(map, fov);
-            foreach (Character character in opponentCharacters)
+            if (opponentCharacters != null)
             {
-                bool addedCharacter = false;
-                foreach (Vector3 fovLocation in fov)
+                foreach (Character character in opponentCharacters)
                 {
-                    if (character.Location == fovLocation)
+                    bool addedCharacter = false;
+                    foreach (Vector3 fovLocation in fov)
                     {
-                        addedCharacter = true;
-                        results.Add(character);
-                        break;
+                        if (character.Location == fovLocation)
+                        {
+                            addedCharacter = true;
+                            results.Add(character);
+                            break;
+                        }
                     }
-                }
-                if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
-                {
-                    results.Add(character);
+                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
+                    {
+                        results.Add(character);
+                    }
                 }
             }
             return results;

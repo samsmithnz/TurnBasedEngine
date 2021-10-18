@@ -19,13 +19,17 @@ namespace Battle.Tests.Map
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-            //List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, teamBaddie.Characters);
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+            //List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, team2.Characters);
 
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
@@ -55,12 +59,16 @@ P o o o o o o o o o
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
@@ -90,7 +98,7 @@ P o o o o o o o o o
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
-. . . . . . . . . . 
+P . . . . . . . . . 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
         }
@@ -104,12 +112,16 @@ P o o o o o o o o o
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
@@ -152,13 +164,17 @@ o o o o o o o o P o
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+              Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-          
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -187,13 +203,17 @@ o o o o o o o o P o
             map[8, 0, 2] = CoverType.FullCover;
             map[9, 0, 2] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 8));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 1));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+              Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-           
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -221,13 +241,17 @@ o o o o o o o o . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(1, 0, 7));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(9, 0, 7));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+              Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-           
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -254,13 +278,17 @@ o o o o o o o o o o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[1, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(9, 0, 7));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(0, 0, 7));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+              Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-          
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -288,13 +316,17 @@ o o o o o o o o o o
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team teamGood = new Team();
-            teamGood.Characters.Add(fred);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = jethro.GetCharactersInViewMapString(map, teamGood.Characters);
-           
+            string mapString = jethro.GetCharactersInViewMapString(map, team1.Characters);
+
             //Assert
             Assert.IsTrue(jethro.TargetCharacters != null);
             Assert.AreEqual(0, jethro.TargetCharacters.Count);
@@ -322,13 +354,19 @@ P . . . . . . . . .
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             Team teamGood = new Team();
             teamGood.Characters.Add(fred);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
             string mapString = jethro.GetCharactersInViewMapString(map, teamGood.Characters);
-         
+
             //Assert
             Assert.IsTrue(jethro.TargetCharacters != null);
             Assert.AreEqual(1, jethro.TargetCharacters.Count);
@@ -354,13 +392,17 @@ P o o o o . . . . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 5] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 2));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 6));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-         
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -386,10 +428,13 @@ o o o o o o o o o o
             string[,,] map = MapCore.InitializeMap(11, 1, 11);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(5, 0, 5));
             fred.ShootingRange = 3;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.UpdateTargets(map, null);
 
             //Act
             string mapString = fred.GetCharactersInViewMapString(map, new List<Character>());
-          
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(0, fred.TargetCharacters.Count);
@@ -417,13 +462,17 @@ o o o o o o o o o o
             map[2, 0, 2] = CoverType.FullCover;
             map[4, 0, 2] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(5, 0, 2));
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 1));
-            Team teamBaddie = new Team();
-            teamBaddie.Characters.Add(jethro);
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
+            team1.UpdateTargets(map, team2.Characters);
+            team2.UpdateTargets(map, team1.Characters);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
-          
+            string mapString = fred.GetCharactersInViewMapString(map, team2.Characters);
+
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
@@ -442,7 +491,7 @@ o o o o o o o o o o
             Assert.AreEqual(mapStringExpected, mapString);
 
             //Now test cover for each character
-            
+
             //Act
             CoverState coverStateResultPlayer = CharacterCover.CalculateCover(map, fred.Location, new List<Vector3>() { jethro.Location });
             CoverState coverStateResultEnemy = CharacterCover.CalculateCover(map, jethro.Location, new List<Vector3>() { fred.Location });
