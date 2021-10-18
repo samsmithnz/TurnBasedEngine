@@ -99,6 +99,19 @@ namespace Battle.Logic.Characters
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
         public List<Character> TargetCharacters { get; set; }
+        public Character GetTargetCharacter(string targetName, Vector3 targetLocation)
+        {
+            Character targetCharacter = null;
+            foreach (Character character in TargetCharacters)
+            {
+                if (character.Name == targetName && character.Location == targetLocation)
+                {
+                    targetCharacter = character;
+                    break;
+                }
+            }
+            return targetCharacter;
+        }
 
         public void ProcessEffects(int currentTurn)
         {

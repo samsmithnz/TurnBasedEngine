@@ -122,7 +122,7 @@ namespace Battle.Tests.Scenarios
             EncounterResult encounterResult = Encounter.AttackCharacter(mission.Map,
                   enemy1,
                   enemy1.WeaponEquipped,
-                  enemy1.TargetCharacters[0],
+                  enemy1.GetTargetCharacter(aIAction.TargetName, aIAction.TargetLocation),
                   mission.RandomNumbers);
             Assert.AreEqual(true, encounterResult.IsHit);
 
