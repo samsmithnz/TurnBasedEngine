@@ -13,20 +13,20 @@ namespace Battle.Logic.Encounters
         public string FOVMapString { get; set; }
         public List<EncounterResult> OverwatchEncounterResults { get; set; }
         public List<string> Log { get; set; }
-        public string LogString
-        {
-            get
-            {
-                StringBuilder result = new StringBuilder();
-                result.Append(Environment.NewLine);
-                foreach (string item in Log)
-                {
-                    result.Append(item);
-                    result.Append(Environment.NewLine);
-                }
-                return result.ToString();
-            }
-        }
+        //public string LogString
+        //{
+        //    get
+        //    {
+        //        StringBuilder result = new StringBuilder();
+        //        result.Append(Environment.NewLine);
+        //        foreach (string item in Log)
+        //        {
+        //            result.Append(item);
+        //            result.Append(Environment.NewLine);
+        //        }
+        //        return result.ToString();
+        //    }
+        //}
 
     }
 }

@@ -215,15 +215,15 @@ namespace Battle.Logic.Map
             return mapString;
         }
 
-        public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
-        {
-            string[,,] map = (string[,,])mapTemplate.Clone();
-            foreach (KeyValuePair<Vector3, int> item in list)
-            {
-                map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
-            }
-            return MapCore.GetMapString(map);
-        }
+        //public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
+        //{
+        //    string[,,] map = (string[,,])mapTemplate.Clone();
+        //    foreach (KeyValuePair<Vector3, int> item in list)
+        //    {
+        //        map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
+        //    }
+        //    return MapCore.GetMapString(map);
+        //}
 
         public static string GetMapStringWithAIValuesSecond(string[,,] mapTemplate, List<KeyValuePair<Vector3, AIAction>> list)
         {
