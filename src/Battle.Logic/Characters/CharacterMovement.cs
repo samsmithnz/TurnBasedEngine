@@ -37,7 +37,7 @@ namespace Battle.Logic.Characters
                 characterMoving.ActionPointsCurrent -= 1;
             }
             List<Character> opponentCharacters = new List<Character>();
-            if (characterTeam != null)
+            if (opponentTeam != null)
             {
                 opponentCharacters = opponentTeam.Characters; 
             }
