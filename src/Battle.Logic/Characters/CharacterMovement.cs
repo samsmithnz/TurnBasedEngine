@@ -39,7 +39,7 @@ namespace Battle.Logic.Characters
             List<Character> opponentCharacters = new List<Character>();
             if (opponentTeam != null)
             {
-                opponentCharacters = opponentTeam.Characters; 
+                opponentCharacters = opponentTeam.Characters;
             }
             int totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
             int i = 0;
@@ -137,20 +137,23 @@ namespace Battle.Logic.Characters
             overWatchedCharacters = overWatchedCharacters.OrderByDescending(o => o.Speed).ToList();
             foreach (Character character in overWatchedCharacters)
             {
-                List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
-                foreach (Vector3 fovLocation in fov)
+                if (character.InOverwatch == true)
                 {
-                    if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
+                    List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
+                    foreach (Vector3 fovLocation in fov)
                     {
-                        //Act
-                        result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
-                        results.Add(result);
-                        //The character uses their overwatch charge
-                        character.InOverwatch = false;
-                        if (characterMoving.HitpointsCurrent <= 0)
+                        if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
                         {
-                            //Return the encounter result and if the character is still alive
-                            return (results, false);
+                            //Act
+                            result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
+                            results.Add(result);
+                            //The character uses their overwatch charge
+                            character.InOverwatch = false;
+                            if (characterMoving.HitpointsCurrent <= 0)
+                            {
+                                //Return the encounter result and if the character is still alive
+                                return (results, false);
+                            }
                         }
                     }
                 }
@@ -166,7 +169,10 @@ namespace Battle.Logic.Characters
             {
                 foreach (Character item in overWatchedCharacters)
                 {
-                    total += item.ActionPointsCurrent;
+                    if (item.InOverwatch == true)
+                    {
+                        total += item.ActionPointsCurrent;
+                    }
                 }
             }
             return total;

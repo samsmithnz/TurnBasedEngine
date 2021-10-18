@@ -41,6 +41,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team2);
             mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.UpdateTargetsForAllTeams();
 
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
