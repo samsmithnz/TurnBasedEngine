@@ -44,6 +44,7 @@ namespace Battle.Tests.Scenarios
                 Color = "Red"
             };
             mission.Teams.Add(team2);
+            mission.UpdateTargetsForAllTeams();
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 

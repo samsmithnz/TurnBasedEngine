@@ -58,6 +58,7 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
+            mission.UpdateTargetsForAllTeams();
 
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
