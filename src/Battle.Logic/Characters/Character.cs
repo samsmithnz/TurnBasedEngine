@@ -60,7 +60,7 @@ namespace Battle.Logic.Characters
             }
         }
         //This needs to be a separate function, as we want to include the current map to build the fov/field of view calcualtions
-        public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange)
+        public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange, List<Character> opponentCharacters)
         {
             FOVRange = fovRange;
             Vector3 previousLocation = _location;
@@ -72,11 +72,15 @@ namespace Battle.Logic.Characters
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
                 UpdateCharacterFOV(map);
+                TargetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
             }
         }
         public int MobilityRange { get; set; }
         public int ShootingRange { get; set; }
-        public int FOVRange { get; set; }        
+        public int FOVRange { get; set; }
+        /// <summary>
+        /// Shows the character Field of View map, where "░" is not visible, and " " is visible
+        /// </summary>
         public string[,,] FOVMap { get; set; }
         public HashSet<Vector3> FOVHistory { get; set; }
         public Weapon WeaponEquipped { get; set; }
@@ -94,6 +98,20 @@ namespace Battle.Logic.Characters
         public int TotalHits { get; set; }
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
+        public List<Character> TargetCharacters { get; set; }
+        public Character GetTargetCharacter(string targetName, Vector3 targetLocation)
+        {
+            Character targetCharacter = null;
+            foreach (Character character in TargetCharacters)
+            {
+                if (character.Name == targetName && character.Location == targetLocation)
+                {
+                    targetCharacter = character;
+                    break;
+                }
+            }
+            return targetCharacter;
+        }
 
         public void ProcessEffects(int currentTurn)
         {
@@ -159,22 +177,14 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<Character> GetCharactersInRangeWithCurrentWeapon(string[,,] map, List<Team> teams)
-        {
-            return FieldOfView.GetCharactersInView(map, Location, ShootingRange, teams);
-        }
-
-        public string GetCharactersInViewMapString(string[,,] map, List<Team> teams)
+        public string GetCharactersInViewMapString(string[,,] map, List<Character> teamCharacters)
         {
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, ShootingRange);
             string[,,] mapFov = MapCore.ApplyListToMap((string[,,])map.Clone(), fov, "o");
             mapFov[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
-            foreach (Team team in teams)
+            foreach (Character character in teamCharacters)
             {
-                foreach (Character character in team.Characters)
-                {
-                    mapFov[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "P";
-                }
+                mapFov[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "P";
             }
             string mapString = MapCore.GetMapString(mapFov);
 

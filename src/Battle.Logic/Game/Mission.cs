@@ -85,6 +85,8 @@ namespace Battle.Logic.Game
             {
                 character.ActionPointsCurrent = character.ActionPointsMax;
             }
+            //Refresh targets
+            UpdateTargetsForAllTeams();
         }
 
         public bool CheckIfMissionIsCompleted()
@@ -104,6 +106,15 @@ namespace Battle.Logic.Game
             }
 
             return result;
+        }
+
+        public void UpdateTargetsForAllTeams()
+        {
+            if (Teams.Count == 2)
+            {
+                Teams[0].UpdateTargets(Map, Teams[1].Characters);
+                Teams[1].UpdateTargets(Map, Teams[0].Characters);
+            }
         }
     }
 }

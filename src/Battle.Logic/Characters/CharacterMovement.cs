@@ -12,7 +12,12 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<MovementAction> MoveCharacter(string[,,] map, Character characterMoving, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
+        public static List<MovementAction> MoveCharacter(string[,,] map,
+            Character characterMoving,
+            PathFindingResult pathFindingResult,
+            Team characterTeam,
+            Team opponentTeam,
+            RandomNumberQueue diceRolls)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<MovementAction> results = new List<MovementAction>();
@@ -31,7 +36,12 @@ namespace Battle.Logic.Characters
             {
                 characterMoving.ActionPointsCurrent -= 1;
             }
-            int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
+            List<Character> opponentCharacters = new List<Character>();
+            if (opponentTeam != null)
+            {
+                opponentCharacters = opponentTeam.Characters;
+            }
+            int totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
@@ -51,24 +61,24 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange);
-                if (team != null)
+                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange, opponentCharacters);
+                if (characterTeam != null)
                 {
-                    FieldOfView.UpdateTeamFOV(map, team);
+                    FieldOfView.UpdateTeamFOV(map, characterTeam);
                 }
                 //clone the array, so we don't create a link and capture the point in time
-                if (team != null)
+                if (characterTeam != null)
                 {
-                    result.FOVMap = (string[,,])team.FOVMap.Clone();
+                    result.FOVMap = (string[,,])characterTeam.FOVMap.Clone();
                 }
                 else
                 {
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (overWatchedCharacters != null && totalActionPoints > 0)
+                if (opponentCharacters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, overWatchedCharacters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentCharacters);
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
@@ -91,7 +101,7 @@ namespace Battle.Logic.Characters
                     }
                     else
                     {
-                        totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
+                        totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
                     }
                 }
                 if (log.Count > 0)
@@ -127,20 +137,23 @@ namespace Battle.Logic.Characters
             overWatchedCharacters = overWatchedCharacters.OrderByDescending(o => o.Speed).ToList();
             foreach (Character character in overWatchedCharacters)
             {
-                List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
-                foreach (Vector3 fovLocation in fov)
+                if (character.InOverwatch == true)
                 {
-                    if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
+                    List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
+                    foreach (Vector3 fovLocation in fov)
                     {
-                        //Act
-                        result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
-                        results.Add(result);
-                        //The character uses their overwatch charge
-                        character.InOverwatch = false;
-                        if (characterMoving.HitpointsCurrent <= 0)
+                        if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
                         {
-                            //Return the encounter result and if the character is still alive
-                            return (results, false);
+                            //Act
+                            result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
+                            results.Add(result);
+                            //The character uses their overwatch charge
+                            character.InOverwatch = false;
+                            if (characterMoving.HitpointsCurrent <= 0)
+                            {
+                                //Return the encounter result and if the character is still alive
+                                return (results, false);
+                            }
                         }
                     }
                 }
@@ -156,7 +169,10 @@ namespace Battle.Logic.Characters
             {
                 foreach (Character item in overWatchedCharacters)
                 {
-                    total += item.ActionPointsCurrent;
+                    if (item.InOverwatch == true)
+                    {
+                        total += item.ActionPointsCurrent;
+                    }
                 }
             }
             return total;

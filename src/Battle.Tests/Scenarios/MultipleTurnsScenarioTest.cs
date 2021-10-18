@@ -41,6 +41,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team2);
             mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.UpdateTargetsForAllTeams();
 
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
@@ -62,7 +63,7 @@ namespace Battle.Tests.Scenarios
             //Fred moves 
             Vector3 fredDestination = new Vector3(14, 0, 14);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, fredDestination);
-            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, mission.RandomNumbers);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
@@ -76,7 +77,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, mission.CurrentTeamIndex);
             Vector3 jethroDestination = new Vector3(2, 0, 2);
             pathFindingResult = PathFinding.FindPath(mission.Map, jethro.Location, jethroDestination);
-            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, mission.RandomNumbers, null, team2);
+            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, team2, team1, mission.RandomNumbers);
             Assert.AreEqual(0, jethro.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
@@ -89,7 +90,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, mission.CurrentTeamIndex);
             fredDestination = new Vector3(4, 0, 4);
             pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, fredDestination);
-            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, mission.RandomNumbers);
             Assert.AreEqual(0, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
@@ -102,7 +103,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, mission.CurrentTeamIndex);
             jethroDestination = new Vector3(12, 0, 12);
             pathFindingResult = PathFinding.FindPath(mission.Map, jethro.Location, jethroDestination);
-            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, mission.RandomNumbers, null, team2);
+            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, team2, team1, mission.RandomNumbers);
             Assert.AreEqual(0, jethro.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(true, teamIsDone);
@@ -115,7 +116,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(0, mission.CurrentTeamIndex);
             fredDestination = new Vector3(5, 0, 5);
             pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, fredDestination);
-            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, mission.RandomNumbers);
             Assert.AreEqual(1, fred.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);
@@ -128,7 +129,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(1, mission.CurrentTeamIndex);
             jethroDestination = new Vector3(11, 0, 11);
             pathFindingResult = PathFinding.FindPath(mission.Map, jethro.Location, jethroDestination);
-            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, mission.RandomNumbers, null, team2);
+            CharacterMovement.MoveCharacter(mission.Map, jethro, pathFindingResult, team2, team1, mission.RandomNumbers);
             Assert.AreEqual(1, jethro.ActionPointsCurrent);
             teamIsDone = mission.CheckIfCurrentTeamIsDoneTurn();
             Assert.AreEqual(false, teamIsDone);

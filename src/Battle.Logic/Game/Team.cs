@@ -48,5 +48,16 @@ namespace Battle.Logic.Game
             }
         }
 
+        /// <summary>
+        /// Needed after setup - only
+        /// </summary>
+        public void UpdateTargets(string [,,] map, List<Character> opponentCharacters)
+        {
+            foreach (Character character in Characters)
+            {
+                character.SetLocationAndRange(map, character.Location, character.FOVRange, opponentCharacters);
+            }
+        }
+
     }
 }

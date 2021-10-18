@@ -33,7 +33,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            fred.SetLocationAndRange(map, startingLocation, fovRange);
+            fred.SetLocationAndRange(map, startingLocation, fovRange, null);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
             fred.Effects.Add(
                 new Effect()
@@ -73,7 +73,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            jethro.SetLocationAndRange(map, startingLocation, fovRange);
+            jethro.SetLocationAndRange(map, startingLocation, fovRange, null);
             return jethro;
         }
 
@@ -99,7 +99,7 @@ namespace Battle.Tests.Characters
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetLocationAndRange(map, startingLocation,fovRange);
+            harry.SetLocationAndRange(map, startingLocation, fovRange, null);
             return harry;
         }
     }

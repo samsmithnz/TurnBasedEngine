@@ -4,13 +4,13 @@ using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Reflection;
 
 namespace Battle.Tests.Scenarios
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L1")]
     public class AINoTargetCrashTest
@@ -36,6 +36,10 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
+            //mission.UpdateTargetsForAllTeams();
+            Character player1 = mission.Teams[0].Characters[0];
+            Character enemy1 = mission.Teams[1].Characters[0];
+            Character enemy2 = mission.Teams[1].Characters[1];
 
             //Move to enemy turn
             mission.MoveToNextTurn();
@@ -44,7 +48,7 @@ namespace Battle.Tests.Scenarios
             CharacterAI ai = new CharacterAI();
             AIAction aIAction = ai.CalculateAIAction(mission.Map,
                 mission.Teams,
-                mission.Teams[1].Characters[0],
+                enemy1,
                 mission.RandomNumbers);
             string mapString = ai.CreateAIMap(mission.Map);
             string mapStringExpected = @"
@@ -110,17 +114,24 @@ namespace Battle.Tests.Scenarios
             //Now run the action
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, aIAction.StartLocation, aIAction.EndLocation);
             CharacterMovement.MoveCharacter(mission.Map,
-                mission.Teams[1].Characters[0],
+                enemy1,
                 pathFindingResult,
-                mission.RandomNumbers,
-                null,
-                mission.Teams[1]);
+                mission.Teams[1],
+                mission.Teams[0],
+                mission.RandomNumbers);
+            EncounterResult encounterResult = Encounter.AttackCharacter(mission.Map,
+                  enemy1,
+                  enemy1.WeaponEquipped,
+                  enemy1.GetTargetCharacter(aIAction.TargetName, aIAction.TargetLocation),
+                  mission.RandomNumbers);
+            Assert.AreEqual(true, encounterResult.IsHit);
 
             //process AI for character 2
             CharacterAI ai2 = new CharacterAI();
-            AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
+            mission.RandomNumbers.Dequeue(); //Remove the 20 roll
+           AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 mission.Teams,
-                mission.Teams[1].Characters[1],
+                enemy2,
                 mission.RandomNumbers);
             string mapString2 = ai2.CreateAIMap(mission.Map);
             string mapStringExpected2 = @"

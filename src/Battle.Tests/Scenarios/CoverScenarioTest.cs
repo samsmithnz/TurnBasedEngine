@@ -52,6 +52,7 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
+            mission.UpdateTargetsForAllTeams();
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
 
@@ -68,9 +69,8 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred cannot see Jethro, who is hiding behind cover
-            string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(0, characters.Count);
+            string mapString1 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
+            Assert.AreEqual(0, fred.TargetCharacters.Count);
             string mapStringExpected1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -153,10 +153,10 @@ High cover downgraded to low cover at <14, 0, 10>
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 9), 1), encounter1.AffectedMap[4]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 11), 1), encounter1.AffectedMap[5]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
+            mission.UpdateTargetsForAllTeams();
 
-            string mapString2 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters2 = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(1, characters2.Count);
+            string mapString2 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected2 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
