@@ -36,35 +36,31 @@ namespace Battle.Logic.Map
             return results;
         }
 
-        public static List<Character> GetCharactersInView(string[,,] map, Vector3 location, int shootingRange, List<Team> teams)
+        public static List<Character> GetCharactersInView(string[,,] map, Vector3 location, int shootingRange, List<Character> opponentCharacters)
         {
             List<Character> results = new List<Character>();
 
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, shootingRange);
             //string fovMap = MapCore.GetMapStringWithItems(map, fov);
-            foreach (Team team in teams)
+            foreach (Character character in opponentCharacters)
             {
-                foreach (Character character in team.Characters)
+                bool addedCharacter = false;
+                foreach (Vector3 fovLocation in fov)
                 {
-                    bool addedCharacter = false;
-                    foreach (Vector3 fovLocation in fov)
+                    if (character.Location == fovLocation)
                     {
-                        if (character.Location == fovLocation)
-                        {
-                            addedCharacter = true;
-                            results.Add(character);
-                            break;
-                        }
-                    }
-                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
-                    {
+                        addedCharacter = true;
                         results.Add(character);
+                        break;
                     }
+                }
+                if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
+                {
+                    results.Add(character);
                 }
             }
             return results;
         }
-
 
 
         //If a player is behind cover, but adjacent squares are open/in the players FOV, then the player is visible too

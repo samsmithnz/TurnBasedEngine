@@ -35,7 +35,7 @@ namespace Battle.Tests.Map
             }
             Assert.AreEqual(destination, destinationCheck);
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, fred.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, diceRolls, null, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, fred, pathFindingResult, null, null, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);

@@ -131,8 +131,7 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             Assert.AreEqual(mapMovementResult, mapMovementString);
 
             //Fred aims at Jethro, who is behind high cover. 
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(characters[0], jethro);
+            Assert.AreEqual(fred.TargetCharacters[0], jethro);
 
             int chanceToHit = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);

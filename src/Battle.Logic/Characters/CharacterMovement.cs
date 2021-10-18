@@ -12,7 +12,12 @@ namespace Battle.Logic.Characters
 {
     public static class CharacterMovement
     {
-        public static List<MovementAction> MoveCharacter(string[,,] map, Character characterMoving, PathFindingResult pathFindingResult, RandomNumberQueue diceRolls, List<Character> overWatchedCharacters, Team team)
+        public static List<MovementAction> MoveCharacter(string[,,] map,
+            Character characterMoving,
+            PathFindingResult pathFindingResult,
+            Team characterTeam,
+            Team opponentTeam,
+            RandomNumberQueue diceRolls)
         {
             List<EncounterResult> encounters = new List<EncounterResult>();
             List<MovementAction> results = new List<MovementAction>();
@@ -31,7 +36,7 @@ namespace Battle.Logic.Characters
             {
                 characterMoving.ActionPointsCurrent -= 1;
             }
-            int totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
+            int totalActionPoints = TotalOverwatchActionPoints(opponentTeam.Characters);
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
@@ -51,24 +56,24 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange);
-                if (team != null)
+                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange, opponentTeam.Characters );
+                if (characterTeam != null)
                 {
-                    FieldOfView.UpdateTeamFOV(map, team);
+                    FieldOfView.UpdateTeamFOV(map, characterTeam);
                 }
                 //clone the array, so we don't create a link and capture the point in time
-                if (team != null)
+                if (characterTeam != null)
                 {
-                    result.FOVMap = (string[,,])team.FOVMap.Clone();
+                    result.FOVMap = (string[,,])characterTeam.FOVMap.Clone();
                 }
                 else
                 {
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (overWatchedCharacters != null && totalActionPoints > 0)
+                if (opponentTeam.Characters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, overWatchedCharacters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentTeam.Characters);
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
@@ -91,7 +96,7 @@ namespace Battle.Logic.Characters
                     }
                     else
                     {
-                        totalActionPoints = TotalOverwatchActionPoints(overWatchedCharacters);
+                        totalActionPoints = TotalOverwatchActionPoints(opponentTeam.Characters);
                     }
                 }
                 if (log.Count > 0)

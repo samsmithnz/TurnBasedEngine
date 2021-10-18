@@ -73,7 +73,7 @@ namespace Battle.Tests.Scenarios
                 }
             }
             Assert.AreEqual(new Vector3(9, 0, 10), destination);
-            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair( movementPossibileTiles));
+            string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -128,7 +128,7 @@ o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, diceRolls, null, team1);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, diceRolls);
             Assert.AreEqual(5, movementResults.Count);
             string log = @"
 Fred is moving from <5, 0, 5> to <6, 0, 6>
@@ -140,9 +140,8 @@ Fred is moving from <8, 0, 9> to <9, 0, 10>
             Assert.AreEqual(log, CharacterMovement.LogString(movementResults));
 
             //Fred aims at Jethro, who is behind high cover. 
-            string mapString1 = fred.GetCharactersInViewMapString(mission.Map, new List<Team> { team2 });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(characters[0], jethro);
+            string mapString1 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
+            Assert.AreEqual(fred.TargetCharacters[0], jethro);
             string mapStringExpected1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -206,7 +205,7 @@ o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . 
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jethro, who is behind high cover. He hits him. 
-            EncounterResult encounter1 = Encounter.AttackCharacter(mission.Map, 
+            EncounterResult encounter1 = Encounter.AttackCharacter(mission.Map,
                     fred,
                     fred.WeaponEquipped,
                     jethro,
@@ -223,8 +222,7 @@ Critical chance: 70, (dice roll: 0)
 
             //Turn 1 - Team 2 starts
             //Jethro aims back and misses
-            List<Character> characters2 = jethro.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team1 });
-            Assert.AreEqual(characters2[0], fred);
+            Assert.AreEqual(jethro.TargetCharacters[0], fred);
             int chanceToHit2 = EncounterCore.GetChanceToHit(jethro, jethro.WeaponEquipped, fred);
             int chanceToCrit2 = EncounterCore.GetChanceToCrit(mission.Map, jethro, jethro.WeaponEquipped, jethro, false);
             DamageRange damageOptions2 = EncounterCore.GetDamageRange(jethro, jethro.WeaponEquipped);
@@ -234,7 +232,7 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(5, damageOptions2.DamageHigh);
 
             //Jethro shoots back and misses
-            EncounterResult encounter2 = Encounter.AttackCharacter(mission.Map, 
+            EncounterResult encounter2 = Encounter.AttackCharacter(mission.Map,
                     jethro,
                     jethro.WeaponEquipped,
                     fred,
@@ -248,8 +246,7 @@ Missed: Chance to hit: 72, (dice roll: 0)
 
             //Turn 2 - Team 1 starts
             //Fred shoots again, and kills Jethro.
-            List<Character> characters3 = fred.GetCharactersInRangeWithCurrentWeapon(mission.Map, new List<Team>() { team2 });
-            Assert.AreEqual(characters3[0], jethro);
+            Assert.AreEqual(fred.TargetCharacters[0], jethro);
             int chanceToHit3 = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit3 = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);
             DamageRange damageOptions3 = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
@@ -258,7 +255,7 @@ Missed: Chance to hit: 72, (dice roll: 0)
             Assert.AreEqual(3, damageOptions3.DamageLow);
             Assert.AreEqual(5, damageOptions3.DamageHigh);
 
-            EncounterResult encounter3 = Encounter.AttackCharacter(mission.Map, 
+            EncounterResult encounter3 = Encounter.AttackCharacter(mission.Map,
                     fred,
                     fred.WeaponEquipped,
                     jethro,

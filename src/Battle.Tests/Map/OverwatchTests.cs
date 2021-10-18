@@ -1,6 +1,7 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
+using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using Battle.Tests.Characters;
@@ -22,13 +23,16 @@ namespace Battle.Tests.Map
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            //Weapon rifle = fred.WeaponEquiped;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -60,12 +64,16 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             fred.Abilities.Add(AbilityPool.OpportunistAbility());
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -96,13 +104,16 @@ Fred is ready to level up
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            //Weapon rifle = fred.WeaponEquiped;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -136,13 +147,18 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             jethro.HitpointsCurrent = 25;
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred, harry }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);
@@ -185,12 +201,17 @@ Fred is ready to level up
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
+            Team team1 = new Team();
+            team1.Characters.Add(fred);
+            team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Team team2 = new Team();
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, diceRolls, new List<Character>() { fred }, null);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(map, jethro, pathFindingResult, team1, team2, diceRolls);
 
             //Assert
             Assert.IsTrue(pathFindingResult != null);

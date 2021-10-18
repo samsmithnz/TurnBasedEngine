@@ -24,13 +24,13 @@ namespace Battle.Tests.Map
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+            //List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, teamBaddie.Characters);
 
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
-            Assert.AreEqual("Jethro", characters[0].Name);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
+            Assert.AreEqual("Jethro", fred.TargetCharacters[0].Name);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
@@ -60,13 +60,12 @@ P o o o o o o o o o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o . 
 o o o o o o o o P . 
@@ -110,13 +109,12 @@ P o o o o o o o o o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
             string fovMapString = MapCore.GetMapStringWithMapMask(map, fred.FOVMap);
 
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(0, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(0, fred.TargetCharacters.Count);
             string expected = @"
 o o o o o o o . . . 
 o o o o o o o . P . 
@@ -159,12 +157,11 @@ o o o o o o o o P o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+          
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o . . 
 o o o o o o o o P . 
@@ -195,12 +192,11 @@ o o o o o o o o P o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+           
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
@@ -230,12 +226,11 @@ o o o o o o o o . .
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+           
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -264,12 +259,11 @@ o o o o o o o o o o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+          
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -299,12 +293,11 @@ o o o o o o o o o o
             teamGood.Characters.Add(fred);
 
             //Act
-            string mapString = jethro.GetCharactersInViewMapString(map, new List<Team> { teamGood });
-            List<Character> characters = jethro.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamGood });
-
+            string mapString = jethro.GetCharactersInViewMapString(map, teamGood.Characters);
+           
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(0, characters.Count);
+            Assert.IsTrue(jethro.TargetCharacters != null);
+            Assert.AreEqual(0, jethro.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
@@ -334,12 +327,11 @@ P . . . . . . . . .
             teamGood.Characters.Add(fred);
 
             //Act
-            string mapString = jethro.GetCharactersInViewMapString(map, new List<Team> { teamGood });
-            List<Character> characters = jethro.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamGood });
-
+            string mapString = jethro.GetCharactersInViewMapString(map, teamGood.Characters);
+         
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(jethro.TargetCharacters != null);
+            Assert.AreEqual(1, jethro.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
@@ -367,12 +359,11 @@ P o o o o . . . . .
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+         
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o . . . o o o o o o 
 o . . . o o o o o o 
@@ -397,12 +388,11 @@ o o o o o o o o o o
             fred.ShootingRange = 3;
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team>());
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team>());
-
+            string mapString = fred.GetCharactersInViewMapString(map, new List<Character>());
+          
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(0, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(0, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 . . . . . . . . . . . 
 . . . . . . . . . . . 
@@ -432,12 +422,11 @@ o o o o o o o o o o
             teamBaddie.Characters.Add(jethro);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Team> { teamBaddie });
-            List<Character> characters = fred.GetCharactersInRangeWithCurrentWeapon(map, new List<Team> { teamBaddie });
-
+            string mapString = fred.GetCharactersInViewMapString(map, teamBaddie.Characters);
+          
             //Assert
-            Assert.IsTrue(characters != null);
-            Assert.AreEqual(1, characters.Count);
+            Assert.IsTrue(fred.TargetCharacters != null);
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o o o 

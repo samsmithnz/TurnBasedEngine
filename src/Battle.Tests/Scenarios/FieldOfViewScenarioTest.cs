@@ -104,12 +104,12 @@ namespace Battle.Tests.Scenarios
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map,
                 fred.Location,
                 new Vector3(1, 0, 9));
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map, 
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map,
                 fred,
                 pathFindingResult,
-                diceRolls,
-                new List<Character>() { jethro },
-                team1);
+                team1,
+                team2,
+                diceRolls);
 
             for (int i = 0; i < movementResults.Count; i++)
             {

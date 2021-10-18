@@ -182,7 +182,7 @@ namespace Battle.Logic.Characters
 
                         //Calculate chance to hit
                         //List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
-                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, character.ShootingRange, new List<Team>() { opponentTeam });
+                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, character.ShootingRange, opponentTeam.Characters);
                         if (characters.Count == 0)
                         {
                             //No characters in view, record a score of 0 - this move achieves nothing

@@ -69,7 +69,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 
             Vector3 location = new Vector3(0, 0, 13);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, location);
-            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, null, mission.RandomNumbers);
 
             string fov1MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedFov1MapString = @"
@@ -125,7 +125,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 
             Vector3 location2 = new Vector3(13, 0, 0);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(mission.Map, harry.Location, location2);
-            List<MovementAction> actionResults = CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, mission.RandomNumbers, null, team1);
+            List<MovementAction> actionResults = CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, team1, null, mission.RandomNumbers);
 
             string fovMovementString1 = actionResults[0].FOVMapString;
             string expectedFOVString1 = @"
@@ -825,7 +825,7 @@ P P . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 
             Vector3 location = new Vector3(18, 0, 0);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, location);
-            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, mission.RandomNumbers);
 
             string fov1MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
             string expectedFov1MapString = @"
@@ -885,7 +885,7 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 
             Vector3 location2 = new Vector3(2, 0, 18);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(mission.Map, harry.Location, location2);
-            CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, mission.RandomNumbers, null, team1);
+            CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, team1, team2, mission.RandomNumbers);
 
             string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, harry.FOVMap);
             string expectedFov2MapString = @"

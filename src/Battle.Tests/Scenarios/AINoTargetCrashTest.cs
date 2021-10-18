@@ -112,9 +112,9 @@ namespace Battle.Tests.Scenarios
             CharacterMovement.MoveCharacter(mission.Map,
                 mission.Teams[1].Characters[0],
                 pathFindingResult,
-                mission.RandomNumbers,
-                null,
-                mission.Teams[1]);
+                mission.Teams[1],
+                mission.Teams[0],
+                mission.RandomNumbers);
 
             //process AI for character 2
             CharacterAI ai2 = new CharacterAI();
