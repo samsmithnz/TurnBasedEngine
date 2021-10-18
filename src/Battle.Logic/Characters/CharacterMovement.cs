@@ -36,7 +36,12 @@ namespace Battle.Logic.Characters
             {
                 characterMoving.ActionPointsCurrent -= 1;
             }
-            int totalActionPoints = TotalOverwatchActionPoints(opponentTeam.Characters);
+            List<Character> opponentCharacters = new List<Character>();
+            if (characterTeam != null)
+            {
+                opponentCharacters = opponentTeam.Characters; 
+            }
+            int totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
@@ -56,7 +61,7 @@ namespace Battle.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
-                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange, opponentTeam.Characters );
+                characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange, opponentCharacters);
                 if (characterTeam != null)
                 {
                     FieldOfView.UpdateTeamFOV(map, characterTeam);
@@ -71,9 +76,9 @@ namespace Battle.Logic.Characters
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (opponentTeam.Characters != null && totalActionPoints > 0)
+                if (opponentCharacters != null && totalActionPoints > 0)
                 {
-                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentTeam.Characters);
+                    (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentCharacters);
                     encounters.AddRange(overWatchResult.Item1);
                     if (encounters.Count > 0)
                     {
@@ -96,7 +101,7 @@ namespace Battle.Logic.Characters
                     }
                     else
                     {
-                        totalActionPoints = TotalOverwatchActionPoints(opponentTeam.Characters);
+                        totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
                     }
                 }
                 if (log.Count > 0)
