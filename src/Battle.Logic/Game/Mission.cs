@@ -97,7 +97,10 @@ namespace Battle.Logic.Game
                 int totalHPs = 0;
                 foreach (Character character in team.Characters)
                 {
-                    totalHPs += character.HitpointsCurrent;
+                    if (character.HitpointsCurrent > 0)
+                    {
+                        totalHPs += character.HitpointsCurrent;
+                    }
                 }
                 if (totalHPs <= 0)
                 {

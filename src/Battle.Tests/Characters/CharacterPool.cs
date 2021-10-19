@@ -48,6 +48,32 @@ namespace Battle.Tests.Characters
             return fred;
         }
 
+        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation, int fovRange = 40)
+        {
+            Character harry = new Character()
+            {
+                Name = "Harry",
+                Background = "Harry worships Clint Eastwood movies",
+                HitpointsCurrent = 12,
+                ArmorPointsCurrent = 1,
+                ChanceToHit = 70,
+                XP = 0,
+                Level = 1,
+                LevelUpIsReady = false,
+                Speed = 12,
+                Intelligence = 75,
+                ActionPointsCurrent = 2,
+                MobilityRange = 8,
+                ShootingRange = 30,
+                WeaponEquipped = WeaponPool.CreateSniperRifle(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
+                InOverwatch = false,
+                HunkeredDown = false
+            };
+            harry.SetLocationAndRange(map, startingLocation, fovRange, null);
+            return harry;
+        }
+
         public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character jethro = new Character()
@@ -77,30 +103,33 @@ namespace Battle.Tests.Characters
             return jethro;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation, int fovRange = 40)
+        public static Character CreateBartBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
-            Character harry = new Character()
+            Character bart = new Character()
             {
-                Name = "Harry",
-                Background = "Harry worships Clint Eastwood movies",
-                HitpointsCurrent = 12,
-                ArmorPointsCurrent = 1,
+                Name = "Bart",
+                Background = "Bart is a naughty boy",
+                HitpointsMax = 4,
+                HitpointsCurrent = 4,
+                ArmorPointsMax = 0,
+                ArmorPointsCurrent = 0,
+                ActionPointsMax = 2,
+                ActionPointsCurrent = 2,
                 ChanceToHit = 70,
                 XP = 0,
                 Level = 1,
                 LevelUpIsReady = false,
-                Speed = 12,
-                Intelligence = 75,
-                ActionPointsCurrent = 2,
+                Speed = 11,
+                Intelligence = 25,
                 MobilityRange = 8,
                 ShootingRange = 30,
-                WeaponEquipped = WeaponPool.CreateSniperRifle(),
+                WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false
             };
-            harry.SetLocationAndRange(map, startingLocation, fovRange, null);
-            return harry;
+            bart.SetLocationAndRange(map, startingLocation, fovRange, null);
+            return bart;
         }
     }
 }
