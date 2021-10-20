@@ -57,7 +57,7 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.UpdateTargetsForAllTeams();
+            mission.StartMission();
 
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
@@ -74,7 +74,7 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = mission.GetMovementPossibleTiles(fred);
             string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -142,11 +142,11 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jethro, and misses 
-            EncounterResult encounter1 = Encounter.AttackCharacter(mission.Map, 
-                    fred,
-                    fred.WeaponEquipped,
-                    jethro,
-                    mission.RandomNumbers);
+            EncounterResult encounter1 = mission.AttackCharacter(fred,
+                   fred.WeaponEquipped,
+                   jethro,
+                   team1,
+                   team2);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 80, (dice roll: 8)
@@ -157,11 +157,12 @@ Low cover downgraded to no cover at <5, 0, 5>
             Assert.AreEqual(new Vector3(5, 0, 5), encounter1.MissedLocation);
 
             //Fred shoots at Jethro, and hits him. 
-            EncounterResult encounter2 = Encounter.AttackCharacter(mission.Map, 
-                    fred,
-                    fred.WeaponEquipped,
-                    jethro,
-                    mission.RandomNumbers);
+            EncounterResult encounter2 = mission.AttackCharacter(fred,
+               fred.WeaponEquipped,
+               jethro,
+               team1,
+               team2);
+            mission.EndMission();
             string log2 = @"
 Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 81)
