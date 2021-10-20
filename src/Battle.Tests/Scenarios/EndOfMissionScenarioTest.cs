@@ -19,7 +19,6 @@ namespace Battle.Tests.Scenarios
         public void EndOfMissionWithNegativeHealthTest()
         {
             //Arrange
-            bool teamIsDone;
             Mission mission = new Mission
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
@@ -43,7 +42,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team2);
             mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
-            mission.UpdateTargetsForAllTeams();
+            mission.StartMission();
 
             //Act
             bool missionIsCompleted = mission.CheckIfMissionIsCompleted();
