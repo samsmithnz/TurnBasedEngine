@@ -12,7 +12,7 @@ namespace Battle.Tests.Scenarios
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class ShootingScenarioTests
     {
         [TestMethod]
@@ -44,9 +44,9 @@ namespace Battle.Tests.Scenarios
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            mission.UpdateTargetsForAllTeams();
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
-
+            mission.RandomNumbers = diceRolls;
+            mission.StartMission();
 
             //Assert - Setup
             Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
@@ -64,7 +64,7 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred runs to cover
-            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = mission.GetMovementPossibleTiles(fred);
             Vector3 destination = Vector3.Zero;
             foreach (KeyValuePair<Vector3, int> item in movementPossibileTiles)
             {
@@ -128,8 +128,7 @@ o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
-            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, destination);
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, diceRolls);
+            List<MovementAction> movementResults = mission.MoveCharacter(fred, team1, team2, fred.Location, destination);
             Assert.AreEqual(5, movementResults.Count);
             string log = @"
 Fred is moving from <5, 0, 5> to <6, 0, 6>
@@ -206,11 +205,11 @@ o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . 
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jethro, who is behind high cover. He hits him. 
-            EncounterResult encounter1 = Encounter.AttackCharacter(mission.Map,
-                    fred,
-                    fred.WeaponEquipped,
-                    jethro,
-                    diceRolls);
+            EncounterResult encounter1 = mission.AttackCharacter(fred,
+                fred.WeaponEquipped, 
+                jethro, 
+                team1, 
+                team2);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 100)
@@ -233,11 +232,11 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(5, damageOptions2.DamageHigh);
 
             //Jethro shoots back and misses
-            EncounterResult encounter2 = Encounter.AttackCharacter(mission.Map,
-                    jethro,
-                    jethro.WeaponEquipped,
-                    fred,
-                    diceRolls);
+            EncounterResult encounter2 = mission.AttackCharacter(jethro,
+                jethro.WeaponEquipped,
+                fred,
+                team1,
+                team2);
             string log2 = @"
 Jethro is attacking with Shotgun, targeted on Fred
 Missed: Chance to hit: 72, (dice roll: 0)
@@ -256,11 +255,11 @@ Missed: Chance to hit: 72, (dice roll: 0)
             Assert.AreEqual(3, damageOptions3.DamageLow);
             Assert.AreEqual(5, damageOptions3.DamageHigh);
 
-            EncounterResult encounter3 = Encounter.AttackCharacter(mission.Map,
-                    fred,
-                    fred.WeaponEquipped,
-                    jethro,
-                    diceRolls);
+            EncounterResult encounter3 = mission.AttackCharacter(fred,
+                fred.WeaponEquipped,
+                jethro,
+                team1,
+                team2);
             string log3 = @"
 Fred is attacking with Rifle, targeted on Jethro
 Hit: Chance to hit: 80, (dice roll: 100)
@@ -291,7 +290,6 @@ Fred is ready to level up
             Assert.AreEqual(1, jethro.TotalMisses);
             Assert.AreEqual(0, jethro.TotalKills);
             Assert.AreEqual(0, jethro.TotalDamage);
-
         }
 
     }

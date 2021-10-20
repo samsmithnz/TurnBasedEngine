@@ -3,6 +3,7 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -26,27 +27,6 @@ namespace Battle.Logic.Game
         public string[,,] Map { get; set; }
         public MissionType Objective { get; set; }
         public RandomNumberQueue RandomNumbers { get; set; }
-
-        //Start mission
-
-        //End mission, add records
-        public void EndMission()
-        {
-            foreach (Team team in Teams)
-            {
-                foreach (Character character in team.Characters)
-                {
-                    //If the character is still alive
-                    if (character.HitpointsCurrent > 0)
-                    {
-                        //incrememt the missions completed metric
-                        character.MissionsCompleted++;
-                        //Add some experience for surviving
-                        character.XP += 100;
-                    }
-                }
-            }
-        }
 
         public enum MissionType
         {
@@ -124,6 +104,62 @@ namespace Battle.Logic.Game
             }
         }
 
+        /// <summary>
+        /// Start the mission, ensuring all data objects are configured correctly
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void StartMission()
+        {
+            if (Teams.Count != 2)
+            {
+                throw new Exception("Unexpected number of teams: " + Teams.Count.ToString());
+            }
+            else
+            {
+                Teams[0].UpdateTargets(Map, Teams[1].Characters);
+                Teams[1].UpdateTargets(Map, Teams[0].Characters);
+            }
+        }
+
+        /// <summary>
+        /// End mission, add records
+        /// </summary>
+        public void EndMission()
+        {
+            foreach (Team team in Teams)
+            {
+                foreach (Character character in team.Characters)
+                {
+                    //If the character is still alive
+                    if (character.HitpointsCurrent > 0)
+                    {
+                        //incrememt the missions completed metric
+                        character.MissionsCompleted++;
+                        //Add some experience for surviving
+                        character.XP += 100;
+                    }
+                }
+            }
+        }
+
+        public List<KeyValuePair<Vector3, int>> GetMovementPossibleTiles(Character sourceCharacter)
+        {
+            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(Map,
+                sourceCharacter.Location,
+                sourceCharacter.MobilityRange,
+                sourceCharacter.ActionPointsCurrent);
+            return movementPossibileTiles;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceCharacter"></param>
+        /// <param name="sourceTeam"></param>
+        /// <param name="opponentTeam"></param>
+        /// <param name="startLocation"></param>
+        /// <param name="endLocation"></param>
+        /// <returns></returns>
         public List<MovementAction> MoveCharacter(Character sourceCharacter,
             Team sourceTeam,
             Team opponentTeam,
@@ -145,6 +181,15 @@ namespace Battle.Logic.Game
             return movementResults;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceCharacter"></param>
+        /// <param name="equippedWeapon"></param>
+        /// <param name="targetedCharacter"></param>
+        /// <param name="sourceTeam"></param>
+        /// <param name="opponentTeam"></param>
+        /// <returns></returns>
         public EncounterResult AttackCharacter(Character sourceCharacter,
             Weapon equippedWeapon,
             Character targetedCharacter,
@@ -163,7 +208,16 @@ namespace Battle.Logic.Game
             return encounterResult;
         }
 
-        public EncounterResult AttachCharacterAreaEffect(Character sourceCharacter,
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceCharacter"></param>
+        /// <param name="equippedWeapon"></param>
+        /// <param name="sourceTeam"></param>
+        /// <param name="opponentTeam"></param>
+        /// <param name="targetThrowingLocation"></param>
+        /// <returns></returns>
+        public EncounterResult AttackCharacterAreaEffect(Character sourceCharacter,
             Weapon equippedWeapon,
             Team sourceTeam,
             Team opponentTeam,
