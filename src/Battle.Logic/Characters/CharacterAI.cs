@@ -29,6 +29,10 @@ namespace Battle.Logic.Characters
 
             //2. Assign values to each possible tile
             aiValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
+            if (aiValues.Count == 0)
+            {
+                throw new System.Exception("AssignPointsToEachTile returned no results");
+            }
 
             //3. Assign an action based on the intelligence check
             //If the number rolled is higher than the chance to hit, the attack was successful!
