@@ -13,7 +13,7 @@ namespace Battle.Tests.Scenarios
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class CoverScenarioTest
     {
         //Enemy is behind cover and not visible.

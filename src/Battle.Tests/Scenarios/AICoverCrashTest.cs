@@ -1,18 +1,17 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
-using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Reflection;
 
 namespace Battle.Tests.Scenarios
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L1")]
+    [TestCategory("L2")]
     public class AICoverCrashTest
     {
         private string _rootPath;

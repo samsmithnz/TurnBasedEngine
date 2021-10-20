@@ -10,10 +10,9 @@ using System.Numerics;
 
 namespace Battle.Tests.Scenarios
 {
-
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class OverwatchScenarioTest
     {
         [TestMethod]
