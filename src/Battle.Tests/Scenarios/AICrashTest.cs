@@ -36,8 +36,8 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
+            mission.StartMission();
             mission.MoveToNextTurn();
-            mission.UpdateTargetsForAllTeams();
 
             CharacterAI ai = new CharacterAI();
             AIAction aIAction = ai.CalculateAIAction(mission.Map,
@@ -105,20 +105,15 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(mapStringExpected, mapString);
 
             //Act
-            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map,
-                aIAction.StartLocation,
-                aIAction.EndLocation);
-            CharacterMovement.MoveCharacter(mission.Map,
-                mission.Teams[1].Characters[0],
-                pathFindingResult,
+            mission.MoveCharacter(mission.Teams[1].Characters[0],
                 mission.Teams[1],
                 mission.Teams[0],
-                mission.RandomNumbers);
-            EncounterResult encounterResult = Encounter.AttackCharacter(mission.Map,
-                mission.Teams[1].Characters[0],
+                aIAction.EndLocation);
+            EncounterResult encounterResult = mission.AttackCharacter(mission.Teams[1].Characters[0],
                 mission.Teams[1].Characters[0].WeaponEquipped,
                 mission.Teams[1].Characters[0].TargetCharacters[0],
-                mission.RandomNumbers);
+                mission.Teams[1],
+                mission.Teams[0]);
 
             //Assert
             string log = @"
