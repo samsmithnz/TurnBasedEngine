@@ -37,7 +37,7 @@
     <None Update="SaveGames\Saves\Save008.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SaveGames\Saves\Save010.json">
+    <None Update="SaveGames\Saves\Save012.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
