@@ -39,7 +39,6 @@ namespace Battle.Tests.Scenarios
             mission.StartMission();
             mission.MoveToNextTurn();
 
-
             AIAction aIAction = mission.CalculateAIAction(mission.Teams[1].Characters[0], mission.Teams);
             string mapString = aIAction.MapString;
             string mapStringExpected = @"
