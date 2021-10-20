@@ -50,6 +50,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team2);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.StartMission();
 
             //act
             string fovMapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
@@ -100,15 +101,11 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(expectedJethroFOV, jethroFOVMapString);
 
             //Act, part 2 - moving up the Y axis
-            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map,
-                fred.Location,
-                new Vector3(1, 0, 9));
-            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(mission.Map,
-                fred,
-                pathFindingResult,
+            Vector3 destination = new Vector3(1, 0, 9);
+            List<MovementAction> movementResults = mission.MoveCharacter(fred,
                 team1,
                 team2,
-                diceRolls);
+                destination);
 
             for (int i = 0; i < movementResults.Count; i++)
             {
