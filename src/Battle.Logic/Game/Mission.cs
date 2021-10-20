@@ -71,7 +71,7 @@ namespace Battle.Logic.Game
             }
             //Refresh targets
             Teams[0].UpdateTargets(Map, Teams[1].Characters);
-            Teams[1].UpdateTargets(Map, Teams[0].Characters);
+            Teams[1].UpdateTargets(Map, Teams[0].Characters);*
         }
 
         public bool CheckIfMissionIsCompleted()
@@ -231,6 +231,16 @@ namespace Battle.Logic.Game
             opponentTeam.UpdateTargets(Map, sourceTeam.Characters);
 
             return encounterResult;
+        }
+
+        public AIAction CalculateAIAction(Character sourceCharacter, List<Team> teams)
+        {
+            CharacterAI ai = new CharacterAI();
+            AIAction action = ai.CalculateAIAction(Map,
+                sourceCharacter,
+                teams,
+                RandomNumbers);
+            return action;
         }
     }
 }

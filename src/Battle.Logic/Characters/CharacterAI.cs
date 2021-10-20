@@ -17,7 +17,7 @@ namespace Battle.Logic.Characters
             aiValues = new List<KeyValuePair<Vector3, AIAction>>();
         }
 
-        public AIAction CalculateAIAction(string[,,] map, List<Team> teams, Character character, RandomNumberQueue diceRolls)
+        public AIAction CalculateAIAction(string[,,] map, Character character, List<Team> teams, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
