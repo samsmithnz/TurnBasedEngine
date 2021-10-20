@@ -128,7 +128,7 @@ o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(mapMovementResult, mapMovementString);
-            List<MovementAction> movementResults = mission.MoveCharacter(fred, team1, team2, fred.Location, destination);
+            List<MovementAction> movementResults = mission.MoveCharacter(fred, team1, team2, destination);
             Assert.AreEqual(5, movementResults.Count);
             string log = @"
 Fred is moving from <5, 0, 5> to <6, 0, 6>

@@ -49,7 +49,7 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.StartMission();
 
             //act
