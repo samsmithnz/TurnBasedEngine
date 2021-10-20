@@ -36,10 +36,13 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
-            //mission.UpdateTargetsForAllTeams();
+            mission.StartMission();
+
             //Character player1 = mission.Teams[0].Characters[0];
             Character enemy1 = mission.Teams[1].Characters[0];
             Character enemy2 = mission.Teams[1].Characters[1];
+            Team team1 = mission.Teams[0];
+            Team team2 = mission.Teams[1];
 
             //Move to enemy turn
             mission.MoveToNextTurn();
@@ -112,18 +115,15 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(mapStringExpected, mapString);
 
             //Now run the action
-            PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, aIAction.StartLocation, aIAction.EndLocation);
-            CharacterMovement.MoveCharacter(mission.Map,
-                enemy1,
-                pathFindingResult,
-                mission.Teams[1],
-                mission.Teams[0],
-                mission.RandomNumbers);
-            EncounterResult encounterResult = Encounter.AttackCharacter(mission.Map,
-                  enemy1,
+            mission.MoveCharacter(enemy1,
+                team2,
+                team1,
+                aIAction.EndLocation);
+            EncounterResult encounterResult = mission.AttackCharacter(enemy1,
                   enemy1.WeaponEquipped,
                   enemy1.GetTargetCharacter(aIAction.TargetName, aIAction.TargetLocation),
-                  mission.RandomNumbers);
+                  team2,
+                  team1);
             Assert.AreEqual(true, encounterResult.IsHit);
 
             //process AI for character 2
