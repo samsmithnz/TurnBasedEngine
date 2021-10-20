@@ -10,8 +10,9 @@ using System.Reflection;
 
 namespace Battle.Tests.Scenarios
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L1")]
+    [TestCategory("L2")]
     public class PossibleTilesTest
     {
         private string _rootPath;

@@ -13,7 +13,7 @@ namespace Battle.Tests.Scenarios
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class CoverScenarioTest
     {
         //Enemy is behind cover and not visible.
@@ -52,9 +52,8 @@ namespace Battle.Tests.Scenarios
                 Characters = new List<Character>() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.UpdateTargetsForAllTeams();
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
-
+            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.StartMission();
 
             //Assert - Setup
             Assert.AreEqual(1, mission.TurnNumber);
@@ -127,7 +126,11 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 
             //Throw grenade in front of wall
             Vector3 targetThrowingLocation = new Vector3(13, 0, 10);
-            EncounterResult encounter1 = Encounter.AttackCharacterWithAreaOfEffect(mission.Map, fred, fred.UtilityWeaponEquipped, team2.Characters, diceRolls, targetThrowingLocation);
+            EncounterResult encounter1 = mission.AttackCharacterWithAreaOfEffect(fred, 
+                fred.UtilityWeaponEquipped, 
+                team1,
+                team2, 
+                targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>
 Characters in affected area: Jethro
@@ -153,7 +156,6 @@ High cover downgraded to low cover at <14, 0, 10>
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 9), 1), encounter1.AffectedMap[4]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 11), 1), encounter1.AffectedMap[5]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
-            mission.UpdateTargetsForAllTeams();
 
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
             Assert.AreEqual(1, fred.TargetCharacters.Count);

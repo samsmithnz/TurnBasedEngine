@@ -1,18 +1,17 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
-using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Reflection;
 
 namespace Battle.Tests.Scenarios
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L1")]
+    [TestCategory("L2")]
     public class AICoverCrashTest
     {
         private string _rootPath;
@@ -36,13 +35,11 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
+            mission.StartMission();
+
             mission.MoveToNextTurn();
-            CharacterAI ai = new CharacterAI();
-            AIAction aIAction = ai.CalculateAIAction(mission.Map, 
-                mission.Teams, 
-                mission.Teams[1].Characters[0], 
-                mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            AIAction aIAction = mission.CalculateAIAction(mission.Teams[1].Characters[0], mission.Teams);
+            string mapString = aIAction.MapString;
             string mapStringExpected = @"
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
 . . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 
