@@ -126,7 +126,6 @@ Armor prevented 1 damage to character Harry
 10 XP added to character Jethro, for a total of 10 XP
 ";
             Assert.AreEqual(log, encounterResult.LogString);
-            mission.UpdateTargetsForAllTeams();
 
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,

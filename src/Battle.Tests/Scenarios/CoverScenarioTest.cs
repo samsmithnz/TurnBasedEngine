@@ -156,7 +156,6 @@ High cover downgraded to low cover at <14, 0, 10>
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 9), 1), encounter1.AffectedMap[4]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 11), 1), encounter1.AffectedMap[5]);
             Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
-            mission.UpdateTargetsForAllTeams();
 
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
