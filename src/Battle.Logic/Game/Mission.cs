@@ -163,11 +163,10 @@ namespace Battle.Logic.Game
         public List<MovementAction> MoveCharacter(Character sourceCharacter,
             Team sourceTeam,
             Team opponentTeam,
-            Vector3 startLocation,
             Vector3 endLocation)
         {
             PathFindingResult pathFindingResult = PathFinding.FindPath(Map,
-                startLocation,
+                sourceCharacter.Location,
                 endLocation);
             List<MovementAction> movementResults = CharacterMovement.MoveCharacter(Map,
                  sourceCharacter,

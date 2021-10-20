@@ -37,7 +37,7 @@ namespace Battle.Tests.Scenarios
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
             //mission.UpdateTargetsForAllTeams();
-            Character player1 = mission.Teams[0].Characters[0];
+            //Character player1 = mission.Teams[0].Characters[0];
             Character enemy1 = mission.Teams[1].Characters[0];
             Character enemy2 = mission.Teams[1].Characters[1];
 
