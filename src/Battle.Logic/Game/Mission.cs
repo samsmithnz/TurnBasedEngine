@@ -1,6 +1,10 @@
 ﻿using Battle.Logic.Characters;
+using Battle.Logic.Encounters;
+using Battle.Logic.Items;
+using Battle.Logic.Map;
 using Battle.Logic.Utility;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Battle.Logic.Game
 {
@@ -118,6 +122,70 @@ namespace Battle.Logic.Game
                 Teams[0].UpdateTargets(Map, Teams[1].Characters);
                 Teams[1].UpdateTargets(Map, Teams[0].Characters);
             }
+        }
+
+        public List<MovementAction> MoveCharacter(Character sourceCharacter,
+            Team sourceTeam,
+            Team opponentTeam,
+            Vector3 startLocation,
+            Vector3 endLocation)
+        {
+            PathFindingResult pathFindingResult = PathFinding.FindPath(Map,
+                startLocation,
+                endLocation);
+            List<MovementAction> movementResults = CharacterMovement.MoveCharacter(Map,
+                 sourceCharacter,
+                 pathFindingResult,
+                 sourceTeam,
+                 opponentTeam,
+                 RandomNumbers);
+            sourceTeam.UpdateTargets(Map, opponentTeam.Characters);
+            opponentTeam.UpdateTargets(Map, sourceTeam.Characters);
+
+            return movementResults;
+        }
+
+        public EncounterResult AttackCharacter(Character sourceCharacter,
+            Weapon equippedWeapon,
+            Character targetedCharacter,
+            Team sourceTeam,
+            Team opponentTeam)
+        {
+            EncounterResult encounterResult = Encounter.AttackCharacter(Map,
+                sourceCharacter,
+                equippedWeapon,
+                targetedCharacter,
+                RandomNumbers);
+
+            sourceTeam.UpdateTargets(Map, opponentTeam.Characters);
+            opponentTeam.UpdateTargets(Map, sourceTeam.Characters);
+
+            return encounterResult;
+        }
+
+        public EncounterResult AttachCharacterAreaEffect(Character sourceCharacter,
+            Weapon equippedWeapon,
+            Team sourceTeam,
+            Team opponentTeam,
+            Vector3 targetThrowingLocation)
+        {
+            //Build a list of all characters first
+            List<Character> allCharacters = new List<Character>();
+            foreach (Team team in Teams)
+            {
+                allCharacters.AddRange(team.Characters);
+            }
+
+            EncounterResult encounterResult = Encounter.AttackCharacterWithAreaOfEffect(Map,
+                sourceCharacter, equippedWeapon,
+                allCharacters, 
+                RandomNumbers, 
+                targetThrowingLocation);
+
+            sourceTeam.UpdateTargets(Map, opponentTeam.Characters);
+            opponentTeam.UpdateTargets(Map, sourceTeam.Characters);
+
+            return encounterResult;
         }
     }
 }
