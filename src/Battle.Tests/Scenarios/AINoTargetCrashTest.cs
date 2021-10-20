@@ -50,10 +50,10 @@ namespace Battle.Tests.Scenarios
             //process AI for character 1
             CharacterAI ai = new CharacterAI();
             AIAction aIAction = ai.CalculateAIAction(mission.Map,
-                mission.Teams,
                 enemy1,
+                mission.Teams,
                 mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            string mapString = aIAction.MapString;
             string mapStringExpected = @"
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
 . . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 
@@ -130,10 +130,10 @@ namespace Battle.Tests.Scenarios
             CharacterAI ai2 = new CharacterAI();
             mission.RandomNumbers.Dequeue(); //Remove the 20 roll
            AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
-                mission.Teams,
                 enemy2,
+                mission.Teams,
                 mission.RandomNumbers);
-            string mapString2 = ai2.CreateAIMap(mission.Map);
+            string mapString2 = aIAction2.MapString;
             string mapStringExpected2 = @"
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
 . . . . . . . . . . . . . . . . . . . . ■ . . . ■ 4 1 1 1 . . . . . . . . . . . . . . ■ . . . . □ . 

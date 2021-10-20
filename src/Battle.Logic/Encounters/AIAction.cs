@@ -19,6 +19,7 @@ namespace Battle.Logic.Encounters
         public Vector3 TargetLocation { get; set; }
         public Vector3 StartLocation { get; set; }
         public Vector3 EndLocation { get; set; }
+        public string MapString { get; set; }
         public List<string> Log { get; set; }
         public string LogString
         {

@@ -38,12 +38,8 @@ namespace Battle.Tests.Scenarios
             mission.StartMission();
 
             mission.MoveToNextTurn();
-            CharacterAI ai = new CharacterAI();
-            AIAction aIAction = ai.CalculateAIAction(mission.Map, 
-                mission.Teams, 
-                mission.Teams[1].Characters[0], 
-                mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            AIAction aIAction = mission.CalculateAIAction(mission.Teams[1].Characters[0], mission.Teams);
+            string mapString = aIAction.MapString;
             string mapStringExpected = @"
 . . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
 . . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 

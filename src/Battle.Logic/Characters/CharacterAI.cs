@@ -66,6 +66,7 @@ namespace Battle.Logic.Characters
                 }
             }
 
+            aiActionResult.MapString = CreateAIMap(map);
             aiActionResult.Log = log;
             return aiActionResult;
         }
@@ -282,7 +283,7 @@ namespace Battle.Logic.Characters
         }
 
 
-        public string CreateAIMap(string[,,] map)
+        private string CreateAIMap(string[,,] map)
         {
             if (aiValues == null)
             {
