@@ -30,7 +30,7 @@ namespace Battle.Tests.Characters
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15)); 
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15));
             jethro.ActionPointsCurrent = 2;
             Team team2 = new Team()
             {
@@ -41,12 +41,11 @@ namespace Battle.Tests.Characters
             mission.Teams.Add(team2);
 
             //Act            
-            CharacterAI ai = new CharacterAI();
             //Scenario 1: Failure
-            AIAction actionResult1 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
+            AIAction actionResult1 = mission.CalculateAIAction(jethro, mission.Teams);
             //Scenario 2: Success
-            AIAction actionResult2 = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            AIAction actionResult2 = mission.CalculateAIAction(jethro, mission.Teams);
+            string mapString = actionResult2.MapString;
 
             //Assert
             string mapStringExpected = @"
@@ -143,9 +142,8 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.RandomNumbers.Dequeue();
 
             //Act            
-            CharacterAI ai = new CharacterAI();
-            AIAction actionResult = ai.CalculateAIAction(mission.Map, mission.Teams, jethro, mission.RandomNumbers);
-            string mapString = ai.CreateAIMap(mission.Map);
+            AIAction actionResult = mission.CalculateAIAction(jethro, mission.Teams);
+            string mapString = actionResult.MapString;
 
             //Assert         
             string mapStringExpected = @"
