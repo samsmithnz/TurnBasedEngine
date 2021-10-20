@@ -216,7 +216,7 @@ namespace Battle.Logic.Game
         /// <param name="opponentTeam"></param>
         /// <param name="targetThrowingLocation"></param>
         /// <returns></returns>
-        public EncounterResult AttackCharacterAreaEffect(Character sourceCharacter,
+        public EncounterResult AttackCharacterWithAreaOfEffect(Character sourceCharacter,
             Weapon equippedWeapon,
             Team sourceTeam,
             Team opponentTeam,
