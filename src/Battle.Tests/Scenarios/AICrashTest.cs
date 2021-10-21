@@ -25,7 +25,7 @@ namespace Battle.Tests.Scenarios
         }
 
         [TestMethod]
-        public void AICrash_N_Test()
+        public void AICrashesOnFirstTurnTest()
         {
             //Arrange
             string path = _rootPath + @"\SaveGames\Saves\Save013.json";
@@ -108,7 +108,7 @@ namespace Battle.Tests.Scenarios
                 aIAction.EndLocation);
             EncounterResult encounterResult = mission.AttackCharacter(mission.Teams[1].Characters[0],
                 mission.Teams[1].Characters[0].WeaponEquipped,
-                mission.Teams[1].Characters[0].TargetCharacters[0],
+                mission.Teams[1].GetCharacter(mission.Teams[1].Characters[0].TargetCharacters[0]),
                 mission.Teams[1],
                 mission.Teams[0]);
 

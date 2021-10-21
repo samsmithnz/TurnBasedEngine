@@ -48,6 +48,20 @@ namespace Battle.Logic.Game
             }
         }
 
+        public Character GetCharacter(string name)
+        {
+            Character result = null;
+            foreach (Character character in Characters)
+            {
+                if (character.Name == name)
+                {
+                    result = character;
+                    break;
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// Needed after setup - only
         /// </summary>

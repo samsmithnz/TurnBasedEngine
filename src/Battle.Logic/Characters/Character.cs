@@ -73,7 +73,12 @@ namespace Battle.Logic.Characters
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
                 UpdateCharacterFOV(map);
-                TargetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
+                List<Character> targetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
+                TargetCharacters = new List<string>();
+                foreach (Character item in targetCharacters)
+                {
+                    TargetCharacters.Add(item.Name);
+                }
             }
         }
         public int MobilityRange { get; set; }
@@ -99,20 +104,20 @@ namespace Battle.Logic.Characters
         public int TotalHits { get; set; }
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
-        public List<Character> TargetCharacters { get; set; }
-        public Character GetTargetCharacter(string targetName, Vector3 targetLocation)
-        {
-            Character targetCharacter = null;
-            foreach (Character character in TargetCharacters)
-            {
-                if (character.Name == targetName && character.Location == targetLocation)
-                {
-                    targetCharacter = character;
-                    break;
-                }
-            }
-            return targetCharacter;
-        }
+        public List<string> TargetCharacters { get; set; }
+        //public Character GetTargetCharacter(string targetName, Vector3 targetLocation)
+        //{
+        //    Character targetCharacter = null;
+        //    foreach (Character character in TargetCharacters)
+        //    {
+        //        if (character.Name == targetName && character.Location == targetLocation)
+        //        {
+        //            targetCharacter = character;
+        //            break;
+        //        }
+        //    }
+        //    return targetCharacter;
+        //}
 
         public void ProcessEffects(int currentTurn)
         {

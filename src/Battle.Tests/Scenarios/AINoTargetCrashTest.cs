@@ -121,7 +121,7 @@ namespace Battle.Tests.Scenarios
                 aIAction.EndLocation);
             EncounterResult encounterResult = mission.AttackCharacter(enemy1,
                   enemy1.WeaponEquipped,
-                  enemy1.GetTargetCharacter(aIAction.TargetName, aIAction.TargetLocation),
+                  team1.GetCharacter(aIAction.TargetName),
                   team2,
                   team1);
             Assert.AreEqual(true, encounterResult.IsHit);
