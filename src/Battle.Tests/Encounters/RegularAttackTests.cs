@@ -248,6 +248,7 @@ Fred is ready to level up
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
+            MapCore.GetMapString(map);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -548,11 +549,12 @@ Fred is ready to level up
             CharacterCover.RefreshCoverStates(mission);
 
             //Act
+            string mapStringBefore = MapCore.GetMapString(mission.Map);
             EncounterResult result = Encounter.AttackCharacter(mission.Map, fred, rifle, jethro, diceRolls);
-            string mapString = MapCore.GetMapString(mission.Map);
+            string mapStringAfter = MapCore.GetMapString(mission.Map);
 
             //Assert
-            string mapStringExpected = @"
+            string mapStringBeforeExpected = @"
 . . . . . . . . . . 
 . . . . . . . . P . 
 . . . . . . . . . . 
@@ -564,7 +566,20 @@ Fred is ready to level up
 . P . . . . . . . . 
 . . . . . . . . . . 
 ";
-            Assert.AreEqual(mapStringExpected, mapString);
+            Assert.AreEqual(mapStringBeforeExpected, mapStringBefore);
+            string mapStringAfterExpected = @"
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. P . . . . . . . . 
+. . . . . . . . . . 
+";
+            Assert.AreEqual(mapStringAfterExpected, mapStringAfter);
             Assert.IsTrue(result != null);
             Assert.AreEqual(12, result.DamageDealt);
             Assert.AreEqual(true, result.IsCriticalHit);

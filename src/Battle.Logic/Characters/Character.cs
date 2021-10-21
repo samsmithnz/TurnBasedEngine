@@ -66,7 +66,7 @@ namespace Battle.Logic.Characters
             Vector3 previousLocation = _location;
             _location = characterLocation; //set the location before we start the fov recalculation
             //Only update the map if the character is still alive
-            if (map != null && HitpointsCurrent > 0)
+            if (map != null)// && HitpointsCurrent > 0)
             {
                 //Set the previous location on the map to blank (the character is no longer there)
                 map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] = "";
