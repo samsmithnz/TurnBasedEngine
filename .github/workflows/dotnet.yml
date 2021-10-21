@@ -55,7 +55,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nugetPackage
-        path: src/Battle.Logic/bin/Release/  
+        path: src/Battle.Logic/bin/Debug/  
 
   sonarCloud:
     name: sonarCloud
