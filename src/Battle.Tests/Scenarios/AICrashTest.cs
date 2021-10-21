@@ -4,6 +4,7 @@ using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Reflection;
@@ -126,6 +127,16 @@ Jethro is ready to level up
 ";
             Assert.AreEqual(log, encounterResult.LogString);
 
+            List<Character> charactersInView = FieldOfView.GetCharactersInView(mission.Map,
+                   mission.Teams[1].Characters[1].Location,
+                   mission.Teams[1].Characters[1].ShootingRange,
+                   mission.Teams[0].Characters);
+            Assert.AreEqual(0, charactersInView.Count);
+            List<Character> charactersInView2 = FieldOfView.GetCharactersInView(mission.Map,
+                   new Vector3(10, 0, 10),
+                   mission.Teams[1].Characters[1].ShootingRange,
+                   mission.Teams[0].Characters);
+            Assert.AreEqual(2, charactersInView2.Count);
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 mission.Teams[1].Characters[1],
