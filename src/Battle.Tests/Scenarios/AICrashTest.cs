@@ -133,7 +133,7 @@ Jethro is ready to level up
                    mission.Teams[0].Characters);
             Assert.AreEqual(0, charactersInView.Count);
             List<Character> charactersInView2 = FieldOfView.GetCharactersInView(mission.Map,
-                   new Vector3(10, 0, 10),
+                   mission.Teams[1].Characters[0].Location,
                    mission.Teams[1].Characters[1].ShootingRange,
                    mission.Teams[0].Characters);
             Assert.AreEqual(2, charactersInView2.Count);
@@ -199,8 +199,13 @@ Jethro is ready to level up
             Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
             //Assert.AreEqual(5, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
-            Assert.AreEqual(new Vector3(21, 0, 19), aIAction2.EndLocation);
+            Assert.AreEqual(new Vector3(20, 0, 20), aIAction2.EndLocation);
             //Assert.AreEqual(mapStringExpected2, mapString2);
+
+            mission.MoveCharacter(mission.Teams[1].Characters[1],
+                mission.Teams[1],
+                mission.Teams[0],
+                aIAction2.EndLocation);
         }
     }
 }

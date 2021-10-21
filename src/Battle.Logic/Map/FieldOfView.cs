@@ -27,7 +27,7 @@ namespace Battle.Logic.Map
             {
                 foreach (Vector3 item in area)
                 {
-                    if (character.Location == item)
+                    if (character.Location == item && character.HitpointsCurrent > 0)
                     {
                         results.Add(character);
                     }

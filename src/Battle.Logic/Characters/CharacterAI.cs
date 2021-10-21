@@ -87,8 +87,11 @@ namespace Battle.Logic.Characters
                     opponentTeam = team;
                     foreach (Character item in team.Characters)
                     {
-                        opponentCharacters.Add(item);
-                        opponentLocations.Add(item.Location);
+                        if (item.HitpointsCurrent > 0)
+                        {
+                            opponentCharacters.Add(item);
+                            opponentLocations.Add(item.Location);
+                        }
                     }
                 }
             }
@@ -205,47 +208,50 @@ namespace Battle.Logic.Characters
                         {
                             foreach (Character opponentCharacter in characters)
                             {
-                                int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
-                                targetName = opponentCharacter.Name;
-                                targetLocation = opponentCharacter.Location;
-                                if (chanceToHit >= 95)
+                                if (character.HitpointsCurrent > 0)
                                 {
-                                    moveThenShootScore += 5;
-                                }
-                                else if (chanceToHit >= 90)
-                                {
-                                    moveThenShootScore += 4;
-                                }
-                                else if (chanceToHit >= 80)
-                                {
-                                    moveThenShootScore += 3;
-                                }
-                                else if (chanceToHit >= 65)
-                                {
-                                    moveThenShootScore += 2;
-                                }
-                                else if (chanceToHit >= 50)
-                                {
-                                    moveThenShootScore += 1;
-                                }
-                                else //(chanceToHit < 50)
-                                {
-                                    moveThenShootScore += 0;
-                                }
+                                    int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
+                                    targetName = opponentCharacter.Name;
+                                    targetLocation = opponentCharacter.Location;
+                                    if (chanceToHit >= 95)
+                                    {
+                                        moveThenShootScore += 5;
+                                    }
+                                    else if (chanceToHit >= 90)
+                                    {
+                                        moveThenShootScore += 4;
+                                    }
+                                    else if (chanceToHit >= 80)
+                                    {
+                                        moveThenShootScore += 3;
+                                    }
+                                    else if (chanceToHit >= 65)
+                                    {
+                                        moveThenShootScore += 2;
+                                    }
+                                    else if (chanceToHit >= 50)
+                                    {
+                                        moveThenShootScore += 1;
+                                    }
+                                    else //(chanceToHit < 50)
+                                    {
+                                        moveThenShootScore += 0;
+                                    }
 
-                                //Normalize and record the score + target
-                                if (moveThenShootScore < 0)
-                                {
-                                    moveThenShootScore = 0;
+                                    //Normalize and record the score + target
+                                    if (moveThenShootScore < 0)
+                                    {
+                                        moveThenShootScore = 0;
+                                    }
+                                    possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
+                                    {
+                                        Score = moveThenShootScore,
+                                        StartLocation = character.Location,
+                                        EndLocation = location,
+                                        TargetName = targetName,
+                                        TargetLocation = targetLocation
+                                    });
                                 }
-                                possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
-                                {
-                                    Score = moveThenShootScore,
-                                    StartLocation = character.Location,
-                                    EndLocation = location,
-                                    TargetName = targetName,
-                                    TargetLocation = targetLocation
-                                });
                             }
                         }
                     }
