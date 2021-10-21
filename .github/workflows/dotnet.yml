@@ -45,7 +45,7 @@ jobs:
     - name: Build code in debug
       run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Pack code into NuGet package in release
-      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v2
       with:

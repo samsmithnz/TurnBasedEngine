@@ -27,7 +27,7 @@ namespace Battle.Logic.Map
             {
                 foreach (Vector3 item in area)
                 {
-                    if (character.Location == item)
+                    if (character.Location == item && character.HitpointsCurrent > 0)
                     {
                         results.Add(character);
                     }
@@ -48,14 +48,14 @@ namespace Battle.Logic.Map
                     bool addedCharacter = false;
                     foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.Location == fovLocation)
+                        if (character.Location == fovLocation && character.HitpointsCurrent > 0)
                         {
                             addedCharacter = true;
                             results.Add(character);
                             break;
                         }
                     }
-                    if (!addedCharacter && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
+                    if (!addedCharacter && character.HitpointsCurrent > 0 && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
                     {
                         results.Add(character);
                     }
