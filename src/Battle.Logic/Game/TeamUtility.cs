@@ -29,10 +29,10 @@ namespace Battle.Logic.Game
             //{
             foreach (Character character in teamCharacters)
             {
-                if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                {
-                    targetCharacters.Add(character);
-                }
+                //if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
+                //{
+                targetCharacters.Add(character);
+                //}
             }
             //}
 
@@ -67,10 +67,10 @@ namespace Battle.Logic.Game
             //{
             foreach (Character character in teamCharacters)
             {
-                if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                {
-                    targetCharacters.Add(character);
-                }
+                //if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
+                //{
+                targetCharacters.Add(character);
+                //}
             }
             //}
 
