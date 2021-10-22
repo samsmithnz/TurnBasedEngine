@@ -1,6 +1,5 @@
-﻿using Battle.Logic.Items;
-
-namespace Battle.Tests.Items
+﻿
+namespace Battle.Logic.Items
 {
     public static class ItemPool
     {

@@ -1,6 +1,5 @@
-﻿using Battle.Logic.Research;
-
-namespace Battle.Tests.Research
+﻿
+namespace Battle.Logic.Research
 {
     public static class ResearchPool
     {
