@@ -2,6 +2,7 @@
 using Battle.Logic.Game;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
+using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -104,20 +105,26 @@ namespace Battle.Logic.Characters
         public int TotalHits { get; set; }
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
+        public int TargetCharacterIndex { get; set; }
         public List<string> TargetCharacters { get; set; }
-        //public Character GetTargetCharacter(string targetName, Vector3 targetLocation)
-        //{
-        //    Character targetCharacter = null;
-        //    foreach (Character character in TargetCharacters)
-        //    {
-        //        if (character.Name == targetName && character.Location == targetLocation)
-        //        {
-        //            targetCharacter = character;
-        //            break;
-        //        }
-        //    }
-        //    return targetCharacter;
-        //}
+
+        public void NextTarget()
+        {
+            TargetCharacterIndex++;
+            if (TargetCharacterIndex >= TargetCharacters.Count - 1)
+            {
+                TargetCharacterIndex = 0;
+            }
+        }
+
+        public void PreviousTarget()
+        {
+            TargetCharacterIndex--;
+            if (TargetCharacterIndex < 0)
+            {
+                TargetCharacterIndex = TargetCharacters.Count - 1;
+            }
+        }
 
         public void ProcessEffects(int currentTurn)
         {
