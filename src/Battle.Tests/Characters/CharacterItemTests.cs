@@ -1,5 +1,5 @@
 using Battle.Logic.Characters;
-using Battle.Tests.Items;
+using Battle.Logic.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
