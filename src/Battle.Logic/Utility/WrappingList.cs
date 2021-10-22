@@ -22,7 +22,7 @@ namespace Battle.Logic.Utility
             }
 
             //Double check that this character has action points. If the do not, start to loop through the list of characters
-            if (characters[index].ActionPointsCurrent > 0)
+            if (characters[index].ActionPointsCurrent > 0 && characters[index].HitpointsCurrent > 0)
             {
                 foundFreeCharacter = true;
             }
@@ -30,7 +30,7 @@ namespace Battle.Logic.Utility
             {
                 for (int i = index; i <= characters.Count - 1; i++)
                 {
-                    if (characters[i].HitpointsCurrent > 0 && characters[i].ActionPointsCurrent > 0)
+                    if (characters[i].ActionPointsCurrent > 0 && characters[i].HitpointsCurrent > 0)
                     {
                         foundFreeCharacter = true;
                         index = i;
@@ -42,7 +42,7 @@ namespace Battle.Logic.Utility
                     //look in the first half of the list
                     for (int i = 0; i <= index; i++)
                     {
-                        if (characters[i].HitpointsCurrent > 0 && characters[i].ActionPointsCurrent > 0)
+                        if (characters[i].ActionPointsCurrent > 0 && characters[i].HitpointsCurrent > 0)
                         {
                             foundFreeCharacter = true;
                             index = i;
@@ -73,8 +73,8 @@ namespace Battle.Logic.Utility
                 index = characters.Count - 1;
             }
 
-            //Double check that this character has action points. If the do not, start to loop through the list of characters
-            if (characters[index].ActionPointsCurrent > 0)
+            //Double check that this character has action points and health. If the do not, start to loop through the list of characters
+            if (characters[index].ActionPointsCurrent > 0 && characters[index].HitpointsCurrent > 0)
             {
                 foundFreeCharacter = true;
             }
@@ -82,7 +82,7 @@ namespace Battle.Logic.Utility
             {
                 for (int i = index; i >= 0; i--)
                 {
-                    if (characters[i].ActionPointsCurrent > 0)
+                    if (characters[i].ActionPointsCurrent > 0 && characters[i].HitpointsCurrent > 0)
                     {
                         foundFreeCharacter = true;
                         index = i;
@@ -94,7 +94,7 @@ namespace Battle.Logic.Utility
                     //look in the second half of the list
                     for (int i = characters.Count - 1; i >= index; i--)
                     {
-                        if (characters[i].ActionPointsCurrent > 0)
+                        if (characters[i].ActionPointsCurrent > 0 && characters[i].HitpointsCurrent > 0)
                         {
                             foundFreeCharacter = true;
                             index = i;

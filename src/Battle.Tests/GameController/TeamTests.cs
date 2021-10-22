@@ -23,10 +23,10 @@ namespace Battle.Tests.Items
             };
 
             //Act           
-            Character character = team.GetNextCharacter();
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
         [TestMethod]
         public void TeamCheckForPreviousFirstCharacterForActionPointsTest()
@@ -40,10 +40,10 @@ namespace Battle.Tests.Items
             };
 
             //Act           
-            Character character = team.GetPreviousCharacter();
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -59,10 +59,10 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.GetNextCharacter();
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -78,10 +78,48 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.GetPreviousCharacter();
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
+        }
+
+        [TestMethod]
+        public void TeamCheckForNextSecondCharacterForHPsTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(null, Vector3.One);
+            harry.HitpointsCurrent = 0;
+            Team team = new Team()
+            {
+                Characters = new List<Character>() { fred, harry }
+            };
+
+            //Act
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
+
+            //Assert
+            Assert.AreEqual(fred.Name, character.Name);
+        }
+
+        [TestMethod]
+        public void TeamCheckForPreviousSecondCharacterForHPsTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+            Character harry = CharacterPool.CreateHarryHeroSidekick(null, Vector3.One);
+            harry.HitpointsCurrent = 0;
+            Team team = new Team()
+            {
+                Characters = new List<Character>() { fred, harry }
+            };
+
+            //Act
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
+
+            //Assert
+            Assert.AreEqual(fred.Name, character.Name);
         }
 
         [TestMethod]
@@ -98,7 +136,7 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.GetNextCharacter();
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
             Assert.AreEqual(null, character);
@@ -118,7 +156,7 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.GetPreviousCharacter();
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
             Assert.AreEqual(null, character);
