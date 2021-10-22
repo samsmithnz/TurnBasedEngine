@@ -33,7 +33,7 @@ namespace Battle.Tests.Map
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1), 5);
-            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(1, 0, 0),5 );
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(1, 0, 0),5 );
             Team team1 = new Team()
             {
                 Name = "Good guys",
@@ -741,7 +741,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.MobilityRange = 16;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(mission.Map, new Vector3(0, 0, 1));
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(0, 0, 1));
             harry.MobilityRange = 16;
             Team team1 = new Team()
             {

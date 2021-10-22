@@ -27,7 +27,7 @@ namespace Battle.Tests.Characters
         public void CharacterHarryTest()
         {
             //Arrange
-            Character harry = CharacterPool.CreateHarryHeroSidekick(null, new Vector3(5, 0, 5));
+            Character harry = CharacterPool.CreateHarryHero(null, new Vector3(5, 0, 5));
 
             //Act            
 

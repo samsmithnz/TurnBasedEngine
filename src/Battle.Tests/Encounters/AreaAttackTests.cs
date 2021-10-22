@@ -317,7 +317,7 @@ High cover downgraded to low cover at <2, 0, 3>
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Team team1 = new Team();
@@ -383,7 +383,7 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 1;
             Team team1 = new Team();
@@ -449,7 +449,7 @@ Fred is ready to level up
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Team team1 = new Team();
@@ -515,7 +515,7 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility1());
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility2());
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(3, 0, 3));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
             Team team1 = new Team();

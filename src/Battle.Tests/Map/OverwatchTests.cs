@@ -145,7 +145,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
             Team team1 = new Team();
             team1.Characters.Add(fred);
@@ -199,7 +199,7 @@ Fred is ready to level up
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            Character harry = CharacterPool.CreateHarryHeroSidekick(map, new Vector3(5, 0, 5));
+            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
             Team team1 = new Team();
             team1.Characters.Add(fred);
