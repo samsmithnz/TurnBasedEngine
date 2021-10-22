@@ -100,7 +100,7 @@ namespace Battle.Tests.Items
             Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry.Name, character.Name);
+            Assert.AreEqual(fred.Name, character.Name);
         }
 
         [TestMethod]
@@ -119,7 +119,7 @@ namespace Battle.Tests.Items
             Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry.Name, character.Name);
+            Assert.AreEqual(fred.Name, character.Name);
         }
 
         [TestMethod]
