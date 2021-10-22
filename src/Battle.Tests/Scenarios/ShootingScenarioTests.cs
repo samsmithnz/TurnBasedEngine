@@ -141,7 +141,7 @@ Fred is moving from <8, 0, 9> to <9, 0, 10>
 
             //Fred aims at Jethro, who is behind high cover. 
             string mapString1 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
-            Assert.AreEqual(fred.TargetCharacters[0], jethro);
+            Assert.AreEqual(fred.TargetCharacters[0], jethro.Name);
             string mapStringExpected1 = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -222,7 +222,7 @@ Critical chance: 70, (dice roll: 0)
 
             //Turn 1 - Team 2 starts
             //Jethro aims back and misses
-            Assert.AreEqual(jethro.TargetCharacters[0], fred);
+            Assert.AreEqual(jethro.TargetCharacters[0], fred.Name);
             int chanceToHit2 = EncounterCore.GetChanceToHit(jethro, jethro.WeaponEquipped, fred);
             int chanceToCrit2 = EncounterCore.GetChanceToCrit(mission.Map, jethro, jethro.WeaponEquipped, jethro, false);
             DamageRange damageOptions2 = EncounterCore.GetDamageRange(jethro, jethro.WeaponEquipped);
@@ -246,7 +246,7 @@ Missed: Chance to hit: 72, (dice roll: 0)
 
             //Turn 2 - Team 1 starts
             //Fred shoots again, and kills Jethro.
-            Assert.AreEqual(fred.TargetCharacters[0], jethro);
+            Assert.AreEqual(fred.TargetCharacters[0], jethro.Name);
             int chanceToHit3 = EncounterCore.GetChanceToHit(fred, fred.WeaponEquipped, jethro);
             int chanceToCrit3 = EncounterCore.GetChanceToCrit(mission.Map, fred, fred.WeaponEquipped, jethro, false);
             DamageRange damageOptions3 = EncounterCore.GetDamageRange(fred, fred.WeaponEquipped);
