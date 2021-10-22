@@ -19,18 +19,18 @@ namespace Battle.Tests.SaveGames
             _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
-        [TestMethod]
-        public void SaveGamesExist()
-        {
-            //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\";
+        //[TestMethod]
+        //public void SaveGamesExist()
+        //{
+        //    //Arrange
+        //    string path = _rootPath + @"\SaveGames\Saves\";
 
-            //Act
+        //    //Act
 
-            //Assert
-            Assert.IsTrue(Directory.Exists(path));
-            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
-        }
+        //    //Assert
+        //    Assert.IsTrue(Directory.Exists(path));
+        //    Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+        //}
 
         //[TestMethod]
         //public void LoadGameTest()
