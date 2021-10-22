@@ -34,7 +34,7 @@ namespace Battle.Tests.Map
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
-            Assert.AreEqual("Jethro", fred.TargetCharacters[0].Name);
+            Assert.AreEqual("Jethro", fred.TargetCharacters[0]);
             string mapStringExpected = @"
 o o o o o o o o o o 
 o o o o o o o o P o 
