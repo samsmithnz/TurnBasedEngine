@@ -32,30 +32,30 @@ namespace Battle.Tests.SaveGames
             Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
         }
 
-        [TestMethod]
-        public void LoadGameTest()
-        {
-            //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\";
-            Mission mission = null;
+        //[TestMethod]
+        //public void LoadGameTest()
+        //{
+        //    //Arrange
+        //    string path = _rootPath + @"\SaveGames\Saves\";
+        //    Mission mission = null;
 
-            //Act
-            string[] files = Directory.GetFiles(path);
-            foreach (string file in files)
-            {
-                string fileContents;
-                using (var streamReader = new StreamReader(file))
-                {
-                    fileContents = streamReader.ReadToEnd();
-                }
+        //    //Act
+        //    string[] files = Directory.GetFiles(path);
+        //    foreach (string file in files)
+        //    {
+        //        string fileContents;
+        //        using (var streamReader = new StreamReader(file))
+        //        {
+        //            fileContents = streamReader.ReadToEnd();
+        //        }
 
-                mission = GameSerialization.LoadGame(fileContents);
-            }
+        //        mission = GameSerialization.LoadGame(fileContents);
+        //    }
 
-            //Assert
-            Assert.IsTrue(Directory.Exists(path));
-            Assert.IsTrue(mission != null);
-        }
+        //    //Assert
+        //    Assert.IsTrue(Directory.Exists(path));
+        //    Assert.IsTrue(mission != null);
+        //}
 
         [TestMethod]
         public void SaveNewGameTest()
