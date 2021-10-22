@@ -23,10 +23,10 @@ namespace Battle.Tests.Items
             };
 
             //Act           
-            Character character = team.Characters[team.GetNextCharacterIndex()];
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
         [TestMethod]
         public void TeamCheckForPreviousFirstCharacterForActionPointsTest()
@@ -40,10 +40,10 @@ namespace Battle.Tests.Items
             };
 
             //Act           
-            Character character = team.Characters[team.GetPreviousCharacterIndex()];
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -59,10 +59,10 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetNextCharacterIndex()];
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -78,10 +78,10 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetPreviousCharacterIndex()];
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -97,10 +97,10 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetNextCharacterIndex()];
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -116,10 +116,10 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetPreviousCharacterIndex()];
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
-            Assert.AreEqual(harry, character);
+            Assert.AreEqual(harry.Name, character.Name);
         }
 
         [TestMethod]
@@ -136,7 +136,7 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetNextCharacterIndex()];
+            Character character = team.GetCharacter(team.GetNextCharacterIndex());
 
             //Assert
             Assert.AreEqual(null, character);
@@ -156,7 +156,7 @@ namespace Battle.Tests.Items
             };
 
             //Act
-            Character character = team.Characters[team.GetPreviousCharacterIndex()];
+            Character character = team.GetCharacter(team.GetPreviousCharacterIndex());
 
             //Assert
             Assert.AreEqual(null, character);

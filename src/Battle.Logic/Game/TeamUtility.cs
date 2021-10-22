@@ -14,27 +14,27 @@ namespace Battle.Logic.Game
         public static int GetNextCharacter(int currentIndex, List<string> characterNames, List<Character> teamCharacters)
         {
             List<Character> targetCharacters = new List<Character>();
-            if (characterNames != null)
+            //if (characterNames != null)
+            //{
+            //    foreach (string item in characterNames)
+            //    {
+            //        Character character = GetCharacter(targetCharacters, item);
+            //        if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
+            //        {
+            //            targetCharacters.Add(character);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            foreach (Character character in teamCharacters)
             {
-                foreach (string item in characterNames)
+                if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
                 {
-                    Character character = GetCharacter(targetCharacters, item);
-                    if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                    {
-                        targetCharacters.Add(character);
-                    }
+                    targetCharacters.Add(character);
                 }
             }
-            else
-            {
-                foreach (Character character in teamCharacters)
-                {
-                    if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                    {
-                        targetCharacters.Add(character);
-                    }
-                }
-            }
+            //}
 
             int index = WrappingList.FindNextIndex(currentIndex, teamCharacters);
             if (index >= 0)
@@ -52,27 +52,27 @@ namespace Battle.Logic.Game
         public static int GetPreviousCharacter(int currentIndex, List<string> characterNames, List<Character> teamCharacters)
         {
             List<Character> targetCharacters = new List<Character>();
-            if (characterNames != null)
+            //if (characterNames != null)
+            //{
+            //    foreach (string item in characterNames)
+            //    {
+            //        Character character = GetCharacter(targetCharacters, item);
+            //        if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
+            //        {
+            //            targetCharacters.Add(character);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            foreach (Character character in teamCharacters)
             {
-                foreach (string item in characterNames)
+                if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
                 {
-                    Character character = GetCharacter(targetCharacters, item);
-                    if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                    {
-                        targetCharacters.Add(character);
-                    }
+                    targetCharacters.Add(character);
                 }
             }
-            else
-            {
-                foreach (Character character in teamCharacters)
-                {
-                    if (character.ActionPointsCurrent > 0 && character.HitpointsCurrent > 0)
-                    {
-                        targetCharacters.Add(character);
-                    }
-                }
-            }
+            //}
 
             int index = WrappingList.FindPreviousIndex(currentIndex, targetCharacters);
             if (index >= 0)

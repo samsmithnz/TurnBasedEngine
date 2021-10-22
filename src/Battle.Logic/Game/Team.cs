@@ -62,6 +62,16 @@ namespace Battle.Logic.Game
             return result;
         }
 
+        public Character GetCharacter(int index)
+        {
+            Character result = null;
+            if (index >= 0)
+            {
+                result = Characters[index];
+            }
+            return result;
+        }
+
         /// <summary>
         /// Needed after setup - only
         /// </summary>
