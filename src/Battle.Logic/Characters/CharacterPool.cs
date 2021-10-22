@@ -12,12 +12,12 @@ namespace Battle.Logic.Characters
             {
                 Name = "Fred",
                 Background = "Fred is from Canada and is a nice guy.",
-                HitpointsMax = 4,
                 HitpointsCurrent = 4,
-                ArmorPointsMax = 0,
+                HitpointsMax = 4,
                 ArmorPointsCurrent = 0,
-                ActionPointsMax = 2,
+                ArmorPointsMax = 0,
                 ActionPointsCurrent = 2,
+                ActionPointsMax = 2,
                 ChanceToHit = 70,
                 XP = 0,
                 Level = 1,
@@ -47,14 +47,16 @@ namespace Battle.Logic.Characters
             return fred;
         }
 
-        public static Character CreateHarryHeroSidekick(string[,,] map, Vector3 startingLocation, int fovRange = 40)
+        public static Character CreateHarryHero(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character harry = new Character()
             {
                 Name = "Harry",
                 Background = "Harry worships Clint Eastwood movies",
                 HitpointsCurrent = 12,
+                HitpointsMax = 12,
                 ArmorPointsCurrent = 1,
+                ArmorPointsMax = 1,
                 ChanceToHit = 70,
                 XP = 0,
                 Level = 1,
@@ -62,6 +64,7 @@ namespace Battle.Logic.Characters
                 Speed = 12,
                 Intelligence = 75,
                 ActionPointsCurrent = 2,
+                ActionPointsMax = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
@@ -73,18 +76,46 @@ namespace Battle.Logic.Characters
             return harry;
         }
 
+        public static Character CreateJeffHero(string[,,] map, Vector3 startingLocation, int fovRange = 40)
+        {
+            Character jeff = new Character()
+            {
+                Name = "Jeff",
+                Background = "Jeff is a great guy",
+                HitpointsCurrent = 12,
+                HitpointsMax = 12,
+                ArmorPointsCurrent = 1,
+                ArmorPointsMax = 1,
+                ChanceToHit = 70,
+                XP = 0,
+                Level = 1,
+                LevelUpIsReady = false,
+                Speed = 12,
+                Intelligence = 75,
+                ActionPointsCurrent = 2,
+                ActionPointsMax= 2,
+                MobilityRange = 8,
+                ShootingRange = 30,
+                WeaponEquipped = WeaponPool.CreateRifle(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
+                InOverwatch = false,
+                HunkeredDown = false
+            };
+            jeff.SetLocationAndRange(map, startingLocation, fovRange, null);
+            return jeff;
+        }
+
         public static Character CreateJethroBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
         {
             Character jethro = new Character()
             {
                 Name = "Jethro",
                 Background = "Jethro grew up on a farm, and likes ice cream",
-                HitpointsMax = 4,
                 HitpointsCurrent = 4,
-                ArmorPointsMax = 0,
+                HitpointsMax = 4,
                 ArmorPointsCurrent = 0,
-                ActionPointsMax = 2,
                 ActionPointsCurrent = 2,
+                ActionPointsMax = 2,
                 ChanceToHit = 70,
                 XP = 0,
                 Level = 1,
@@ -108,12 +139,12 @@ namespace Battle.Logic.Characters
             {
                 Name = "Bart",
                 Background = "Bart is a naughty boy",
-                HitpointsMax = 4,
                 HitpointsCurrent = 4,
-                ArmorPointsMax = 0,
+                HitpointsMax = 4,
                 ArmorPointsCurrent = 0,
-                ActionPointsMax = 2,
+                ArmorPointsMax = 0,
                 ActionPointsCurrent = 2,
+                ActionPointsMax = 2,
                 ChanceToHit = 70,
                 XP = 0,
                 Level = 1,
@@ -129,6 +160,35 @@ namespace Battle.Logic.Characters
             };
             bart.SetLocationAndRange(map, startingLocation, fovRange, null);
             return bart;
+        }
+
+        public static Character CreateDerekBaddie(string[,,] map, Vector3 startingLocation, int fovRange = 40)
+        {
+            Character derek = new Character()
+            {
+                Name = "Derek",
+                Background = "Derek does not like rules",
+                HitpointsCurrent = 4,
+                HitpointsMax = 4,
+                ArmorPointsCurrent = 0,
+                ArmorPointsMax = 0,
+                ActionPointsCurrent = 2,
+                ActionPointsMax = 2,
+                ChanceToHit = 70,
+                XP = 0,
+                Level = 1,
+                LevelUpIsReady = false,
+                Speed = 11,
+                Intelligence = 25,
+                MobilityRange = 8,
+                ShootingRange = 30,
+                WeaponEquipped = WeaponPool.CreateRifle(),
+                UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
+                InOverwatch = false,
+                HunkeredDown = false
+            };
+            derek.SetLocationAndRange(map, startingLocation, fovRange, null);
+            return derek;
         }
     }
 }
