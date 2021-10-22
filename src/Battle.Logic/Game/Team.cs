@@ -20,31 +20,31 @@ namespace Battle.Logic.Game
         public string[,,] FOVMap { get; set; }
         public HashSet<Vector3> FOVHistory { get; set; }
 
-        public Character GetNextCharacter()
+        public int GetNextCharacterIndex()
         {
-            (int, Character) result = TeamUtility.GetNextCharacter(CurrentCharacterIndex, Characters);
-            if (result.Item1 >= 0)
+            int result = TeamUtility.GetNextCharacter(CurrentCharacterIndex, null, Characters);
+            if (result >= 0)
             {
-                CurrentCharacterIndex = result.Item1;
-                return result.Item2;
+                CurrentCharacterIndex = result;
+                return result;
             }
             else
             {
-                return null;
+                return -1;
             }
         }
 
-        public Character GetPreviousCharacter()
+        public int GetPreviousCharacterIndex()
         {
-            (int, Character) result = TeamUtility.GetPreviousCharacter(CurrentCharacterIndex, Characters);
-            if (result.Item1 >= 0)
+            int result = TeamUtility.GetPreviousCharacter(CurrentCharacterIndex, null, Characters);
+            if (result >= 0)
             {
-                CurrentCharacterIndex = result.Item1;
-                return result.Item2;
+                CurrentCharacterIndex = result;
+                return result;
             }
             else
             {
-                return null;
+                return -1;
             }
         }
 
@@ -65,7 +65,7 @@ namespace Battle.Logic.Game
         /// <summary>
         /// Needed after setup - only
         /// </summary>
-        public void UpdateTargets(string [,,] map, List<Character> opponentCharacters)
+        public void UpdateTargets(string[,,] map, List<Character> opponentCharacters)
         {
             foreach (Character character in Characters)
             {
