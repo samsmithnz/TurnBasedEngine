@@ -45,6 +45,7 @@ namespace Battle.Tests.Scenarios
             Team teamBad = mission.Teams[1];
 
             //Act - Turn 1 Jethro bad AI
+            jethro.NextTarget();
             AIAction aIAction = mission.CalculateAIAction(jethro, mission.Teams);
 
             //Assert - Turn 1 Jethro bad AI
@@ -67,20 +68,20 @@ namespace Battle.Tests.Scenarios
 
             //Assert - Turn 1 Jethro bad action
             string log = @"
-Jethro is attacking with Shotgun, targeted on Fred
+Jethro is attacking with Shotgun, targeted on Harry
 Hit: Chance to hit: 80, (dice roll: 81)
 Damage range: 3-5, (dice roll: 76)
 Critical chance: 70, (dice roll: 55)
 Critical damage range: 9-13, (dice roll: 76)
-12 damage dealt to character Fred, HP is now -8
-Fred is killed
-100 XP added to character Jethro, for a total of 100 XP
-Jethro is ready to level up
+Armor prevented 1 damage to character Harry
+11 damage dealt to character Harry, HP is now 1
+10 XP added to character Jethro, for a total of 10 XP
 ";
             Assert.AreEqual(log, encounterResult.LogString);
-            Assert.AreEqual("", mission.Map[1, 0, 1]);
+            Assert.AreEqual("P", mission.Map[1, 0, 3]);
 
             //Act - Turn 1 Bart bad AI
+            bart.NextTarget();
             List<Character> charactersInView = FieldOfView.GetCharactersInView(mission.Map,
                    bart.Location,
                    bart.ShootingRange,
@@ -109,8 +110,9 @@ Jethro is ready to level up
                 teamGood.Characters);
 
             //Assert - Turn 1 Bart bad action
-            Assert.AreEqual(1, charactersInView2.Count);
-            Assert.AreEqual("Harry", charactersInView2[0].Name);
+            Assert.AreEqual(2, charactersInView2.Count);
+            Assert.AreEqual("Fred", charactersInView2[0].Name);
+            Assert.AreEqual("Harry", charactersInView2[1].Name);
 
             //Move to turn 2 - good guys
             mission.MoveToNextTurn();
@@ -118,13 +120,14 @@ Jethro is ready to level up
             mission.MoveToNextTurn();
 
             //Act - Turn 2 Jethro bad AI
+            jethro.NextTarget();
             AIAction aIAction3 = mission.CalculateAIAction(jethro, mission.Teams);
 
             //Assert - Turn 2 Jethro bad AI
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction3.ActionType);
-            Assert.AreEqual(10, aIAction3.Score);
+            Assert.AreEqual(13, aIAction3.Score);
             Assert.AreEqual(new Vector3(24, 0, 17), aIAction3.StartLocation);
-            Assert.AreEqual(new Vector3(28, 0, 12), aIAction3.EndLocation);
+            Assert.AreEqual(new Vector3(21, 0, 23), aIAction3.EndLocation);
 
             //Act - Turn 2 Jethro bad action
             mission.MoveCharacter(jethro,
@@ -139,19 +142,20 @@ Jethro is ready to level up
 
             //Assert - Turn 2 Jethro bad action
             string log3 = @"
-Jethro is attacking with Shotgun, targeted on Harry
+Jethro is attacking with Shotgun, targeted on Fred
 Hit: Chance to hit: 80, (dice roll: 90)
 Damage range: 3-5, (dice roll: 44)
 Critical chance: 70, (dice roll: 97)
 Critical damage range: 9-13, (dice roll: 44)
-Armor prevented 1 damage to character Harry
-9 damage dealt to character Harry, HP is now 3
-10 XP added to character Jethro, for a total of 110 XP
+10 damage dealt to character Fred, HP is now -6
+Fred is killed
+100 XP added to character Jethro, for a total of 110 XP
 Jethro is ready to level up
 ";
             Assert.AreEqual(log3, encounterResult3.LogString);
 
             //Act - Turn 2 Bart bad AI
+            bart.NextTarget();
             AIAction aIAction4 = mission.CalculateAIAction(bart, mission.Teams);
 
             //Assert - Turn 2 Bart bad AI
@@ -170,6 +174,10 @@ Jethro is ready to level up
                 teamGood.GetCharacter(bart.GetTargetCharacter()),
                 teamBad,
                 teamGood);
+            List<Character> charactersInView4 = FieldOfView.GetCharactersInView(mission.Map,
+                bart.Location,
+                bart.ShootingRange,
+                teamGood.Characters);
 
             //Assert - Turn 2 Bart bad action
             string log4 = @"
@@ -179,13 +187,14 @@ Damage range: 3-5, (dice roll: 46)
 Critical chance: 70, (dice roll: 63)
 Critical damage range: 8-12, (dice roll: 46)
 Armor prevented 1 damage to character Harry
-8 damage dealt to character Harry, HP is now -5
+8 damage dealt to character Harry, HP is now -7
 Harry is killed
 100 XP added to character Bart, for a total of 100 XP
 Bart is ready to level up
 ";
             Assert.AreEqual(log4, encounterResult4.LogString);
-
+            Assert.AreEqual(1, charactersInView4.Count);
+            Assert.AreEqual("Jeff", charactersInView4[0].Name);
 
             //Move to turn 3 - good guys
             mission.MoveToNextTurn();
