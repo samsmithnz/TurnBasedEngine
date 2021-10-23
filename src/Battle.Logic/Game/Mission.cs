@@ -67,7 +67,10 @@ namespace Battle.Logic.Game
             //Reset the characters action points for the new turn
             foreach (Character character in Teams[CurrentTeamIndex].Characters)
             {
-                character.ActionPointsCurrent = character.ActionPointsMax;
+                if (character.HitpointsCurrent > 0)
+                {
+                    character.ActionPointsCurrent = character.ActionPointsMax;
+                }
             }
             //Refresh targets
             Teams[0].UpdateTargets(Map, Teams[1].Characters);

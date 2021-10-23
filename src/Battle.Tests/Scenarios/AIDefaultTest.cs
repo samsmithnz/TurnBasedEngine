@@ -37,13 +37,16 @@ namespace Battle.Tests.Scenarios
                 fileContents = streamReader.ReadToEnd();
             }
             Mission mission = GameSerialization.LoadGame(fileContents);
+            //Starts with turn 1 - good guys
             mission.StartMission();
+            //Move to turn 1 - bad guys
             mission.MoveToNextTurn();
 
-            Character sourceCharacter = mission.Teams[1].Characters[0];
-            Team team1 = mission.Teams[0];
-            Team team2 = mission.Teams[1];
-            AIAction aIAction = mission.CalculateAIAction(sourceCharacter, mission.Teams);
+            Character jethro = mission.Teams[1].Characters[0];
+            Character bart = mission.Teams[1].Characters[1];
+            Team teamGood = mission.Teams[0];
+            Team teamBad = mission.Teams[1];
+            AIAction aIAction = mission.CalculateAIAction(jethro, mission.Teams);
 
             //Assert
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction.ActionType);
@@ -53,15 +56,15 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual("P", mission.Map[1, 0, 1]);
 
             //Act
-            mission.MoveCharacter(sourceCharacter,
-                team2,
-                team1,
+            mission.MoveCharacter(jethro,
+                teamBad,
+                teamGood,
                 aIAction.EndLocation);
-            EncounterResult encounterResult = mission.AttackCharacter(sourceCharacter,
-                sourceCharacter.WeaponEquipped,
-                team1.GetCharacter(sourceCharacter.GetTargetCharacter()),
-                team2,
-                team1);
+            EncounterResult encounterResult = mission.AttackCharacter(jethro,
+                jethro.WeaponEquipped,
+                teamGood.GetCharacter(jethro.GetTargetCharacter()),
+                teamBad,
+                teamGood);
 
             //Assert
             string log = @"
@@ -80,32 +83,40 @@ Jethro is ready to level up
 
             //Act
             List<Character> charactersInView = FieldOfView.GetCharactersInView(mission.Map,
-                   mission.Teams[1].Characters[1].Location,
-                   mission.Teams[1].Characters[1].ShootingRange,
-                   mission.Teams[0].Characters);
+                   bart.Location,
+                   bart.ShootingRange,
+                   teamGood.Characters);
             Assert.AreEqual(0, charactersInView.Count);
-            List<Character> charactersInView2 = FieldOfView.GetCharactersInView(mission.Map,
-                   mission.Teams[1].Characters[0].Location,
-                   mission.Teams[1].Characters[1].ShootingRange,
-                   mission.Teams[0].Characters);
-            Assert.AreEqual(2, charactersInView2.Count);
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
-                mission.Teams[1].Characters[1],
+                bart,
                 mission.Teams,
                 mission.RandomNumbers);
 
             //Assert
             Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
-            //Assert.AreEqual(5, aIAction2.Score);
+            Assert.AreEqual(7, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
             Assert.AreEqual(new Vector3(21, 0, 19), aIAction2.EndLocation);
-            //Assert.AreEqual(mapStringExpected2, mapString2);
-
-            mission.MoveCharacter(mission.Teams[1].Characters[1],
-                mission.Teams[1],
-                mission.Teams[0],
+            
+            mission.MoveCharacter(bart,
+                teamBad,
+                teamGood,
                 aIAction2.EndLocation);
+
+            List<Character> charactersInView2 = FieldOfView.GetCharactersInView(mission.Map,
+                bart.Location,
+                bart.ShootingRange,
+                teamGood.Characters);
+            Assert.AreEqual(1, charactersInView2.Count);
+            Assert.AreEqual("Harry", charactersInView2[0].Name);
+
+            //Move to turn 2 - good guys
+            mission.MoveToNextTurn();
+            //Move to turn 2 - bad guys
+            mission.MoveToNextTurn();
+
+
         }
     }
 }
