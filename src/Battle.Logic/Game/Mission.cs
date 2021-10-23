@@ -223,8 +223,8 @@ namespace Battle.Logic.Game
 
             EncounterResult encounterResult = Encounter.AttackCharacterWithAreaOfEffect(Map,
                 sourceCharacter, equippedWeapon,
-                allCharacters, 
-                RandomNumbers, 
+                allCharacters,
+                RandomNumbers,
                 targetThrowingLocation);
 
             sourceTeam.UpdateTargets(Map, opponentTeam.Characters);

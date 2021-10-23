@@ -22,7 +22,7 @@ namespace Battle.Logic.Game
 
         public int GetNextCharacterIndex()
         {
-            int result = TeamUtility.GetNextCharacter(CurrentCharacterIndex, null, Characters);
+            int result = TeamUtility.GetNextCharacter(CurrentCharacterIndex, Characters);
             if (result >= 0)
             {
                 CurrentCharacterIndex = result;
@@ -36,7 +36,7 @@ namespace Battle.Logic.Game
 
         public int GetPreviousCharacterIndex()
         {
-            int result = TeamUtility.GetPreviousCharacter(CurrentCharacterIndex, null, Characters);
+            int result = TeamUtility.GetPreviousCharacter(CurrentCharacterIndex, Characters);
             if (result >= 0)
             {
                 CurrentCharacterIndex = result;

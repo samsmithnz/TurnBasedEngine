@@ -165,6 +165,10 @@ namespace Battle.Logic.Encounters
                     isCriticalHit = tempResult.IsCriticalHit;
                     isHit = true;
                     log = tempResult.Log;
+                    if (targetCharacter.HitpointsCurrent<=0)
+                    {
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(targetCharacter.Location, 1)); 
+                    }
                 }
                 else
                 {
