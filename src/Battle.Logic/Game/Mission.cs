@@ -193,22 +193,6 @@ namespace Battle.Logic.Game
                 targetedCharacter,
                 RandomNumbers);
 
-            //foreach (KeyValuePair<Vector3, int> item in encounterResult.AffectedMap)
-            //{
-            //    if (Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] == "P" && targetedCharacter.HitpointsCurrent <= 0)
-            //    {
-            //        Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = "";
-            //    }
-            //    else if (Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] == CoverType.FullCover)
-            //    {
-            //        Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = CoverType.HalfCover;
-            //    }
-            //    else if (Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] == CoverType.HalfCover)
-            //    {
-            //        Map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = CoverType.NoCover;
-            //    }
-            //}
-
             sourceTeam.UpdateTargets(Map, opponentTeam.Characters);
             opponentTeam.UpdateTargets(Map, sourceTeam.Characters);
 
