@@ -130,7 +130,7 @@ Jethro is ready to level up
             mission.MoveCharacter(jethro,
                 teamBad,
                 teamGood,
-                aIAction.EndLocation);
+                aIAction3.EndLocation);
             EncounterResult encounterResult3 = mission.AttackCharacter(jethro,
                 jethro.WeaponEquipped,
                 teamGood.GetCharacter(jethro.GetTargetCharacter()),
@@ -185,6 +185,12 @@ Harry is killed
 Bart is ready to level up
 ";
             Assert.AreEqual(log4, encounterResult4.LogString);
+
+
+            //Move to turn 3 - good guys
+            mission.MoveToNextTurn();
+            //Move to turn 3 - bad guys
+            mission.MoveToNextTurn();
         }
     }
 }
