@@ -14,3 +14,12 @@ Currently supports
 - Basic field of view
 - Reactions/ overwatch
 - A very basic AI, that attempts to move, flank and attack a character
+
+Current workflow
+1. Start team turn
+2. Select first player
+3. Player calculates field of view
+4. Player calculates possible movement tiles
+5. Player calculates opponenents in view
+6. Player selects first opponent as their current target
+7.  
