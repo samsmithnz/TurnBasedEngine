@@ -21,5 +21,6 @@ Current workflow
 3. Player calculates field of view
 4. Player calculates possible movement tiles
 5. Player calculates opponenents in view
-6. Player selects first opponent as their current target
-7.  
+6. Player selects first opponent (if in view) as their current target
+7. Camera centers over player
+8. Player decides to move, switch target (if in view), or shoot (if in view) 
