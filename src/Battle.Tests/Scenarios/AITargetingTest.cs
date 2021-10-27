@@ -21,14 +21,14 @@ namespace Battle.Tests.Scenarios
         [TestInitialize]
         public void GameSerializationStartUp()
         {
-            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
         }
 
         [TestMethod]
         public void AITargetingWithPassivePlayerTest()
         {
             //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\Save016.json";
+            string path = _rootPath + "Save016.json";
             string fileContents;
             using (var streamReader = new StreamReader(path))
             {
