@@ -6854,6 +6854,7 @@
           "TotalHits": 0,
           "TotalMisses": 0,
           "TotalDamage": 0,
+          "TargetCharacterIndex": -1,
           "TargetCharacters": [
             "Jethro"
           ]
@@ -14041,6 +14042,7 @@
           "TotalHits": 0,
           "TotalMisses": 0,
           "TotalDamage": 0,
+          "TargetCharacterIndex": -1,
           "TargetCharacters": [
             "Jethro"
           ]
@@ -21123,6 +21125,7 @@
           "TotalHits": 0,
           "TotalMisses": 0,
           "TotalDamage": 0,
+          "TargetCharacterIndex": -1,
           "TargetCharacters": [
             "Jethro"
           ]
@@ -40567,6 +40570,7 @@
           "TotalHits": 0,
           "TotalMisses": 0,
           "TotalDamage": 0,
+          "TargetCharacterIndex": -1,
           "TargetCharacters": [
             "Fred",
             "Harry",
@@ -49621,6 +49625,7 @@
           "TotalHits": 0,
           "TotalMisses": 0,
           "TotalDamage": 0,
+          "TargetCharacterIndex": -1,
           "TargetCharacters": [
           ]
         }

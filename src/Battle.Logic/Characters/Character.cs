@@ -16,6 +16,7 @@ namespace Battle.Logic.Characters
             Effects = new List<Effect>();
             FOVHistory = new HashSet<Vector3>();
             CoverState = new CoverState();
+            TargetCharacterIndex = -1;
         }
 
         public string Name { get; set; }
@@ -119,6 +120,22 @@ namespace Battle.Logic.Characters
             {
                 TargetCharacterIndex = 0;
             }
+
+            //int targetTeamIndex = 0;
+            //if (Mission.CurrentTeamIndex == 0)
+            //{
+            //    targetTeamIndex = 1;
+            //}
+            //CurrentTargetCharacter = null;
+            //if (CurrentCharacter.CharacterLogic.TargetCharacters.Count == 0)
+            //{
+            //    CurrentCharacter.CharacterLogic.TargetCharacterIndex = -1;
+            //}
+            ////Move to the next target character if the first one is not valid
+            //else if (Mission.Teams[targetTeamIndex].GetCharacter(CurrentCharacter.CharacterLogic.TargetCharacterIndex).HitpointsCurrent <= 0)
+            //{
+            //    CurrentCharacter.CharacterLogic.NextTarget();
+            //}
         }
 
         public void PreviousTarget()
