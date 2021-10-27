@@ -81,6 +81,7 @@ Armor prevented 1 damage to character Jeff
 ";
             Assert.AreEqual(log, encounterResult.LogString);
             Assert.AreEqual("P", mission.Map[1, 0, 3]);
+            Assert.AreEqual(2, teamGood.GetCharacterIndex(aIAction.TargetName));
 
             //Act - Turn 1 Bart bad AI
             Assert.AreEqual(-1, bart.TargetCharacterIndex);
@@ -160,6 +161,7 @@ Jeff is killed
 Jethro is ready to level up
 ";
             Assert.AreEqual(log3, encounterResult3.LogString);
+            Assert.AreEqual(2, teamGood.GetCharacterIndex(aIAction3.TargetName));
 
             //Act - Turn 2 Bart bad AI
             Assert.AreEqual(0, bart.TargetCharacterIndex);
@@ -203,6 +205,7 @@ Armor prevented 1 damage to character Harry
             Assert.AreEqual(2, charactersInView4.Count);
             Assert.AreEqual("Fred", charactersInView4[0].Name);
             Assert.AreEqual("Harry", charactersInView4[1].Name);
+            Assert.AreEqual(1, teamGood.GetCharacterIndex(aIAction4.TargetName));
 
             //Move to turn 3 - good guys
             mission.MoveToNextTurn();
