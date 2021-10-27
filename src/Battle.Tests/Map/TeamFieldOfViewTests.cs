@@ -34,7 +34,7 @@ namespace Battle.Tests.Map
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1), 5);
             Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(1, 0, 0),5 );
-            Team team1 = new Team()
+            Team team1 = new Team(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred, harry }
@@ -743,14 +743,14 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
             fred.MobilityRange = 16;
             Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(0, 0, 1));
             harry.MobilityRange = 16;
-            Team team1 = new Team()
+            Team team1 = new Team(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred, harry }
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
-            Team team2 = new Team()
+          Team team2 = new Team(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro }

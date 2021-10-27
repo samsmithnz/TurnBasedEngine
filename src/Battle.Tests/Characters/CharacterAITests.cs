@@ -23,7 +23,7 @@ namespace Battle.Tests.Characters
             };
             mission.Map[20, 0, 20] = CoverType.FullCover;
             mission.Map[18, 0, 18] = CoverType.HalfCover;
-            Team team1 = new Team()
+            Team team1 = new Team(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { },
@@ -32,7 +32,7 @@ namespace Battle.Tests.Characters
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15));
             jethro.ActionPointsCurrent = 2;
-            Team team2 = new Team()
+            Team team2 = new Team(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro },
@@ -42,9 +42,9 @@ namespace Battle.Tests.Characters
 
             //Act            
             //Scenario 1: Failure
-            AIAction actionResult1 = mission.CalculateAIAction(jethro, mission.Teams);
+            AIAction actionResult1 = mission.CalculateAIAction(jethro, team2, team1);
             //Scenario 2: Success
-            AIAction actionResult2 = mission.CalculateAIAction(jethro, mission.Teams);
+            AIAction actionResult2 = mission.CalculateAIAction(jethro, team2, team1);
             string mapString = actionResult2.MapString;
 
             //Assert
@@ -124,7 +124,7 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
-            Team team1 = new Team()
+            Team team1 = new Team(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred }
@@ -132,7 +132,7 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 10));
             jethro.HitpointsCurrent = 5;
-            Team team2 = new Team()
+            Team team2 = new Team(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro }
@@ -142,7 +142,7 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.RandomNumbers.Dequeue();
 
             //Act            
-            AIAction actionResult = mission.CalculateAIAction(jethro, mission.Teams);
+            AIAction actionResult = mission.CalculateAIAction(jethro, team2, team1);
             string mapString = actionResult.MapString;
 
             //Assert         

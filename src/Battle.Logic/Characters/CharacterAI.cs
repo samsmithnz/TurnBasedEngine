@@ -17,7 +17,7 @@ namespace Battle.Logic.Characters
             aiValues = new List<KeyValuePair<Vector3, AIAction>>();
         }
 
-        public AIAction CalculateAIAction(string[,,] map, Character character, List<Team> teams, RandomNumberQueue diceRolls)
+        public AIAction CalculateAIAction(string[,,] map, Character character, Team sourceTeam, Team opponentTeam, RandomNumberQueue diceRolls)
         {
             List<string> log = new List<string>
             {
@@ -28,7 +28,7 @@ namespace Battle.Logic.Characters
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
 
             //2. Assign values to each possible tile
-            aiValues = AssignPointsToEachTile(map, teams, character, movementPossibileTiles);
+            aiValues = AssignPointsToEachTile(map, character, sourceTeam, opponentTeam, movementPossibileTiles);
             if (aiValues.Count == 0)
             {
                 throw new System.Exception("AssignPointsToEachTile returned no results");
@@ -71,28 +71,19 @@ namespace Battle.Logic.Characters
             return aiActionResult;
         }
 
-        private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, List<Team> teams, Character character, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
+        private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, Character sourceCharacter, Team sourceTeam, Team opponentTeam, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
             List<KeyValuePair<Vector3, AIAction>> results = new List<KeyValuePair<Vector3, AIAction>>();
 
             //Preprocess a list of opponent characters and a list of character locations
             List<Character> opponentCharacters = new List<Character>();
             List<Vector3> opponentLocations = new List<Vector3>();
-            Team opponentTeam = new Team();
-            foreach (Team team in teams)
+            foreach (Character item in opponentTeam.Characters)
             {
-                //Exclude the characters team (Assume all other teams are the bad guys)
-                if (!team.Characters.Contains(character))
+                if (item.HitpointsCurrent > 0)
                 {
-                    opponentTeam = team;
-                    foreach (Character item in team.Characters)
-                    {
-                        if (item.HitpointsCurrent > 0)
-                        {
-                            opponentCharacters.Add(item);
-                            opponentLocations.Add(item.Location);
-                        }
-                    }
+                    opponentCharacters.Add(item);
+                    opponentLocations.Add(item.Location);
                 }
             }
 
@@ -119,7 +110,7 @@ namespace Battle.Logic.Characters
 
                 //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
-                fovMap[(int)character.Location.X, (int)character.Location.Y, (int)character.Location.Z] = "";
+                fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = "";
                 fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "P";
 
                 //Cover calculation
@@ -138,7 +129,7 @@ namespace Battle.Logic.Characters
                 }
 
                 //Upgrade positions that would flank opponents
-                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(fovMap, opponentCharacters, location, character.ShootingRange);
+                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(fovMap, opponentCharacters, location, sourceCharacter.ShootingRange);
                 foreach (Character fovCharacter in fovCharacters)
                 {
                     CoverState coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
@@ -173,7 +164,7 @@ namespace Battle.Logic.Characters
                         possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                         {
                             Score = moveScore,
-                            StartLocation = character.Location,
+                            StartLocation = sourceCharacter.Location,
                             EndLocation = location,
                             TargetName = targetName,
                             TargetLocation = targetLocation
@@ -190,7 +181,7 @@ namespace Battle.Logic.Characters
 
                         //Calculate chance to hit
                         //List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
-                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, character.ShootingRange, opponentTeam.Characters);
+                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
                         if (characters.Count == 0)
                         {
                             //No characters in view, record a score of 0 - this move achieves nothing
@@ -198,7 +189,7 @@ namespace Battle.Logic.Characters
                             possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                             {
                                 Score = moveThenShootScore,
-                                StartLocation = character.Location,
+                                StartLocation = sourceCharacter.Location,
                                 EndLocation = location,
                                 TargetName = targetName,
                                 TargetLocation = targetLocation
@@ -208,9 +199,9 @@ namespace Battle.Logic.Characters
                         {
                             foreach (Character opponentCharacter in characters)
                             {
-                                if (character.HitpointsCurrent > 0)
+                                if (sourceCharacter.HitpointsCurrent > 0)
                                 {
-                                    int chanceToHit = EncounterCore.GetChanceToHit(character, character.WeaponEquipped, opponentCharacter);
+                                    int chanceToHit = EncounterCore.GetChanceToHit(sourceCharacter, sourceCharacter.WeaponEquipped, opponentCharacter);
                                     targetName = opponentCharacter.Name;
                                     targetLocation = opponentCharacter.Location;
                                     if (chanceToHit >= 95)
@@ -246,7 +237,7 @@ namespace Battle.Logic.Characters
                                     possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                                     {
                                         Score = moveThenShootScore,
-                                        StartLocation = character.Location,
+                                        StartLocation = sourceCharacter.Location,
                                         EndLocation = location,
                                         TargetName = targetName,
                                         TargetLocation = targetLocation
@@ -270,7 +261,7 @@ namespace Battle.Logic.Characters
                     possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                     {
                         Score = moveLongScore,
-                        StartLocation = character.Location,
+                        StartLocation = sourceCharacter.Location,
                         EndLocation = location
                     });
                 }

@@ -533,14 +533,14 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.Abilities.Add(AbilityPool.PlatformStabilityAbility());
             Weapon rifle = fred.WeaponEquipped;
-            mission.Teams.Add(new Team()
+            mission.Teams.Add(new Team(1)
             {
                 Name = "good",
                 Characters = new List<Character> { fred }
             });
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(8, 0, 8));
             jethro.HitpointsCurrent = 12;
-            mission.Teams.Add(new Team()
+            mission.Teams.Add(new Team(0)
             {
                 Name = "bad",
                 Characters = new List<Character> { jethro }

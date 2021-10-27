@@ -47,7 +47,7 @@ namespace Battle.Tests.Scenarios
             //Act - Turn 1 Jethro bad AI
             Assert.AreEqual(-1, jethro.TargetCharacterIndex);
             jethro.NextTarget();
-            AIAction aIAction = mission.CalculateAIAction(jethro, mission.Teams);
+            AIAction aIAction = mission.CalculateAIAction(jethro, teamBad, teamGood);
 
             //Assert - Turn 1 Jethro bad AI
             Assert.AreEqual(0, jethro.TargetCharacterIndex);
@@ -93,7 +93,8 @@ Armor prevented 1 damage to character Jeff
             CharacterAI ai2 = new CharacterAI();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 bart,
-                mission.Teams,
+                teamBad,
+                teamGood,
                 mission.RandomNumbers);
 
             //Assert - Turn 1 Bart bad AI
@@ -125,7 +126,7 @@ Armor prevented 1 damage to character Jeff
             //Act - Turn 2 Jethro bad AI
             Assert.AreEqual(0, jethro.TargetCharacterIndex);
             jethro.NextTarget();
-            AIAction aIAction3 = mission.CalculateAIAction(jethro, mission.Teams);
+            AIAction aIAction3 = mission.CalculateAIAction(jethro, teamBad, teamGood);
 
             //Assert - Turn 2 Jethro bad AI
             Assert.AreEqual(1, jethro.TargetCharacterIndex);
@@ -163,7 +164,7 @@ Jethro is ready to level up
             //Act - Turn 2 Bart bad AI
             Assert.AreEqual(0, bart.TargetCharacterIndex);
             bart.NextTarget();
-            AIAction aIAction4 = mission.CalculateAIAction(bart, mission.Teams);
+            AIAction aIAction4 = mission.CalculateAIAction(bart, teamBad, teamGood);
 
             //Assert - Turn 2 Bart bad AI
             Assert.AreEqual(0, bart.TargetCharacterIndex);
