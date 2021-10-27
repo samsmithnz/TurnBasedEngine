@@ -17,7 +17,7 @@ namespace Battle.Tests.Items
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -34,7 +34,7 @@ namespace Battle.Tests.Items
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -53,7 +53,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -72,7 +72,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -91,7 +91,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.HitpointsCurrent = 0;
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -110,7 +110,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.HitpointsCurrent = 0;
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -130,7 +130,7 @@ namespace Battle.Tests.Items
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.ActionPointsCurrent = 0;
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -150,7 +150,7 @@ namespace Battle.Tests.Items
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.ActionPointsCurrent = 0;
-            Team team = new Team()
+            Team team = new Team(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };

@@ -7,13 +7,15 @@ namespace Battle.Logic.Game
 {
     public class Team
     {
-        public Team()
+        public Team(int targetTeamIndex)
         {
             Characters = new List<Character>();
+            TargetTeamIndex = targetTeamIndex;
         }
 
         public string Name { get; set; }
         public bool IsAITeam { get; set; }
+        public int TargetTeamIndex { get; set; }
         public int CurrentCharacterIndex { get; set; }
         public List<Character> Characters { get; set; }
         public string Color { get; set; }

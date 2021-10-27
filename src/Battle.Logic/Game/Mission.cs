@@ -236,12 +236,13 @@ namespace Battle.Logic.Game
             return encounterResult;
         }
 
-        public AIAction CalculateAIAction(Character sourceCharacter, List<Team> teams)
+        public AIAction CalculateAIAction(Character sourceCharacter, Team sourceTeam, Team opponentTeam)
         {
             CharacterAI ai = new CharacterAI();
             AIAction action = ai.CalculateAIAction(Map,
                 sourceCharacter,
-                teams,
+                sourceTeam,
+                opponentTeam,
                 RandomNumbers);
             return action;
         }

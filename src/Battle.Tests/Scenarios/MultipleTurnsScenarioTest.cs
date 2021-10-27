@@ -25,7 +25,7 @@ namespace Battle.Tests.Scenarios
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
-            Team team1 = new Team()
+            Team team1 = new Team(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred },
@@ -33,7 +33,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
-            Team team2 = new Team()
+          Team team2 = new Team(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro },

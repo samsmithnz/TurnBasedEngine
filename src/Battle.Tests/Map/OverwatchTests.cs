@@ -23,10 +23,10 @@ namespace Battle.Tests.Map
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            Team team1 = new Team();
+            Team team1 = new Team(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team();
+          Team team2 = new Team(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -64,10 +64,10 @@ Fred is ready to level up
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
             fred.Abilities.Add(AbilityPool.OpportunistAbility());
-            Team team1 = new Team();
+            Team team1 = new Team(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team();
+          Team team2 = new Team(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -104,10 +104,10 @@ Fred is ready to level up
             Vector3 destination = new Vector3(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
             fred.InOverwatch = true;
-            Team team1 = new Team();
+            Team team1 = new Team(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team();
+          Team team2 = new Team(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -147,12 +147,12 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHero(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Team team1 = new Team();
+            Team team1 = new Team(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
             jethro.HitpointsCurrent = 25;
-            Team team2 = new Team();
+          Team team2 = new Team(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -201,11 +201,11 @@ Fred is ready to level up
             fred.InOverwatch = true;
             Character harry = CharacterPool.CreateHarryHero(map, new Vector3(5, 0, 5));
             harry.InOverwatch = true;
-            Team team1 = new Team();
+            Team team1 = new Team(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team();
+          Team team2 = new Team(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
