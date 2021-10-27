@@ -266,32 +266,37 @@ namespace Battle.Logic.Map
                 {
                     team.FOVHistory.Add(item);
                 }
-                for (int y = 0; y < 1; y++)
-                {
-                    for (int x = 0; x < xMax; x++)
-                    {
-                        for (int z = 0; z < zMax; z++)
-                        {
-                            //Set the team FOV map if the character FOV is not set
+                //for (int y = 0; y < 1; y++)
+                //{
+                //    for (int x = 0; x < xMax; x++)
+                //    {
+                //        for (int z = 0; z < zMax; z++)
+                //        {
+                //            //Set the team FOV map if the character FOV is not set
 
-                            //a character can see this tile, update the team tile
-                            if (character.FOVMap[x, y, z] == FOV_CanSee && team.FOVMap[x, y, z] != FOV_CanSee)
-                            {
-                                team.FOVMap[x, y, z] = FOV_CanSee;
-                            }
-                            //If the location has been visible in the past, but not now, set it as cannot see
-                            else if (character.FOVMap[x, y, z] == FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanNotSee)
-                            {
-                                team.FOVMap[x, y, z] = FOV_CanNotSee;
-                            }
-                            else if (character.FOVMap[x, y, z] == FOV_Unknown && team.FOVMap[x, y, z] != FOV_Unknown && team.FOVMap[x, y, z] != FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanSee)
-                            {
-                                //Otherwise it's never been visible and is unknown
-                                team.FOVMap[x, y, z] = FOV_Unknown;
-                            }
-                        }
-                    }
+                //            //a character can see this tile, update the team tile
+                //            if (character.FOVMap[x, y, z] == FOV_CanSee && team.FOVMap[x, y, z] != FOV_CanSee)
+                //            {
+                //                team.FOVMap[x, y, z] = FOV_CanSee;
+                //            }
+                //            ////If the location has been visible in the past, but not now, set it as cannot see
+                //            //else if (character.FOVMap[x, y, z] == FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanNotSee)
+                //            //{
+                //            //    team.FOVMap[x, y, z] = FOV_CanNotSee;
+                //            //}
+                //            else if (character.FOVMap[x, y, z] == FOV_Unknown && team.FOVMap[x, y, z] != FOV_Unknown && team.FOVMap[x, y, z] != FOV_CanSee) // && team.FOVMap[x, y, z] != FOV_CanNotSee
+                //            {
+                //                //Otherwise it's never been visible and is unknown
+                //                team.FOVMap[x, y, z] = FOV_Unknown;
+                //            }
+                //        }
+                //    }
+                //}
+                foreach (Vector3 item in team.FOVHistory)
+                {
+                    team.FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_CanSee;
                 }
+                
             }
             return team;
         }
