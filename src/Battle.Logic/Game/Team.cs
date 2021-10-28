@@ -64,6 +64,20 @@ namespace Battle.Logic.Game
             return result;
         }
 
+        public int GetCharacterIndex(string name)
+        {
+            int result = -1;
+            for (int i = 0; i < Characters.Count; i++)
+            {
+                if (Characters[i].Name == name)
+                {
+                    result = i;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public Character GetCharacter(int index)
         {
             Character result = null;

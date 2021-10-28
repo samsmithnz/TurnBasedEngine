@@ -16,14 +16,14 @@ namespace Battle.Tests.SaveGames
         [TestInitialize]
         public void GameSerializationStartUp()
         {
-            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
         }
 
         [TestMethod]
         public void SaveGamesExist()
         {
             //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\";
+            string path = _rootPath ;
 
             //Act
 
@@ -36,7 +36,7 @@ namespace Battle.Tests.SaveGames
         public void LoadGameTest()
         {
             //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\";
+            string path = _rootPath;
             Mission mission = null;
 
             //Act
@@ -62,7 +62,7 @@ namespace Battle.Tests.SaveGames
         {
             //Arrange
             Mission mission = new Mission();
-            string path = _rootPath + @"\SaveGames\Saves\";
+            string path = _rootPath;
 
             //Act
             string json = GameSerialization.SaveGame(mission);

@@ -81,6 +81,10 @@ namespace Battle.Logic.Characters
                 {
                     TargetCharacters.Add(item.Name);
                 }
+                if (targetCharacters.Count > 0)
+                {
+                    TargetCharacterIndex = 0;
+                }
             }
         }
         public int MobilityRange { get; set; }
@@ -116,7 +120,7 @@ namespace Battle.Logic.Characters
         public void NextTarget()
         {
             TargetCharacterIndex++;
-            if (TargetCharacterIndex >= TargetCharacters.Count - 1)
+            if (TargetCharacterIndex > TargetCharacters.Count - 1)
             {
                 TargetCharacterIndex = 0;
             }
@@ -138,14 +142,14 @@ namespace Battle.Logic.Characters
             //}
         }
 
-        public void PreviousTarget()
-        {
-            TargetCharacterIndex--;
-            if (TargetCharacterIndex < 0)
-            {
-                TargetCharacterIndex = TargetCharacters.Count - 1;
-            }
-        }
+        //public void PreviousTarget()
+        //{
+        //    TargetCharacterIndex--;
+        //    if (TargetCharacterIndex < 0)
+        //    {
+        //        TargetCharacterIndex = TargetCharacters.Count - 1;
+        //    }
+        //}
 
         public void ProcessEffects(int currentTurn)
         {

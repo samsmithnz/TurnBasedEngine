@@ -33,7 +33,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
-          Team team2 = new Team(0)
+            Team team2 = new Team(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro },

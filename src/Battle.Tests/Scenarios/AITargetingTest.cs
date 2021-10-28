@@ -21,14 +21,14 @@ namespace Battle.Tests.Scenarios
         [TestInitialize]
         public void GameSerializationStartUp()
         {
-            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
         }
 
         [TestMethod]
         public void AITargetingWithPassivePlayerTest()
         {
             //Arrange
-            string path = _rootPath + @"\SaveGames\Saves\Save016.json";
+            string path = _rootPath + "Save016.json";
             string fileContents;
             using (var streamReader = new StreamReader(path))
             {
@@ -45,8 +45,7 @@ namespace Battle.Tests.Scenarios
             Team teamBad = mission.Teams[1];
 
             //Act - Turn 1 Jethro bad AI
-            Assert.AreEqual(-1, jethro.TargetCharacterIndex);
-            jethro.NextTarget();
+            Assert.AreEqual(0, jethro.TargetCharacterIndex);
             AIAction aIAction = mission.CalculateAIAction(jethro, teamBad, teamGood);
 
             //Assert - Turn 1 Jethro bad AI
@@ -81,10 +80,11 @@ Armor prevented 1 damage to character Jeff
 ";
             Assert.AreEqual(log, encounterResult.LogString);
             Assert.AreEqual("P", mission.Map[1, 0, 3]);
+            Assert.AreEqual(2, teamGood.GetCharacterIndex(aIAction.TargetName));
 
             //Act - Turn 1 Bart bad AI
+            Assert.AreEqual(0, bart.TargetCharacters.Count);
             Assert.AreEqual(-1, bart.TargetCharacterIndex);
-            bart.NextTarget();
             List<Character> charactersInView = FieldOfView.GetCharactersInView(mission.Map,
                    bart.Location,
                    bart.ShootingRange,
@@ -98,7 +98,8 @@ Armor prevented 1 damage to character Jeff
                 mission.RandomNumbers);
 
             //Assert - Turn 1 Bart bad AI
-            Assert.AreEqual(0, bart.TargetCharacterIndex);
+            Assert.AreEqual(0, bart.TargetCharacters.Count);
+            Assert.AreEqual(-1, bart.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
             Assert.AreEqual(7, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
@@ -115,6 +116,8 @@ Armor prevented 1 damage to character Jeff
                 teamGood.Characters);
 
             //Assert - Turn 1 Bart bad action
+            Assert.AreEqual(2, bart.TargetCharacters.Count);
+            Assert.AreEqual(0, bart.TargetCharacterIndex);
             Assert.AreEqual(2, charactersInView2.Count);
             Assert.AreEqual("Fred", charactersInView2[0].Name);
 
@@ -125,11 +128,10 @@ Armor prevented 1 damage to character Jeff
 
             //Act - Turn 2 Jethro bad AI
             Assert.AreEqual(0, jethro.TargetCharacterIndex);
-            jethro.NextTarget();
             AIAction aIAction3 = mission.CalculateAIAction(jethro, teamBad, teamGood);
 
             //Assert - Turn 2 Jethro bad AI
-            Assert.AreEqual(1, jethro.TargetCharacterIndex);
+            Assert.AreEqual(0, jethro.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction3.ActionType);
             Assert.AreEqual(13, aIAction3.Score);
             Assert.AreEqual(new Vector3(24, 0, 17), aIAction3.StartLocation);
@@ -160,10 +162,10 @@ Jeff is killed
 Jethro is ready to level up
 ";
             Assert.AreEqual(log3, encounterResult3.LogString);
+            Assert.AreEqual(2, teamGood.GetCharacterIndex(aIAction3.TargetName));
 
             //Act - Turn 2 Bart bad AI
             Assert.AreEqual(0, bart.TargetCharacterIndex);
-            bart.NextTarget();
             AIAction aIAction4 = mission.CalculateAIAction(bart, teamBad, teamGood);
 
             //Assert - Turn 2 Bart bad AI
@@ -203,6 +205,7 @@ Armor prevented 1 damage to character Harry
             Assert.AreEqual(2, charactersInView4.Count);
             Assert.AreEqual("Fred", charactersInView4[0].Name);
             Assert.AreEqual("Harry", charactersInView4[1].Name);
+            Assert.AreEqual(1, teamGood.GetCharacterIndex(aIAction4.TargetName));
 
             //Move to turn 3 - good guys
             mission.MoveToNextTurn();
