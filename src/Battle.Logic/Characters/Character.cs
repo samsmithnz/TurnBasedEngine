@@ -241,7 +241,8 @@ namespace Battle.Logic.Characters
                 FOVHistory.Add(item);
                 FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanSee;
             }
-                      
+            FOVMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
+
             //foreach (Vector3 item in fov)
             //{
             //    FOVHistory.Add(item);
