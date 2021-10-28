@@ -119,8 +119,8 @@ namespace Battle.Tests.Scenarios
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. P . . . ■ ░ ░ ░ ░ 
-. . . . . . . . ░ ░ 
+. P . . . ■ . . . . 
+. . . . . . . . . . 
 . . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
@@ -135,9 +135,9 @@ namespace Battle.Tests.Scenarios
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ ░ ░ ░ 
-. . . . . . . ░ ░ ░ 
-. . . . . . . . . ░ 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }
@@ -151,57 +151,57 @@ namespace Battle.Tests.Scenarios
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ ░ ░ ░ 
-. . . . . . . ░ ░ ░ 
-. . . . . . . . ░ ░ 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }
                 else if (i == 3)
                 {
                     string expectedMovement = @"
-. . . . . ■ ▓ ░ . . 
+. . . . . ■ ▓ . . . 
 . . . . . ■ . . . ▓ 
 . . . . . □ . ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ ░ ░ ░ 
-. . . . . . ░ ░ ░ ░ 
-. . . . . . . ░ ░ ░ 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }
                 else if (i == 4)
                 {
                     string expectedMovement = @"
-. . . . . ■ ▓ ░ . . 
+. . . . . ■ ▓ . . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ ░ ░ ░ 
-. . . . . . ░ ░ ░ ░ 
-. . . . . . . ░ ░ ░ 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }
                 else if (i == 5)
                 {
                     string expectedMovement = @"
-. . . . . ■ ▓ ░ . . 
+. . . . . ■ ▓ . . . 
 . . . . . ■ . . . . 
 . . . . . □ . . ▓ ▓ 
 . P . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
 . . . . . ■ ▓ ▓ ▓ ▓ 
-. . . . . ■ ░ ░ ░ ░ 
-. . . . . . ░ ░ ░ ░ 
-. . . . . . . ░ ░ ░ 
+. . . . . ■ . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
 ";
                     Assert.AreEqual(expectedMovement, movementResults[i].FOVMapString);
                 }

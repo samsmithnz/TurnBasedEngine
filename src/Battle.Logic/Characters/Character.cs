@@ -243,34 +243,41 @@ namespace Battle.Logic.Characters
             foreach (Vector3 item in fov)
             {
                 FOVHistory.Add(item);
+                FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanSee;
             }
-            string[,,] inverseMap = MapCore.InitializeMap(xMax, yMax, zMax);
-            //Set the player position to visible
-            inverseMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
-            //Set the map to all of the visible positions
-            foreach (Vector3 item in fov)
-            {
-                inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanNotSee;
-            }
-            //Now that we have the inverse map, reverse it to show areas that are not visible
-            for (int y = 0; y < 1; y++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    for (int z = 0; z < zMax; z++)
-                    {
-                        if (inverseMap[x, y, z] != "")
-                        {
-                            FOVMap[x, y, z] = FieldOfView.FOV_CanSee;
-                        }
-                        else if (FOVHistory.Contains(new Vector3(x, y, z)))
-                        {
-                            FOVMap[x, y, z] = FieldOfView.FOV_CanNotSee;
-                        }
-                    }
+            FOVMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
 
-                }
-            }
+            //foreach (Vector3 item in fov)
+            //{
+            //    FOVHistory.Add(item);
+            //}
+            //string[,,] inverseMap = MapCore.InitializeMap(xMax, yMax, zMax);
+            ////Set the player position to visible
+            //inverseMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
+            //////Set the map to all of the visible positions
+            ////foreach (Vector3 item in fov)
+            ////{
+            ////    inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanNotSee;
+            ////}
+            ////Now that we have the inverse map, reverse it to show areas that are not visible
+            //for (int y = 0; y < 1; y++)
+            //{
+            //    for (int x = 0; x < xMax; x++)
+            //    {
+            //        for (int z = 0; z < zMax; z++)
+            //        {
+            //            if (inverseMap[x, y, z] != "")
+            //            {
+            //                FOVMap[x, y, z] = FieldOfView.FOV_CanSee;
+            //            }
+            //            //else if (FOVHistory.Contains(new Vector3(x, y, z)))
+            //            //{
+            //            //    FOVMap[x, y, z] = FieldOfView.FOV_CanNotSee;
+            //            //}
+            //        }
+
+            //    }
+            //}
         }
 
         public bool LevelUpCharacter()
