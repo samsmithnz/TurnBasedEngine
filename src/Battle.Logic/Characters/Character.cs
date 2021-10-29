@@ -115,7 +115,14 @@ namespace Battle.Logic.Characters
         public List<string> TargetCharacters { get; set; }
         public string GetTargetCharacter()
         {
-            return TargetCharacters[TargetCharacterIndex];
+            if (TargetCharacterIndex >= 0)
+            {
+                return TargetCharacters[TargetCharacterIndex];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void NextTarget()
