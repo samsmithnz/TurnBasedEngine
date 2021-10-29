@@ -1,110 +1,54 @@
-﻿//using Battle.Logic.Characters;
-//using Battle.Logic.Encounters;
-//using Battle.Logic.Game;
-//using Battle.Logic.Map;
-//using Battle.Logic.SaveGames;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using System.IO;
-//using System.Numerics;
-//using System.Reflection;
+﻿using Battle.Logic.Characters;
+using Battle.Logic.Encounters;
+using Battle.Logic.Game;
+using Battle.Logic.Map;
+using Battle.Logic.SaveGames;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.IO;
+using System.Numerics;
+using System.Reflection;
 
-//namespace Battle.Tests.Scenarios
-//{
-//    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-//    [TestClass]
-//    [TestCategory("L2")]
-//    public class AINoTargetCrashTest
-//    {
-//        private string _rootPath;
+namespace Battle.Tests.Scenarios
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestClass]
+    [TestCategory("L2")]
+    public class AINoTargetCrashTest
+    {
+        private string _rootPath;
 
-//        [TestInitialize]
-//        public void GameSerializationStartUp()
-//        {
-//            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-//        }
+        [TestInitialize]
+        public void GameSerializationStartUp()
+        {
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
+        }
 
-//        [TestMethod]
-//        public void AICoverStateCrashTest()
-//        {
-//            //Arrange
-//            string path = _rootPath + @"\SaveGames\Saves\Save008.json";
+        [TestMethod]
+        public void PlayerAimingCrashTest()
+        {
+            //Arrange
+            string path = _rootPath + @"Save017.json";
 
-//            //Act
-//            string fileContents;
-//            using (var streamReader = new StreamReader(path))
-//            {
-//                fileContents = streamReader.ReadToEnd();
-//            }
-//            Mission mission = GameSerialization.LoadGame(fileContents);
-//            mission.StartMission();
+            //Act
+            string fileContents;
+            using (var streamReader = new StreamReader(path))
+            {
+                fileContents = streamReader.ReadToEnd();
+            }
+            Mission mission = GameSerialization.LoadGame(fileContents);
+            mission.StartMission();
+            Character fred = mission.Teams[0].GetCharacter("Fred");
+            Character enemy1 = mission.Teams[1].Characters[0];
+            Character enemy2 = mission.Teams[1].Characters[1];
+            Team team1 = mission.Teams[0];
+            Team team2 = mission.Teams[1];
 
-//            //Character player1 = mission.Teams[0].Characters[0];
-//            Character enemy1 = mission.Teams[1].Characters[0];
-//            Character enemy2 = mission.Teams[1].Characters[1];
-//            Team team1 = mission.Teams[0];
-//            Team team2 = mission.Teams[1];
-
-//            //Move to enemy turn
-//            mission.MoveToNextTurn();
-
-//            //process AI for character 1
-//            CharacterAI ai = new CharacterAI();
-//            AIAction aIAction = ai.CalculateAIAction(mission.Map,
-//                enemy1,
-//                mission.Teams,
-//                mission.RandomNumbers);
-//            string mapString = aIAction.MapString;
-//            string mapStringExpected = @"
-//. . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
-//. . . . . . . . . . . . . . . . . . . . ■ . . . ■ . . . . . . . . . . . . . . . . . . ■ . . . . □ . 
-//. . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . 
-//. . . . . . . . . . ■ . . . . . . . . ■ . . . . . . . . . □ ■ . . . . . . . . . . . . . . . . . . . 
-//. . . ■ . . ■ . . . □ . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-//. . . . □ . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . ■ . . . . . . 
-//. . . . . □ . . . . . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . □ . . . . . . □ . 
-//. . . . ■ . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . □ . . . 
-//. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . ■ . . □ . . . . . . . . . . . 
-//. . . . . . . . . . . . . . . . . . . . . . □ . . . . □ . . □ . . . . . . . . . ■ . . . . . . . . . 
-//. . . . . . . . . . . □ . . . . □ . . . . . . . . . . . . . . . . . . . . □ . . . . . . ■ . . . . . 
-//. . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . ■ . . . . . . . . . . . 
-//. . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . 
-//. . . . . . . . . . . . . . . . . . . 1 ■ . . . ■ . . . . . . ■ . . . ■ . . . . . . . . . . . . . . 
-//. . . . . . ■ . . . . . . ■ . . . 1 1 0 0 0 . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
-//. □ . . . . . . . . . . . . . 1 1 1 0 0 1 1 0 0 . . . . . . ■ . . . . . . . . . . . ■ . . ■ . . . . 
-//. . . . . . . . . . . . 1 1 1 1 1 0 0 0 □ 1 0 0 2 ■ P □ . . . . . . . . . . . . . . . . . . . . . . 
-//. . . . . . . . ■ . 0 2 1 1 1 1 1 0 0 1 □ 1 0 0 □ 4 1 1 1 . □ . . . . . . . . ■ . □ . . . . . . . . 
-//. . . . □ . □ . . 0 0 ■ 3 1 1 1 0 0 1 0 0 0 0 1 1 0 0 1 1 1 1 . . . . . . . . . . ■ . . . . . . . . 
-//. . . . . . . . 0 0 1 3 3 1 1 0 0 0 □ 1 0 0 1 1 1 3 1 0 0 1 3 . . . . . . . . . . . . . . . . . □ . 
-//. . . . . . . 0 0 0 4 3 3 1 0 1 1 0 0 0 0 1 1 0 □ □ 1 0 0 1 □ 3 . . . . . . . . . . . . . . . ■ . . 
-//□ . . . . . . 0 0 0 ■ 3 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 0 ■ 2 0 □ . ■ . . . ■ . . . ■ . . . . . . ■ . 
-//. . . . . . 1 0 0 0 1 3 1 0 1 1 1 1 6 1 0 1 1 0 0 0 0 0 0 0 0 2 1 . . . . . . . □ . . □ . . . . . . 
-//. . . . . . 1 0 0 0 3 1 0 2 3 2 1 3 ■ 4 1 2 2 0 0 1 1 0 0 0 0 ■ 4 . ■ . . . □ . □ . . . . . . . . . 
-//. . . . . . . 1 0 2 3 0 2 ■ 2 1 3 1 3 1 3 3 6 0 0 1 □ 1 0 0 2 4 1 . . . . . . . . . . . . . . . . . 
-//. . . . . 1 0 □ 2 ■ 1 0 □ 2 6 1 6 0 2 2 3 6 ■ 6 1 0 0 1 0 0 ■ ■ 2 1 . . . □ . . . . . . . . . . ■ . 
-//. . . . . 1 0 0 0 ■ 0 0 0 2 ■ 3 ■ 4 2 3 3 ■ 4 3 5 0 0 □ 1 0 0 0 ■ 2 . . . . . □ . . . □ . . . . . . 
-//□ . . . □ 1 0 0 0 0 0 0 2 2 3 3 2 2 3 3 3 3 3 5 1 0 0 0 0 0 0 1 0 0 0 . . . . . . . . . ■ . . . . . 
-//. . . . 0 0 0 0 0 0 0 0 2 3 1 2 2 3 5 3 5 3 5 3 2 2 2 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . 
-//■ . . 1 1 0 0 0 0 0 0 2 2 3 2 3 3 5 3 P □ 7 3 2 2 2 3 0 0 0 0 0 1 0 0 . . . . . . . . . . . . . . . 
-//. ■ . . 1 0 0 0 0 0 0 0 3 2 2 □ 5 3 3 3 5 1 3 2 3 3 3 0 0 0 0 0 □ 1 . . . . . . . . . . . . . . . . 
-//■ . . . 1 0 0 0 0 0 0 0 1 3 3 5 3 3 3 3 1 3 2 3 5 1 1 1 0 0 0 0 0 1 0 . . . . . . □ . . □ . . . . . 
-//. . . . . 0 0 0 0 0 0 3 3 3 5 3 3 3 3 3 3 2 3 3 □ 3 4 3 1 0 0 0 0 □ . . . . . . . . . . . □ . . . . 
-//. . . . . 0 0 0 0 1 3 1 □ 5 5 3 6 3 3 3 5 3 0 0 0 1 ■ 2 0 0 0 0 0 ■ . . . ■ . . . . □ . . . . . . . 
-//. . . . . . 0 1 1 1 3 1 3 3 3 3 ■ 4 1 3 3 1 1 3 3 0 0 □ 1 0 0 0 4 . . . . . . . . . . . □ ■ . . . . 
-//. . . . . □ 0 1 1 3 1 1 3 1 1 3 3 3 5 3 1 3 3 2 0 0 0 0 0 0 1 0 ■ . . . . . . . . . . . . . □ ■ . . 
-//. . P ■ . . 0 0 1 □ 1 3 □ 1 1 □ 3 5 3 1 3 2 0 0 0 0 0 0 0 ■ 2 □ 0 . . . . . . . . . . . . . . . . . 
-//. . . . . . . 0 1 1 3 1 1 1 1 3 3 3 3 2 0 0 0 0 0 0 0 0 □ 0 0 1 . . . . □ . . . . . □ . . . . . . . 
-//. . . . . . . ■ 2 3 1 1 1 1 3 3 3 1 0 0 0 0 0 0 0 0 0 0 0 0 ■ 4 □ . . . . . . . ■ . □ . . . . . . . 
-//. . . . □ □ . . ■ 0 1 1 1 3 3 3 1 1 0 0 0 0 0 0 0 0 0 1 3 3 1 . . . . . . . . ■ . . . . . . □ . . . 
-//. . . . . . . . . 0 0 3 3 3 1 1 1 0 0 0 0 0 0 0 1 1 3 1 1 1 1 . . . . . . . . . . . . □ . . . . . . 
-//. . . □ . □ . . . □ 2 ■ 4 1 1 1 1 0 0 0 0 1 1 1 ■ □ 3 1 1 . . . . . . . . . . . . . . . . . . . . . 
-//. . . . . . . . □ . . . □ 1 1 1 0 0 1 1 1 1 1 1 1 . □ . . . . . . . . . . . . . . . . . . . . . . . 
-//. . . □ . □ . ■ . . . . . . . 3 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . □ . 
-//. . . . . . . . . . . . . . . . . 1 1 1 1 1 . . . . . . . . . . . ■ . □ . . . ■ . . . . . . . . . . 
-//. . . . . . . . . ■ ■ . . . ■ . . . . 1 . . . . . . ■ . . . . . □ . . . . . . . . ■ . . . . . ■ . . 
-//. . . . . . . . . . . . . . P . . . . . . . . . . . ■ . . . . . . . . . . . . . . . . . . . . . . . 
-//. P . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . □ . 
-//. . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . □ . . . . . . . . . . . . . . . . ■ . 
-//";
+            //process targeting for fred
+            Assert.AreEqual(1, fred.TargetCharacters.Count);
+            Assert.AreEqual(0, fred.TargetCharacterIndex);
+            Assert.AreEqual(-17, enemy1.HitpointsCurrent);
+            
 
 //            //Assert
 //            Assert.IsTrue(aIAction.IntelligenceCheckSuccessful == false);
@@ -129,10 +73,10 @@
 //            //process AI for character 2
 //            CharacterAI ai2 = new CharacterAI();
 //            mission.RandomNumbers.Dequeue(); //Remove the 20 roll
-//           AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
-//                enemy2,
-//                mission.Teams,
-//                mission.RandomNumbers);
+//            AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
+//                 enemy2,
+//                 mission.Teams,
+//                 mission.RandomNumbers);
 //            string mapString2 = aIAction2.MapString;
 //            string mapStringExpected2 = @"
 //. . . . . . . . . . . □ . . ■ . . □ . . . . . . . . □ . . . . . ■ . . . . . . . . . ■ . . . ■ . . . 
@@ -193,6 +137,6 @@
 //            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
 //            Assert.AreEqual(new Vector3(23, 0, 23), aIAction2.EndLocation);
 //            Assert.AreEqual(mapStringExpected2, mapString2);
-//        }
-//    }
-//}
+        }
+    }
+}

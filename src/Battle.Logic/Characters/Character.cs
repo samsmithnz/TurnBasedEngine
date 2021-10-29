@@ -16,6 +16,7 @@ namespace Battle.Logic.Characters
             Effects = new List<Effect>();
             FOVHistory = new HashSet<Vector3>();
             CoverState = new CoverState();
+            TargetCharacters = new List<string>();
             TargetCharacterIndex = -1;
         }
 
@@ -185,7 +186,10 @@ namespace Battle.Logic.Characters
             {
                 if (WeaponEquipped.AmmoCurrent > 0)
                 {
-                    options.Add(new CharacterAction() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
+                    if (TargetCharacters.Count > 0)
+                    {
+                        options.Add(new CharacterAction() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
+                    }
                     options.Add(new CharacterAction() { Name = "_overwatch", Caption = "Overwatch", KeyBinding = "2" });
                 }
                 else
@@ -200,7 +204,10 @@ namespace Battle.Logic.Characters
                 {
                     options.Add(new CharacterAction() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
-                options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
+                if (CoverState.InFullCover || CoverState.InHalfCover)
+                {
+                    options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
+                }
             }
 
             return options;
