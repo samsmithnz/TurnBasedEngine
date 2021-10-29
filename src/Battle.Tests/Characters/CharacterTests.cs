@@ -86,8 +86,8 @@ namespace Battle.Tests.Characters
             Assert.AreEqual(2, character.Effects[0].TurnExpiration);
 
             Assert.IsTrue(actions != null);
-            Assert.AreEqual(5, actions.Count);
-            Assert.AreEqual("1", actions[0].KeyBinding);
+            Assert.AreEqual(3, actions.Count);
+            Assert.AreEqual("2", actions[0].KeyBinding);
         }
 
         private static void TestJethro(Character character)
