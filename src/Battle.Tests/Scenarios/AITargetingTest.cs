@@ -171,9 +171,9 @@ Jethro is ready to level up
             //Assert - Turn 2 Bart bad AI
             Assert.AreEqual(0, bart.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction4.ActionType);
-            Assert.AreEqual(9, aIAction4.Score);
-            Assert.AreEqual(new Vector3(21, 0, 19), aIAction4.StartLocation);
-            Assert.AreEqual(new Vector3(20, 0, 20), aIAction4.EndLocation);
+            Assert.AreEqual(20, aIAction4.Score);
+            Assert.AreEqual(new Vector3(21, 0, 23), aIAction4.StartLocation);
+            Assert.AreEqual(new Vector3(14, 0, 23), aIAction4.EndLocation);
 
             //Act - Turn 2 Bart bad action
             mission.MoveCharacter(bart,
