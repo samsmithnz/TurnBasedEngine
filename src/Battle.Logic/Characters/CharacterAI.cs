@@ -93,6 +93,10 @@ namespace Battle.Logic.Characters
                 List<AIAction> possibleOptions = new List<AIAction>();
                 KeyValuePair<Vector3, int> item = movementPossibileTiles[i];
                 Vector3 location = item.Key;
+                //if (location == new Vector3(15, 0, 8))
+                //{
+                //    int jk = 0;
+                //}
                 string targetName = "";
                 Vector3 targetLocation = Vector3.Zero;
                 int baseScore = 0;
@@ -188,8 +192,12 @@ namespace Battle.Logic.Characters
                         List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
                         if (characters.Count == 0)
                         {
-                            //No characters in view, record a score of 0 - this move achieves nothing
-                            moveThenShootScore = 0;
+                            //No characters in view, deduct some more points - this move achieves very little
+                            moveThenShootScore -= 2;
+                            if (moveThenShootScore < 0)
+                            {
+                                moveThenShootScore = 0;
+                            }
                             possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                             {
                                 Score = moveThenShootScore,
