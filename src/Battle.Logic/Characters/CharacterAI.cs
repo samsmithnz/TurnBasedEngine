@@ -93,10 +93,6 @@ namespace Battle.Logic.Characters
                 List<AIAction> possibleOptions = new List<AIAction>();
                 KeyValuePair<Vector3, int> item = movementPossibileTiles[i];
                 Vector3 location = item.Key;
-                //if (location == new Vector3(15, 0, 8))
-                //{
-                //    int jk = 0;
-                //}
                 string targetName = "";
                 Vector3 targetLocation = Vector3.Zero;
                 int baseScore = 0;
@@ -106,11 +102,6 @@ namespace Battle.Logic.Characters
                 //int moveWithAllActionPointsbaseScore = 0;
                 //int moveThenHunkerScore = 0;
                 //int shootFromCurrentLocationScore = 0;
-
-                //if (location == new Vector3(5, 0, 4))
-                //{
-                //    int j = 123;
-                //}
 
                 //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
@@ -173,19 +164,11 @@ namespace Battle.Logic.Characters
                             TargetName = targetName,
                             TargetLocation = targetLocation
                         });
-                        //if (moveScore == 5)
-                        //{
-                        //    int g = 1;
-                        //}
+
                     }
                     else
                     {
                         moveThenShootScore = baseScore;
-
-                        //if (location == new Vector3(15,0,5))
-                        //{
-                        //    int hj = 234;
-                        //}
 
                         //Calculate chance to hit
                         //List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
@@ -258,10 +241,6 @@ namespace Battle.Logic.Characters
                                         TargetName = targetName,
                                         TargetLocation = targetLocation
                                     });
-                                    //if (moveThenShootScore == 5)
-                                    //{
-                                    //    int g = 1;
-                                    //}
                                 }
                             }
                         }
@@ -284,10 +263,6 @@ namespace Battle.Logic.Characters
                         StartLocation = sourceCharacter.Location,
                         EndLocation = location
                     });
-                    //if (moveLongScore == 5)
-                    //{
-                    //    int g = 1;
-                    //}
                 }
 
                 //Order the final options
