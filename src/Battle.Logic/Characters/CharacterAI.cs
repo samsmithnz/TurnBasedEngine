@@ -117,15 +117,15 @@ namespace Battle.Logic.Characters
                 CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
-                    baseScore -= 1;
+                    baseScore -= 5;
                 }
                 else if (coverStateResult.InFullCover)
                 {
-                    baseScore += 2;
+                    baseScore += 8;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    baseScore += 1;
+                    baseScore += 4;
                 }
 
                 //Upgrade positions that would flank opponents
@@ -136,7 +136,7 @@ namespace Battle.Logic.Characters
                     if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
-                        baseScore += 2;
+                        baseScore += 5;
                     }
 
                     //Do a reverse FOV from the perspective of the character
@@ -169,6 +169,10 @@ namespace Battle.Logic.Characters
                             TargetName = targetName,
                             TargetLocation = targetLocation
                         });
+                        //if (moveScore == 5)
+                        //{
+                        //    int g = 1;
+                        //}
                     }
                     else
                     {
@@ -194,6 +198,10 @@ namespace Battle.Logic.Characters
                                 TargetName = targetName,
                                 TargetLocation = targetLocation
                             });
+                            //if (moveThenShootScore == 5)
+                            //{
+                            //    int g = 1;
+                            //}
                         }
                         else
                         {
@@ -242,6 +250,10 @@ namespace Battle.Logic.Characters
                                         TargetName = targetName,
                                         TargetLocation = targetLocation
                                     });
+                                    //if (moveThenShootScore == 5)
+                                    //{
+                                    //    int g = 1;
+                                    //}
                                 }
                             }
                         }
@@ -264,6 +276,10 @@ namespace Battle.Logic.Characters
                         StartLocation = sourceCharacter.Location,
                         EndLocation = location
                     });
+                    //if (moveLongScore == 5)
+                    //{
+                    //    int g = 1;
+                    //}
                 }
 
                 //Order the final options
