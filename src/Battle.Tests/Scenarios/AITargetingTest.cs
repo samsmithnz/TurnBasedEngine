@@ -51,9 +51,9 @@ namespace Battle.Tests.Scenarios
             //Assert - Turn 1 Jethro bad AI
             Assert.AreEqual(0, jethro.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction.ActionType);
-            Assert.AreEqual(14, aIAction.Score);
+            Assert.AreEqual(28, aIAction.Score);
             Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
-            Assert.AreEqual(new Vector3(24, 0, 17), aIAction.EndLocation);
+            Assert.AreEqual(new Vector3(14, 0, 24), aIAction.EndLocation);
             Assert.AreEqual("P", mission.Map[1, 0, 1]);
 
             //Act - Turn 1 Jethro bad action
@@ -101,9 +101,9 @@ Armor prevented 1 damage to character Jeff
             Assert.AreEqual(0, bart.TargetCharacters.Count);
             Assert.AreEqual(-1, bart.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
-            Assert.AreEqual(7, aIAction2.Score);
+            Assert.AreEqual(21, aIAction2.Score);
             Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
-            Assert.AreEqual(new Vector3(21, 0, 19), aIAction2.EndLocation);
+            Assert.AreEqual(new Vector3(21, 0, 23), aIAction2.EndLocation);
 
             //Act - Turn 1 Bart bad action
             mission.MoveCharacter(bart,
@@ -116,9 +116,9 @@ Armor prevented 1 damage to character Jeff
                 teamGood.Characters);
 
             //Assert - Turn 1 Bart bad action
-            Assert.AreEqual(2, bart.TargetCharacters.Count);
+            Assert.AreEqual(3, bart.TargetCharacters.Count);
             Assert.AreEqual(0, bart.TargetCharacterIndex);
-            Assert.AreEqual(2, charactersInView2.Count);
+            Assert.AreEqual(3, charactersInView2.Count);
             Assert.AreEqual("Fred", charactersInView2[0].Name);
 
             //Move to turn 2 - good guys
@@ -133,9 +133,9 @@ Armor prevented 1 damage to character Jeff
             //Assert - Turn 2 Jethro bad AI
             Assert.AreEqual(0, jethro.TargetCharacterIndex);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction3.ActionType);
-            Assert.AreEqual(13, aIAction3.Score);
-            Assert.AreEqual(new Vector3(24, 0, 17), aIAction3.StartLocation);
-            Assert.AreEqual(new Vector3(21, 0, 23), aIAction3.EndLocation);
+            Assert.AreEqual(28, aIAction3.Score);
+            Assert.AreEqual(new Vector3(14, 0, 24), aIAction3.StartLocation);
+            Assert.AreEqual(new Vector3(13, 0, 23), aIAction3.EndLocation);
 
             //Act - Turn 2 Jethro bad action
             mission.MoveCharacter(jethro,
