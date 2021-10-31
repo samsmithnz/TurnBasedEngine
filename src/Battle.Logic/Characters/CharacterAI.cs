@@ -103,11 +103,6 @@ namespace Battle.Logic.Characters
                 //int moveThenHunkerScore = 0;
                 //int shootFromCurrentLocationScore = 0;
 
-                //if (location == new Vector3(5, 0, 4))
-                //{
-                //    int j = 123;
-                //}
-
                 //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
                 fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = "";
@@ -117,15 +112,15 @@ namespace Battle.Logic.Characters
                 CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
-                    baseScore -= 1;
+                    baseScore -= 5;
                 }
                 else if (coverStateResult.InFullCover)
                 {
-                    baseScore += 2;
+                    baseScore += 8;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    baseScore += 1;
+                    baseScore += 4;
                 }
 
                 //Upgrade positions that would flank opponents
@@ -136,7 +131,7 @@ namespace Battle.Logic.Characters
                     if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
-                        baseScore += 2;
+                        baseScore += 5;
                     }
 
                     //Do a reverse FOV from the perspective of the character
@@ -169,23 +164,22 @@ namespace Battle.Logic.Characters
                             TargetName = targetName,
                             TargetLocation = targetLocation
                         });
+
                     }
                     else
                     {
                         moveThenShootScore = baseScore;
 
-                        //if (location == new Vector3(15,0,5))
-                        //{
-                        //    int hj = 234;
-                        //}
-
                         //Calculate chance to hit
-                        //List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, character.ShootingRange);
-                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
+                         List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
                         if (characters.Count == 0)
                         {
-                            //No characters in view, record a score of 0 - this move achieves nothing
-                            moveThenShootScore = 0;
+                            //No characters in view, deduct some more points - this move achieves very little
+                            moveThenShootScore -= 2;
+                            if (moveThenShootScore < 0)
+                            {
+                                moveThenShootScore = 0;
+                            }
                             possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                             {
                                 Score = moveThenShootScore,
