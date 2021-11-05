@@ -18,9 +18,12 @@ namespace Battle.Logic.Characters
         public static CoverState CalculateCover(string[,,] map, Vector3 defenderPosition, List<Character> attackers)
         {
             List<Vector3> attackerLocations = new List<Vector3>();
-            foreach (Character character in attackers)
+            if (attackers != null)
             {
-                attackerLocations.Add(character.Location);
+                foreach (Character character in attackers)
+                {
+                    attackerLocations.Add(character.Location);
+                }
             }
             return CalculateCover(map, defenderPosition, attackerLocations);
         }
