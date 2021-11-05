@@ -596,7 +596,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
         //            {
         //                fileContents = streamReader.ReadToEnd();
         //            }
-        //            Mission mission = GameSerialization.LoadGame(fileContents);
+        //            Mission mission = GameSerialization.LoadGameFile(path);
         //            FieldOfView.UpdateTeamFOV(mission.Map, mission.Teams[0]);
         //            string fov1MapString = MapCore.GetMapStringWithMapMask(mission.Map, mission.Teams[0].Characters[0].FOVMap);
         //            string fov2MapString = MapCore.GetMapStringWithMapMask(mission.Map, mission.Teams[0].Characters[1].FOVMap);

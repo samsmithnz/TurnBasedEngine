@@ -20,25 +20,24 @@ namespace Battle.Tests.Scenarios
         public void GameSerializationStartUp()
         {
             _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
-
         }
 
         [TestMethod]
         public void AICoverStateCrashTest()
         {
             //Arrange
-            string path = _rootPath + "Save020.json";
+            string path = _rootPath + "Save021.json";
 
             //Act
             Mission mission = GameSerialization.LoadGameFile(path);
             mission.StartMission();
             Character fred = mission.Teams[0].Characters[0];
 
-
             //Assert
             Assert.AreEqual("Fred", fred.Name);
+            Assert.AreEqual(true, fred.CoverState.InFullCover);
+            Assert.AreEqual(true, fred.CoverState.InNorthFullCover);
         }
-
 
         [TestMethod]
         public void SaveFileNotFoundCrashTest()
