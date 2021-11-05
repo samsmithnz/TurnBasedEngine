@@ -8,7 +8,7 @@ namespace Battle.Tests.SaveGames
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class GameSerializationTests
     {
         private string _rootPath;
@@ -43,13 +43,7 @@ namespace Battle.Tests.SaveGames
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                string fileContents;
-                using (var streamReader = new StreamReader(file))
-                {
-                    fileContents = streamReader.ReadToEnd();
-                }
-
-                mission = GameSerialization.LoadGame(fileContents);
+                mission = GameSerialization.LoadGameFile(file);
             }
 
             //Assert

@@ -35,7 +35,7 @@
 //            {
 //                fileContents = streamReader.ReadToEnd();
 //            }
-//            Mission mission = GameSerialization.LoadGame(fileContents);
+//            Mission mission = GameSerialization.LoadGameFile(path);
 //            Character fred = mission.Teams[0].Characters[0];
 //            List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(mission.Map, fred.Location, fred.MobilityRange, fred.ActionPointsCurrent);
 

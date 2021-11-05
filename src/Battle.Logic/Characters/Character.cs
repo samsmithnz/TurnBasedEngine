@@ -86,6 +86,8 @@ namespace Battle.Logic.Characters
                 {
                     TargetCharacterIndex = 0;
                 }
+                //Update cover
+                CoverState = CharacterCover.CalculateCover(map, Location, opponentCharacters);
             }
         }
         public int MobilityRange { get; set; }

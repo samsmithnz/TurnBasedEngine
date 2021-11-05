@@ -34,7 +34,7 @@ namespace Battle.Tests.Scenarios
             {
                 fileContents = streamReader.ReadToEnd();
             }
-            Mission mission = GameSerialization.LoadGame(fileContents);
+            Mission mission = GameSerialization.LoadGameFile(path);
             //Starts with turn 1 - good guys
             mission.StartMission();
             //Move to turn 1 - bad guys
@@ -223,7 +223,7 @@ Armor prevented 1 damage to character Harry
 //            {
 //                fileContents = streamReader.ReadToEnd();
 //            }
-//            Mission mission = GameSerialization.LoadGame(fileContents);
+//            Mission mission = GameSerialization.LoadGameFile(path);
 //            //Starts with turn 1 - good guys
 //            mission.StartMission();
 //            //Move to turn 1 - bad guys

@@ -6,6 +6,20 @@ namespace Battle.Logic.SaveGames
 {
     public static class GameSerialization
     {
+        public static Mission LoadGameFile(string path)
+        {
+            string fileContents;
+            using (var streamReader = new StreamReader(path))
+            {
+                fileContents = streamReader.ReadToEnd();
+            }
+            if (string.IsNullOrEmpty(fileContents) == true)
+            {
+                throw new System.IO.FileNotFoundException("Save file not found", path);
+            }
+            return LoadGame(fileContents);
+        }
+
         public static Mission LoadGame(string json)
         {
             Mission mission = JsonConvert.DeserializeObject<Mission>(json);

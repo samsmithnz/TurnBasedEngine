@@ -9,9 +9,32 @@ namespace Battle.Logic.Characters
     public static class CharacterCover
     {
         /// <summary>
-        /// Calculate if the player is in cover. 
+        /// Calculate if the player is in cover.
         /// </summary>
-        /// <returns>True if the player is in cover</returns>
+        /// <param name="map">string[,,] map array</param>
+        /// <param name="defenderPosition">defender location</param>
+        /// <param name="attackers">list of attacker characters</param>
+        /// <returns></returns>
+        public static CoverState CalculateCover(string[,,] map, Vector3 defenderPosition, List<Character> attackers)
+        {
+            List<Vector3> attackerLocations = new List<Vector3>();
+            if (attackers != null)
+            {
+                foreach (Character character in attackers)
+                {
+                    attackerLocations.Add(character.Location);
+                }
+            }
+            return CalculateCover(map, defenderPosition, attackerLocations);
+        }
+
+        /// <summary>
+        /// Calculate if the player is in cover.
+        /// </summary>
+        /// <param name="map">string[,,] map array</param>
+        /// <param name="defenderPosition">defender location</param>
+        /// <param name="attackerLocations">List of attacker locations</param>
+        /// <returns></returns>
         public static CoverState CalculateCover(string[,,] map, Vector3 defenderPosition, List<Vector3> attackerLocations)
         {
             CoverState result = new CoverState();

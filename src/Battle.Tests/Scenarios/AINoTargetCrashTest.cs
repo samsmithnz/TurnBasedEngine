@@ -31,12 +31,7 @@ namespace Battle.Tests.Scenarios
             string path = _rootPath + @"Save017.json";
 
             //Act
-            string fileContents;
-            using (var streamReader = new StreamReader(path))
-            {
-                fileContents = streamReader.ReadToEnd();
-            }
-            Mission mission = GameSerialization.LoadGame(fileContents);
+            Mission mission = GameSerialization.LoadGameFile(path);
             mission.StartMission();
             Character fred = mission.Teams[0].GetCharacter("Fred");
             Character enemy1 = mission.Teams[1].Characters[0];
