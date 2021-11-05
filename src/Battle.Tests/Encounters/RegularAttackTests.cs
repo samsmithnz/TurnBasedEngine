@@ -715,7 +715,7 @@ Critical chance: 20, (dice roll: 0)
             Assert.AreEqual(true, result.SourceCharacter.LevelUpIsReady);
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
-Hit: Chance to hit: 100, (dice roll: 65)
+Hit: Chance to hit: 68, (dice roll: 65)
 Damage range: 3-5, (dice roll: 100)
 Critical chance: 70, (dice roll: 70)
 Critical damage range: 11-15, (dice roll: 100)
