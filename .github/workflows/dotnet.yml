@@ -34,7 +34,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
     - name: Run automated tests
       run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
