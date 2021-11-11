@@ -45,7 +45,7 @@ namespace Battle.Tests.Map
             Assert.AreEqual(new Vector3(0, 0, 0), movementResults[0].StartLocation);
             Assert.AreEqual(new Vector3(1, 0, 0), movementResults[0].EndLocation);
             Assert.AreEqual("Fred is moving from <0, 0, 0> to <1, 0, 0>", movementResults[0].Log[0]);
-
+            Assert.AreEqual(null, movementResults[0].OverwatchEncounterResults);
 
             string log = @"
 Fred is moving from <0, 0, 0> to <1, 0, 0>
