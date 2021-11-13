@@ -87,7 +87,10 @@ Fred is ready to level up
             fred.NextTarget();
             Assert.AreEqual(0, fred.TargetCharacterIndex);
 
-            //            mission.MoveToNextTurn();
+            //Test that we get the right next character
+            mission.MoveToNextTurn();
+            Character firstCharacter = mission.Teams[mission.CurrentTeamIndex].GetFirstCharacter();
+            Assert.AreEqual(firstCharacter.Name, mission.Teams[mission.CurrentTeamIndex].Characters[1].Name);
 
             //            //Turn 1 - Team 2 starts
             //            //Jethro moves
