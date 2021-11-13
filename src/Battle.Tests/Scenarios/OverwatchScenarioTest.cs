@@ -242,6 +242,16 @@ Fred is ready to level up
 ";
             Assert.AreEqual(expectedLog, movementActions[0].OverwatchEncounterResults[0].LogString);
 
+
+            AIAction aIAction2 = mission.CalculateAIAction(bart, team2, team1);
+            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
+            Assert.AreEqual(new Vector3(28, 0, 28), aIAction2.EndLocation);
+            List<MovementAction> movementActions2 = mission.MoveCharacter(bart,
+                       team2,
+                       team1,
+                       aIAction2.EndLocation);
+
+            Assert.AreEqual(4, movementActions2.Count);
         }
     }
 }
