@@ -19,12 +19,12 @@ namespace Battle.Tests.Scenarios
         public void EndOfMissionWithNegativeHealthTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred },
@@ -34,7 +34,7 @@ namespace Battle.Tests.Scenarios
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
             Character bart = CharacterPool.CreateBartBaddie(mission.Map, new Vector3(10, 0, 10));
             bart.HitpointsCurrent = -10;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro, bart },
