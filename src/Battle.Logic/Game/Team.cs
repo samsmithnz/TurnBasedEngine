@@ -88,6 +88,18 @@ namespace Battle.Logic.Game
             return result;
         }
 
+        public Character GetFirstCharacter()
+        {
+            foreach (Character character in Characters)
+            {
+                if (character.HitpointsCurrent > 0 && character.ActionPointsCurrent > 0)
+                {
+                    return character;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// Needed after setup - only
         /// </summary>

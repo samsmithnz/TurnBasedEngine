@@ -40,6 +40,7 @@ namespace Battle.Tests.Scenarios
             //Move to turn 1 - bad guys
             mission.MoveToNextTurn();
             Character jethro = mission.Teams[1].Characters[0];
+            Assert.AreEqual(jethro.Name, mission.Teams[1].GetFirstCharacter().Name);
             Character bart = mission.Teams[1].Characters[1];
             Team teamGood = mission.Teams[0];
             Team teamBad = mission.Teams[1];
@@ -90,7 +91,7 @@ Armor prevented 1 damage to character Jeff
                    bart.ShootingRange,
                    teamGood.Characters);
             Assert.AreEqual(0, charactersInView.Count);
-            CharacterAI ai2 = new CharacterAI();
+            CharacterAI ai2 = new();
             AIAction aIAction2 = ai2.CalculateAIAction(mission.Map,
                 bart,
                 teamBad,

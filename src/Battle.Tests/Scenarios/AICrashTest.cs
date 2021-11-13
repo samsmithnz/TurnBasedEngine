@@ -33,7 +33,7 @@ namespace Battle.Tests.Scenarios
             //Act
             Mission mission = GameSerialization.LoadGameFile(path);
             mission.StartMission(); 
-            Character fred = mission.Teams[0].GetCharacter("Fred");
+            //Character fred = mission.Teams[0].GetCharacter("Fred");
             Character enemy1 = mission.Teams[1].Characters[0];
             Character enemy2 = mission.Teams[1].Characters[1];
             Team team1 = mission.Teams[0];

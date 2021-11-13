@@ -3,7 +3,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -19,7 +18,7 @@ namespace Battle.Tests.Scenarios
         public void JethroMovesToCoverAndExchangesFireOver2TurnsToWinTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
@@ -27,7 +26,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[20, 0, 11] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
             fred.ActionPointsCurrent = 1;
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred },
@@ -37,14 +36,14 @@ namespace Battle.Tests.Scenarios
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(20, 0, 10));
             jethro.HitpointsCurrent = 6;
             jethro.ActionPointsCurrent = 1;
-          Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro },
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.RandomNumbers = diceRolls;
             mission.StartMission();
 
@@ -206,9 +205,9 @@ o o o . . o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . 
 
             //Fred shoots at Jethro, who is behind high cover. He hits him. 
             EncounterResult encounter1 = mission.AttackCharacter(fred,
-                fred.WeaponEquipped, 
-                jethro, 
-                team1, 
+                fred.WeaponEquipped,
+                jethro,
+                team1,
                 team2);
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jethro
@@ -274,6 +273,7 @@ Fred is ready to level up
             Assert.AreEqual(log3, encounter3.LogString);
 
             //End of of battle
+            Assert.IsTrue(mission.CheckIfMissionIsCompleted());
             mission.EndMission();
 
             //Assert

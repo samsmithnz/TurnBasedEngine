@@ -3,7 +3,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -19,14 +18,14 @@ namespace Battle.Tests.Scenarios
         public void MultipleTurnsTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
             Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(4, 0, 6));
             Character jeff = CharacterPool.CreateJeffHero(mission.Map, new Vector3(4, 0, 8));
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred, harry, jeff },
@@ -36,7 +35,7 @@ namespace Battle.Tests.Scenarios
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(14, 0, 4));
             Character bart = CharacterPool.CreateBartBaddie(mission.Map, new Vector3(14, 0, 6));
             Character derek = CharacterPool.CreateDerekBaddie(mission.Map, new Vector3(14, 0, 8));
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro, bart, derek },
@@ -88,7 +87,10 @@ Fred is ready to level up
             fred.NextTarget();
             Assert.AreEqual(0, fred.TargetCharacterIndex);
 
-            //            mission.MoveToNextTurn();
+            //Test that we get the right next character
+            mission.MoveToNextTurn();
+            Character firstCharacter = mission.Teams[mission.CurrentTeamIndex].GetFirstCharacter();
+            Assert.AreEqual(firstCharacter.Name, mission.Teams[mission.CurrentTeamIndex].Characters[1].Name);
 
             //            //Turn 1 - Team 2 starts
             //            //Jethro moves

@@ -19,7 +19,7 @@ namespace Battle.Tests.Scenarios
         public void JethroMovesAndFOVUpdatesTest()
         {
             //arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(10, 1, 10)
             };
@@ -34,7 +34,7 @@ namespace Battle.Tests.Scenarios
             mission.Map[5, 0, 9] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.HitpointsCurrent = 1;
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred }
@@ -43,7 +43,7 @@ namespace Battle.Tests.Scenarios
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(9, 0, 7));
             jethro.HitpointsCurrent = 5;
             jethro.InOverwatch = true;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro }
@@ -101,7 +101,7 @@ namespace Battle.Tests.Scenarios
             Assert.AreEqual(expectedJethroFOV, jethroFOVMapString);
 
             //Act, part 2 - moving up the Y axis
-            Vector3 destination = new Vector3(1, 0, 9);
+            Vector3 destination = new(1, 0, 9);
             List<MovementAction> movementResults = mission.MoveCharacter(fred,
                 team1,
                 team2,

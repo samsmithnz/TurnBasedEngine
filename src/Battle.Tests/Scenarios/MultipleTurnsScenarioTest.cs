@@ -20,12 +20,12 @@ namespace Battle.Tests.Scenarios
         {
             //Arrange
             bool teamIsDone;
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred },
@@ -33,7 +33,7 @@ namespace Battle.Tests.Scenarios
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro },
@@ -61,7 +61,7 @@ namespace Battle.Tests.Scenarios
 
             //Turn 1 - Team 1 starts
             //Fred moves 
-            Vector3 fredDestination = new Vector3(14, 0, 14);
+            Vector3 fredDestination = new(14, 0, 14);
             mission.MoveCharacter(fred,
                 team1,
                 team2,
@@ -77,7 +77,7 @@ namespace Battle.Tests.Scenarios
             //Jethro moves
             Assert.AreEqual(1, mission.TurnNumber);
             Assert.AreEqual(1, mission.CurrentTeamIndex);
-            Vector3 jethroDestination = new Vector3(2, 0, 2);
+            Vector3 jethroDestination = new(2, 0, 2);
             mission.MoveCharacter(jethro,
                 team2,
                 team1,

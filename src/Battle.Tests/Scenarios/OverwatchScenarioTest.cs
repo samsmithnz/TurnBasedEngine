@@ -31,12 +31,12 @@ namespace Battle.Tests.Scenarios
             //Arrange
             int xMax = 50;
             int zMax = 50;
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             List<int> MapRandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
-            Queue<int> MapNumberQueue = new Queue<int>(MapRandomNumbers);
+            Queue<int> MapNumberQueue = new(MapRandomNumbers);
             //Add 100 full cover items randomly
             for (int i = 0; i < 100; i++)
             {
@@ -53,7 +53,7 @@ namespace Battle.Tests.Scenarios
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
             fred.MobilityRange = 8;
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
                 Characters = new List<Character>() { fred }
@@ -61,7 +61,7 @@ namespace Battle.Tests.Scenarios
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
             jethro.ActionPointsCurrent = 2;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
                 Characters = new List<Character>() { jethro }
