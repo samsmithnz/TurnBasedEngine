@@ -2,11 +2,13 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
+using Battle.Logic.SaveGames;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using System.Reflection;
 
 namespace Battle.Tests.Scenarios
 {
@@ -15,6 +17,14 @@ namespace Battle.Tests.Scenarios
     [TestCategory("L2")]
     public class OverwatchScenarioTest
     {
+        private string _rootPath;
+
+        [TestInitialize]
+        public void GameSerializationStartUp()
+        {
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
+        }
+
         [TestMethod]
         public void FredInOverwatchShootsAtJethroTest()
         {
@@ -175,6 +185,85 @@ Jethro is killed
 Fred is ready to level up
 ";
             Assert.AreEqual(log2, encounter2.LogString);
+
+        }
+
+        [TestMethod]
+        public void OverwatchTest()
+        {
+            //Arrange
+            string path = _rootPath + "Save022.json";
+
+            //Act
+            string fileContents;
+            using (var streamReader = new StreamReader(path))
+            {
+                fileContents = streamReader.ReadToEnd();
+            }
+            Mission mission = GameSerialization.LoadGameFile(path);
+            mission.StartMission();
+            Character fred = mission.Teams[0].Characters[0];
+            Character henry = mission.Teams[0].Characters[1];
+            Character jeff = mission.Teams[0].Characters[2];
+            fred.InOverwatch = true;
+            Character jethro = mission.Teams[1].Characters[0];
+            Character bart = mission.Teams[1].Characters[1];
+            Team team1 = mission.Teams[0];
+            Team team2 = mission.Teams[1];
+
+            //Assert
+            Assert.AreEqual(true, fred.InOverwatch);
+            Assert.AreEqual(true, henry.InOverwatch);
+            Assert.AreEqual(true, jeff.InOverwatch);
+            Assert.AreEqual("Jethro", jethro.Name);
+
+            mission.MoveToNextTurn();
+
+            AIAction aIAction = mission.CalculateAIAction(jethro, team2, team1);
+            Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
+            Assert.AreEqual(new Vector3(13, 0, 25), aIAction.EndLocation);
+            List<MovementAction> movementActions = mission.MoveCharacter(jethro,
+                       team2,
+                       team1,
+                       aIAction.EndLocation);
+
+
+            Assert.AreEqual(1, movementActions.Count);
+            Assert.AreEqual(1, movementActions[0].OverwatchEncounterResults.Count);
+            string expectedLog = @"
+Harry is attacking with Sniper Rifle, targeted on Jethro
+Hit: Chance to hit: 56, (dice roll: 81)
+Damage range: 3-5, (dice roll: 76)
+Critical chance: 0, (dice roll: 55)
+4 damage dealt to character Jethro, HP is now 0
+Jethro is killed
+100 XP added to character Harry, for a total of 100 XP
+Harry is ready to level up
+";
+            Assert.AreEqual(expectedLog, movementActions[0].OverwatchEncounterResults[0].LogString);
+
+
+            AIAction aIAction2 = mission.CalculateAIAction(bart, team2, team1);
+            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
+            Assert.AreEqual(new Vector3(28, 0, 28), aIAction2.EndLocation);
+            List<MovementAction> movementActions2 = mission.MoveCharacter(bart,
+                       team2,
+                       team1,
+                       aIAction2.EndLocation);
+
+            Assert.AreEqual(1, movementActions2.Count);
+            Assert.AreEqual(1, movementActions2[0].OverwatchEncounterResults.Count);
+            string expectedLog2 = @"
+Jeff is attacking with Rifle, targeted on Bart
+Hit: Chance to hit: 56, (dice roll: 55)
+Damage range: 3-5, (dice roll: 90)
+Critical chance: 0, (dice roll: 44)
+4 damage dealt to character Bart, HP is now 0
+Bart is killed
+100 XP added to character Jeff, for a total of 100 XP
+Jeff is ready to level up
+";
+            Assert.AreEqual(expectedLog2, movementActions2[0].OverwatchEncounterResults[0].LogString);
 
         }
     }

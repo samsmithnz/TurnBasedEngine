@@ -38,7 +38,10 @@ namespace Battle.Logic.Game
             int totalActionPoints = 0;
             foreach (Character character in Teams[CurrentTeamIndex].Characters)
             {
-                totalActionPoints += character.ActionPointsCurrent;
+                if (character.InOverwatch == false)
+                {
+                    totalActionPoints += character.ActionPointsCurrent;
+                }
             }
             if (totalActionPoints == 0)
             {
