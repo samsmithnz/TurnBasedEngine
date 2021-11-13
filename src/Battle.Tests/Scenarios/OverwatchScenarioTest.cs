@@ -231,14 +231,14 @@ Fred is ready to level up
             Assert.AreEqual(1, movementActions.Count);
             Assert.AreEqual(1, movementActions[0].OverwatchEncounterResults.Count);
             string expectedLog = @"
-Fred is attacking with Rifle, targeted on Jethro
+Harry is attacking with Sniper Rifle, targeted on Jethro
 Hit: Chance to hit: 56, (dice roll: 81)
 Damage range: 3-5, (dice roll: 76)
 Critical chance: 0, (dice roll: 55)
 4 damage dealt to character Jethro, HP is now 0
 Jethro is killed
-100 XP added to character Fred, for a total of 100 XP
-Fred is ready to level up
+100 XP added to character Harry, for a total of 100 XP
+Harry is ready to level up
 ";
             Assert.AreEqual(expectedLog, movementActions[0].OverwatchEncounterResults[0].LogString);
 
@@ -251,7 +251,20 @@ Fred is ready to level up
                        team1,
                        aIAction2.EndLocation);
 
-            Assert.AreEqual(4, movementActions2.Count);
+            Assert.AreEqual(1, movementActions2.Count);
+            Assert.AreEqual(1, movementActions2[0].OverwatchEncounterResults.Count);
+            string expectedLog2 = @"
+Jeff is attacking with Rifle, targeted on Bart
+Hit: Chance to hit: 56, (dice roll: 55)
+Damage range: 3-5, (dice roll: 90)
+Critical chance: 0, (dice roll: 44)
+4 damage dealt to character Bart, HP is now 0
+Bart is killed
+100 XP added to character Jeff, for a total of 100 XP
+Jeff is ready to level up
+";
+            Assert.AreEqual(expectedLog2, movementActions2[0].OverwatchEncounterResults[0].LogString);
+
         }
     }
 }
