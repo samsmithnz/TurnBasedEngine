@@ -48,10 +48,13 @@ namespace Battle.Tests.Scenarios
             //Act: Turn 1 - Team 1 starts
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Bart", fred.GetTargetCharacter());
             Assert.AreEqual(1, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Derek", fred.GetTargetCharacter());
             Assert.AreEqual(2, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Jethro", fred.GetTargetCharacter());
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             ;
             Assert.AreEqual(3, fred.TargetCharacters.Count);
@@ -83,8 +86,10 @@ Fred is ready to level up
 
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Derek", fred.GetTargetCharacter());
             Assert.AreEqual(1, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Bart", fred.GetTargetCharacter());
             Assert.AreEqual(0, fred.TargetCharacterIndex);
 
             //Test that we get the right next character
