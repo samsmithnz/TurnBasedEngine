@@ -76,6 +76,7 @@ namespace Battle.Logic.Characters
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
                 UpdateCharacterFOV(map);
+                //Get targets 
                 List<Character> targetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
                 TargetCharacters = new List<string>();
                 foreach (Character item in targetCharacters)
