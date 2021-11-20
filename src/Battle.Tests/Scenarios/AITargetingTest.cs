@@ -4,7 +4,6 @@ using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;

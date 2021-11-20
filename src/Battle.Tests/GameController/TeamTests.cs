@@ -1,6 +1,5 @@
 using Battle.Logic.Characters;
 using Battle.Logic.Game;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Numerics;
 
 namespace Battle.Tests.Items
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
     public class TeamTests
@@ -18,7 +18,7 @@ namespace Battle.Tests.Items
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -35,7 +35,7 @@ namespace Battle.Tests.Items
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -54,7 +54,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -73,7 +73,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -92,7 +92,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.HitpointsCurrent = 0;
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -111,7 +111,7 @@ namespace Battle.Tests.Items
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.HitpointsCurrent = 0;
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -131,7 +131,7 @@ namespace Battle.Tests.Items
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.ActionPointsCurrent = 0;
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -151,7 +151,7 @@ namespace Battle.Tests.Items
             fred.ActionPointsCurrent = 0;
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             harry.ActionPointsCurrent = 0;
-            Team team = new Team(1)
+            Team team = new(1)
             {
                 Characters = new List<Character>() { fred, harry }
             };
@@ -183,7 +183,7 @@ namespace Battle.Tests.Items
         {
             //Arrange
             Mission mission = new();
-            mission.Teams.Add(new Team(1));
+            mission.Teams.Add(new(1));
             try
             {
                 mission.StartMission();
@@ -199,8 +199,8 @@ namespace Battle.Tests.Items
         {
             //Arrange
             Mission mission = new();
-            mission.Teams.Add(new Team(1));
-            mission.Teams.Add(new Team(0));
+            mission.Teams.Add(new(1));
+            mission.Teams.Add(new(0));
             mission.StartMission();
             Character first = mission.Teams[0].GetFirstCharacter();
             Assert.AreEqual(null, first);
