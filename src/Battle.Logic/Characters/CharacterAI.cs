@@ -66,8 +66,11 @@ namespace Battle.Logic.Characters
                 //}
             }
 
-            aiActionResult.MapString = CreateAIMap(map);
-            aiActionResult.Log = log;
+            if (aiActionResult != null)
+            {
+                aiActionResult.MapString = CreateAIMap(map);
+                aiActionResult.Log = log;
+            }
             return aiActionResult;
         }
 
