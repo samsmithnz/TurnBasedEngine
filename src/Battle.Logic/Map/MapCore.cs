@@ -228,9 +228,12 @@ namespace Battle.Logic.Map
         public static string GetMapStringWithAIValuesSecond(string[,,] mapTemplate, List<KeyValuePair<Vector3, AIAction>> list)
         {
             string[,,] map = (string[,,])mapTemplate.Clone();
-            foreach (KeyValuePair<Vector3, AIAction> item in list)
+            if (list != null)
             {
-                map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.Score.ToString();
+                foreach (KeyValuePair<Vector3, AIAction> item in list)
+                {
+                    map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.Score.ToString();
+                }
             }
             return MapCore.GetMapString(map, true);
         }

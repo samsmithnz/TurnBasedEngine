@@ -59,11 +59,11 @@ namespace Battle.Logic.Characters
                         break;
                     }
                 }
-                //Double check - if it's still not assigned, assign the last value
-                if (aiActionResult == null)
-                {
-                    aiActionResult = aiValues[aiValues.Count - 1].Value;
-                }
+                ////Double check - if it's still not assigned, assign the last value
+                //if (aiActionResult == null)
+                //{
+                //    aiActionResult = aiValues[aiValues.Count - 1].Value;
+                //}
             }
 
             aiActionResult.MapString = CreateAIMap(map);
@@ -171,7 +171,7 @@ namespace Battle.Logic.Characters
                         moveThenShootScore = baseScore;
 
                         //Calculate chance to hit
-                         List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
+                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
                         if (characters.Count == 0)
                         {
                             //No characters in view, deduct some more points - this move achieves very little
@@ -276,14 +276,7 @@ namespace Battle.Logic.Characters
 
         private string CreateAIMap(string[,,] map)
         {
-            if (aiValues == null)
-            {
-                return null;
-            }
-            else
-            {
-                return MapCore.GetMapStringWithAIValuesSecond(map, aiValues);
-            }
+            return MapCore.GetMapStringWithAIValuesSecond(map, aiValues);
         }
 
     }
