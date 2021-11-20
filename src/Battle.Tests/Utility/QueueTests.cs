@@ -12,7 +12,7 @@ namespace Battle.Tests.Utility
         public void Queue3ItemsTest()
         {
             //Arrange
-            Queue<int> queue = new Queue<int>();
+            Queue<int> queue = new();
 
             //Act
             queue.Enqueue(1);
@@ -33,14 +33,14 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             Queue<int> queue;
-            List<int> list = new List<int>();
+            List<int> list = new();
 
             //Act
             for (int i = 0; i < 500; i++)
             {
                 list.Add(i);
             }
-            queue = new Queue<int>(list);
+            queue = new(list);
 
             //Assert
             Assert.AreEqual(500, queue.Count);
@@ -56,7 +56,7 @@ namespace Battle.Tests.Utility
         public void NewQueue3ItemsTest()
         {
             //Arrange
-            RandomNumberQueue queue = new RandomNumberQueue();
+            RandomNumberQueue queue = new();
 
             //Act
             queue.Enqueue(1);
@@ -77,7 +77,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             RandomNumberQueue queue;
-            List<int> list = new List<int>();
+            List<int> list = new();
 
             //Act
             for (int i = 0; i < 500; i++)
