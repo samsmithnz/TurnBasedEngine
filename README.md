@@ -17,7 +17,7 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 
 ### Current workflow
 1. Start team turn
-2. Select player
+2. Player with action points and positive hit points selected
 3. Player calculates field of view
 4. Player calculates possible movement tiles
 5. Player calculates opponenents in view
