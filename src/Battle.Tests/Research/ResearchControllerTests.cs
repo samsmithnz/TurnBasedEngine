@@ -12,12 +12,13 @@ namespace Battle.Tests.Research
         public void ResearchItemsAreActiveTest()
         {
             //Arrange
-            List<ResearchItem> list = new List<ResearchItem> {
+            List<ResearchItem> list = new()
+            {
                 ResearchPool.CreateAdvancedWeapons(),
                 ResearchPool.CreateLasers(),
                 ResearchPool.CreatePlasma()
             };
-            ResearchController controller = new ResearchController
+            ResearchController controller = new()
             {
                 ResearchItems = list
             };
@@ -34,12 +35,13 @@ namespace Battle.Tests.Research
         public void ResearchItemsAreCompletedTest()
         {
             //Arrange
-            List<ResearchItem> list = new List<ResearchItem> {
+            List<ResearchItem> list = new()
+            {
                 ResearchPool.CreateAdvancedWeapons(),
                 ResearchPool.CreateLasers(),
                 ResearchPool.CreatePlasma()
             };
-            ResearchController controller = new ResearchController
+            ResearchController controller = new()
             {
                 ResearchItems = list
             };

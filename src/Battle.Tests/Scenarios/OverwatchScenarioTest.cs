@@ -51,20 +51,20 @@ namespace Battle.Tests.Scenarios
                 int z = MapNumberQueue.Dequeue();
                 mission.Map[x, 0, z] = CoverType.HalfCover;
             }
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             fred.MobilityRange = 8;
             Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred }
+                Characters = new() { fred }
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(19, 0, 19));
             jethro.ActionPointsCurrent = 2;
             Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro }
+                Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
             mission.StartMission();
@@ -164,7 +164,7 @@ Low cover downgraded to no cover at <5, 0, 5>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log1, encounter1.LogString);
-            Assert.AreEqual(new Vector3(5, 0, 5), encounter1.MissedLocation);
+            Assert.AreEqual(new(5, 0, 5), encounter1.MissedLocation);
 
             //Fred shoots at Jethro, and hits him. 
             EncounterResult encounter2 = mission.AttackCharacter(fred,
@@ -220,8 +220,8 @@ Fred is ready to level up
             mission.MoveToNextTurn();
 
             AIAction aIAction = mission.CalculateAIAction(jethro, team2, team1);
-            Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
-            Assert.AreEqual(new Vector3(13, 0, 25), aIAction.EndLocation);
+            Assert.AreEqual(new(19, 0, 19), aIAction.StartLocation);
+            Assert.AreEqual(new(13, 0, 25), aIAction.EndLocation);
             List<MovementAction> movementActions = mission.MoveCharacter(jethro,
                        team2,
                        team1,
@@ -244,8 +244,8 @@ Harry is ready to level up
 
 
             AIAction aIAction2 = mission.CalculateAIAction(bart, team2, team1);
-            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
-            Assert.AreEqual(new Vector3(28, 0, 28), aIAction2.EndLocation);
+            Assert.AreEqual(new(26, 0, 32), aIAction2.StartLocation);
+            Assert.AreEqual(new(28, 0, 28), aIAction2.EndLocation);
             List<MovementAction> movementActions2 = mission.MoveCharacter(bart,
                        team2,
                        team1,

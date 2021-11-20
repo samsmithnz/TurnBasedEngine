@@ -296,7 +296,7 @@ namespace Battle.Logic.Map
                 {
                     team.FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_CanSee;
                 }
-                
+
             }
             return team;
         }

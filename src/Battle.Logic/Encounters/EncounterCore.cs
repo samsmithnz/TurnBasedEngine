@@ -1,7 +1,6 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
 using Battle.Logic.Characters;
 using Battle.Logic.Items;
-using System;
 using System.Collections.Generic;
 using System.Numerics;
 

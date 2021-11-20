@@ -2,8 +2,6 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -24,23 +22,23 @@ namespace Battle.Tests.Scenarios
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(4, 0, 4));
             Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred },
+                Characters = new() { fred },
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(12, 0, 12));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(12, 0, 12));
             Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro },
+                Characters = new() { jethro },
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.RandomNumbers = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.StartMission();
 
             //Assert - Setup
@@ -92,7 +90,7 @@ namespace Battle.Tests.Scenarios
             //Turn 2 - Team 1 starts
             Assert.AreEqual(2, mission.TurnNumber);
             Assert.AreEqual(0, mission.CurrentTeamIndex);
-            fredDestination = new Vector3(4, 0, 4);
+            fredDestination = new(4, 0, 4);
             mission.MoveCharacter(fred,
                 team1,
                 team2,
@@ -107,7 +105,7 @@ namespace Battle.Tests.Scenarios
             //Turn 2 - Team 2 starts
             Assert.AreEqual(2, mission.TurnNumber);
             Assert.AreEqual(1, mission.CurrentTeamIndex);
-            jethroDestination = new Vector3(12, 0, 12);
+            jethroDestination = new(12, 0, 12);
             mission.MoveCharacter(jethro,
                 team2,
                 team1,
@@ -122,7 +120,7 @@ namespace Battle.Tests.Scenarios
             //Turn 3 - Team 1 starts - force an end turn
             Assert.AreEqual(3, mission.TurnNumber);
             Assert.AreEqual(0, mission.CurrentTeamIndex);
-            fredDestination = new Vector3(5, 0, 5);
+            fredDestination = new(5, 0, 5);
             mission.MoveCharacter(fred,
                team1,
                team2,
@@ -137,7 +135,7 @@ namespace Battle.Tests.Scenarios
             //Turn 3 - Team 2 starts - force an end turn
             Assert.AreEqual(3, mission.TurnNumber);
             Assert.AreEqual(1, mission.CurrentTeamIndex);
-            jethroDestination = new Vector3(11, 0, 11);
+            jethroDestination = new(11, 0, 11);
             mission.MoveCharacter(jethro,
                 team2,
                 team1,

@@ -25,20 +25,20 @@ namespace Battle.Tests.Characters
             //  . . . E 
             //  . S ■ . 
             //  . . . .
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(3, 0, 2)
+                new(3, 0, 2)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -54,20 +54,20 @@ namespace Battle.Tests.Characters
             // 1 . S ■ E 
             // 0 . . . .
             //   0 1 2 3
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(3, 0, 1)
+                new(3, 0, 1)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -82,20 +82,20 @@ namespace Battle.Tests.Characters
             //  . . . . 
             //  . S ■ . 
             //  . . . E
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 4;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(3, 0, 0)
+                new(3, 0, 0)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -110,20 +110,20 @@ namespace Battle.Tests.Characters
             //  . . . . 
             //  . S ■ . 
             //  . . E .
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(2, 0, 0)
+                new(2, 0, 0)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -139,20 +139,20 @@ namespace Battle.Tests.Characters
             //  . . . . 
             //  . S ■ . 
             //  . E . .
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(1, 0, 0)
+                new(1, 0, 0)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -168,20 +168,20 @@ namespace Battle.Tests.Characters
             //  . . . . 
             //  . S ■ . 
             //  E . . .
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(3, 0, 1)
+                new(3, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(0, 0, 0)
+                new(0, 0, 0)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -196,20 +196,20 @@ namespace Battle.Tests.Characters
             //  . . . . 
             //  E S ■ . 
             //  . . . .            
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(0, 0, 1)
+                new(0, 0, 1)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -226,20 +226,20 @@ namespace Battle.Tests.Characters
             // 1 . S ■ . 
             // 0 . . . .     
             //   0 1 2 3          
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(0, 0, 2)
+                new(0, 0, 2)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -255,20 +255,20 @@ namespace Battle.Tests.Characters
             //  . E . . 
             //  . S ■ . 
             //  . . . .             
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(1, 0, 2)
+                new(1, 0, 2)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
@@ -285,20 +285,20 @@ namespace Battle.Tests.Characters
             // 1 . S ■ . 
             // 0 . . . .   
             //   0 1 2 3          
-            Vector3 startingLocation = new Vector3(1, 0, 1);
+            Vector3 startingLocation = new(1, 0, 1);
             int width = 4;
             int height = 3;
-            List<Vector3> highCoverLocations = new List<Vector3>
+            List<Vector3> highCoverLocations = new()
             {
-                new Vector3(2, 0, 1)
+                new(2, 0, 1)
             };
-            List<Vector3> enemyLocations = new List<Vector3>
+            List<Vector3> enemyLocations = new()
             {
-                new Vector3(2, 0, 2)
+                new(2, 0, 2)
             };
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations,null);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, highCoverLocations, null);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert

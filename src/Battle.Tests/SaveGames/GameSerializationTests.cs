@@ -23,7 +23,7 @@ namespace Battle.Tests.SaveGames
         public void SaveGamesExist()
         {
             //Arrange
-            string path = _rootPath ;
+            string path = _rootPath;
 
             //Act
 
@@ -55,7 +55,7 @@ namespace Battle.Tests.SaveGames
         public void SaveNewGameTest()
         {
             //Arrange
-            Mission mission = new Mission();
+            Mission mission = new();
             string path = _rootPath;
 
             //Act

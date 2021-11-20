@@ -4,7 +4,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -32,16 +31,16 @@ namespace Battle.Tests.Encounters
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -87,17 +86,17 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 2;
             jethro.ArmorPointsCurrent = 2;
-            Team team2 = new Team(0);
-            team2.Characters.Add(jethro); 
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            Team team2 = new(0);
+            team2.Characters.Add(jethro);
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -145,18 +144,18 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
             jethro.ArmorPointsCurrent = 2;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -204,18 +203,18 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
             jethro.ArmorPointsCurrent = 3;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -262,16 +261,16 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 5;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -316,20 +315,20 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Character harry = CharacterPool.CreateHarryHero(map, new(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro, harry };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -382,20 +381,20 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Character harry = CharacterPool.CreateHarryHero(map, new(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 1;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro, harry };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -448,20 +447,20 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Character harry = CharacterPool.CreateHarryHero(map, new(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 15;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro, harry };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -512,22 +511,22 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility1());
             fred.Abilities.Add(AbilityPool.BiggestBoomsAbility2());
-            Character harry = CharacterPool.CreateHarryHero(map, new Vector3(3, 0, 3));
+            Character harry = CharacterPool.CreateHarryHero(map, new(3, 0, 3));
             harry.HitpointsCurrent = 4;
             harry.ArmorPointsCurrent = 0;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 6;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro, harry };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro, harry };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -583,16 +582,16 @@ Fred is ready to level up
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0), 5);
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0), 5);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 4));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(2, 0, 4));
             jethro.HitpointsCurrent = 5;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -666,15 +665,15 @@ High cover downgraded to low cover at <2, 0, 3>
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = null;
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -694,17 +693,17 @@ High cover downgraded to low cover at <2, 0, 3>
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
             fred.UtilityWeaponEquipped = null;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(2, 0, 4);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(2, 0, 4);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 
@@ -732,16 +731,16 @@ High cover downgraded to low cover at <2, 0, 3>
             //  . . P . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = CoverType.FullCover; //Add cover 
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(1, 0, 3));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(1, 0, 3));
             jethro.HitpointsCurrent = 4;
-            Team team2 = new Team(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
-            Vector3 targetThrowingLocation = new Vector3(9, 0, 9);
-            List<Character> characterList = new List<Character>() { fred, jethro };
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            Vector3 targetThrowingLocation = new(9, 0, 9);
+            List<Character> characterList = new() { fred, jethro };
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
 

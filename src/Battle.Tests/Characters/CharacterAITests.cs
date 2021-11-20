@@ -3,8 +3,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -17,25 +15,25 @@ namespace Battle.Tests.Characters
         public void CharacterJethroAIMovesIntoFullCoverNoOpponentsTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Map[20, 0, 20] = CoverType.FullCover;
             mission.Map[18, 0, 18] = CoverType.HalfCover;
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { },
+                Characters = new() { },
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(15, 0, 15));
             jethro.ActionPointsCurrent = 2;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro },
+                Characters = new() { jethro },
                 Color = "Red"
             };
             mission.Teams.Add(team2);
@@ -89,8 +87,8 @@ Failed intelligence check: 25, (dice roll: 8)
 ";
             Assert.AreEqual(log1, actionResult1.LogString);
             Assert.AreEqual(10, actionResult1.Score);
-            Assert.AreEqual(new Vector3(15, 0, 15), actionResult1.StartLocation);
-            Assert.AreEqual(new Vector3(20, 0, 21), actionResult1.EndLocation);
+            Assert.AreEqual(new(15, 0, 15), actionResult1.StartLocation);
+            Assert.AreEqual(new(20, 0, 21), actionResult1.EndLocation);
             Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult1.ActionType);
 
             string log2 = @"
@@ -98,8 +96,8 @@ Jethro is processing AI, with intelligence 25
 Successful intelligence check: 25, (dice roll: 81)
 ";
             Assert.AreEqual(log2, actionResult2.LogString);
-            Assert.AreEqual(new Vector3(15, 0, 15), actionResult2.StartLocation);
-            Assert.AreEqual(new Vector3(19, 0, 20), actionResult2.EndLocation);
+            Assert.AreEqual(new(15, 0, 15), actionResult2.StartLocation);
+            Assert.AreEqual(new(19, 0, 20), actionResult2.EndLocation);
             Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult2.ActionType);
         }
 
@@ -108,7 +106,7 @@ Successful intelligence check: 25, (dice roll: 81)
         public void CharacterJethroAIMovesIntoFullCoverWithOpponentTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
@@ -123,19 +121,19 @@ Successful intelligence check: 25, (dice roll: 81)
             mission.Map[14, 0, 12] = CoverType.FullCover;
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
-            Team team1 = new Team(1)
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred }
+                Characters = new() { fred }
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 10));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(15, 0, 10));
             jethro.HitpointsCurrent = 5;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro }
+                Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
             //Remove the 8, so that the 81 is primed and ready
@@ -181,8 +179,8 @@ Jethro is processing AI, with intelligence 25
 Successful intelligence check: 25, (dice roll: 81)
 ";
             Assert.AreEqual(log1, actionResult.LogString);
-            Assert.AreEqual(new Vector3(15, 0, 10), actionResult.StartLocation);
-            Assert.AreEqual(new Vector3(15, 0, 6), actionResult.EndLocation);
+            Assert.AreEqual(new(15, 0, 10), actionResult.StartLocation);
+            Assert.AreEqual(new(15, 0, 6), actionResult.EndLocation);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, actionResult.ActionType);
         }
 

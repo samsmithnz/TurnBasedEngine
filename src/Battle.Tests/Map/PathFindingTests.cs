@@ -15,8 +15,8 @@ namespace Battle.Tests.Map
         public void Test_WithoutWalls_CanFindPath()
         {
             //Arrange
-            Vector3 startLocation = new Vector3(1, 0, 2);
-            Vector3 endLocation = new Vector3(5, 0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
             //Act
@@ -42,8 +42,8 @@ namespace Battle.Tests.Map
             //  . . . * * . .
 
             // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-            Vector3 startLocation = new Vector3(1, 0, 2);
-            Vector3 endLocation = new Vector3(5, 0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[3, 0, 4] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
@@ -74,8 +74,8 @@ namespace Battle.Tests.Map
             //  . . . ■ . . .
 
             // No path
-            Vector3 startLocation = new Vector3(1, 0, 2);
-            Vector3 endLocation = new Vector3(5, 0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(5, 0, 2);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[3, 0, 4] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
@@ -105,8 +105,8 @@ namespace Battle.Tests.Map
             //  ■ . ■ ■ ■ . ■
 
             // long path
-            Vector3 startLocation = new Vector3(0, 0, 4);
-            Vector3 endLocation = new Vector3(6, 0, 4);
+            Vector3 startLocation = new(0, 0, 4);
+            Vector3 endLocation = new(6, 0, 4);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
             map[0, 0, 0] = CoverType.FullCover;
             map[1, 0, 4] = CoverType.FullCover;
@@ -144,8 +144,8 @@ namespace Battle.Tests.Map
         public void Test_GiantRandomMap_WithInefficentPath()
         {
             //Arrange
-            Vector3 startLocation = new Vector3(0, 0, 0);
-            Vector3 endLocation = new Vector3(69, 0, 39);
+            Vector3 startLocation = new(0, 0, 0);
+            Vector3 endLocation = new(69, 0, 39);
             string[,,] map = CreateGiantMap();
 
             //Act
@@ -181,8 +181,8 @@ namespace Battle.Tests.Map
             map[3, 0, 1] = CoverType.FullCover;
             map[3, 0, 2] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
-            Vector3 startLocation = new Vector3(2, 0, 2);
-            Vector3 endLocation = new Vector3(2, 0, 4);
+            Vector3 startLocation = new(2, 0, 2);
+            Vector3 endLocation = new(2, 0, 4);
 
             //Act
             PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -206,8 +206,8 @@ namespace Battle.Tests.Map
             //   0 1 2 3 4 
 
             //Arrange
-            Vector3 startLocation = new Vector3(2, 0, 2);
-            Vector3 endLocation = new Vector3(2, 0, 2);
+            Vector3 startLocation = new(2, 0, 2);
+            Vector3 endLocation = new(2, 0, 2);
             int height = 5;
             int width = 5;
             string[,,] map = MapCore.InitializeMap(width, 1, height);
@@ -288,7 +288,7 @@ namespace Battle.Tests.Map
         public void TileTest()
         {
             //Arrange
-            MapTile tile = new MapTile(3, 0, 3, "", new Vector3(6, 0, 6));
+            MapTile tile = new(3, 0, 3, "", new(6, 0, 6));
 
             //Act
             string result = tile.ToString();
@@ -302,8 +302,8 @@ namespace Battle.Tests.Map
         public void Test_WithoutWalls_CanFindPathNextDoor()
         {
             //Arrange
-            Vector3 startLocation = new Vector3(25, 0, 30);
-            Vector3 endLocation = new Vector3(25, 0, 29);
+            Vector3 startLocation = new(25, 0, 30);
+            Vector3 endLocation = new(25, 0, 29);
             string[,,] map = MapCore.InitializeMap(50, 1, 50);
 
             //Act
@@ -321,8 +321,8 @@ namespace Battle.Tests.Map
         public void Test_WithoutWalls_NoMovement()
         {
             //Arrange
-            Vector3 startLocation = new Vector3(1, 0, 2);
-            Vector3 endLocation = new Vector3(1, 0, 2);
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(1, 0, 2);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
             //Act
