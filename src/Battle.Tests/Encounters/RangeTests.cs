@@ -168,7 +168,7 @@ namespace Battle.Tests.Encounters
         public void UnknownWeapon1SquareAwayRangeTest()
         {
             //Arrange
-            Weapon unknownWeapon = new Weapon
+            Weapon unknownWeapon = new()
             {
                 Type = WeaponType.Unknown
             };

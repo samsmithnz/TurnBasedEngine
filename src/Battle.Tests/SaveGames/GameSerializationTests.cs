@@ -55,7 +55,7 @@ namespace Battle.Tests.SaveGames
         public void SaveNewGameTest()
         {
             //Arrange
-            Mission mission = new Mission();
+            Mission mission = new();
             string path = _rootPath;
 
             //Act

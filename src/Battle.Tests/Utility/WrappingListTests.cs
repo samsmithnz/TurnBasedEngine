@@ -14,7 +14,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -34,7 +34,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -54,7 +54,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -74,7 +74,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
@@ -94,7 +94,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -114,7 +114,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -134,7 +134,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
@@ -156,7 +156,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -176,7 +176,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -196,7 +196,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -216,7 +216,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -236,7 +236,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 1;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
@@ -256,7 +256,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 2;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 1 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
@@ -276,7 +276,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             int index = 0;
-            List<Character> characters = new List<Character>
+            List<Character> characters = new()
             {
                 new Character() { Name = "A", HitpointsCurrent = 1, ActionPointsCurrent = 0 },
                 new Character() { Name = "B", HitpointsCurrent = 1, ActionPointsCurrent = 0 },

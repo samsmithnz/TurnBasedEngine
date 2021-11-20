@@ -536,14 +536,14 @@ Fred is ready to level up
             mission.Teams.Add(new(1)
             {
                 Name = "good",
-                Characters = new List<Character> { fred }
+                Characters = new() { fred }
             });
             Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(8, 0, 8));
             jethro.HitpointsCurrent = 12;
             mission.Teams.Add(new(0)
             {
                 Name = "bad",
-                Characters = new List<Character> { jethro }
+                Characters = new() { jethro }
             });
             RandomNumberQueue diceRolls = new(new List<int> { 65, 100, 30 }); //Chance to hit roll, damage roll, critical chance roll         
             CharacterCover.RefreshCoverStates(mission);
