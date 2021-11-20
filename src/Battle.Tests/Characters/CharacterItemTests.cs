@@ -13,7 +13,7 @@ namespace Battle.Tests.Characters
         public void MedkitItemFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.HitpointsCurrent = 1;
             fred.UtilityItemEquipped = ItemPool.CreateMedKit();
 
@@ -30,7 +30,7 @@ namespace Battle.Tests.Characters
         public void UnknownItemFredTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.HitpointsCurrent = 1;
             fred.UtilityItemEquipped = ItemPool.CreateMedKit();
             fred.UtilityItemEquipped.Type = Logic.Items.ItemType.Unknown;

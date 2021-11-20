@@ -28,16 +28,16 @@ namespace Battle.Tests.Map
             //Arrange
             int xMax = 20;
             int zMax = 20;
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(0, 0, 1), 5);
-            Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(1, 0, 0),5 );
-            Team team1 = new Team(1)
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(0, 0, 1), 5);
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new(1, 0, 0),5 );
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
             mission.Teams.Add(team1);
             team1.UpdateTargets(mission.Map, null);
@@ -68,7 +68,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 ";
             Assert.AreEqual(expectedFov0MapString, fov0MapString);
 
-            Vector3 location = new Vector3(0, 0, 13);
+            Vector3 location = new(0, 0, 13);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, location);
             CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, null, mission.RandomNumbers);
 
@@ -146,7 +146,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
 ";
             Assert.AreEqual(expectedFov2MapString, fov2MapString);
 
-            Vector3 location2 = new Vector3(13, 0, 0);
+            Vector3 location2 = new(13, 0, 0);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(mission.Map, harry.Location, location2);
             List<MovementAction> actionResults = CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, team1, null, mission.RandomNumbers);
 
@@ -830,12 +830,12 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
             //Arrange
             int xMax = 50;
             int zMax = 50;
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(xMax, 1, zMax)
             };
             List<int> MapRandomNumbers = RandomNumber.GenerateRandomNumberList(0, xMax - 1, 0, xMax * zMax * 5);
-            Queue<int> MapNumberQueue = new Queue<int>(MapRandomNumbers);
+            Queue<int> MapNumberQueue = new(MapRandomNumbers);
             //Add 100 full cover items randomly
             for (int i = 0; i < 100; i++)
             {
@@ -850,21 +850,21 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
                 int z = MapNumberQueue.Dequeue();
                 mission.Map[x, 0, z] = CoverType.HalfCover;
             }
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             fred.MobilityRange = 16;
-            Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(0, 0, 1));
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new(0, 0, 1));
             harry.MobilityRange = 16;
-            Team team1 = new Team(1)
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(19, 0, 19));
-          Team team2 = new Team(0)
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(19, 0, 19));
+          Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro }
+                Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
 
@@ -935,7 +935,7 @@ P P . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
 ";
             Assert.AreEqual(expectedFov0MapString, fov0MapString);
 
-            Vector3 location = new Vector3(18, 0, 0);
+            Vector3 location = new(18, 0, 0);
             PathFindingResult pathFindingResult = PathFinding.FindPath(mission.Map, fred.Location, location);
             CharacterMovement.MoveCharacter(mission.Map, fred, pathFindingResult, team1, team2, mission.RandomNumbers);
 
@@ -1047,7 +1047,7 @@ P . . . . . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . 
             Assert.AreEqual(expectedFov1MapString, fov1MapString);
 
 
-            Vector3 location2 = new Vector3(2, 0, 18);
+            Vector3 location2 = new(2, 0, 18);
             PathFindingResult pathFindingResult2 = PathFinding.FindPath(mission.Map, harry.Location, location2);
             CharacterMovement.MoveCharacter(mission.Map, harry, pathFindingResult2, team1, team2, mission.RandomNumbers);
 

@@ -12,7 +12,7 @@ namespace Battle.Tests.Characters
         public void FredLevelUpToLevel1Test()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.Level = 1;
             fred.XP = 100;
             fred.LevelUpIsReady = true;
@@ -38,7 +38,7 @@ namespace Battle.Tests.Characters
         public void FredLevelUpToLevel1NotReadyTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.Level = 1;
             fred.XP = 0;
             fred.LevelUpIsReady = false;

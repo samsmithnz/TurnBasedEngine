@@ -32,24 +32,24 @@ namespace Battle.Tests.Scenarios
             mission.Map[5, 0, 7] = CoverType.HalfCover; //half cover here!
             mission.Map[5, 0, 8] = CoverType.FullCover;
             mission.Map[5, 0, 9] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(1, 0, 1));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             fred.HitpointsCurrent = 1;
             Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred }
+                Characters = new() { fred }
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(9, 0, 7));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(9, 0, 7));
             jethro.HitpointsCurrent = 5;
             jethro.InOverwatch = true;
             Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro }
+                Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.RandomNumbers = new(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.StartMission();
 
             //act

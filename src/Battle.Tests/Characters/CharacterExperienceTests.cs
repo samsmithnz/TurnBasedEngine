@@ -12,7 +12,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel1To2XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 100;
             fred.Level = 1;
 
@@ -27,7 +27,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel2To3XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 500;
             fred.Level = 2;
 
@@ -42,7 +42,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel3To4XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 1000;
             fred.Level = 3;
 
@@ -57,7 +57,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel4To5XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 1500;
             fred.Level = 4;
 
@@ -72,7 +72,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel5To6XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 2000;
             fred.Level = 5;
 
@@ -87,7 +87,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel6To7XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 2500;
             fred.Level = 6;
 
@@ -102,7 +102,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel7To8XPFailTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 3000 - 1;
             fred.Level = 7;
 
@@ -117,7 +117,7 @@ namespace Battle.Tests.Characters
         public void CharacterFredLevel7To8XPTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.XP = 3000;
             fred.Level = 7;
 

@@ -2,7 +2,6 @@ using Battle.Logic.Characters;
 using Battle.Logic.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Tests.Items
@@ -20,7 +19,7 @@ namespace Battle.Tests.Items
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act           
@@ -37,7 +36,7 @@ namespace Battle.Tests.Items
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act           
@@ -56,7 +55,7 @@ namespace Battle.Tests.Items
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act
@@ -75,7 +74,7 @@ namespace Battle.Tests.Items
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act
@@ -94,7 +93,7 @@ namespace Battle.Tests.Items
             harry.HitpointsCurrent = 0;
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act
@@ -113,7 +112,7 @@ namespace Battle.Tests.Items
             harry.HitpointsCurrent = 0;
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act
@@ -133,7 +132,7 @@ namespace Battle.Tests.Items
             harry.ActionPointsCurrent = 0;
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act
@@ -153,7 +152,7 @@ namespace Battle.Tests.Items
             harry.ActionPointsCurrent = 0;
             Team team = new(1)
             {
-                Characters = new List<Character>() { fred, harry }
+                Characters = new() { fred, harry }
             };
 
             //Act

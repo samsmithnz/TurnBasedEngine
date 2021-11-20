@@ -24,22 +24,22 @@ namespace Battle.Tests.Scenarios
             };
             mission.Map[6, 0, 5] = CoverType.FullCover;
             mission.Map[20, 0, 11] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
             fred.ActionPointsCurrent = 1;
             Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred },
+                Characters = new() { fred },
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(20, 0, 10));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(20, 0, 10));
             jethro.HitpointsCurrent = 6;
             jethro.ActionPointsCurrent = 1;
             Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro },
+                Characters = new() { jethro },
                 Color = "Red"
             };
             mission.Teams.Add(team2);
@@ -72,7 +72,7 @@ namespace Battle.Tests.Scenarios
                     destination = item.Key;
                 }
             }
-            Assert.AreEqual(new Vector3(9, 0, 10), destination);
+            Assert.AreEqual(new(9, 0, 10), destination);
             string mapMovementString = MapCore.GetMapStringWithItems(mission.Map, MovementPossibileTiles.ExtractVectorListFromKeyValuePair(movementPossibileTiles));
             string mapMovementResult = @"
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 

@@ -84,7 +84,7 @@ namespace Battle.Tests.Utility
             {
                 list.Add(i);
             }
-            queue = new RandomNumberQueue(list);
+            queue = new(list);
 
             //Assert
             Assert.AreEqual(500, queue.Count);
@@ -103,7 +103,7 @@ namespace Battle.Tests.Utility
             RandomNumberQueue queue;
             
             //Act
-            queue = new RandomNumberQueue();
+            queue = new();
 
             //Assert
             Assert.AreEqual(0, queue.Count);

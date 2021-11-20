@@ -22,12 +22,12 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 5;
             jethro.ArmorPointsCurrent = 5;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -54,12 +54,12 @@ Armor prevented 5 damage to character Jethro
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 5;
             jethro.ArmorPointsCurrent = 5;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 20, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -86,12 +86,12 @@ Armor prevented 3 damage to character Jethro
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 4;
             jethro.ArmorPointsCurrent = 2;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -118,13 +118,13 @@ Armor prevented 2 damage to character Jethro
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 3;
             jethro.ArmorPointsCurrent = 2;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -154,13 +154,13 @@ Fred is ready to level up
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ShredderAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 5;
             jethro.ArmorPointsCurrent = 3;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -189,12 +189,12 @@ Armor prevented 1 damage to character Jethro
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 3;
             jethro.ArmorPointsCurrent = 10;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -222,13 +222,13 @@ Armor prevented 5 damage to character Jethro
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.Abilities.Add(AbilityPool.ArmorPiercingAbility());
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 3;
             jethro.ArmorPointsCurrent = 10;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);

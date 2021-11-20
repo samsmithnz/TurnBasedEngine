@@ -100,8 +100,8 @@ namespace Battle.Tests.Scenarios
             //Assert
             Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction.ActionType);
             Assert.AreEqual(13, aIAction.Score);
-            Assert.AreEqual(new Vector3(26, 0, 32), aIAction.StartLocation);
-            Assert.AreEqual(new Vector3(16, 0, 23), aIAction.EndLocation);
+            Assert.AreEqual(new(26, 0, 32), aIAction.StartLocation);
+            Assert.AreEqual(new(16, 0, 23), aIAction.EndLocation);
             Assert.AreEqual(mapStringExpected, mapString);
 
 //            //Act
@@ -201,8 +201,8 @@ namespace Battle.Tests.Scenarios
 //            //Assert
 //            Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
 //            //Assert.AreEqual(5, aIAction2.Score);
-//            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
-//            Assert.AreEqual(new Vector3(20, 0, 20), aIAction2.EndLocation);
+//            Assert.AreEqual(new(26, 0, 32), aIAction2.StartLocation);
+//            Assert.AreEqual(new(20, 0, 20), aIAction2.EndLocation);
 //            //Assert.AreEqual(mapStringExpected2, mapString2);
 
 //            mission.MoveCharacter(mission.Teams[1].Characters[1],

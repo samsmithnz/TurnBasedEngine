@@ -49,8 +49,8 @@ namespace Battle.Tests.Scenarios
 //            Assert.IsTrue(aIAction.IntelligenceCheckSuccessful == false);
 //            Assert.AreEqual(ActionTypeEnum.MoveThenAttack, aIAction.ActionType);
 //            Assert.AreEqual(6, aIAction.Score);
-//            Assert.AreEqual(new Vector3(19, 0, 19), aIAction.StartLocation);
-//            Assert.AreEqual(new Vector3(16, 0, 23), aIAction.EndLocation);
+//            Assert.AreEqual(new(19, 0, 19), aIAction.StartLocation);
+//            Assert.AreEqual(new(16, 0, 23), aIAction.EndLocation);
 //            Assert.AreEqual(mapStringExpected, mapString);
 
 //            //Now run the action
@@ -129,8 +129,8 @@ namespace Battle.Tests.Scenarios
 //            Assert.IsTrue(aIAction2.IntelligenceCheckSuccessful == true);
 //            Assert.AreEqual(ActionTypeEnum.DoubleMove, aIAction2.ActionType);
 //            Assert.AreEqual(6, aIAction2.Score);
-//            Assert.AreEqual(new Vector3(26, 0, 32), aIAction2.StartLocation);
-//            Assert.AreEqual(new Vector3(23, 0, 23), aIAction2.EndLocation);
+//            Assert.AreEqual(new(26, 0, 32), aIAction2.StartLocation);
+//            Assert.AreEqual(new(23, 0, 23), aIAction2.EndLocation);
 //            Assert.AreEqual(mapStringExpected2, mapString2);
         }
     }

@@ -20,11 +20,11 @@ namespace Battle.Tests.Encounters
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Weapon rifle = fred.WeaponEquipped;
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 6;
-            RandomNumberQueue diceRolls = new RandomNumberQueue(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 80, 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
             //Act
             int chanceToHit = EncounterCore.GetChanceToHit(fred, rifle, jethro);
