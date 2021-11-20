@@ -2,6 +2,7 @@ using Battle.Logic.Characters;
 using Battle.Logic.Game;
 using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -160,6 +161,49 @@ namespace Battle.Tests.Items
 
             //Assert
             Assert.AreEqual(null, character);
+        }
+
+        [TestMethod]
+        public void AITargetingWithNoTeamsTest()
+        {
+            //Arrange
+            Mission mission = new();
+            try
+            {
+                mission.StartMission();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Unexpected number of teams: 0", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void AITargetingWithOneTeamsTest()
+        {
+            //Arrange
+            Mission mission = new();
+            mission.Teams.Add(new Team(1));
+            try
+            {
+                mission.StartMission();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Unexpected number of teams: 1", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void AITargetingWithTwoTeamsNoCharacterTest()
+        {
+            //Arrange
+            Mission mission = new();
+            mission.Teams.Add(new Team(1));
+            mission.Teams.Add(new Team(0));
+            mission.StartMission();
+            Character first = mission.Teams[0].GetFirstCharacter();
+            Assert.AreEqual(null, first);
         }
 
 

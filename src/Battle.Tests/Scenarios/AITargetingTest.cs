@@ -26,52 +26,6 @@ namespace Battle.Tests.Scenarios
         }
 
         [TestMethod]
-        [TestCategory("L0")]
-        public void AITargetingWithNoTeamsTest()
-        {
-            //Arrange
-            Mission mission = new();
-            try
-            {
-                mission.StartMission();
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Unexpected number of teams: 0", ex.Message);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory("L0")]
-        public void AITargetingWithOneTeamsTest()
-        {
-            //Arrange
-            Mission mission = new();
-            mission.Teams.Add(new Team(1));
-            try
-            {
-                mission.StartMission();
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Unexpected number of teams: 1", ex.Message);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory("L0")]
-        public void AITargetingWithTwoTeamsNoCharacterTest()
-        {
-            //Arrange
-            Mission mission = new();
-            mission.Teams.Add(new Team(1));
-            mission.Teams.Add(new Team(0));
-            mission.StartMission();
-            Character first = mission.Teams[0].GetFirstCharacter();
-            Assert.AreEqual(null, first);
-        }
-
-        [TestMethod]
         public void AITargetingWithPassivePlayerTest()
         {
             //Arrange
