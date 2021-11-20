@@ -6,7 +6,6 @@ using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
 using System.Reflection;
 
 namespace Battle.Tests.Scenarios

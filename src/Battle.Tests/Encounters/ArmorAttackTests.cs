@@ -4,10 +4,8 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Encounters
 {

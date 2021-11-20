@@ -2,8 +2,6 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;

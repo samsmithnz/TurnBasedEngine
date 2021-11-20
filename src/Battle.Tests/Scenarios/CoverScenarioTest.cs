@@ -2,8 +2,6 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -126,10 +124,10 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
 
             //Throw grenade in front of wall
             Vector3 targetThrowingLocation = new(13, 0, 10);
-            EncounterResult encounter1 = mission.AttackCharacterWithAreaOfEffect(fred, 
-                fred.UtilityWeaponEquipped, 
+            EncounterResult encounter1 = mission.AttackCharacterWithAreaOfEffect(fred,
+                fred.UtilityWeaponEquipped,
                 team1,
-                team2, 
+                team2,
                 targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>

@@ -23,7 +23,7 @@ namespace Battle.Tests.SaveGames
         public void SaveGamesExist()
         {
             //Arrange
-            string path = _rootPath ;
+            string path = _rootPath;
 
             //Act
 

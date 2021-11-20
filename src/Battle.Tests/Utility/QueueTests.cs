@@ -101,7 +101,7 @@ namespace Battle.Tests.Utility
         {
             //Arrange
             RandomNumberQueue queue;
-            
+
             //Act
             queue = new();
 

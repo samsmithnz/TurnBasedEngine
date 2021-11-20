@@ -35,7 +35,8 @@ namespace Battle.Tests.Research
         public void ResearchItemsAreCompletedTest()
         {
             //Arrange
-            List<ResearchItem> list = new() {
+            List<ResearchItem> list = new()
+            {
                 ResearchPool.CreateAdvancedWeapons(),
                 ResearchPool.CreateLasers(),
                 ResearchPool.CreatePlasma()

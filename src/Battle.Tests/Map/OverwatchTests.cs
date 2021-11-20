@@ -4,7 +4,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -26,7 +25,7 @@ namespace Battle.Tests.Map
             Team team1 = new(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
-          Team team2 = new(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -67,7 +66,7 @@ Fred is ready to level up
             Team team1 = new(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
-          Team team2 = new(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new(new List<int> { 65, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -107,7 +106,7 @@ Fred is ready to level up
             Team team1 = new(1);
             team1.Characters.Add(fred);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
-          Team team2 = new(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -152,7 +151,7 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.HitpointsCurrent = 25;
-          Team team2 = new(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new(new List<int> { 100, 100, 100, 100, 100, 100, 0, 0 }); //Chance to hit roll, damage roll, critical chance roll
 
@@ -205,7 +204,7 @@ Fred is ready to level up
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
-          Team team2 = new(0);
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);

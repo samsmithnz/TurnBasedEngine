@@ -2,10 +2,8 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Scenarios
 {

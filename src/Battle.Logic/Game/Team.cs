@@ -1,5 +1,4 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 

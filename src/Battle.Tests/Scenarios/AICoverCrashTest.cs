@@ -1,10 +1,8 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using System.Numerics;
 using System.Reflection;
 
 namespace Battle.Tests.Scenarios

@@ -4,7 +4,6 @@ using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -94,7 +93,7 @@ Fred is ready to level up
             jethro.HitpointsCurrent = 2;
             jethro.ArmorPointsCurrent = 2;
             Team team2 = new(0);
-            team2.Characters.Add(jethro); 
+            team2.Characters.Add(jethro);
             RandomNumberQueue diceRolls = new(new List<int> { 100, 0 }); //Chance to hit roll, damage roll, critical chance roll
             Vector3 targetThrowingLocation = new(2, 0, 4);
             List<Character> characterList = new() { fred, jethro };

@@ -189,7 +189,7 @@ namespace Battle.Tests.Characters
             List<Vector3> enemyLocations = null;
 
             // Act
-            string[,,] map = CoverUtility.InitializeMap(width, 1, height,null, halfCoverLocations);
+            string[,,] map = CoverUtility.InitializeMap(width, 1, height, null, halfCoverLocations);
             CoverState coverResult = CharacterCover.CalculateCover(map, startingLocation, enemyLocations);
 
             // Assert
