@@ -96,5 +96,20 @@ namespace Battle.Tests.Utility
             Assert.AreEqual(199, queue.Count);
         }
 
+        [TestMethod]
+        public void QueueWith0ItemsListTest()
+        {
+            //Arrange
+            RandomNumberQueue queue;
+            
+            //Act
+            queue = new RandomNumberQueue();
+
+            //Assert
+            Assert.AreEqual(0, queue.Count);
+            queue.Dequeue();
+            Assert.AreEqual(99, queue.Count);
+        }
+
     }
 }
