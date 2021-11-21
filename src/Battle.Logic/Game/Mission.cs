@@ -153,6 +153,13 @@ namespace Battle.Logic.Game
                 Teams[0].UpdateTargets(Map, Teams[1].Characters);
                 Teams[1].UpdateTargets(Map, Teams[0].Characters);
             }
+            foreach (MissionObjective objective in Objectives)
+            {
+                if (objective.Type == MissionObjectiveType.ToggleSwitch)
+                {
+                    Map[(int)objective.Location.X, (int)objective.Location.Y, (int)objective.Location.Z] = CoverType.ToggleSwitch;
+                }
+            }
         }
 
         /// <summary>

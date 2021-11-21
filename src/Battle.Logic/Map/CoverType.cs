@@ -6,5 +6,6 @@
         public const string HalfCover = "□";
         public const string NoCover = ".";
         //▫
+        public const string ToggleSwitch = "T";
     }
 }
