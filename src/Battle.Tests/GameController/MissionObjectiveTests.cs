@@ -60,10 +60,70 @@ namespace Battle.Tests.GameController
         }
 
         [TestMethod]
+        public void MissionObjectiveExtractionCompleteTest()
+        {
+            //Arrange
+            Mission mission = new();
+            mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ExtractTroops, false);
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);            
+            Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+            Team team1 = new(1)
+            {
+                Characters = new() { fred, harry }
+            };
+            mission.Teams.Add(team1);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
+            Team team2 = new(0)
+            {
+                Characters = new() { jethro }
+            };
+            mission.Teams.Add(team2);
+            mission.StartMission();
+
+            //Act           
+            fred.ExtractedFromMission = true;
+            harry.HitpointsCurrent = 0;
+            bool missionComplete = mission.CheckIfMissionIsCompleted();
+
+            //Assert
+            Assert.IsTrue(missionComplete);
+        }
+
+        [TestMethod]
+        public void MissionObjectiveExtractionNotCompleteTest()
+        {
+            //Arrange
+            Mission mission = new();
+            mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ExtractTroops, false);
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+            Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+            Team team1 = new(1)
+            {
+                Characters = new() { fred, harry }
+            };
+            mission.Teams.Add(team1);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
+            Team team2 = new(0)
+            {
+                Characters = new() { jethro }
+            };
+            mission.Teams.Add(team2);
+            mission.StartMission();
+
+            //Act        
+            fred.ExtractedFromMission = true;
+            bool missionComplete = mission.CheckIfMissionIsCompleted();
+
+            //Assert
+            Assert.IsFalse(missionComplete);
+        }
+
+        [TestMethod]
         public void MissionObjectiveEliminateAllAndExtractionCompleteTest()
         {
             //Arrange
             Mission mission = new();
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team1 = new(1)
@@ -72,7 +132,6 @@ namespace Battle.Tests.GameController
             };
             mission.Teams.Add(team1);
             mission.Teams.Add(new Team(0));
-            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           
@@ -87,6 +146,7 @@ namespace Battle.Tests.GameController
         {
             //Arrange
             Mission mission = new();
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team1 = new(1)
@@ -100,7 +160,6 @@ namespace Battle.Tests.GameController
                 Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           
@@ -115,6 +174,7 @@ namespace Battle.Tests.GameController
         {
             //Arrange
             Mission mission = new();
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team1 = new(1)
@@ -128,7 +188,6 @@ namespace Battle.Tests.GameController
                 Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           
