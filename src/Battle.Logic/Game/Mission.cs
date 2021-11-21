@@ -14,7 +14,7 @@ namespace Battle.Logic.Game
         public Mission()
         {
             Teams = new List<Team>();
-            Objective = Mission.MissionType.EliminateAllOpponents;
+            Objectives = new List<MissionObjective>() { new MissionObjective(MissionObjectiveType.EliminateAllOpponents, false) };
             TurnNumber = 1;
             CurrentTeamIndex = 0;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
@@ -25,13 +25,9 @@ namespace Battle.Logic.Game
         public int CurrentTeamIndex { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
-        public MissionType Objective { get; set; }
         public RandomNumberQueue RandomNumbers { get; set; }
 
-        public enum MissionType
-        {
-            EliminateAllOpponents = 0
-        }
+        public List<MissionObjective> Objectives { get; set; }
 
         public bool CheckIfCurrentTeamIsDoneTurn()
         {
@@ -83,20 +79,54 @@ namespace Battle.Logic.Game
         public bool CheckIfMissionIsCompleted()
         {
             bool result = false;
-            foreach (Team team in Teams)
+            int objectiveCount = Objectives.Count;
+
+            for (int i = 0; i < Objectives.Count; i++)
             {
-                int totalHPs = 0;
-                foreach (Character character in team.Characters)
+                MissionObjective item = Objectives[i];
+                if (item.Type == MissionObjectiveType.EliminateAllOpponents)
                 {
-                    if (character.HitpointsCurrent > 0)
+                    foreach (Team team in Teams)
                     {
-                        totalHPs += character.HitpointsCurrent;
+                        int totalHPs = 0;
+                        foreach (Character character in team.Characters)
+                        {
+                            if (character.HitpointsCurrent > 0)
+                            {
+                                totalHPs += character.HitpointsCurrent;
+                            }
+                        }
+                        if (totalHPs <= 0)
+                        {
+                            Objectives[i].ObjectiveIsComplete = true;
+                            objectiveCount--;
+                        }
                     }
                 }
-                if (totalHPs <= 0)
+                if (item.Type == MissionObjectiveType.ExtractTroops)
                 {
-                    return true;
+                    foreach (Team team in Teams)
+                    {
+                        int characterCount = team.Characters.Count;
+                        foreach (Character character in team.Characters)
+                        {
+                            if (character.HitpointsCurrent <= 0 || character.ExtractedFromMission)
+                            {
+                                characterCount--;
+                            }
+                        }
+                        if (characterCount <= 0)
+                        {
+                            Objectives[i].ObjectiveIsComplete = true;
+                            objectiveCount--;
+                        }
+                    }
+
                 }
+            }
+            if (objectiveCount == 0)
+            {
+                result = true;
             }
 
             return result;
