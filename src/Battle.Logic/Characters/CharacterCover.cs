@@ -256,10 +256,6 @@ namespace Battle.Logic.Characters
             //int height = map.GetLength(1);
             int breadth = map.GetLength(2);
             List<Vector3> result = new List<Vector3>();
-            //if (currentLocation.X > width - 1 || currentLocation.Z > breadth - 1)
-            //{
-            //    throw new Exception("The character is off the map");
-            //}
 
             //Make adjustments to ensure that the search doesn't go off the edges of the map
             int xMin = Convert.ToInt32(currentLocation.X) - 1;

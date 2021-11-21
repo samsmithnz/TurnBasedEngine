@@ -188,7 +188,7 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<CharacterAction> GetCurrentActions()
+        public List<CharacterAction> GetCurrentActions(string[,,] map)
         {
             List<CharacterAction> options = new List<CharacterAction>();
             if (ActionPointsCurrent > 0)
@@ -216,6 +216,10 @@ namespace Battle.Logic.Characters
                 if (CoverState.InFullCover || CoverState.InHalfCover)
                 {
                     options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
+                }
+                if (true)
+                {
+
                 }
             }
 
