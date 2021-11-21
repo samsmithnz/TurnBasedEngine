@@ -14,7 +14,7 @@ namespace Battle.Tests.GameController
         public void MissionObjectiveEliminateAllCompleteTest()
         {
             //Arrange
-            Mission mission = new Mission();
+            Mission mission = new();
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team1 = new(1)
@@ -36,7 +36,7 @@ namespace Battle.Tests.GameController
         public void MissionObjectiveEliminateAllNotCompleteTest()
         {
             //Arrange
-            Mission mission = new Mission();
+            Mission mission = new();
             Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
             Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
             Team team1 = new(1)
@@ -45,7 +45,7 @@ namespace Battle.Tests.GameController
             };
             mission.Teams.Add(team1);
             Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Characters = new() { jethro }
             };
