@@ -1,5 +1,5 @@
 name: Create PR on push
-#Note: There is a limitation - it will always use the first commit message - and future commits overwrite any changes to the PR title.
+#Note: There is a limitation - it will always use the first commit message - and future commits overwrite any changes to the PR title and body.
 
 on:
   push:
