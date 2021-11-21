@@ -2,6 +2,7 @@ using Battle.Logic.Characters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Battle.Tests.GameController
@@ -128,7 +129,7 @@ namespace Battle.Tests.GameController
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
             mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ToggleSwitch, false, new Vector3(2f, 0f, 1f));
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(2,0,2));
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(2, 0, 2));
             Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(5, 0, 5));
             Team team1 = new(1)
             {
@@ -146,9 +147,16 @@ namespace Battle.Tests.GameController
             //Act
             mission.Objectives[0].ObjectiveIsComplete = true;
             bool missionComplete = mission.CheckIfMissionIsCompleted();
+            List<CharacterAction> fredActions = fred.GetCurrentActions(mission.Map);
+            List<CharacterAction> harryActions = harry.GetCurrentActions(mission.Map);
 
             //Assert
             Assert.IsTrue(missionComplete);
+            Assert.AreEqual(5, fredActions.Count);
+            Assert.AreEqual("_toggle", fredActions[4].Name);
+            Assert.AreEqual("Toggle switch", fredActions[4].Caption);
+            Assert.AreEqual("0", fredActions[4].KeyBinding);
+            Assert.AreEqual(3, harryActions.Count);
         }
 
         [TestMethod]
@@ -177,9 +185,16 @@ namespace Battle.Tests.GameController
 
             //Act        
             bool missionComplete = mission.CheckIfMissionIsCompleted();
+            List<CharacterAction> fredActions = fred.GetCurrentActions(mission.Map);
+            List<CharacterAction> harryActions = harry.GetCurrentActions(mission.Map);
 
             //Assert
             Assert.IsFalse(missionComplete);
+            Assert.AreEqual(5, fredActions.Count);
+            Assert.AreEqual("_toggle", fredActions[4].Name);
+            Assert.AreEqual("Toggle switch", fredActions[4].Caption);
+            Assert.AreEqual("0", fredActions[4].KeyBinding);
+            Assert.AreEqual(3, harryActions.Count);
         }
 
     }
