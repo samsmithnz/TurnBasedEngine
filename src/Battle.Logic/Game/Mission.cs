@@ -14,7 +14,7 @@ namespace Battle.Logic.Game
         public Mission()
         {
             Teams = new List<Team>();
-            Objectives = new List<MissionType>() { Mission.MissionType.EliminateAllOpponents };
+            Objectives = new List<MissionObjective>() { new MissionObjective(MissionObjectiveType.EliminateAllOpponents, false) };
             TurnNumber = 1;
             CurrentTeamIndex = 0;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
@@ -25,17 +25,9 @@ namespace Battle.Logic.Game
         public int CurrentTeamIndex { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
-        public List<MissionType> Objectives { get; set; }
         public RandomNumberQueue RandomNumbers { get; set; }
 
-        public enum MissionType
-        {
-            EliminateAllOpponents = 0,
-            GetItem = 1,
-            TriggerSwitch = 2,
-            GetToLocation = 3,
-            ExtractTroops = 4
-        }
+        public List<MissionObjective> Objectives { get; set; }
 
         public bool CheckIfCurrentTeamIsDoneTurn()
         {
@@ -88,24 +80,29 @@ namespace Battle.Logic.Game
         {
             bool result = false;
 
-            if (Objectives.Contains(MissionType.EliminateAllOpponents))
+            for (int i = 0; i < Objectives.Count; i++)
             {
-                foreach (Team team in Teams)
+                MissionObjective item = Objectives[i];
+                if (item.Type == MissionObjectiveType.EliminateAllOpponents)
                 {
-                    int totalHPs = 0;
-                    foreach (Character character in team.Characters)
+                    foreach (Team team in Teams)
                     {
-                        if (character.HitpointsCurrent > 0)
+                        int totalHPs = 0;
+                        foreach (Character character in team.Characters)
                         {
-                            totalHPs += character.HitpointsCurrent;
+                            if (character.HitpointsCurrent > 0)
+                            {
+                                totalHPs += character.HitpointsCurrent;
+                            }
                         }
-                    }
-                    if (totalHPs <= 0)
-                    {
-                        return true;
+                        if (totalHPs <= 0)
+                        {
+                            Objectives[i].ObjectiveIsComplete = true;
+                        }
                     }
                 }
             }
+
 
             return result;
         }
