@@ -294,9 +294,9 @@ namespace Battle.Logic.Game
             return action;
         }
 
-        public bool ToggleSwitch(Character sourceCharacter, Vector3 location)
+        public bool ToggleSwitch(Character sourceCharacter)
         {
-            List<Vector3> foundTiles = MapCore.FindAdjacentTile(Map, location, CoverType.ToggleSwitch);
+            List<Vector3> foundTiles = MapCore.FindAdjacentTile(Map, sourceCharacter.Location, CoverType.ToggleSwitch);
             if (foundTiles != null && foundTiles.Count > 0)
             {
                 for (int i = 0; i < Objectives.Count; i++)
