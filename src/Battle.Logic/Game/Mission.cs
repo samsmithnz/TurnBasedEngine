@@ -103,6 +103,13 @@ namespace Battle.Logic.Game
                         }
                     }
                 }
+                if (item.Type == MissionObjectiveType.ToggleSwitch)
+                {
+                    if (Objectives[i].ObjectiveIsComplete == true)
+                    {
+                        objectiveCount--;
+                    }
+                }
                 if (item.Type == MissionObjectiveType.ExtractTroops)
                 {
                     foreach (Team team in Teams)
@@ -121,7 +128,6 @@ namespace Battle.Logic.Game
                             objectiveCount--;
                         }
                     }
-
                 }
             }
             if (objectiveCount == 0)
