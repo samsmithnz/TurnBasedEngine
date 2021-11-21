@@ -11,7 +11,7 @@ namespace Battle.Tests.GameController
     public class MissionObjectiveTests
     {
         [TestMethod]
-        public void MissionObjectiveEliminateAllTest()
+        public void MissionObjectiveEliminateAllCompleteTest()
         {
             //Arrange
             Mission mission = new Mission();
@@ -32,6 +32,32 @@ namespace Battle.Tests.GameController
             Assert.IsTrue(missionComplete);
         }
 
+        [TestMethod]
+        public void MissionObjectiveEliminateAllNotCompleteTest()
+        {
+            //Arrange
+            Mission mission = new Mission();
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+            Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+            Team team1 = new(1)
+            {
+                Characters = new() { fred, harry }
+            };
+            mission.Teams.Add(team1);
+            Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
+            Team team2 = new Team(0)
+            {
+                Characters = new() { jethro }
+            };
+            mission.Teams.Add(team2);
+            mission.StartMission();
+
+            //Act           
+            bool missionComplete = mission.CheckIfMissionIsCompleted();
+
+            //Assert
+            Assert.IsFalse(missionComplete);
+        }
 
 
     }
