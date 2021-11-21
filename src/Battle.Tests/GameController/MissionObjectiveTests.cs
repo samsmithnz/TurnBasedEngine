@@ -72,6 +72,7 @@ namespace Battle.Tests.GameController
             };
             mission.Teams.Add(team1);
             mission.Teams.Add(new Team(0));
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           
@@ -99,6 +100,7 @@ namespace Battle.Tests.GameController
                 Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           
@@ -126,7 +128,7 @@ namespace Battle.Tests.GameController
                 Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, true));
+            mission.Objectives.Add(new MissionObjective(MissionObjectiveType.ExtractTroops, false));
             mission.StartMission();
 
             //Act           

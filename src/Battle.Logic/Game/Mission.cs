@@ -103,6 +103,26 @@ namespace Battle.Logic.Game
                         }
                     }
                 }
+                if (item.Type == MissionObjectiveType.ExtractTroops)
+                {
+                    foreach (Team team in Teams)
+                    {
+                        int characterCount = team.Characters.Count;
+                        foreach (Character character in team.Characters)
+                        {
+                            if (character.HitpointsCurrent <= 0 || character.ExtractedFromMission)
+                            {
+                                characterCount--;
+                            }
+                        }
+                        if (characterCount <= 0)
+                        {
+                            Objectives[i].ObjectiveIsComplete = true;
+                            objectiveCount--;
+                        }
+                    }
+
+                }
             }
             if (objectiveCount == 0)
             {

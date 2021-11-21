@@ -112,6 +112,7 @@ namespace Battle.Logic.Characters
         public int TotalHits { get; set; }
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
+        public bool ExtractedFromMission { get; set; }
         public int TargetCharacterIndex { get; set; }
         public List<string> TargetCharacters { get; set; }
         public string GetTargetCharacter()
