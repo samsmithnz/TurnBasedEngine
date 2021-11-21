@@ -30,7 +30,11 @@ namespace Battle.Logic.Game
 
         public enum MissionType
         {
-            EliminateAllOpponents = 0
+            EliminateAllOpponents = 0,
+            GetItem = 1,
+            TriggerSwitch = 2,
+            GetToLocation = 3,
+            ExtractTroops = 4
         }
 
         public bool CheckIfCurrentTeamIsDoneTurn()
@@ -83,19 +87,23 @@ namespace Battle.Logic.Game
         public bool CheckIfMissionIsCompleted()
         {
             bool result = false;
-            foreach (Team team in Teams)
+
+            if (Objectives.Contains(MissionType.EliminateAllOpponents))
             {
-                int totalHPs = 0;
-                foreach (Character character in team.Characters)
+                foreach (Team team in Teams)
                 {
-                    if (character.HitpointsCurrent > 0)
+                    int totalHPs = 0;
+                    foreach (Character character in team.Characters)
                     {
-                        totalHPs += character.HitpointsCurrent;
+                        if (character.HitpointsCurrent > 0)
+                        {
+                            totalHPs += character.HitpointsCurrent;
+                        }
                     }
-                }
-                if (totalHPs <= 0)
-                {
-                    return true;
+                    if (totalHPs <= 0)
+                    {
+                        return true;
+                    }
                 }
             }
 
