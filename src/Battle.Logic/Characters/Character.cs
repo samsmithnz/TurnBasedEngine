@@ -188,7 +188,7 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<CharacterAction> GetCurrentActions(string[,,] map)
+        public List<CharacterAction> GetCurrentActions(string[,,] map = null)
         {
             List<CharacterAction> options = new List<CharacterAction>();
             if (ActionPointsCurrent > 0)
@@ -217,9 +217,14 @@ namespace Battle.Logic.Characters
                 {
                     options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
                 }
-                if (true)
+                if (map != null)
                 {
-
+                    //Add the found tiles action
+                    List<Vector3> foundTiles = MapCore.FindAdjacentTile(map, Location, CoverType.ToggleSwitch);
+                    if (foundTiles != null && foundTiles.Count > 0)
+                    {
+                        options.Add(new CharacterAction() { Name = "_toggle", Caption = "Toggle switch", KeyBinding = "0" });
+                    }
                 }
             }
 

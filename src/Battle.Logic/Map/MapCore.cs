@@ -278,5 +278,54 @@ namespace Battle.Logic.Map
             }
             return sb.ToString();
         }
+
+        public static List<Vector3> FindAdjacentTile(string[,,] map, Vector3 currentLocation, string tileToFind)
+        {
+            int width = map.GetLength(0);
+            //int height = map.GetLength(1);
+            int breadth = map.GetLength(2);
+            List<Vector3> result = new List<Vector3>();
+
+            //Make adjustments to ensure that the search doesn't go off the edges of the map
+            int xMin = Convert.ToInt32(currentLocation.X) - 1;
+            if (xMin < 0)
+            {
+                xMin = 0;
+            }
+            int xMax = Convert.ToInt32(currentLocation.X) + 1;
+            if (xMax > width - 1)
+            {
+                xMax = width - 1;
+            }
+            int zMin = Convert.ToInt32(currentLocation.Z) - 1;
+            if (zMin < 0)
+            {
+                zMin = 0;
+            }
+            int zMax = Convert.ToInt32(currentLocation.Z) + 1;
+            if (zMax > breadth - 1)
+            {
+                zMax = breadth - 1;
+            }
+
+            //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == tileToFind)
+            {
+                result.Add(new Vector3(currentLocation.X, 0f, zMax));
+            }
+            if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+            {
+                result.Add(new Vector3(xMax, 0f, currentLocation.Z));
+            }
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == tileToFind)
+            {
+                result.Add(new Vector3(currentLocation.X, 0f, zMin));
+            }
+            if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+            {
+                result.Add(new Vector3(xMin, 0f, currentLocation.Z));
+            }
+            return result;
+        }
     }
 }
