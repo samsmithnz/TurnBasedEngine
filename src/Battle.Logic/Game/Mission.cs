@@ -153,6 +153,7 @@ namespace Battle.Logic.Game
                 Teams[0].UpdateTargets(Map, Teams[1].Characters);
                 Teams[1].UpdateTargets(Map, Teams[0].Characters);
             }
+            //Setup any objectives on the map
             foreach (MissionObjective objective in Objectives)
             {
                 if (objective.Type == MissionObjectiveType.ToggleSwitch)
