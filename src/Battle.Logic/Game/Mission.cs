@@ -14,7 +14,7 @@ namespace Battle.Logic.Game
         public Mission()
         {
             Teams = new List<Team>();
-            Objective = Mission.MissionType.EliminateAllOpponents;
+            Objectives = new List<MissionType>() { Mission.MissionType.EliminateAllOpponents };
             TurnNumber = 1;
             CurrentTeamIndex = 0;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
@@ -25,7 +25,7 @@ namespace Battle.Logic.Game
         public int CurrentTeamIndex { get; set; }
         public List<Team> Teams { get; set; }
         public string[,,] Map { get; set; }
-        public MissionType Objective { get; set; }
+        public List<MissionType> Objectives { get; set; }
         public RandomNumberQueue RandomNumbers { get; set; }
 
         public enum MissionType

@@ -48,7 +48,8 @@ namespace Battle.Tests.Scenarios
             mission.StartMission();
 
             //Assert - Setup
-            Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objective);
+            Assert.AreEqual(1, mission.Objectives.Count);
+            Assert.AreEqual(Mission.MissionType.EliminateAllOpponents, mission.Objectives[0]);
             Assert.AreEqual(1, mission.TurnNumber);
             Assert.AreEqual(2, mission.Teams.Count);
             Assert.AreEqual(50 * 50, mission.Map.Length);
