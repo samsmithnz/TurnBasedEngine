@@ -118,6 +118,62 @@ namespace Battle.Tests.GameController
             Assert.IsFalse(missionComplete);
         }
 
+        //[TestMethod]
+        //public void MissionObjectiveTriggerSwitchCompleteTest()
+        //{
+        //    //Arrange
+        //    Mission mission = new();
+        //    mission.Objectives[0] = new MissionObjective(MissionObjectiveType.TriggerSwitch, false);
+        //    Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+        //    Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+        //    Team team1 = new(1)
+        //    {
+        //        Characters = new() { fred, harry }
+        //    };
+        //    mission.Teams.Add(team1);
+        //    Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
+        //    Team team2 = new(0)
+        //    {
+        //        Characters = new() { jethro }
+        //    };
+        //    mission.Teams.Add(team2);
+        //    mission.StartMission();
+
+        //    //Act           
+        //    bool missionComplete = mission.CheckIfMissionIsCompleted();
+
+        //    //Assert
+        //    Assert.IsTrue(missionComplete);
+        //}
+
+        //[TestMethod]
+        //public void MissionObjectiveTriggerSwitchNotCompleteTest()
+        //{
+        //    //Arrange
+        //    Mission mission = new();
+        //    mission.Objectives[0] = new MissionObjective(MissionObjectiveType.TriggerSwitch, false);
+        //    Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+        //    Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+        //    Team team1 = new(1)
+        //    {
+        //        Characters = new() { fred, harry }
+        //    };
+        //    mission.Teams.Add(team1);
+        //    Character jethro = CharacterPool.CreateJethroBaddie(null, Vector3.One);
+        //    Team team2 = new(0)
+        //    {
+        //        Characters = new() { jethro }
+        //    };
+        //    mission.Teams.Add(team2);
+        //    mission.StartMission();
+
+        //    //Act        
+        //    bool missionComplete = mission.CheckIfMissionIsCompleted();
+
+        //    //Assert
+        //    Assert.IsFalse(missionComplete);
+        //}
+
         [TestMethod]
         public void MissionObjectiveEliminateAllAndExtractionCompleteTest()
         {

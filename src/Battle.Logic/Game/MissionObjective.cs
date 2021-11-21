@@ -16,7 +16,7 @@
     {
         EliminateAllOpponents = 0,
         //GetItem = 1,
-        //TriggerSwitch = 2,
+        TriggerSwitch = 2,
         //GetToLocation = 3,
         ExtractTroops = 4
     }
