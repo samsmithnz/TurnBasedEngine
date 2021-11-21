@@ -140,7 +140,7 @@ namespace Battle.Tests.GameController
             mission.StartMission();
 
             //Act
-            mission.Objectives[0].ObjectiveIsComplete=true;
+            mission.Objectives[0].ObjectiveIsComplete = true;
             bool missionComplete = mission.CheckIfMissionIsCompleted();
 
             //Assert
