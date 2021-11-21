@@ -293,5 +293,23 @@ namespace Battle.Logic.Game
                 RandomNumbers);
             return action;
         }
+
+        public bool ToggleSwitch(Character sourceCharacter, Vector3 location)
+        {
+            List<Vector3> foundTiles = MapCore.FindAdjacentTile(Map, location, CoverType.ToggleSwitch);
+            if (foundTiles != null && foundTiles.Count > 0)
+            {
+                for (int i = 0; i < Objectives.Count; i++)
+                {
+                    MissionObjective objective = Objectives[i];
+                    if (objective.Type == MissionObjectiveType.ToggleSwitch)
+                    {
+                        Objectives[i].ObjectiveIsComplete = true;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
