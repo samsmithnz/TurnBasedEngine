@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Numerics;
 
-namespace Battle.Tests.Items
+namespace Battle.Tests.GameController
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
@@ -28,6 +28,7 @@ namespace Battle.Tests.Items
             //Assert
             Assert.AreEqual(harry.Name, character.Name);
         }
+
         [TestMethod]
         public void TeamCheckForPreviousFirstCharacterForActionPointsTest()
         {
