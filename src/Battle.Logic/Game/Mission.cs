@@ -79,6 +79,7 @@ namespace Battle.Logic.Game
         public bool CheckIfMissionIsCompleted()
         {
             bool result = false;
+            int objectiveCount = Objectives.Count;
 
             for (int i = 0; i < Objectives.Count; i++)
             {
@@ -98,11 +99,15 @@ namespace Battle.Logic.Game
                         if (totalHPs <= 0)
                         {
                             Objectives[i].ObjectiveIsComplete = true;
+                            objectiveCount--;
                         }
                     }
                 }
             }
-
+            if (objectiveCount == 0)
+            {
+                result = true;
+            }
 
             return result;
         }
