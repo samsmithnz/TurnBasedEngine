@@ -21,9 +21,10 @@ namespace Battle.Tests.Scenarios
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ToggleSwitch, false, new Vector3(10, 0, 10));
+            mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ToggleSwitch, false, new Vector3(8, 0, 8));
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(4, 0, 4));
-            Character harry = CharacterPool.CreateHarryHero(mission.Map, new(4, 0, 6));
+            fred.ActionPointsCurrent = 3;
+             Character harry = CharacterPool.CreateHarryHero(mission.Map, new(4, 0, 6));
             Character jeff = CharacterPool.CreateJeffHero(mission.Map, new(4, 0, 8));
             Team team1 = new(1)
             {
@@ -49,10 +50,8 @@ namespace Battle.Tests.Scenarios
 
             //Assert
             Assert.IsFalse(missionComplete);
-            Assert.AreEqual(5, fredActions.Count);
-            Assert.AreEqual("_toggle", fredActions[4].Name);
-            Assert.AreEqual("Toggle switch", fredActions[4].Caption);
-            Assert.AreEqual("0", fredActions[4].KeyBinding);
+            Assert.AreEqual(3, fred.ActionPointsCurrent);
+            Assert.AreEqual(4, fredActions.Count);
             Assert.AreEqual(3, harryActions.Count);
 
 
@@ -60,31 +59,31 @@ namespace Battle.Tests.Scenarios
             mission.MoveCharacter(fred,
                             team1,
                             team2,
-                            new Vector3(10, 0, 11));
-
-            //Assert
-            Assert.IsFalse(missionComplete);
-            Assert.AreEqual(5, fredActions.Count);
-            Assert.AreEqual("_toggle", fredActions[4].Name);
-            Assert.AreEqual("Toggle switch", fredActions[4].Caption);
-            Assert.AreEqual("0", fredActions[4].KeyBinding);
-            Assert.AreEqual(3, harryActions.Count);
-
-            //Act
-            mission.ToggleSwitch(fred);
+                            new Vector3(8, 0, 7));
             bool missionComplete2 = mission.CheckIfMissionIsCompleted();
             List<CharacterAction> fredActions2 = fred.GetCurrentActions(mission.Map);
             List<CharacterAction> harryActions2 = harry.GetCurrentActions(mission.Map);
 
             //Assert
-            Assert.IsTrue(missionComplete2);
+            Assert.IsFalse(missionComplete2);
+            Assert.AreEqual(2, fred.ActionPointsCurrent);
             Assert.AreEqual(5, fredActions2.Count);
             Assert.AreEqual("_toggle", fredActions2[4].Name);
             Assert.AreEqual("Toggle switch", fredActions2[4].Caption);
             Assert.AreEqual("0", fredActions2[4].KeyBinding);
             Assert.AreEqual(3, harryActions2.Count);
 
+            //Act
+            mission.ToggleSwitch(fred);
+            bool missionComplete3 = mission.CheckIfMissionIsCompleted();
+            List<CharacterAction> fredActions3 = fred.GetCurrentActions(mission.Map);
+            List<CharacterAction> harryActions3 = harry.GetCurrentActions(mission.Map);
 
+            //Assert
+            Assert.IsTrue(missionComplete3);
+            Assert.AreEqual(1, fred.ActionPointsCurrent);
+            Assert.AreEqual(4, fredActions3.Count);
+            Assert.AreEqual(3, harryActions3.Count);
         }
     }
 }

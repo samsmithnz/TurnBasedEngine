@@ -309,6 +309,7 @@ namespace Battle.Logic.Game
                     MissionObjective objective = Objectives[i];
                     if (objective.Type == MissionObjectiveType.ToggleSwitch)
                     {
+                        sourceCharacter.ActionPointsCurrent -= 1;
                         Objectives[i].ObjectiveIsComplete = true;
                         return true;
                     }
