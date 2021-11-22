@@ -14,6 +14,7 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 - Basic field of view
 - Reactions/ overwatch
 - A very basic AI, that attempts to move, flank and attack a character
+- Basic mission objectives, that can be combined, including: eliminate all, extract troops, toggle switch
 
 ### Current workflow
 1. Start team turn
