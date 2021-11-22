@@ -1,5 +1,4 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +23,7 @@ namespace Battle.Tests.Scenarios
             mission.Objectives[0] = new MissionObjective(MissionObjectiveType.ToggleSwitch, false, new Vector3(8, 0, 8));
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(4, 0, 4));
             fred.ActionPointsCurrent = 3;
-             Character harry = CharacterPool.CreateHarryHero(mission.Map, new(4, 0, 6));
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new(4, 0, 6));
             Character jeff = CharacterPool.CreateJeffHero(mission.Map, new(4, 0, 8));
             Team team1 = new(1)
             {

@@ -60,7 +60,7 @@ namespace Battle.Tests.SaveGames
 
             //Act
             string json = GameSerialization.SaveGame(mission);
-        string savedFile=    GameSerialization.CreateSaveGameFile(path, json);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json);
 
             //Assert
             Assert.IsTrue(Directory.Exists(path));
