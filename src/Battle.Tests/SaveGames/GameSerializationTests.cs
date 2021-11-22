@@ -60,11 +60,14 @@ namespace Battle.Tests.SaveGames
 
             //Act
             string json = GameSerialization.SaveGame(mission);
-            GameSerialization.CreateSaveGameFile(path, json);
+        string savedFile=    GameSerialization.CreateSaveGameFile(path, json);
 
             //Assert
             Assert.IsTrue(Directory.Exists(path));
             Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+
+            //Clean up
+            File.Delete(savedFile);
         }
 
     }

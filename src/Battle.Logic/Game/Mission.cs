@@ -103,6 +103,13 @@ namespace Battle.Logic.Game
                         }
                     }
                 }
+                if (item.Type == MissionObjectiveType.ToggleSwitch)
+                {
+                    if (Objectives[i].ObjectiveIsComplete == true)
+                    {
+                        objectiveCount--;
+                    }
+                }
                 if (item.Type == MissionObjectiveType.ExtractTroops)
                 {
                     foreach (Team team in Teams)
@@ -121,7 +128,6 @@ namespace Battle.Logic.Game
                             objectiveCount--;
                         }
                     }
-
                 }
             }
             if (objectiveCount == 0)
@@ -146,6 +152,14 @@ namespace Battle.Logic.Game
             {
                 Teams[0].UpdateTargets(Map, Teams[1].Characters);
                 Teams[1].UpdateTargets(Map, Teams[0].Characters);
+            }
+            //Setup any objectives on the map
+            foreach (MissionObjective objective in Objectives)
+            {
+                if (objective.Type == MissionObjectiveType.ToggleSwitch)
+                {
+                    Map[(int)objective.Location.X, (int)objective.Location.Y, (int)objective.Location.Z] = CoverType.ToggleSwitchOn;
+                }
             }
         }
 
@@ -278,6 +292,30 @@ namespace Battle.Logic.Game
                 opponentTeam,
                 RandomNumbers);
             return action;
+        }
+
+        public bool ToggleSwitch(Character sourceCharacter)
+        {
+            //Check that the source character is next to a tile that toggles a switch
+            List<Vector3> foundTiles = MapCore.FindAdjacentTile(Map, sourceCharacter.Location, CoverType.ToggleSwitchOn);
+            if (foundTiles != null && foundTiles.Count > 0)
+            {
+                //Update the map with an off toggle switch
+                Map[(int)foundTiles[0].X, (int)foundTiles[0].Y, (int)foundTiles[0].Z] = CoverType.ToggleSwitchOff;
+
+                //Mark the objective as complete
+                for (int i = 0; i < Objectives.Count; i++)
+                {
+                    MissionObjective objective = Objectives[i];
+                    if (objective.Type == MissionObjectiveType.ToggleSwitch)
+                    {
+                        sourceCharacter.ActionPointsCurrent -= 1;
+                        Objectives[i].ObjectiveIsComplete = true;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

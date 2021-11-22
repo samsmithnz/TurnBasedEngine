@@ -32,7 +32,7 @@ namespace Battle.Logic.SaveGames
             return json;
         }
 
-        public static bool CreateSaveGameFile(string path, string json, int number = 0)
+        public static string CreateSaveGameFile(string path, string json, int number = 0)
         {
             if (!Directory.Exists(path))
             {
@@ -55,7 +55,7 @@ namespace Battle.Logic.SaveGames
                 }
             }
             File.WriteAllText(path + fileName, json);
-            return true;
+            return path + fileName;
         }
     }
 }
