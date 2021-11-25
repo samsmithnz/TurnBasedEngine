@@ -22,12 +22,14 @@ namespace Battle.Logic.Map
             string[,,] map = new string[xMax, yMax, zMax];
 
             //Initialize the map
-            int y = 0;
-            for (int z = 0; z < zMax; z++)
+            for (int y = 0; y < yMax; y++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int z = 0; z < zMax; z++)
                 {
-                    map[x, y, z] = initialString;
+                    for (int x = 0; x < xMax; x++)
+                    {
+                        map[x, y, z] = initialString;
+                    }
                 }
             }
 
@@ -139,39 +141,52 @@ namespace Battle.Logic.Map
         public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
-            //int yMax = map.GetLength(1);
+            int yMax = map.GetLength(1);
             int zMax = map.GetLength(2);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
-            int y = 0;
-            for (int z = zMax - 1; z >= 0; z--)
+            for (int y = yMax - 1; y >= 0; y--)
             {
-                StringBuilder sbLine = new StringBuilder();
-                for (int x = 0; x < xMax; x++)
+                for (int z = zMax - 1; z >= 0; z--)
                 {
-                    if (map[x, y, z] != "")
+                    StringBuilder sbLine = new StringBuilder();
+                    for (int x = 0; x < xMax; x++)
                     {
-                        sbLine.Append(map[x, y, z] + " ");
+                        if (map[x, y, z] != "")
+                        {
+                            sbLine.Append(map[x, y, z] + " ");
+                        }
+                        else
+                        {
+                            if (y == 0)
+                            {
+                                sbLine.Append("· ");
+                            }
+                            else if (y == 1)
+                            {
+                                sbLine.Append("• ");
+                            }
+                            //else
+                            //{
+                            //    sbLine.Append(". ");
+                            //}
+                        }
+                    }
+                    sbLine.Append(Environment.NewLine);
+                    //If there is nothing on the map line, don't display it.
+                    //This optimizes the ASCII maps to remove white space
+                    if (stripOutBlanks)
+                    {
+                        int dotCount = sbLine.ToString().Split('.').Count() - 1;
+                        if (dotCount < xMax)
+                        {
+                            sb.Append(sbLine.ToString());
+                        }
                     }
                     else
                     {
-                        sbLine.Append(". ");
-                    }
-                }
-                sbLine.Append(Environment.NewLine);
-                //If there is nothing on the map line, don't display it.
-                //This optimizes the ASCII maps to remove white space
-                if (stripOutBlanks)
-                {
-                    int dotCount = sbLine.ToString().Split('.').Count() - 1;
-                    if (dotCount < xMax)
-                    {
                         sb.Append(sbLine.ToString());
                     }
-                }
-                else
-                {
-                    sb.Append(sbLine.ToString());
                 }
             }
             return sb.ToString();

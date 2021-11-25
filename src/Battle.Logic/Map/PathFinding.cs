@@ -55,12 +55,14 @@ namespace Battle.Logic.Map
             _height = map.GetLength(1);
             _breadth = map.GetLength(2);
             _tiles = new MapTile[_width, _height, _breadth];
-            int y = 0;
-            for (int z = 0; z < _breadth; z++)
+            for (int y = 0; y < _height; y++)
             {
-                for (int x = 0; x < _width; x++)
+                for (int z = 0; z < _breadth; z++)
                 {
-                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
+                    for (int x = 0; x < _width; x++)
+                    {
+                        _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
+                    }
                 }
             }
         }
