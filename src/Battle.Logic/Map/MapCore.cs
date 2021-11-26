@@ -138,15 +138,11 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,,] map, bool stripOutBlanks = false, bool multiLevel = false)
+        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
             int yMax = map.GetLength(1);
             int zMax = map.GetLength(2);
-            if (yMax < 1)
-            {
-                multiLevel = false;
-            }
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
             //for (int y = yMax - 1; y >= 0; y--)
@@ -180,8 +176,8 @@ namespace Battle.Logic.Map
                         }
                         else
                         {
+                            sbLine.Append("· ");
                             //sbLine.Append("· ");
-                            sbLine.Append(". ");
                         }
                     }
                 }
@@ -190,7 +186,7 @@ namespace Battle.Logic.Map
                 //This optimizes the ASCII maps to remove white space
                 if (stripOutBlanks)
                 {
-                    int dotCount = sbLine.ToString().Split('.').Count() - 1;
+                    int dotCount = sbLine.ToString().Split('·').Count() - 1;
                     if (dotCount < xMax)
                     {
                         sb.Append(sbLine.ToString());
@@ -298,7 +294,7 @@ namespace Battle.Logic.Map
                         }
                         else
                         {
-                            sb.Append(". ");
+                            sb.Append("· ");
                         }
                     }
                 }

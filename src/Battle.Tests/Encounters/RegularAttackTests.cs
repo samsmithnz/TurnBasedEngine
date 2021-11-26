@@ -553,29 +553,29 @@ Fred is ready to level up
 
             //Assert
             string mapStringBeforeExpected = @"
-. . . . . . . . . . 
-. . . . . . . . P . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. P . . . . . . . . 
-. . . . . . . . . . 
+· · · · · · · · · · 
+· · · · · · · · P · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· P · · · · · · · · 
+· · · · · · · · · · 
 ";
             Assert.AreEqual(mapStringBeforeExpected, mapStringBefore);
             string mapStringAfterExpected = @"
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. P . . . . . . . . 
-. . . . . . . . . . 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· P · · · · · · · · 
+· · · · · · · · · · 
 ";
             Assert.AreEqual(mapStringAfterExpected, mapStringAfter);
             Assert.IsTrue(result != null);
@@ -644,11 +644,11 @@ Fred is ready to level up
             //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
-            //  . . E . .
-            //  . . ■ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · E · .
+            //  · · ■ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
@@ -687,11 +687,11 @@ Critical chance: 20, (dice roll: 0)
             //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
-            //  . . . . .
-            //  . E ■ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · · · .
+            //  · E ■ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
@@ -734,11 +734,11 @@ Fred is ready to level up
             //  CoverType.FullCover = cover
             //  "." = open ground
             //            E
-            //  . . . . .
-            //  . . ■ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · · · .
+            //  · · ■ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
@@ -766,11 +766,11 @@ Fred is ready to level up
             //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
-            //  . . E . .
-            //  . . ■ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · E · .
+            //  · · ■ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
@@ -807,11 +807,11 @@ Missed: Chance to hit: 24, (dice roll: 65)
             //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
-            //  . . E . .
-            //  . . □ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · E · .
+            //  · · □ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.HalfCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));
@@ -848,11 +848,11 @@ Missed: Chance to hit: 64, (dice roll: 35)
             //  "E" = enemy/jethro
             //  CoverType.FullCover = cover
             //  "." = open ground
-            //  . . E . .
-            //  . . ■ . . 
-            //  . . . . . 
-            //  . . . . .
-            //  . . P . .
+            //  · · E · .
+            //  · · ■ · · 
+            //  · · · · · 
+            //  · · · · .
+            //  · · P · .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 3] = MapObjectType.FullCover; //Add cover 
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 0));

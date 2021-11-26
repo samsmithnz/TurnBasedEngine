@@ -74,8 +74,8 @@ P o o o o o o o o o
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
-o o o o o o o o o . 
-o o o o o o o o P . 
+o o o o o o o o o · 
+o o o o o o o o P · 
 o o o o o o o ■ ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -88,16 +88,16 @@ P o o o o o o o o o
             Assert.AreEqual(mapStringExpected, mapString);
 
             string expectedFOV = @"
-. . . . . . . . . ▓ 
-. . . . . . . . ▓ ▓ 
-. . . . . . . ■ ■ ■ 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-P . . . . . . . . . 
+· · · · · · · · · ▓ 
+· · · · · · · · ▓ ▓ 
+· · · · · · · ■ ■ ■ 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+P · · · · · · · · · 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
         }
@@ -127,8 +127,8 @@ P . . . . . . . . .
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(0, fred.TargetCharacters.Count);
             string expected = @"
-o o o o o o o . . . 
-o o o o o o o . P . 
+o o o o o o o · · · 
+o o o o o o o · P · 
 o o o o o o o ■ ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -141,16 +141,16 @@ o o o o o o o o P o
             Assert.AreEqual(expected, mapString);
 
             string expectedFOV = @"
-. . . . . . . ▓ ▓ ▓ 
-. . . . . . . ▓ ▓ ▓ 
-. . . . . . . ■ ■ ■ 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . P . 
+· · · · · · · ▓ ▓ ▓ 
+· · · · · · · ▓ ▓ ▓ 
+· · · · · · · ■ ■ ■ 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · P · 
 ";
             Assert.AreEqual(expectedFOV, fovMapString);
         }
@@ -178,8 +178,8 @@ o o o o o o o o P o
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
-o o o o o o o o . . 
-o o o o o o o o P . 
+o o o o o o o o · · 
+o o o o o o o o P · 
 o o o o o o o o ■ ■ 
 o o o o o o o o o o 
 o o o o o o o o o o 
@@ -225,8 +225,8 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 o o o o o o o o ■ ■ 
-o o o o o o o o P . 
-o o o o o o o o . . 
+o o o o o o o o P · 
+o o o o o o o o · · 
 ";
             Assert.AreEqual(mapStringExpected, mapString);
         }
@@ -333,13 +333,13 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o ■ ■ ■ 
-o o o o o . . . . . 
-o o . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-P . . . . . . . . . 
+o o o o o · · · · · 
+o o · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+P · · · · · · · · · 
 ";
             Assert.AreEqual(mapStringExpected, mapString);
         }
@@ -371,13 +371,13 @@ P . . . . . . . . .
 o o o o o o o o o o 
 o o o o o o o o P o 
 o o o o o o o □ ■ ■ 
-o o o o o o o o . . 
-o o o o o o o . . . 
-o o o o o o o . . . 
-o o o o o o . . . . 
-o o o o o o . . . . 
-o o o o o . . . . . 
-P o o o o . . . . . 
+o o o o o o o o · · 
+o o o o o o o · · · 
+o o o o o o o · · · 
+o o o o o o · · · · 
+o o o o o o · · · · 
+o o o o o · · · · · 
+P o o o o · · · · · 
 ";
             Assert.AreEqual(mapStringExpected, mapString);
         }
@@ -404,9 +404,9 @@ P o o o o . . . . .
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(1, fred.TargetCharacters.Count);
             string mapStringExpected = @"
-o . . . o o o o o o 
-o . . . o o o o o o 
-o o . o o o o o o o 
+o · · · o o o o o o 
+o · · · o o o o o o 
+o o · o o o o o o o 
 o o P o o o o o o o 
 o o ■ o o o o o o o 
 o o o o o o o o o o 
@@ -436,17 +436,17 @@ o o o o o o o o o o
             Assert.IsTrue(fred.TargetCharacters != null);
             Assert.AreEqual(0, fred.TargetCharacters.Count);
             string mapStringExpected = @"
-. . . . . . . . . . . 
-. . . . . . . . . . . 
-. . . o o o o o . . . 
-. . o o o o o o o . . 
-. . o o o o o o o . . 
-. . o o o P o o o . . 
-. . o o o o o o o . . 
-. . o o o o o o o . . 
-. . . o o o o o . . . 
-. . . . . . . . . . . 
-. . . . . . . . . . . 
+· · · · · · · · · · · 
+· · · · · · · · · · · 
+· · · o o o o o · · · 
+· · o o o o o o o · · 
+· · o o o o o o o · · 
+· · o o o P o o o · · 
+· · o o o o o o o · · 
+· · o o o o o o o · · 
+· · · o o o o o · · · 
+· · · · · · · · · · · 
+· · · · · · · · · · · 
 ";
             Assert.AreEqual(mapStringExpected, mapString);
         }
@@ -479,11 +479,11 @@ o o o o o o o o o o
 o o o o o o o o o o 
 o o o o o o o o o o 
 o o o o o o o o o o 
-. o o o o o o o o o 
-. . . o o o o o o o 
-. . ■ . ■ P o o o o 
-. . P o o o o o o o 
-. o o o o o o o o o 
+· o o o o o o o o o 
+· · · o o o o o o o 
+· · ■ · ■ P o o o o 
+· · P o o o o o o o 
+· o o o o o o o o o 
 ";
             Assert.AreEqual(mapStringExpected, mapString);
 

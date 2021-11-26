@@ -54,18 +54,18 @@ namespace Battle.Tests.Map
             //mission.StartMission();
 
             //Assert
-            string currentMap = MapCore.GetMapString(mission.Map, false, true);
+            string currentMap = MapCore.GetMapString(mission.Map, false);
             string expectedMap = @"
 • • • • • • • • • • 
 • • • • • • • • P • 
 • • • • • • • • • • 
 • • • • • • • • • • 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. . . . . . . . . . 
-. P . . . . . . . . 
-. . . . . . . . . . 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· · · · · · · · · · 
+· P · · · · · · · · 
+· · · · · · · · · · 
 ";
             Assert.AreEqual(expectedMap, currentMap);
         }
