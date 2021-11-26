@@ -161,24 +161,25 @@ namespace Battle.Logic.Map
                     {
                         if (map[x, 1, z] != "")
                         {
-                            sbLine.Append(map[x, 1, z] + " ");
+                            sbLine.Append(map[x, 1, z]);
                         }
                         else
                         {
-                            sbLine.Append("• ");
+                            sbLine.Append(MapObjectType.NoCoverYIs1); // •
                         }
+                        sbLine.Append(' ');
                     }
                     else
                     {
                         if (map[x, 0, z] != "")
                         {
-                            sbLine.Append(map[x, 0, z] + " ");
+                            sbLine.Append(map[x, 0, z]);
                         }
                         else
                         {
-                            sbLine.Append("· ");
-                            //sbLine.Append("· ");
+                            sbLine.Append(MapObjectType.NoCoverYIs0); // ·
                         }
+                        sbLine.Append(' ');
                     }
                 }
                 sbLine.Append(Environment.NewLine);
@@ -284,19 +285,20 @@ namespace Battle.Logic.Map
                 {
                     if (mapMask[x, y, z] != "")
                     {
-                        sb.Append(mapMask[x, y, z] + " ");
+                        sb.Append(mapMask[x, y, z]);
                     }
                     else
                     {
                         if (map[x, y, z] != "")
                         {
-                            sb.Append(map[x, y, z] + " ");
+                            sb.Append(map[x, y, z]);
                         }
                         else
                         {
-                            sb.Append("· ");
+                            sb.Append(MapObjectType.NoCoverYIs0);
                         }
                     }
+                    sb.Append(' ');
                 }
                 sb.Append(Environment.NewLine);
             }
