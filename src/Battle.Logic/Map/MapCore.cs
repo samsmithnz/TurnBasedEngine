@@ -145,17 +145,11 @@ namespace Battle.Logic.Map
             int zMax = map.GetLength(2);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
-            //for (int y = yMax - 1; y >= 0; y--)
-            //{
             for (int z = zMax - 1; z >= 0; z--)
             {
                 StringBuilder sbLine = new StringBuilder();
                 for (int x = 0; x < xMax; x++)
                 {
-                    //are we on a multi-level
-
-                    //is there an object here
-
                     //If there are multiple levels and underground on y=0, use y=1 value
                     if (yMax > 0 && map[x, 0, z] == MapObjectType.Underground)
                     {
@@ -198,7 +192,6 @@ namespace Battle.Logic.Map
                     sb.Append(sbLine.ToString());
                 }
             }
-            //}
             return sb.ToString();
         }
 
