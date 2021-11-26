@@ -43,6 +43,8 @@ namespace Battle.Tests.Map
                     }
                 }
             }
+            mission.Map[5, 0, 5] = MapObjectType.Ladder;
+            //mission.Map[5, 1, 5] = MapObjectType.Ladder;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -59,7 +61,7 @@ namespace Battle.Tests.Map
 • • • • • • • • • • 
 • • • • • • • • P • 
 • • • • • • • • • • 
-• • • • • • • • • • 
+• • • • • ╬ • • • • 
 · · · · · · · · · · 
 · · · · · · · · · · 
 · · · · · · · · · · 
