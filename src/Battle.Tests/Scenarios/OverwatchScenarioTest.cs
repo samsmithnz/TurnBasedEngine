@@ -42,14 +42,14 @@ namespace Battle.Tests.Scenarios
             {
                 int x = MapNumberQueue.Dequeue();
                 int z = MapNumberQueue.Dequeue();
-                mission.Map[x, 0, z] = CoverType.FullCover;
+                mission.Map[x, 0, z] = MapObjectType.FullCover;
             }
             //Add 100 half cover items randomly
             for (int i = 0; i < 100; i++)
             {
                 int x = MapNumberQueue.Dequeue();
                 int z = MapNumberQueue.Dequeue();
-                mission.Map[x, 0, z] = CoverType.HalfCover;
+                mission.Map[x, 0, z] = MapObjectType.HalfCover;
             }
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             fred.MobilityRange = 8;

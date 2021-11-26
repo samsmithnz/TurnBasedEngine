@@ -54,9 +54,9 @@ P o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[7, 0, 7] = CoverType.FullCover;
-            map[8, 0, 7] = CoverType.FullCover;
-            map[9, 0, 7] = CoverType.FullCover;
+            map[7, 0, 7] = MapObjectType.FullCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
+            map[9, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -107,9 +107,9 @@ P . . . . . . . . .
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[7, 0, 7] = CoverType.FullCover;
-            map[8, 0, 7] = CoverType.FullCover;
-            map[9, 0, 7] = CoverType.FullCover;
+            map[7, 0, 7] = MapObjectType.FullCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
+            map[9, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 0));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -160,8 +160,8 @@ o o o o o o o o P o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[8, 0, 7] = CoverType.FullCover;
-            map[9, 0, 7] = CoverType.FullCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
+            map[9, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 0));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -199,8 +199,8 @@ o o o o o o o o P o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[8, 0, 2] = CoverType.FullCover;
-            map[9, 0, 2] = CoverType.FullCover;
+            map[8, 0, 2] = MapObjectType.FullCover;
+            map[9, 0, 2] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 8));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -238,7 +238,7 @@ o o o o o o o o . .
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[8, 0, 7] = CoverType.FullCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(1, 0, 7));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -275,7 +275,7 @@ o o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[1, 0, 7] = CoverType.FullCover;
+            map[1, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(9, 0, 7));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -311,9 +311,9 @@ o o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[7, 0, 7] = CoverType.FullCover;
-            map[8, 0, 7] = CoverType.FullCover;
-            map[9, 0, 7] = CoverType.FullCover;
+            map[7, 0, 7] = MapObjectType.FullCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
+            map[9, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -349,9 +349,9 @@ P . . . . . . . . .
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[7, 0, 7] = CoverType.HalfCover;
-            map[8, 0, 7] = CoverType.FullCover;
-            map[9, 0, 7] = CoverType.FullCover;
+            map[7, 0, 7] = MapObjectType.HalfCover;
+            map[8, 0, 7] = MapObjectType.FullCover;
+            map[9, 0, 7] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -387,7 +387,7 @@ P o o o o . . . . .
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[2, 0, 5] = CoverType.FullCover;
+            map[2, 0, 5] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 2));
             Team team1 = new(1);
             team1.Characters.Add(fred);
@@ -456,8 +456,8 @@ o o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[2, 0, 2] = CoverType.FullCover;
-            map[4, 0, 2] = CoverType.FullCover;
+            map[2, 0, 2] = MapObjectType.FullCover;
+            map[4, 0, 2] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(5, 0, 2));
             Team team1 = new(1);
             team1.Characters.Add(fred);

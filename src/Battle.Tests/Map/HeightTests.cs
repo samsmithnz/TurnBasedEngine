@@ -28,6 +28,14 @@ namespace Battle.Tests.Map
                         {
                             mission.Map[x, y, z] = "";
                         }
+                        else if (z <= 5 && y == 1)
+                        {
+                            mission.Map[x, y, z] = "";
+                        }
+                        else if (z > 5 && y == 0)
+                        {
+                            mission.Map[x, y, z] = MapObjectType.Underground;
+                        }
                         else if (z > 5 && y == 1)
                         {
                             mission.Map[x, y, z] = "";
@@ -38,7 +46,7 @@ namespace Battle.Tests.Map
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(8, 0, 8));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(8, 1, 8));
             Team team2 = new(0);
             team2.Characters.Add(jethro);
             mission.Teams.Add(team1);
@@ -46,12 +54,12 @@ namespace Battle.Tests.Map
             //mission.StartMission();
 
             //Assert
-            string currentMap = MapCore.GetMapString(mission.Map);
+            string currentMap = MapCore.GetMapString(mission.Map, false, true);
             string expectedMap = @"
-. . . . . . . . . . 
-. . . . . . . . P . 
-. . . . . . . . . . 
-. . . . . . . . . . 
+• • • • • • • • • • 
+• • • • • • • • P • 
+• • • • • • • • • • 
+• • • • • • • • • • 
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 

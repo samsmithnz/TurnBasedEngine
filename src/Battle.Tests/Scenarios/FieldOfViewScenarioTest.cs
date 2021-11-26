@@ -22,14 +22,14 @@ namespace Battle.Tests.Scenarios
                 Map = MapCore.InitializeMap(10, 1, 10)
             };
 
-            mission.Map[5, 0, 2] = CoverType.FullCover;
-            mission.Map[5, 0, 3] = CoverType.FullCover;
-            mission.Map[5, 0, 4] = CoverType.FullCover;
-            mission.Map[5, 0, 5] = CoverType.FullCover;
-            mission.Map[5, 0, 6] = CoverType.FullCover;
-            mission.Map[5, 0, 7] = CoverType.HalfCover; //half cover here!
-            mission.Map[5, 0, 8] = CoverType.FullCover;
-            mission.Map[5, 0, 9] = CoverType.FullCover;
+            mission.Map[5, 0, 2] = MapObjectType.FullCover;
+            mission.Map[5, 0, 3] = MapObjectType.FullCover;
+            mission.Map[5, 0, 4] = MapObjectType.FullCover;
+            mission.Map[5, 0, 5] = MapObjectType.FullCover;
+            mission.Map[5, 0, 6] = MapObjectType.FullCover;
+            mission.Map[5, 0, 7] = MapObjectType.HalfCover; //half cover here!
+            mission.Map[5, 0, 8] = MapObjectType.FullCover;
+            mission.Map[5, 0, 9] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(1, 0, 1));
             fred.HitpointsCurrent = 1;
             Team team1 = new(1)

@@ -19,8 +19,8 @@ namespace Battle.Tests.Characters
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Map[20, 0, 20] = CoverType.FullCover;
-            mission.Map[18, 0, 18] = CoverType.HalfCover;
+            mission.Map[20, 0, 20] = MapObjectType.FullCover;
+            mission.Map[18, 0, 18] = MapObjectType.HalfCover;
             Team team1 = new(1)
             {
                 Name = "Good guys",
@@ -110,17 +110,17 @@ Successful intelligence check: 25, (dice roll: 81)
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Map[5, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 5] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 6] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 7] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 8] = CoverType.FullCover;
-            mission.Map[14, 0, 9] = CoverType.FullCover;
-            mission.Map[14, 0, 10] = CoverType.FullCover;
-            mission.Map[14, 0, 11] = CoverType.FullCover;
-            mission.Map[14, 0, 12] = CoverType.FullCover;
-            mission.Map[14, 0, 13] = CoverType.FullCover;
-            mission.Map[14, 0, 14] = CoverType.FullCover;
+            mission.Map[5, 0, 6] = MapObjectType.FullCover;
+            mission.Map[14, 0, 5] = MapObjectType.HalfCover; //half cover here!
+            mission.Map[14, 0, 6] = MapObjectType.HalfCover; //half cover here!
+            mission.Map[14, 0, 7] = MapObjectType.HalfCover; //half cover here!
+            mission.Map[14, 0, 8] = MapObjectType.FullCover;
+            mission.Map[14, 0, 9] = MapObjectType.FullCover;
+            mission.Map[14, 0, 10] = MapObjectType.FullCover;
+            mission.Map[14, 0, 11] = MapObjectType.FullCover;
+            mission.Map[14, 0, 12] = MapObjectType.FullCover;
+            mission.Map[14, 0, 13] = MapObjectType.FullCover;
+            mission.Map[14, 0, 14] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
             Team team1 = new(1)
             {

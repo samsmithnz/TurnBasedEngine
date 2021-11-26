@@ -22,8 +22,8 @@ namespace Battle.Tests.Scenarios
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Map[6, 0, 5] = CoverType.FullCover;
-            mission.Map[20, 0, 11] = CoverType.FullCover;
+            mission.Map[6, 0, 5] = MapObjectType.FullCover;
+            mission.Map[20, 0, 11] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
             fred.ActionPointsCurrent = 1;
             Team team1 = new(1)

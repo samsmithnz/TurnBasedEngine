@@ -24,17 +24,17 @@ namespace Battle.Tests.Scenarios
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Map[5, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 5] = CoverType.FullCover;
-            mission.Map[14, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 7] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 8] = CoverType.FullCover;
-            mission.Map[14, 0, 9] = CoverType.FullCover;
-            mission.Map[14, 0, 10] = CoverType.FullCover;
-            mission.Map[14, 0, 11] = CoverType.FullCover;
-            mission.Map[14, 0, 12] = CoverType.FullCover;
-            mission.Map[14, 0, 13] = CoverType.FullCover;
-            mission.Map[14, 0, 14] = CoverType.FullCover;
+            mission.Map[5, 0, 6] = MapObjectType.FullCover;
+            mission.Map[14, 0, 5] = MapObjectType.FullCover;
+            mission.Map[14, 0, 6] = MapObjectType.FullCover;
+            mission.Map[14, 0, 7] = MapObjectType.HalfCover; //half cover here!
+            mission.Map[14, 0, 8] = MapObjectType.FullCover;
+            mission.Map[14, 0, 9] = MapObjectType.FullCover;
+            mission.Map[14, 0, 10] = MapObjectType.FullCover;
+            mission.Map[14, 0, 11] = MapObjectType.FullCover;
+            mission.Map[14, 0, 12] = MapObjectType.FullCover;
+            mission.Map[14, 0, 13] = MapObjectType.FullCover;
+            mission.Map[14, 0, 14] = MapObjectType.FullCover;
             Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
             Team team1 = new(1)
             {

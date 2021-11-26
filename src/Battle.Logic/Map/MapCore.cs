@@ -101,7 +101,7 @@ namespace Battle.Logic.Map
                     if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
                     {
                         //If we find an object, stop adding tiles
-                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == MapObjectType.FullCover)
                         {
                             //Add the wall
                             results.Add(fovItem);
@@ -138,57 +138,70 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
+        public static string GetMapString(string[,,] map, bool stripOutBlanks = false, bool multiLevel = false)
         {
             int xMax = map.GetLength(0);
             int yMax = map.GetLength(1);
             int zMax = map.GetLength(2);
+            if (yMax < 1)
+            {
+                multiLevel = false;
+            }
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
-            for (int y = yMax - 1; y >= 0; y--)
+            //for (int y = yMax - 1; y >= 0; y--)
+            //{
+            for (int z = zMax - 1; z >= 0; z--)
             {
-                for (int z = zMax - 1; z >= 0; z--)
+                StringBuilder sbLine = new StringBuilder();
+                for (int x = 0; x < xMax; x++)
                 {
-                    StringBuilder sbLine = new StringBuilder();
-                    for (int x = 0; x < xMax; x++)
+                    //are we on a multi-level
+
+                    //is there an object here
+
+                    //If there are multiple levels and underground on y=0, use y=1 value
+                    if (yMax > 0 && map[x, 0, z] == MapObjectType.Underground)
                     {
-                        if (map[x, y, z] != "")
+                        if (map[x, 1, z] != "")
                         {
-                            sbLine.Append(map[x, y, z] + " ");
+                            sbLine.Append(map[x, 1, z] + " ");
                         }
                         else
                         {
-                            if (y == 0)
-                            {
-                                sbLine.Append("· ");
-                            }
-                            else if (y == 1)
-                            {
-                                sbLine.Append("• ");
-                            }
-                            //else
-                            //{
-                            //    sbLine.Append(". ");
-                            //}
-                        }
-                    }
-                    sbLine.Append(Environment.NewLine);
-                    //If there is nothing on the map line, don't display it.
-                    //This optimizes the ASCII maps to remove white space
-                    if (stripOutBlanks)
-                    {
-                        int dotCount = sbLine.ToString().Split('.').Count() - 1;
-                        if (dotCount < xMax)
-                        {
-                            sb.Append(sbLine.ToString());
+                            sbLine.Append("• ");
                         }
                     }
                     else
                     {
+                        if (map[x, 0, z] != "")
+                        {
+                            sbLine.Append(map[x, 0, z] + " ");
+                        }
+                        else
+                        {
+                            //sbLine.Append("· ");
+                            sbLine.Append(". ");
+                        }
+                    }
+                }
+                sbLine.Append(Environment.NewLine);
+                //If there is nothing on the map line, don't display it.
+                //This optimizes the ASCII maps to remove white space
+                if (stripOutBlanks)
+                {
+                    int dotCount = sbLine.ToString().Split('.').Count() - 1;
+                    if (dotCount < xMax)
+                    {
                         sb.Append(sbLine.ToString());
                     }
                 }
+                else
+                {
+                    sb.Append(sbLine.ToString());
+                }
             }
+            //}
             return sb.ToString();
         }
 
