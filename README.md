@@ -31,3 +31,11 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 10. If player does not have action points, move to next player on team
 11. If no players remain with action points, move to the next team
 12. If the team has no players with hit points remaining, the mission is over
+
+## How to install/use
+- Requires .NET Core 3.1 (for tests)
+- Battle.Logic dll is .NET Standard 2.0 for Unity compatibility
+- Codespaces is configured, or you can continue to use Visual Studio
+
+## Contributions
+- Contributions welcome! Fork/Issue/Pull Request. Whatever you are comfortable suggesting.
