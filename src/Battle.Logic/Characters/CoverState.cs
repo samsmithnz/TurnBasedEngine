@@ -39,6 +39,6 @@
         public bool InEastHalfCover { get; set; }
         public bool InSouthHalfCover { get; set; }
         public bool InWestHalfCover { get; set; }
-        
+
     }
 }

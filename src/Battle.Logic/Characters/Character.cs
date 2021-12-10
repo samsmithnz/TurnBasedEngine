@@ -1,8 +1,6 @@
 ﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Game;
 using Battle.Logic.Items;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -76,6 +74,7 @@ namespace Battle.Logic.Characters
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
                 UpdateCharacterFOV(map);
+                //Get targets 
                 List<Character> targetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
                 TargetCharacters = new List<string>();
                 foreach (Character item in targetCharacters)
@@ -86,6 +85,8 @@ namespace Battle.Logic.Characters
                 {
                     TargetCharacterIndex = 0;
                 }
+                //Update cover
+                CoverState = CharacterCover.CalculateCover(map, Location, opponentCharacters);
             }
         }
         public int MobilityRange { get; set; }
@@ -111,6 +112,7 @@ namespace Battle.Logic.Characters
         public int TotalHits { get; set; }
         public int TotalMisses { get { return TotalShots - TotalHits; } }
         public int TotalDamage { get; set; }
+        public bool ExtractedFromMission { get; set; }
         public int TargetCharacterIndex { get; set; }
         public List<string> TargetCharacters { get; set; }
         public string GetTargetCharacter()
@@ -186,7 +188,7 @@ namespace Battle.Logic.Characters
             }
         }
 
-        public List<CharacterAction> GetCurrentActions()
+        public List<CharacterAction> GetCurrentActions(string[,,] map = null)
         {
             List<CharacterAction> options = new List<CharacterAction>();
             if (ActionPointsCurrent > 0)
@@ -214,6 +216,15 @@ namespace Battle.Logic.Characters
                 if (CoverState.InFullCover || CoverState.InHalfCover)
                 {
                     options.Add(new CharacterAction() { Name = "_hunker_down", Caption = "Hunker down", KeyBinding = "5" });
+                }
+                if (map != null)
+                {
+                    //Add the found tiles action
+                    List<Vector3> foundTiles = MapCore.FindAdjacentTile(map, Location, CoverType.ToggleSwitchOn);
+                    if (foundTiles != null && foundTiles.Count > 0)
+                    {
+                        options.Add(new CharacterAction() { Name = "_toggle", Caption = "Toggle switch", KeyBinding = "0" });
+                    }
                 }
             }
 

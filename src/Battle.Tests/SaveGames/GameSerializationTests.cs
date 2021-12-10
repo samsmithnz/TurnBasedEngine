@@ -8,7 +8,7 @@ namespace Battle.Tests.SaveGames
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]
-    [TestCategory("L0")]
+    [TestCategory("L2")]
     public class GameSerializationTests
     {
         private string _rootPath;
@@ -23,7 +23,7 @@ namespace Battle.Tests.SaveGames
         public void SaveGamesExist()
         {
             //Arrange
-            string path = _rootPath ;
+            string path = _rootPath;
 
             //Act
 
@@ -43,13 +43,7 @@ namespace Battle.Tests.SaveGames
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                string fileContents;
-                using (var streamReader = new StreamReader(file))
-                {
-                    fileContents = streamReader.ReadToEnd();
-                }
-
-                mission = GameSerialization.LoadGame(fileContents);
+                mission = GameSerialization.LoadGameFile(file);
             }
 
             //Assert
@@ -61,16 +55,19 @@ namespace Battle.Tests.SaveGames
         public void SaveNewGameTest()
         {
             //Arrange
-            Mission mission = new Mission();
+            Mission mission = new();
             string path = _rootPath;
 
             //Act
             string json = GameSerialization.SaveGame(mission);
-            GameSerialization.CreateSaveGameFile(path, json);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json);
 
             //Assert
             Assert.IsTrue(Directory.Exists(path));
             Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+
+            //Clean up
+            File.Delete(savedFile);
         }
 
     }

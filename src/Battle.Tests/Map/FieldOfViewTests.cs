@@ -13,8 +13,8 @@ namespace Battle.Tests.Map
         public void BasicShallowLineWithNoCoverTest()
         {
             //Arrange
-            Vector3 source = new Vector3(1, 0, 3);
-            Vector3 target = new Vector3(4, 0, 2);
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(4, 0, 2);
 
             //Act
             List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
@@ -22,18 +22,18 @@ namespace Battle.Tests.Map
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(4, results.Count);
-            Assert.AreEqual(new Vector3(1, 0, 3), results[0]);
-            Assert.AreEqual(new Vector3(2, 0, 3), results[1]);
-            Assert.AreEqual(new Vector3(3, 0, 2), results[2]);
-            Assert.AreEqual(new Vector3(4, 0, 2), results[3]);
+            Assert.AreEqual(new(1, 0, 3), results[0]);
+            Assert.AreEqual(new(2, 0, 3), results[1]);
+            Assert.AreEqual(new(3, 0, 2), results[2]);
+            Assert.AreEqual(new(4, 0, 2), results[3]);
         }
 
         [TestMethod]
         public void BasicSteepLineWithNoCoverTest()
         {
             //Arrange
-            Vector3 source = new Vector3(1, 0, 3);
-            Vector3 target = new Vector3(3, 0, 1);
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(3, 0, 1);
 
             //Act
             List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
@@ -41,23 +41,23 @@ namespace Battle.Tests.Map
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(3, results.Count);
-            Assert.AreEqual(new Vector3(1, 0, 3), results[0]);
-            Assert.AreEqual(new Vector3(2, 0, 2), results[1]);
-            Assert.AreEqual(new Vector3(3, 0, 1), results[2]);
+            Assert.AreEqual(new(1, 0, 3), results[0]);
+            Assert.AreEqual(new(2, 0, 2), results[1]);
+            Assert.AreEqual(new(3, 0, 1), results[2]);
         }
 
         [TestMethod]
         public void BasicShallowLineWithCoverTest()
         {
             //Arrange
-            Vector3 source = new Vector3(1, 0, 3);
-            Vector3 target = new Vector3(4, 0, 2);
+            Vector3 source = new(1, 0, 3);
+            Vector3 target = new(4, 0, 2);
             string[,,] map = MapCore.InitializeMap(5, 1, 5);
             map[3, 0, 2] = CoverType.FullCover;
 
             //Act
             List<Vector3> results = FieldOfView.GetPointsOnLine(source, target);
-            List<Vector3> newResults = new List<Vector3>();
+            List<Vector3> newResults = new();
             foreach (Vector3 item in results)
             {
                 if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
@@ -73,8 +73,8 @@ namespace Battle.Tests.Map
             //Assert
             Assert.IsTrue(results != null);
             Assert.AreEqual(2, newResults.Count);
-            Assert.AreEqual(new Vector3(1, 0, 3), newResults[0]);
-            Assert.AreEqual(new Vector3(2, 0, 3), newResults[1]);
+            Assert.AreEqual(new(1, 0, 3), newResults[0]);
+            Assert.AreEqual(new(2, 0, 3), newResults[1]);
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             int range = 1;
-            Vector3 startingLocation = new Vector3(4, 0, 4);
+            Vector3 startingLocation = new(4, 0, 4);
 
             //Act
             List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
@@ -127,7 +127,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             int range = 1;
-            Vector3 startingLocation = new Vector3(4, 0, 4);
+            Vector3 startingLocation = new(4, 0, 4);
             map[3, 0, 4] = CoverType.FullCover;
             map[3, 0, 3] = CoverType.FullCover;
             map[4, 0, 3] = CoverType.FullCover;
@@ -161,7 +161,7 @@ namespace Battle.Tests.Map
             //  . . . . . . . . . .
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             int range = 12;
-            Vector3 startingLocation = new Vector3(4, 0, 4);
+            Vector3 startingLocation = new(4, 0, 4);
 
             //Act
             List<Vector3> results = FieldOfView.GetFieldOfView(map, startingLocation, range);
@@ -186,7 +186,7 @@ namespace Battle.Tests.Map
             //  . . . . . 
             string[,,] map = MapCore.InitializeMap(5, 1, 5);
             int range = 10;
-            Vector3 startingLocation = new Vector3(2, 0, 2);
+            Vector3 startingLocation = new(2, 0, 2);
             map[1, 0, 2] = CoverType.FullCover;
             map[1, 0, 1] = CoverType.FullCover;
             map[2, 0, 1] = CoverType.FullCover;
@@ -211,11 +211,11 @@ namespace Battle.Tests.Map
         public void LineLengthTest()
         {
             //Arrange            
-            Vector3 start = new Vector3(4, 0, 4);
-            Vector3 end1 = new Vector3(7, 0, 4);
-            Vector3 end2 = new Vector3(7, 0, 5);
-            Vector3 end3 = new Vector3(7, 0, 6);
-            Vector3 end4 = new Vector3(7, 0, 7);
+            Vector3 start = new(4, 0, 4);
+            Vector3 end1 = new(7, 0, 4);
+            Vector3 end2 = new(7, 0, 5);
+            Vector3 end3 = new(7, 0, 6);
+            Vector3 end4 = new(7, 0, 7);
             int decimals = 1;
 
             //Act

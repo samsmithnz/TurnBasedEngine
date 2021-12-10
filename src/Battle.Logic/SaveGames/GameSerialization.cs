@@ -6,6 +6,20 @@ namespace Battle.Logic.SaveGames
 {
     public static class GameSerialization
     {
+        public static Mission LoadGameFile(string path)
+        {
+            string fileContents;
+            using (var streamReader = new StreamReader(path))
+            {
+                fileContents = streamReader.ReadToEnd();
+            }
+            if (string.IsNullOrEmpty(fileContents) == true)
+            {
+                throw new System.IO.FileNotFoundException("Save file not found", path);
+            }
+            return LoadGame(fileContents);
+        }
+
         public static Mission LoadGame(string json)
         {
             Mission mission = JsonConvert.DeserializeObject<Mission>(json);
@@ -18,7 +32,7 @@ namespace Battle.Logic.SaveGames
             return json;
         }
 
-        public static bool CreateSaveGameFile(string path, string json, int number = 0)
+        public static string CreateSaveGameFile(string path, string json, int number = 0)
         {
             if (!Directory.Exists(path))
             {
@@ -41,7 +55,7 @@ namespace Battle.Logic.SaveGames
                 }
             }
             File.WriteAllText(path + fileName, json);
-            return true;
+            return path + fileName;
         }
     }
 }

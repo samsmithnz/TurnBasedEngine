@@ -1,7 +1,6 @@
 ﻿using Battle.Logic.Characters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -18,11 +17,11 @@ namespace Battle.Tests.Map
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -58,11 +57,11 @@ P o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -111,11 +110,11 @@ P . . . . . . . . .
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -163,11 +162,11 @@ o o o o o o o o P o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -202,11 +201,11 @@ o o o o o o o o P o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 2] = CoverType.FullCover;
             map[9, 0, 2] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(8, 0, 8));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(8, 0, 8));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 1));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 1));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -240,11 +239,11 @@ o o o o o o o o . .
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[8, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(1, 0, 7));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(1, 0, 7));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(9, 0, 7));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(9, 0, 7));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -277,11 +276,11 @@ o o o o o o o o o o
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[1, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(9, 0, 7));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(9, 0, 7));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(0, 0, 7));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(0, 0, 7));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -315,11 +314,11 @@ o o o o o o o o o o
             map[7, 0, 7] = CoverType.FullCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -353,11 +352,11 @@ P . . . . . . . . .
             map[7, 0, 7] = CoverType.HalfCover;
             map[8, 0, 7] = CoverType.FullCover;
             map[9, 0, 7] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(0, 0, 0));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(8, 0, 8));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -389,11 +388,11 @@ P o o o o . . . . .
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 5] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(2, 0, 2));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(2, 0, 2));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 6));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(2, 0, 6));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
@@ -424,14 +423,14 @@ o o o o o o o o o o
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(11, 1, 11);
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(5, 0, 5));
+            Character fred = CharacterPool.CreateFredHero(map, new(5, 0, 5));
             fred.ShootingRange = 3;
-            Team team1 = new Team(1);
+            Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.UpdateTargets(map, null);
 
             //Act
-            string mapString = fred.GetCharactersInViewMapString(map, new List<Character>());
+            string mapString = fred.GetCharactersInViewMapString(map, new());
 
             //Assert
             Assert.IsTrue(fred.TargetCharacters != null);
@@ -459,11 +458,11 @@ o o o o o o o o o o
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
             map[2, 0, 2] = CoverType.FullCover;
             map[4, 0, 2] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(map, new Vector3(5, 0, 2));
-            Team team1 = new Team(1);
+            Character fred = CharacterPool.CreateFredHero(map, new(5, 0, 2));
+            Team team1 = new(1);
             team1.Characters.Add(fred);
-            Character jethro = CharacterPool.CreateJethroBaddie(map, new Vector3(2, 0, 1));
-            Team team2 = new Team(0);
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(2, 0, 1));
+            Team team2 = new(0);
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);

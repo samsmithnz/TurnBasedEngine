@@ -1,7 +1,6 @@
 using Battle.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Characters
 {
@@ -13,7 +12,7 @@ namespace Battle.Tests.Characters
         public void StartOfTurnTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.TargetCharacters.Add("Bart");
             fred.CoverState.InFullCover = true;
 
@@ -40,7 +39,7 @@ namespace Battle.Tests.Characters
         public void NeedToReloadTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.WeaponEquipped.AmmoCurrent = 0;
             fred.TargetCharacters.Add("Bart");
             fred.CoverState.InFullCover = true;
@@ -66,7 +65,7 @@ namespace Battle.Tests.Characters
         public void NoUtilityItemTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.UtilityWeaponEquipped = null;
             fred.UtilityItemEquipped = null;
             fred.TargetCharacters.Add("Bart");
@@ -91,7 +90,7 @@ namespace Battle.Tests.Characters
         public void MedKitConsumedTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.UtilityItemEquipped.ClipRemaining = 0;
             fred.TargetCharacters.Add("Bart");
             fred.CoverState.InFullCover = true;
@@ -117,7 +116,7 @@ namespace Battle.Tests.Characters
         public void NoActionsRemainingTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.ActionPointsCurrent = 0;
 
             //Act
@@ -133,7 +132,7 @@ namespace Battle.Tests.Characters
         public void NoTargetsTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.CoverState.InFullCover = true;
 
             //Act
@@ -156,7 +155,7 @@ namespace Battle.Tests.Characters
         public void NoCoverTest()
         {
             //Arrange
-            Character fred = CharacterPool.CreateFredHero(null, new Vector3(0, 0, 0));
+            Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
             fred.TargetCharacters.Add("Bart");
 
             //Act

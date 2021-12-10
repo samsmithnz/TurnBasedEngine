@@ -1,5 +1,4 @@
 ﻿using Battle.Logic.Characters;
-using Battle.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -86,6 +85,18 @@ namespace Battle.Logic.Game
                 result = Characters[index];
             }
             return result;
+        }
+
+        public Character GetFirstCharacter()
+        {
+            foreach (Character character in Characters)
+            {
+                if (character.HitpointsCurrent > 0 && character.ActionPointsCurrent > 0)
+                {
+                    return character;
+                }
+            }
+            return null;
         }
 
         /// <summary>

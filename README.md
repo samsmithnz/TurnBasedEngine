@@ -14,10 +14,11 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 - Basic field of view
 - Reactions/ overwatch
 - A very basic AI, that attempts to move, flank and attack a character
+- Basic mission objectives, that can be combined, including: eliminate all, extract troops, toggle switch
 
 ### Current workflow
 1. Start team turn
-2. Select player
+2. Player with action points and positive hit points selected
 3. Player calculates field of view
 4. Player calculates possible movement tiles
 5. Player calculates opponenents in view

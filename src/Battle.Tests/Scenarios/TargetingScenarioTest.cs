@@ -2,11 +2,8 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Battle.Tests.Scenarios
 {
@@ -19,40 +16,43 @@ namespace Battle.Tests.Scenarios
         public void MultipleTurnsTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(4, 0, 4));
-            Character harry = CharacterPool.CreateHarryHero(mission.Map, new Vector3(4, 0, 6));
-            Character jeff = CharacterPool.CreateJeffHero(mission.Map, new Vector3(4, 0, 8));
-            Team team1 = new Team(1)
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(4, 0, 4));
+            Character harry = CharacterPool.CreateHarryHero(mission.Map, new(4, 0, 6));
+            Character jeff = CharacterPool.CreateJeffHero(mission.Map, new(4, 0, 8));
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred, harry, jeff },
+                Characters = new() { fred, harry, jeff },
                 Color = "Blue"
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(14, 0, 4));
-            Character bart = CharacterPool.CreateBartBaddie(mission.Map, new Vector3(14, 0, 6));
-            Character derek = CharacterPool.CreateDerekBaddie(mission.Map, new Vector3(14, 0, 8));
-            Team team2 = new Team(0)
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(14, 0, 4));
+            Character bart = CharacterPool.CreateBartBaddie(mission.Map, new(14, 0, 6));
+            Character derek = CharacterPool.CreateDerekBaddie(mission.Map, new(14, 0, 8));
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro, bart, derek },
+                Characters = new() { jethro, bart, derek },
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.RandomNumbers = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.StartMission();
 
             //Act: Turn 1 - Team 1 starts
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Bart", fred.GetTargetCharacter());
             Assert.AreEqual(1, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Derek", fred.GetTargetCharacter());
             Assert.AreEqual(2, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Jethro", fred.GetTargetCharacter());
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             ;
             Assert.AreEqual(3, fred.TargetCharacters.Count);
@@ -84,17 +84,22 @@ Fred is ready to level up
 
             Assert.AreEqual(0, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Derek", fred.GetTargetCharacter());
             Assert.AreEqual(1, fred.TargetCharacterIndex);
             fred.NextTarget();
+            Assert.AreEqual("Bart", fred.GetTargetCharacter());
             Assert.AreEqual(0, fred.TargetCharacterIndex);
 
-            //            mission.MoveToNextTurn();
+            //Test that we get the right next character
+            mission.MoveToNextTurn();
+            Character firstCharacter = mission.Teams[mission.CurrentTeamIndex].GetFirstCharacter();
+            Assert.AreEqual(firstCharacter.Name, mission.Teams[mission.CurrentTeamIndex].Characters[1].Name);
 
             //            //Turn 1 - Team 2 starts
             //            //Jethro moves
             //            Assert.AreEqual(1, mission.TurnNumber);
             //            Assert.AreEqual(1, mission.CurrentTeamIndex);
-            //            Vector3 jethroDestination = new Vector3(2, 0, 2);
+            //            Vector3 jethroDestination = new(2, 0, 2);
             //            mission.MoveCharacter(jethro,
             //                team2,
             //                team1,
@@ -109,7 +114,7 @@ Fred is ready to level up
             //            //Turn 2 - Team 1 starts
             //            Assert.AreEqual(2, mission.TurnNumber);
             //            Assert.AreEqual(0, mission.CurrentTeamIndex);
-            //            fredDestination = new Vector3(4, 0, 4);
+            //            fredDestination = new(4, 0, 4);
             //            mission.MoveCharacter(fred,
             //                team1,
             //                team2,
@@ -124,7 +129,7 @@ Fred is ready to level up
             //            //Turn 2 - Team 2 starts
             //            Assert.AreEqual(2, mission.TurnNumber);
             //            Assert.AreEqual(1, mission.CurrentTeamIndex);
-            //            jethroDestination = new Vector3(12, 0, 12);
+            //            jethroDestination = new(12, 0, 12);
             //            mission.MoveCharacter(jethro,
             //                team2,
             //                team1,
@@ -139,7 +144,7 @@ Fred is ready to level up
             //            //Turn 3 - Team 1 starts - force an end turn
             //            Assert.AreEqual(3, mission.TurnNumber);
             //            Assert.AreEqual(0, mission.CurrentTeamIndex);
-            //            fredDestination = new Vector3(5, 0, 5);
+            //            fredDestination = new(5, 0, 5);
             //            mission.MoveCharacter(fred,
             //               team1,
             //               team2,
@@ -154,7 +159,7 @@ Fred is ready to level up
             //            //Turn 3 - Team 2 starts - force an end turn
             //            Assert.AreEqual(3, mission.TurnNumber);
             //            Assert.AreEqual(1, mission.CurrentTeamIndex);
-            //            jethroDestination = new Vector3(11, 0, 11);
+            //            jethroDestination = new(11, 0, 11);
             //            mission.MoveCharacter(jethro,
             //                team2,
             //                team1,

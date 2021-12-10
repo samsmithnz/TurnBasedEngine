@@ -2,8 +2,6 @@
 using Battle.Logic.Encounters;
 using Battle.Logic.Game;
 using Battle.Logic.Map;
-using Battle.Logic.Utility;
-using Battle.Tests.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
@@ -22,7 +20,7 @@ namespace Battle.Tests.Scenarios
         public void JethroIsHidingBehindCoverScenarioTest()
         {
             //Arrange
-            Mission mission = new Mission
+            Mission mission = new()
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
@@ -37,22 +35,22 @@ namespace Battle.Tests.Scenarios
             mission.Map[14, 0, 12] = CoverType.FullCover;
             mission.Map[14, 0, 13] = CoverType.FullCover;
             mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new Vector3(5, 0, 5));
-            Team team1 = new Team(1)
+            Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
+            Team team1 = new(1)
             {
                 Name = "Good guys",
-                Characters = new List<Character>() { fred }
+                Characters = new() { fred }
             };
             mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 10));
+            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(15, 0, 10));
             jethro.HitpointsCurrent = 5;
-            Team team2 = new Team(0)
+            Team team2 = new(0)
             {
                 Name = "Bad guys",
-                Characters = new List<Character>() { jethro }
+                Characters = new() { jethro }
             };
             mission.Teams.Add(team2);
-            mission.RandomNumbers = new RandomNumberQueue(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            mission.RandomNumbers = new(new List<int> { 100, 100, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
             mission.StartMission();
 
             //Assert - Setup
@@ -125,11 +123,11 @@ o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o o . . . . 
             Assert.AreEqual(mapStringExpected1, mapString1);
 
             //Throw grenade in front of wall
-            Vector3 targetThrowingLocation = new Vector3(13, 0, 10);
-            EncounterResult encounter1 = mission.AttackCharacterWithAreaOfEffect(fred, 
-                fred.UtilityWeaponEquipped, 
+            Vector3 targetThrowingLocation = new(13, 0, 10);
+            EncounterResult encounter1 = mission.AttackCharacterWithAreaOfEffect(fred,
+                fred.UtilityWeaponEquipped,
                 team1,
-                team2, 
+                team2,
                 targetThrowingLocation);
             string log1 = @"
 Fred is attacking with area effect Grenade aimed at <13, 0, 10>
@@ -149,13 +147,13 @@ High cover downgraded to low cover at <14, 0, 10>
 ";
             Assert.AreEqual(log1, encounter1.LogString);
             Assert.AreEqual(7, encounter1.AffectedMap.Count);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 8), 1), encounter1.AffectedMap[0]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 7), 1), encounter1.AffectedMap[1]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 12), 1), encounter1.AffectedMap[2]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 13), 1), encounter1.AffectedMap[3]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 9), 1), encounter1.AffectedMap[4]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 11), 1), encounter1.AffectedMap[5]);
-            Assert.AreEqual(new KeyValuePair<Vector3, int>(new Vector3(14, 0, 10), 1), encounter1.AffectedMap[6]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 8), 1), encounter1.AffectedMap[0]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 7), 1), encounter1.AffectedMap[1]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 12), 1), encounter1.AffectedMap[2]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 13), 1), encounter1.AffectedMap[3]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 9), 1), encounter1.AffectedMap[4]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 11), 1), encounter1.AffectedMap[5]);
+            Assert.AreEqual(new KeyValuePair<Vector3, int>(new(14, 0, 10), 1), encounter1.AffectedMap[6]);
 
             string mapString2 = fred.GetCharactersInViewMapString(mission.Map, team2.Characters);
             Assert.AreEqual(1, fred.TargetCharacters.Count);

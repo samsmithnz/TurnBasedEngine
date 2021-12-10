@@ -93,7 +93,7 @@ namespace Battle.Logic.Characters
                 Speed = 12,
                 Intelligence = 75,
                 ActionPointsCurrent = 2,
-                ActionPointsMax= 2,
+                ActionPointsMax = 2,
                 MobilityRange = 8,
                 ShootingRange = 30,
                 WeaponEquipped = WeaponPool.CreateRifle(),
