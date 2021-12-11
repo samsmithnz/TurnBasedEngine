@@ -282,8 +282,6 @@ namespace Battle.Tests.Map
 
         }
 
-
-
         [TestMethod]
         public void TileTest()
         {
@@ -295,7 +293,7 @@ namespace Battle.Tests.Map
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("3, 0: Untested", result);
+            Assert.AreEqual("(3, 0, 3): Untested", result);
         }
 
         [TestMethod]
