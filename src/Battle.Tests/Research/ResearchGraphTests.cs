@@ -1,7 +1,5 @@
 using Battle.Logic.Research;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GDS.ASCII;
-using GDS.Extensions;
 
 namespace Battle.Tests.Research
 {
