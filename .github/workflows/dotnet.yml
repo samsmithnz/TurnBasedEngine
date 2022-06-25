@@ -116,6 +116,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
       with:
         name: nugetPackage 
+        path: nugetPackage 
     #- name: Publish nuget package to nuget.org
     #  if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only publish a NuGet package if there has been a commit/version change
     #  run: dotnet nuget push package\*.nupkg --api-key "${{ secrets.GHPackagesToken }}" --source "https://api.nuget.org/v3/index.json"
