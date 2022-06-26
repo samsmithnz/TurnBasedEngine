@@ -29,7 +29,6 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
