@@ -46,12 +46,12 @@ jobs:
     - name: Pack code into NuGet package in release
       run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package to GitHub
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: package
         path: src/Battle.Logic/bin/Debug/netstandard2.0 
     - name: Upload nuget package to GitHub
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: nugetPackage
         path: src/Battle.Logic/bin/Debug/  
