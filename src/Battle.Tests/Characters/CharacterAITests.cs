@@ -182,6 +182,8 @@ Successful intelligence check: 25, (dice roll: 81)
             Assert.AreEqual(new(15, 0, 10), actionResult.StartLocation);
             Assert.AreEqual(new(15, 0, 6), actionResult.EndLocation);
             Assert.AreEqual(ActionTypeEnum.MoveThenAttack, actionResult.ActionType);
+            Assert.AreEqual(true, actionResult.IntelligenceCheckSuccessful);
+            Assert.AreEqual(new(5, 0, 5), actionResult.TargetLocation);
         }
 
     }
