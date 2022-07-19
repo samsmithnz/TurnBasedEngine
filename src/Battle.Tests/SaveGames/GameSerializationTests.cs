@@ -112,5 +112,83 @@ namespace Battle.Tests.SaveGames
             File.Delete(savedFile2);
         }
 
+        [TestMethod]
+        public void SaveNewGameTooLargeTest()
+        {
+            //Arrange
+            Mission mission = new();
+            string path = _rootPath;
+
+            //Act
+            string json = GameSerialization.SaveGame(mission);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json, 1001);
+            string savedFile2 = GameSerialization.CreateSaveGameFile(path, json, 1001);
+
+            //Assert
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+            Assert.AreEqual(path + "Save1001.json", savedFile);
+            Assert.AreEqual(path + "Save1002.json", savedFile2);
+
+            //Clean up
+            File.Delete(savedFile);
+            File.Delete(savedFile2);
+        }
+
+        [TestMethod]
+        public void SaveNewGameNewDirectoryTest()
+        {
+            //Arrange
+            Mission mission = new();
+            string path = _rootPath + "\\NewSaveDir";
+
+            //Act
+            string json = GameSerialization.SaveGame(mission);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json, 12);
+
+            //Assert
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+            Assert.AreEqual(path + "Save012.json", savedFile);
+
+            //Clean up
+            File.Delete(savedFile);
+            Directory.Delete(path);
+        }
+
+        [TestMethod]
+        public void LoadGameWithNoContentTest()
+        {
+            //Arrange
+            Mission mission = new();
+            string path = _rootPath;
+
+            //Act
+            string json = "";
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json, 15);
+            //This should throw an exception
+            try
+            {
+                GameSerialization.LoadGameFile(savedFile);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                //Assert
+                Assert.IsTrue(Directory.Exists(path));
+                Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+                Assert.AreEqual(path + "Save015.json", savedFile);
+            }
+            catch (System.Exception)
+            {
+                //Should never be here
+                Assert.IsTrue(false);
+            }
+            finally
+            {
+                //Clean up
+                File.Delete(savedFile);
+            }
+        }
+
     }
 }

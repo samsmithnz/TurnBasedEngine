@@ -9,7 +9,7 @@ namespace Battle.Logic.SaveGames
         public static Mission LoadGameFile(string path)
         {
             string fileContents;
-            using (var streamReader = new StreamReader(path))
+            using (StreamReader streamReader = new StreamReader(path))
             {
                 fileContents = streamReader.ReadToEnd();
             }
