@@ -16,7 +16,7 @@ namespace Battle.Tests.SaveGames
         [TestInitialize]
         public void GameSerializationStartUp()
         {
-            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/SaveGames/Saves/";
+            _rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\SaveGames\Saves\";
         }
 
         [TestMethod]
@@ -52,6 +52,25 @@ namespace Battle.Tests.SaveGames
         }
 
         [TestMethod]
+        public void SaveNewGameWithNumberTest()
+        {
+            //Arrange
+            Mission mission = new();
+            string path = _rootPath;
+
+            //Act
+            string json = GameSerialization.SaveGame(mission);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json, 1);
+
+            //Assert
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+
+            //Clean up
+            File.Delete(savedFile);
+        }
+
+        [TestMethod]
         public void SaveNewGameTest()
         {
             //Arrange
@@ -68,6 +87,29 @@ namespace Battle.Tests.SaveGames
 
             //Clean up
             File.Delete(savedFile);
+        }
+
+        [TestMethod]
+        public void SaveNewGameTwiceTest()
+        {
+            //Arrange
+            Mission mission = new();
+            string path = _rootPath;
+
+            //Act
+            string json = GameSerialization.SaveGame(mission);
+            string savedFile = GameSerialization.CreateSaveGameFile(path, json, 9);
+            string savedFile2 = GameSerialization.CreateSaveGameFile(path, json, 9);
+
+            //Assert
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsTrue(Directory.GetFiles(path).Length >= 0);
+            Assert.AreEqual(path + "Save009.json", savedFile);
+            Assert.AreEqual(path + "Save010.json", savedFile2);
+
+            //Clean up
+            File.Delete(savedFile);
+            File.Delete(savedFile2);
         }
 
     }
