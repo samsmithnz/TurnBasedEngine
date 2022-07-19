@@ -111,5 +111,20 @@ namespace Battle.Tests.Utility
             Assert.AreEqual(99, queue.Count);
         }
 
+        //[TestMethod]
+        //public void QueueOverflowTest()
+        //{
+        //    //Arrange
+        //    RandomNumberQueue queue;
+
+        //    //Act
+        //    queue = new();
+
+        //    //Assert
+        //    Assert.AreEqual(0, queue.Count);
+        //    queue.Dequeue();
+        //    Assert.AreEqual(99, queue.Count);
+        //}
+
     }
 }

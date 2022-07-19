@@ -206,6 +206,24 @@ namespace Battle.Tests.GameController
             Assert.AreEqual(null, first);
         }
 
+        [TestMethod]
+        public void AITeamIsAITeamTest()
+        {
+            //Arrange
+            Character fred = CharacterPool.CreateFredHero(null, Vector3.One);
+            Character harry = CharacterPool.CreateHarryHero(null, Vector3.One);
+            Team team = new(1)
+            {
+                Characters = new() { fred, harry },
+                IsAITeam = true
+            };
+
+            //Assert
+            Assert.IsNotNull(team);
+            Assert.IsTrue(team.IsAITeam);
+            Assert.AreEqual(1, team.TargetTeamIndex);
+        }
+
 
     }
 }
