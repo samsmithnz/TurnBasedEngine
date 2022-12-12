@@ -3,7 +3,8 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 
 [![.NET Build](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Battle/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Battle?branch=main)
-![Current Release](https://img.shields.io/github/release/samsmithnz/Battle/all.svg)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_Battle&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_Battle)
+[![Current Release](https://img.shields.io/github/release/samsmithnz/Battle/all.svg)](https://github.com/samsmithnz/Battle/releases)
 
 ### Current features include:
 - Basic map generation, in 2d world, with x and z axis (y axis to come later)
@@ -34,7 +35,7 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 12. If the team has no players with hit points remaining, the mission is over
 
 ## How to install/use
-- Requires .NET 6 (for tests)
+- Requires .NET 7 (for tests)
 - Battle.Logic dll is .NET Standard 2.0 for Unity compatibility
 - Codespaces is configured, or you can continue to use Visual Studio
 - See tests & scenarios for examples of how to utilize the battle.logic

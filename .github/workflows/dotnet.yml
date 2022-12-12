@@ -34,7 +34,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Run automated tests
-      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov  /p:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
+      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
@@ -66,6 +66,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
+      - name: Install .NET 7 SDK
+        uses: actions/setup-dotnet@v3.0.3
+        with:
+          dotnet-version: 7.0.x
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
