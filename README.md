@@ -35,7 +35,7 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 12. If the team has no players with hit points remaining, the mission is over
 
 ## How to install/use
-- Requires .NET 6 (for tests)
+- Requires .NET 7 (for tests)
 - Battle.Logic dll is .NET Standard 2.0 for Unity compatibility
 - Codespaces is configured, or you can continue to use Visual Studio
 - See tests & scenarios for examples of how to utilize the battle.logic
