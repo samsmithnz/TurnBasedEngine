@@ -68,7 +68,7 @@ jobs:
           projects: 'src/Battle.Logic/Battle.Logic.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_BattleSimulator
+          sonarcloud-project: samsmithnz_Battle
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
 
