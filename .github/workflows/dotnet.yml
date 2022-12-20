@@ -63,7 +63,7 @@ jobs:
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.1
+        uses: samsmithnz/SamsDotNetSonarCloudAction@1.2.0
         with:
           projects: 'src/Battle.Logic/Battle.Logic.csproj'
           dotnet-version: '7.0.x'
