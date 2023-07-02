@@ -1,11 +1,11 @@
-﻿using Battle.Logic.Encounters;
+﻿using TBE.Logic.Encounters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace Battle.Logic.Map
+namespace TBE.Logic.Map
 {
     public static class MapCore
     {

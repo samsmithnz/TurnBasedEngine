@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.Encounters
+﻿namespace TBE.Logic.Encounters
 {
     public class DamageRange
     {

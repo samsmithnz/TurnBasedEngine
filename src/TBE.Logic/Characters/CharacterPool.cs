@@ -1,8 +1,8 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Items;
+﻿using TBE.Logic.AbilitiesAndEffects;
+using TBE.Logic.Items;
 using System.Numerics;
 
-namespace Battle.Logic.Characters
+namespace TBE.Logic.Characters
 {
     public static class CharacterPool
     {

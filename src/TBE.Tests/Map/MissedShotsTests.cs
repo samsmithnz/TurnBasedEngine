@@ -1,4 +1,4 @@
-﻿using Battle.Logic.Map;
+﻿using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 

@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.Characters
+﻿namespace TBE.Logic.Characters
 {
     public class CoverState
     {

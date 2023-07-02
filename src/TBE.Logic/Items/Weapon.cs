@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.Items
+﻿namespace TBE.Logic.Items
 {
     public class Weapon
     {

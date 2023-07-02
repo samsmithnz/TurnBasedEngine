@@ -1,8 +1,8 @@
-﻿using Battle.Logic.Game;
+﻿using TBE.Logic.Game;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Battle.Logic.SaveGames
+namespace TBE.Logic.SaveGames
 {
     public static class GameSerialization
     {

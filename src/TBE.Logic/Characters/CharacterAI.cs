@@ -1,12 +1,12 @@
-﻿using Battle.Logic.Encounters;
-using Battle.Logic.Game;
-using Battle.Logic.Map;
-using Battle.Logic.Utility;
+﻿using TBE.Logic.Encounters;
+using TBE.Logic.Game;
+using TBE.Logic.Map;
+using TBE.Logic.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Battle.Logic.Characters
+namespace TBE.Logic.Characters
 {
     public class CharacterAI
     {

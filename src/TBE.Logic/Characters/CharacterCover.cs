@@ -1,10 +1,10 @@
-﻿using Battle.Logic.Game;
-using Battle.Logic.Map;
+﻿using TBE.Logic.Game;
+using TBE.Logic.Map;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.Characters
+namespace TBE.Logic.Characters
 {
     public static class CharacterCover
     {

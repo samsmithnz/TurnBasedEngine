@@ -1,7 +1,7 @@
-﻿using Battle.Logic.Characters;
+﻿using TBE.Logic.Characters;
 using System.Collections.Generic;
 
-namespace Battle.Logic.Utility
+namespace TBE.Logic.Utility
 {
     /// <summary>
     /// A wrapping list object, that allows you to move forward or backwards through a list, wrapping to the beginning/end, if required

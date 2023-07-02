@@ -1,5 +1,5 @@
-using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Characters;
+using TBE.Logic.AbilitiesAndEffects;
+using TBE.Logic.Characters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

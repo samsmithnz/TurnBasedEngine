@@ -1,11 +1,11 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Game;
+﻿using TBE.Logic.Characters;
+using TBE.Logic.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Battle.Logic.Map
+namespace TBE.Logic.Map
 {
     public static class FieldOfView
     {

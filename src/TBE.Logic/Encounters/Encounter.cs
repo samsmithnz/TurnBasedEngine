@@ -1,13 +1,13 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Characters;
-using Battle.Logic.Items;
-using Battle.Logic.Map;
-using Battle.Logic.Utility;
+﻿using TBE.Logic.AbilitiesAndEffects;
+using TBE.Logic.Characters;
+using TBE.Logic.Items;
+using TBE.Logic.Map;
+using TBE.Logic.Utility;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace Battle.Logic.Encounters
+namespace TBE.Logic.Encounters
 {
     public static class Encounter
     {

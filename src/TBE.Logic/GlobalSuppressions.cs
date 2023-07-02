@@ -5,8 +5,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:Battle.Logic.Encounters.Range.GetShotgunWeaponRangeModifier(System.Int32)~System.Int32")]
-[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:Battle.Logic.Encounters.Range.GetSniperWeaponRangeModifier(System.Int32)~System.Int32")]
-[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:Battle.Logic.Encounters.Range.GetStandardWeaponRangeModifier(System.Int32)~System.Int32")]
-[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:Battle.Logic.Encounters.Range.GetRangeModifier(Battle.Logic.Items.Weapon,System.Int32)~System.Int32")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~P:Battle.Logic.Characters.Character._location")]
+[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:TBE.Logic.Encounters.Range.GetShotgunWeaponRangeModifier(System.Int32)~System.Int32")]
+[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:TBE.Logic.Encounters.Range.GetSniperWeaponRangeModifier(System.Int32)~System.Int32")]
+[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:TBE.Logic.Encounters.Range.GetStandardWeaponRangeModifier(System.Int32)~System.Int32")]
+[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "<Pending>", Scope = "member", Target = "~M:TBE.Logic.Encounters.Range.GetRangeModifier(TBE.Logic.Items.Weapon,System.Int32)~System.Int32")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~P:TBE.Logic.Characters.Character._location")]

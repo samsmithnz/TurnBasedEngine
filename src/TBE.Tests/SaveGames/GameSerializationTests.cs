@@ -1,5 +1,5 @@
-using Battle.Logic.Game;
-using Battle.Logic.SaveGames;
+using TBE.Logic.Game;
+using TBE.Logic.SaveGames;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;

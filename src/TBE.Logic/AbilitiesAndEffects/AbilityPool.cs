@@ -1,4 +1,4 @@
-﻿namespace Battle.Logic.AbilitiesAndEffects
+﻿namespace TBE.Logic.AbilitiesAndEffects
 {
     public static class AbilityPool
     {

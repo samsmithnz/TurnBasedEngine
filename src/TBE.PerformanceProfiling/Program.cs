@@ -1,7 +1,7 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
-using Battle.Logic.Game;
-using Battle.Logic.SaveGames;
+﻿using TBE.Logic.Characters;
+using TBE.Logic.Encounters;
+using TBE.Logic.Game;
+using TBE.Logic.SaveGames;
 using System;
 using System.IO;
 using System.Reflection;

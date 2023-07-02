@@ -1,5 +1,5 @@
-using Battle.Logic.Encounters;
-using Battle.Logic.Items;
+using TBE.Logic.Encounters;
+using TBE.Logic.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Battle.Tests.Encounters

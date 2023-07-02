@@ -1,6 +1,6 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Game;
-using Battle.Logic.Map;
+﻿using TBE.Logic.Characters;
+using TBE.Logic.Game;
+using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

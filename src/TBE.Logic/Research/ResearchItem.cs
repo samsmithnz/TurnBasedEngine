@@ -1,6 +1,6 @@
-﻿using Battle.Logic.Items;
+﻿using TBE.Logic.Items;
 
-namespace Battle.Logic.Research
+namespace TBE.Logic.Research
 {
     public class ResearchItem
     {

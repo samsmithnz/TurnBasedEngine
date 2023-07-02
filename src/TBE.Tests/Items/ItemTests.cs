@@ -1,4 +1,4 @@
-using Battle.Logic.Items;
+using TBE.Logic.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Battle.Tests.Items

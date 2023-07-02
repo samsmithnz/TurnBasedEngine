@@ -1,7 +1,7 @@
-﻿using Battle.Logic.Items;
+﻿using TBE.Logic.Items;
 using System.Numerics;
 
-namespace Battle.Logic.Encounters
+namespace TBE.Logic.Encounters
 {
 
     //Largely sourced from here: https://www.ufopaedia.org/index.php/Chance_to_Hit_(EU2012)#Weapon_Range

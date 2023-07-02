@@ -1,8 +1,8 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Utility;
+﻿using TBE.Logic.Characters;
+using TBE.Logic.Utility;
 using System.Collections.Generic;
 
-namespace Battle.Logic.Game
+namespace TBE.Logic.Game
 {
     public static class TeamUtility
     {

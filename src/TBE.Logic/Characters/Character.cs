@@ -1,10 +1,10 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Items;
-using Battle.Logic.Map;
+﻿using TBE.Logic.AbilitiesAndEffects;
+using TBE.Logic.Items;
+using TBE.Logic.Map;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.Characters
+namespace TBE.Logic.Characters
 {
     public class Character
     {

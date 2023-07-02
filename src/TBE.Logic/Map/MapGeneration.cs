@@ -1,7 +1,7 @@
-﻿using Battle.Logic.Utility;
+﻿using TBE.Logic.Utility;
 using System;
 
-namespace Battle.Logic.Map
+namespace TBE.Logic.Map
 {
     public static class MapGeneration
     {

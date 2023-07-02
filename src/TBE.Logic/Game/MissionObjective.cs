@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Battle.Logic.Game
+namespace TBE.Logic.Game
 {
     public class MissionObjective
     {

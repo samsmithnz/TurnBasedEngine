@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Battle.Logic.Map
+namespace TBE.Logic.Map
 {
     public class MapTile
     {

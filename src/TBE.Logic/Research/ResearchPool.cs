@@ -1,5 +1,5 @@
 ﻿
-namespace Battle.Logic.Research
+namespace TBE.Logic.Research
 {
     public static class ResearchPool
     {

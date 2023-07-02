@@ -1,7 +1,7 @@
-﻿using Battle.Logic.Characters;
-using Battle.Logic.Encounters;
-using Battle.Logic.Game;
-using Battle.Logic.Map;
+﻿using TBE.Logic.Characters;
+using TBE.Logic.Encounters;
+using TBE.Logic.Game;
+using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Battle.Tests.Characters

@@ -1,10 +1,10 @@
-﻿using Battle.Logic.AbilitiesAndEffects;
-using Battle.Logic.Characters;
-using Battle.Logic.Items;
+﻿using TBE.Logic.AbilitiesAndEffects;
+using TBE.Logic.Characters;
+using TBE.Logic.Items;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.Encounters
+namespace TBE.Logic.Encounters
 {
     public static class EncounterCore
     {

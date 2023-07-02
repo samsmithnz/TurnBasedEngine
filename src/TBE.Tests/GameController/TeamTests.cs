@@ -1,5 +1,5 @@
-using Battle.Logic.Characters;
-using Battle.Logic.Game;
+using TBE.Logic.Characters;
+using TBE.Logic.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Numerics;

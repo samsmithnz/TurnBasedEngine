@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.Map
+namespace TBE.Logic.Map
 {
     public static class PathFinding
     {

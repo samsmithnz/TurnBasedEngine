@@ -1,4 +1,4 @@
-﻿using Battle.Logic.Utility;
+﻿using TBE.Logic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

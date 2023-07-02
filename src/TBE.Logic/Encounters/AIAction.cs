@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace Battle.Logic.Encounters
+namespace TBE.Logic.Encounters
 {
     public class AIAction
     {

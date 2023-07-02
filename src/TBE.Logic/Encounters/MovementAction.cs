@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Logic.Encounters
+namespace TBE.Logic.Encounters
 {
     public class MovementAction
     {

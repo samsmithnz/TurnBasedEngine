@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Battle.Logic.Research
+namespace TBE.Logic.Research
 {
     public class ResearchController
     {
