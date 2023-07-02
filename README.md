@@ -1,10 +1,10 @@
-# Battle
-A POC to build the battle logic for a turn based game idea, similar to [XCOM](https://en.wikipedia.org/wiki/XCOM) and [Jagged Alliance](https://en.wikipedia.org/wiki/Jagged_Alliance_(series)). 
+# Turn Based Engine (TBE)
+A project that builds out the logic for a turn based engine/ game idea, similar to [XCOM](https://en.wikipedia.org/wiki/XCOM) and [Jagged Alliance](https://en.wikipedia.org/wiki/Jagged_Alliance_(series)). 
 
-[![.NET Build](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml)
+[![.NET Build](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Battle/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Battle?branch=main)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_Battle&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_Battle)
-[![Current Release](https://img.shields.io/github/release/samsmithnz/Battle/all.svg)](https://github.com/samsmithnz/Battle/releases)
+[![Current Release](https://img.shields.io/github/release/samsmithnz/TurnBasedEngine/all.svg)](https://github.com/samsmithnz/TurnBasedEngine/releases)
 
 ### Current features include:
 - Basic map generation, in 2d world, with x and z axis (y axis to come later)
@@ -36,9 +36,9 @@ A POC to build the battle logic for a turn based game idea, similar to [XCOM](ht
 
 ## How to install/use
 - Requires .NET 7 (for tests)
-- Battle.Logic dll is .NET Standard 2.0 for Unity compatibility
+- TBE.Logic dll is .NET Standard 2.0 for Unity compatibility
 - Codespaces is configured, or you can continue to use Visual Studio
-- See tests & scenarios for examples of how to utilize the battle.logic
+- See tests & scenarios for examples of how to utilize the TBE.Logic project
 
 ## Contributions
 - Contributions welcome! Fork/Issue/Pull Request. Whatever you are comfortable suggesting.

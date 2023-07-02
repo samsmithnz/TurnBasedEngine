@@ -34,27 +34,27 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Run automated tests
-      run: dotnet test src/Battle.Tests/Battle.Tests.csproj --configuration Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov --settings:./src/Battle.Tests/CodeCoverage.runsettings
+      run: dotnet test src/TBE.Tests/TBE.Tests.csproj --configuration Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov --settings:./src/TBE.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/Battle.Tests/TestResults/coverage.info 
+        path-to-lcov: src/TBE.Tests/TestResults/coverage.info 
       continue-on-error: true
     - name: Build code in debug
-      run: dotnet build src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet build src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Pack code into NuGet package in release
-      run: dotnet pack src/Battle.Logic/Battle.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet pack src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v3
       with:
         name: package
-        path: src/Battle.Logic/bin/Debug/netstandard2.0 
+        path: src/TBE.Logic/bin/Debug/netstandard2.0 
     - name: Upload nuget package to GitHub
       uses: actions/upload-artifact@v3
       with:
         name: nugetPackage
-        path: src/Battle.Logic/bin/Debug/  
+        path: src/TBE.Logic/bin/Debug/  
 
 
   sonarCloud:
@@ -65,7 +65,7 @@ jobs:
       - name: Run Sonarcloud test
         uses: samsmithnz/SamsDotNetSonarCloudAction@1.2.0
         with:
-          projects: 'src/Battle.Logic/Battle.Logic.csproj'
+          projects: 'src/TBE.Logic/TBE.Logic.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_Battle
