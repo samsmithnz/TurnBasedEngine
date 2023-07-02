@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Battle.Logic\Battle.Logic.csproj" />
+    <ProjectReference Include="..\TBE.Logic\TBE.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
