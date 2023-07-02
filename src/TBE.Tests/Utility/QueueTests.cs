@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Battle.Tests.Utility
+namespace TBE.Tests.Utility
 {
     [TestClass]
     [TestCategory("L0")]

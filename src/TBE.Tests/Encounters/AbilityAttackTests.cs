@@ -6,7 +6,7 @@ using TBE.Logic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Battle.Tests.Encounters
+namespace TBE.Tests.Encounters
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]

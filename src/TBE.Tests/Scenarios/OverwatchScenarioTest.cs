@@ -10,7 +10,7 @@ using System.IO;
 using System.Numerics;
 using System.Reflection;
 
-namespace Battle.Tests.Scenarios
+namespace TBE.Tests.Scenarios
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]

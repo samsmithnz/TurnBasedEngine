@@ -2,7 +2,7 @@ using TBE.Logic.Encounters;
 using TBE.Logic.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Battle.Tests.Encounters
+namespace TBE.Tests.Encounters
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]

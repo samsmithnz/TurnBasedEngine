@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.Map
+namespace TBE.Tests.Map
 {
     [TestClass]
     [TestCategory("L1")]

@@ -2,7 +2,7 @@ using TBE.Logic.Characters;
 using TBE.Logic.Items;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Battle.Tests.Characters
+namespace TBE.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]

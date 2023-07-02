@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.Characters
+namespace TBE.Tests.Characters
 {
     [TestClass]
     [TestCategory("L0")]

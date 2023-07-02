@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Battle.Tests.Characters
+namespace TBE.Tests.Characters
 {
     public class CoverUtility
     {

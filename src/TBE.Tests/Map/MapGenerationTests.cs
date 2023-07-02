@@ -1,7 +1,7 @@
 ﻿using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Battle.Tests.Map
+namespace TBE.Tests.Map
 {
     [TestClass]
     [TestCategory("L0")]

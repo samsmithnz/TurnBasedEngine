@@ -4,7 +4,7 @@ using TBE.Logic.Game;
 using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Battle.Tests.Characters
+namespace TBE.Tests.Characters
 {
     [TestClass]
     [TestCategory("L1")]

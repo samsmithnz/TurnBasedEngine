@@ -1,7 +1,7 @@
 using TBE.Logic.Research;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Battle.Tests.Research
+namespace TBE.Tests.Research
 {
     [TestClass]
     [TestCategory("L0")]

@@ -5,7 +5,7 @@ using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Battle.Tests.Scenarios
+namespace TBE.Tests.Scenarios
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [TestClass]

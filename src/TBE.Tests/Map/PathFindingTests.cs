@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Battle.Tests.Map
+namespace TBE.Tests.Map
 {
     [TestClass]
     [TestCategory("L0")]
