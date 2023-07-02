@@ -1,10 +1,10 @@
 # Turn Based Engine (TBE)
 A project that builds out the logic for a turn based engine/ game idea, similar to [XCOM](https://en.wikipedia.org/wiki/XCOM) and [Jagged Alliance](https://en.wikipedia.org/wiki/Jagged_Alliance_(series)). 
 
-[![.NET Build](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Battle/actions/workflows/dotnet.yml)
+[![.NET Build](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Battle/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Battle?branch=main)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_Battle&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_Battle)
-[![Current Release](https://img.shields.io/github/release/samsmithnz/Battle/all.svg)](https://github.com/samsmithnz/Battle/releases)
+[![Current Release](https://img.shields.io/github/release/samsmithnz/TurnBasedEngine/all.svg)](https://github.com/samsmithnz/TurnBasedEngine/releases)
 
 ### Current features include:
 - Basic map generation, in 2d world, with x and z axis (y axis to come later)
