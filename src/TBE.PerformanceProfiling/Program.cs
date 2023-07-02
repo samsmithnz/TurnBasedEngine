@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace Battle.PerformanceProfiling
+namespace TBE.PerformanceProfiling
 {
     internal class Program
     {
