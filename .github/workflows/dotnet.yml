@@ -115,7 +115,7 @@ jobs:
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ needs.build.outputs.Version }}
-        name: Release ${{ needs.build.outputs.Version }}
+        tag: "v${{ needs.build.outputs.Version }}"
+        name: "v${{ needs.build.outputs.Version }}"
         artifacts: "package/*"
         token: ${{ secrets.GITHUB_TOKEN }}
