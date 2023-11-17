@@ -68,7 +68,7 @@ jobs:
           projects: 'src/TBE.Logic/TBE.Logic.csproj'
           dotnet-version: '8.0.x'
           sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_Battle
+          sonarcloud-project: samsmithnz_TurnBasedEngine
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
 
