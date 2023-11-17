@@ -32,7 +32,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
     - name: Run automated tests
       run: dotnet test src/TBE.Tests/TBE.Tests.csproj --configuration Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov --settings:./src/TBE.Tests/CodeCoverage.runsettings
     - name: Publish coverage report to coveralls.io
