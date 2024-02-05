@@ -63,7 +63,7 @@ jobs:
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@v2.1.5
+        uses: samsmithnz/SamsDotNetSonarCloudAction@v2
         with:
           projects: 'src/TBE.Logic/TBE.Logic.csproj'
           dotnet-version: '8.0.x'
