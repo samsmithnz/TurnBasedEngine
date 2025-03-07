@@ -3,7 +3,7 @@ A project that builds out the logic for a turn based engine/ game idea, similar 
 
 [![.NET Build](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Battle/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Battle?branch=main)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_Battle&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_Battle)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_TurnBasedEngine&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_TurnBasedEngine)
 [![Current Release](https://img.shields.io/github/release/samsmithnz/TurnBasedEngine/all.svg)](https://github.com/samsmithnz/TurnBasedEngine/releases)
 
 ### Current features include:
