@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
-      Version: ${{ steps.gitversion.outputs.SemVer }}
+      Version: ${{ steps.gitversion.outputs.MajorMinorPatch }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }} 
 
     steps:
@@ -21,13 +21,13 @@ jobs:
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v4.0.1
       with:
-        versionSpec: 5.x
+        versionSpec: 6.x
     - name: Determine Version
       uses: gittools/actions/gitversion/execute@v4.0.1
       id: gitversion # step id used as reference for output values
     - name: Display GitVersion outputs
       run: |
-        echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
+        echo "Version: ${{ steps.gitversion.outputs.MajorMinorPatch }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.3.1
@@ -42,9 +42,9 @@ jobs:
         path-to-lcov: src/TBE.Tests/TestResults/coverage.info 
       continue-on-error: true
     - name: Build code in debug
-      run: dotnet build src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet build src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.MajorMinorPatch }}'
     - name: Pack code into NuGet package in release
-      run: dotnet pack src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet pack src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.MajorMinorPatch }}'
     - name: Upload package to GitHub
       uses: actions/upload-artifact@v4
       with:
