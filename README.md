@@ -1,5 +1,5 @@
 # Turn Based Engine (TBE)
-A project that builds out the logic for a turn based engine/ game idea, similar to [XCOM](https://en.wikipedia.org/wiki/XCOM) and [Jagged Alliance](https://en.wikipedia.org/wiki/Jagged_Alliance_(series)). 
+A project that builds out the logic for a turn based engine/ game, similar to [XCOM](https://en.wikipedia.org/wiki/XCOM) and [Jagged Alliance](https://en.wikipedia.org/wiki/Jagged_Alliance_(series)). 
 
 [![.NET Build](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/TurnBasedEngine/actions/workflows/dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Battle/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Battle?branch=main)
@@ -35,10 +35,10 @@ A project that builds out the logic for a turn based engine/ game idea, similar 
 12. If the team has no players with hit points remaining, the mission is over
 
 ## How to install/use
-- Requires .NET 7 (for tests)
-- TBE.Logic dll is .NET Standard 2.0 for Unity compatibility
-- Codespaces is configured, or you can continue to use Visual Studio
+- TBE.Logic contains the main logic, and is compiled to a .NET Standard 2.0 DLL (for Unity compatibility)
+- TBE.Tests contains automated testing, using .NET 10
 - See tests & scenarios for examples of how to utilize the TBE.Logic project
+- Codespaces is configured, or you can continue to use Visual Studio
 
 ## Contributions
 - Contributions welcome! Fork/Issue/Pull Request. Whatever you are comfortable suggesting.
