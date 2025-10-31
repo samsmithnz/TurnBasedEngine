@@ -1,6 +1,6 @@
-using TBE.Logic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using TBE.Logic.Utility;
 
 namespace TBE.Tests.Utility
 {
@@ -155,7 +155,7 @@ namespace TBE.Tests.Utility
 
             //Assert
             Assert.AreEqual(5, result);
-        }
+        }        
 
         private static bool ValueIsInRange(int value, int minValue, int maxValue)
         {
