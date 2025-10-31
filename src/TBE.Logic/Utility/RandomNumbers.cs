@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace TBE.Logic.Utility
 {
     public static class RandomNumber
     {
+        // Thread-safe random number generator using ThreadLocal to avoid contention
+        private static readonly ThreadLocal<Random> _threadLocalRandom = new ThreadLocal<Random>(() => 
+        {
+            // Use a unique seed per thread based on thread ID and current time
+            return new Random(Guid.NewGuid().GetHashCode());
+        });
+
         public static int GenerateRandomNumber(int minValue, int maxValue, int? seed = null)
         {
             if (seed == null)
             {
-                Random rand = new Random();
-                return rand.Next(minValue, maxValue);
+                return _threadLocalRandom.Value.Next(minValue, maxValue);
             }
             else
             {
