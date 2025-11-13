@@ -19,11 +19,11 @@ jobs:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
     #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v4.1.0
+      uses: gittools/actions/gitversion/setup@v4.2.0
       with:
         versionSpec: 6.x
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v4.1.0
+      uses: gittools/actions/gitversion/execute@v4.2.0
       id: gitversion # step id used as reference for output values
     - name: Display GitVersion outputs
       run: |
@@ -46,12 +46,12 @@ jobs:
     - name: Pack code into NuGet package in release
       run: dotnet pack src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.MajorMinorPatch }}'
     - name: Upload package to GitHub
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: package
         path: src/TBE.Logic/bin/Debug/netstandard2.0 
     - name: Upload nuget package to GitHub
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: nugetPackage
         path: src/TBE.Logic/bin/Debug/  
@@ -84,11 +84,11 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v5.0.0
+      uses: actions/download-artifact@v6.0.0
       with:
         name: package  
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v5.0.0
+      uses: actions/download-artifact@v6.0.0
       with:
         name: nugetPackage 
         path: nugetPackage 
