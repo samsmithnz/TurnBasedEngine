@@ -18,7 +18,7 @@ namespace TBE.Logic.Game
             TurnNumber = 1;
             CurrentTeamIndex = 0;
             RandomNumbers = new RandomNumberQueue(RandomNumber.GenerateRandomNumberList(0, 100, 0, 1000));
-            RandomNumbers.Queue[0] = 8; //First shot always misses in this scenario.
+            RandomNumbers.ReplaceFirstValue(8); //First shot always misses in this scenario.
         }
 
         public int TurnNumber { get; set; }

@@ -6,8 +6,8 @@ namespace TBE.Logic.Utility
 {
     public class RandomNumberQueue
     {
-        private readonly List<int> _queue;
-        public List<int> Queue
+        private readonly Queue<int> _queue;
+        public IEnumerable<int> Queue
         {
             get
             {
@@ -17,34 +17,56 @@ namespace TBE.Logic.Utility
 
         public RandomNumberQueue()
         {
-            _queue = new List<int>();
+            _queue = new Queue<int>();
         }
 
-        public RandomNumberQueue(List<int> list)
+        public RandomNumberQueue(IEnumerable<int> items)
         {
-            _queue = list;
+            _queue = new Queue<int>(items);
         }
 
         public int Dequeue()
         {
-            //If there are less than 100 items left in the list, generate 100 more
+            //If there are less than 100 items left in the queue, generate 100 more
             if (_queue.Count <= 100)
             {
                 //Generate random numbers without a fixed seed for better randomness
                 for (int i = 0; i < 100; i++)
                 {
-                    Queue.Add(RandomNumber.GenerateRandomNumber(0, 100));
+                    _queue.Enqueue(RandomNumber.GenerateRandomNumber(0, 100));
                 }
             }
 
-            int result = _queue[0];
-            _queue.RemoveAt(0);
-            return result;
+            return _queue.Dequeue();
         }
 
         public void Enqueue(int i)
         {
-            _queue.Add(i);
+            _queue.Enqueue(i);
+        }
+
+        public void ReplaceFirstValue(int value)
+        {
+            if (_queue.Count > 0)
+            {
+                _queue.Dequeue();
+                var tempList = new List<int>(_queue);
+                tempList.Insert(0, value);
+                _queue.Clear();
+                foreach (var item in tempList)
+                {
+                    _queue.Enqueue(item);
+                }
+            }
+            else
+            {
+                _queue.Enqueue(value);
+            }
+        }
+
+        public int PeekFirst()
+        {
+            return _queue.Peek();
         }
 
         [JsonIgnore]
