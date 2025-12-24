@@ -79,7 +79,7 @@ namespace TBE.Tests.Scenarios
             Assert.AreEqual(1, mission.Teams[0].Characters.Count);
             Assert.AreEqual("Bad guys", mission.Teams[1].Name);
             Assert.AreEqual(1, mission.Teams[1].Characters.Count);
-            Assert.AreEqual(8, mission.RandomNumbers.Queue[0]);
+            Assert.AreEqual(8, mission.RandomNumbers.Peek());
 
             //Act
 
