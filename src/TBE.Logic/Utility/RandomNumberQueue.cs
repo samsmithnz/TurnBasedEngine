@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
 namespace TBE.Logic.Utility
@@ -50,10 +49,10 @@ namespace TBE.Logic.Utility
             if (_queue.Count > 0)
             {
                 _queue.Dequeue();
-                var tempList = new List<int>(_queue);
+                List<int> tempList = new List<int>(_queue);
                 tempList.Insert(0, value);
                 _queue.Clear();
-                foreach (var item in tempList)
+                foreach (int item in tempList)
                 {
                     _queue.Enqueue(item);
                 }
@@ -64,7 +63,7 @@ namespace TBE.Logic.Utility
             }
         }
 
-        public int PeekFirst()
+        public int Peek()
         {
             return _queue.Peek();
         }

@@ -877,7 +877,7 @@ P . . . . . ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓
             Assert.AreEqual(2, mission.Teams[0].Characters.Count);
             Assert.AreEqual("Bad guys", mission.Teams[1].Name);
             Assert.AreEqual(1, mission.Teams[1].Characters.Count);
-            Assert.AreEqual(8, mission.RandomNumbers.PeekFirst());
+            Assert.AreEqual(8, mission.RandomNumbers.Peek());
 
             //Check before we move
             string fov0MapString = MapCore.GetMapStringWithMapMask(mission.Map, fred.FOVMap);
