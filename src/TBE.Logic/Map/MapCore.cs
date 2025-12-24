@@ -151,7 +151,8 @@ namespace TBE.Logic.Map
                 {
                     if (map[x, y, z] != "")
                     {
-                        sbLine.Append(map[x, y, z] + " ");
+                        sbLine.Append(map[x, y, z]);
+                        sbLine.Append(" ");
                     }
                     else
                     {
@@ -260,13 +261,15 @@ namespace TBE.Logic.Map
                 {
                     if (mapMask[x, y, z] != "")
                     {
-                        sb.Append(mapMask[x, y, z] + " ");
+                        sb.Append(mapMask[x, y, z]);
+                        sb.Append(" ");
                     }
                     else
                     {
                         if (map[x, y, z] != "")
                         {
-                            sb.Append(map[x, y, z] + " ");
+                            sb.Append(map[x, y, z]);
+                            sb.Append(" ");
                         }
                         else
                         {
