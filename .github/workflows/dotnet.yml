@@ -30,7 +30,7 @@ jobs:
         echo "Version: ${{ steps.gitversion.outputs.MajorMinorPatch }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5.0.1
+      uses: actions/setup-dotnet@v5.1.0
       with:
         dotnet-version: 10.0.x
     - name: Run automated tests
