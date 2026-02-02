@@ -8,7 +8,7 @@ assignees: ''
 
 ## 📋 Architecture Review Summary
 
-A game-focused architecture review was conducted on the TurnBasedEngine project. Full report: [`ARCHITECTURE_REVIEW_GAME_FOCUSED.md`](../ARCHITECTURE_REVIEW_GAME_FOCUSED.md)
+A game-focused architecture review was conducted on the TurnBasedEngine project. Full report: [`ARCHITECTURE_REVIEW_GAME_FOCUSED.md`](./ARCHITECTURE_REVIEW_GAME_FOCUSED.md)
 
 **Overall Assessment**: ⭐⭐⭐⭐☆ (4/5) - Excellent for a game engine
 
@@ -254,7 +254,7 @@ public void StartMission() {
 
 ## 📚 Full Report
 
-See [`ARCHITECTURE_REVIEW_GAME_FOCUSED.md`](../ARCHITECTURE_REVIEW_GAME_FOCUSED.md) for:
+See [`ARCHITECTURE_REVIEW_GAME_FOCUSED.md`](./ARCHITECTURE_REVIEW_GAME_FOCUSED.md) for:
 - Detailed explanations
 - Code examples
 - Unity integration notes

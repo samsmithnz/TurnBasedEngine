@@ -8,7 +8,7 @@ assignees: ''
 
 ## 📋 Architecture Review Summary
 
-A comprehensive architecture review was conducted on the TurnBasedEngine project. The full detailed report can be found in [`ARCHITECTURE_REVIEW.md`](../ARCHITECTURE_REVIEW.md).
+A comprehensive architecture review was conducted on the TurnBasedEngine project. The full detailed report can be found in [`ARCHITECTURE_REVIEW.md`](./ARCHITECTURE_REVIEW.md).
 
 **Overall Assessment**: ⭐⭐⭐⭐☆ (4/5)
 - Strong foundation with clean domain organization
@@ -350,7 +350,7 @@ character.XP += 100;  // XP for mission
 
 ## 📚 Resources
 
-**Full Report**: See [`ARCHITECTURE_REVIEW.md`](../ARCHITECTURE_REVIEW.md) for detailed analysis
+**Full Report**: See [`ARCHITECTURE_REVIEW.md`](./ARCHITECTURE_REVIEW.md) for detailed analysis
 
 **Recommended Reading**:
 - *Clean Architecture* by Robert C. Martin
