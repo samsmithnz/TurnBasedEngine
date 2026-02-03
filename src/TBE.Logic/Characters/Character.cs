@@ -236,7 +236,7 @@ namespace TBE.Logic.Characters
             if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > 0)
             {
                 HitpointsCurrent += item.Adjustment;
-                item.ClipRemaining -= 1;
+                item.ClipRemaining--;
             }
         }
 
