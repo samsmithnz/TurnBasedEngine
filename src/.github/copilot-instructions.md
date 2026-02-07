@@ -222,11 +222,15 @@ When creating new features, follow these patterns:
 
 ## Known Technical Debt
 
-1. **Magic numbers throughout codebase** - Need to extract to named constants
-   - Priority files: `Range.cs`, `CharacterAI.cs`, `EncounterCore.cs`, `Encounter.cs`
-2. **Character.cs line 223** - Loop that runs exactly once: `for (int y = 0; y < 1; y++)` - possible bug
-3. **FieldOfView.cs line 190** - Has TODO comment about calculation that needs fixing
-4. **Commented code** - Several files contain large blocks of commented code that should be cleaned up
+1. **Range.cs weapon modifiers** - Contains 27+ hardcoded weapon range modifiers
+   - Consider moving to JSON/XML configuration file for easier game balance tuning
+   - Current values: Standard weapon (37 to 1), Shotgun (52 to -40), Sniper (-24 to 0)
+2. **FieldOfView.cs line 190** - Has TODO comment about `+ 2` offset for missed shot calculation
+3. **Commented code** - Several files contain large blocks of commented code that should be cleaned up
+   - Character.cs lines 269-305 (old FOV calculation logic)
+   - Consider removing if no longer needed or documenting why it's preserved
+4. **WeaponPool.cs, ItemPool.cs, CharacterPool.cs** - Hardcoded game balance data
+   - Consider moving to JSON configuration files for easier modification without recompilation
 
 ---
 
