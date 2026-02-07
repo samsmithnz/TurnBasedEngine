@@ -28,13 +28,13 @@ namespace TBE.Logic.Characters
                 return null;
             }
             //Deduct action points for the movement
-            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - 1].TraversalCost > characterMoving.MobilityRange)
+            if (pathFindingResult.Tiles[pathFindingResult.Tiles.Count - GameConstants.LAST_INDEX_OFFSET].TraversalCost > characterMoving.MobilityRange)
             {
-                characterMoving.ActionPointsCurrent -= 2;
+                characterMoving.ActionPointsCurrent -= GameConstants.DOUBLE_MOVE_ACTION_POINT_COST;
             }
             else
             {
-                characterMoving.ActionPointsCurrent -= 1;
+                characterMoving.ActionPointsCurrent -= GameConstants.SINGLE_MOVE_ACTION_POINT_COST;
             }
             List<Character> opponentCharacters = new List<Character>();
             if (opponentTeam != null)
@@ -50,13 +50,13 @@ namespace TBE.Logic.Characters
                     characterMoving.Name + " is moving from " + characterMoving.Location.ToString() + " to " + step.ToString()
                 };
                 MovementAction result = new MovementAction();
-                if (i == 0)
+                if (i == GameConstants.FIRST_MOVEMENT_STEP)
                 {
                     result.StartLocation = characterMoving.Location;
                 }
                 else
                 {
-                    result.StartLocation = pathFindingResult.Path[i - 1];
+                    result.StartLocation = pathFindingResult.Path[i - GameConstants.PREVIOUS_INDEX_OFFSET];
                 }
                 result.EndLocation = step;
 
@@ -76,11 +76,11 @@ namespace TBE.Logic.Characters
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (opponentCharacters != null && totalActionPoints > 0)
+                if (opponentCharacters != null && totalActionPoints > GameConstants.DEAD_HITPOINTS)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentCharacters);
                     encounters.AddRange(overWatchResult.Item1);
-                    if (encounters.Count > 0)
+                    if (encounters.Count > GameConstants.DEAD_HITPOINTS)
                     {
                         result.OverwatchEncounterResults = new List<EncounterResult>();
                         foreach (EncounterResult item in encounters)
@@ -92,7 +92,7 @@ namespace TBE.Logic.Characters
                     //is the character still alive?
                     if (!overWatchResult.Item2)
                     {
-                        if (log.Count > 0)
+                        if (log.Count > GameConstants.DEAD_HITPOINTS)
                         {
                             result.Log = log;
                         }
@@ -104,7 +104,7 @@ namespace TBE.Logic.Characters
                         totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
                     }
                 }
-                if (log.Count > 0)
+                if (log.Count > GameConstants.DEAD_HITPOINTS)
                 {
                     result.Log = log;
                 }
@@ -142,7 +142,7 @@ namespace TBE.Logic.Characters
                     List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
                     foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.ActionPointsCurrent > 0 && fovLocation == characterMoving.Location)
+                        if (character.ActionPointsCurrent > GameConstants.DEAD_HITPOINTS && fovLocation == characterMoving.Location)
                         {
                             //Act
                             result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);

@@ -27,7 +27,7 @@ namespace TBE.Logic.Map
             {
                 foreach (Vector3 item in area)
                 {
-                    if (character.Location == item && character.HitpointsCurrent > 0)
+                    if (character.Location == item && character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
                     {
                         results.Add(character);
                     }
@@ -48,14 +48,14 @@ namespace TBE.Logic.Map
                     bool addedCharacter = false;
                     foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.Location == fovLocation && character.HitpointsCurrent > 0)
+                        if (character.Location == fovLocation && character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
                         {
                             addedCharacter = true;
                             results.Add(character);
                             break;
                         }
                     }
-                    if (!addedCharacter && character.HitpointsCurrent > 0 && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
+                    if (!addedCharacter && character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
                     {
                         results.Add(character);
                     }
@@ -74,21 +74,21 @@ namespace TBE.Logic.Map
 
             foreach (Vector3 item in list)
             {
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == GameConstants.EMPTY_TILE)
                 {
-                    if (item.X - 1 == location.X && item.Z == location.Z)
+                    if (item.X - GameConstants.ADJACENT_TILE_OFFSET == location.X && item.Z == location.Z)
                     {
                         return true;
                     }
-                    else if (item.X + 1 == location.X && item.Z == location.Z)
+                    else if (item.X + GameConstants.ADJACENT_TILE_OFFSET == location.X && item.Z == location.Z)
                     {
                         return true;
                     }
-                    else if (item.X == location.X && item.Z - 1 == location.Z)
+                    else if (item.X == location.X && item.Z - GameConstants.ADJACENT_TILE_OFFSET == location.Z)
                     {
                         return true;
                     }
-                    else if (item.X == location.X && item.Z + 1 == location.Z)
+                    else if (item.X == location.X && item.Z + GameConstants.ADJACENT_TILE_OFFSET == location.Z)
                     {
                         return true;
                     }
@@ -109,19 +109,19 @@ namespace TBE.Logic.Map
 
             //Check each point to see if it goes off the map, or hits another object
             //Start at 1 to skip the source - if the source is a player, things go bad
-            for (int i = 1; i < points.Count; i++)
+            for (int i = GameConstants.MOVEMENT_START_INDEX; i < points.Count; i++)
             {
                 Vector3 item = points[i];
                 //If the item gets to the edge of the map - return the edge location
-                if (((int)item.X > map.GetLength(0) - 1 || (int)item.X < 0 ||
-                    (int)item.Y > map.GetLength(1) - 1 || (int)item.Y < 0 ||
-                    (int)item.Z > map.GetLength(2) - 1 || (int)item.Z < 0) &&
-                    points.Count > 0)
+                if (((int)item.X > map.GetLength(GameConstants.X_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.X < GameConstants.FIRST_INDEX ||
+                    (int)item.Y > map.GetLength(GameConstants.Y_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.Y < GameConstants.FIRST_INDEX ||
+                    (int)item.Z > map.GetLength(GameConstants.Z_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.Z < GameConstants.FIRST_INDEX) &&
+                    points.Count > GameConstants.DEAD_HITPOINTS)
                 {
-                    return points[i - 1];
+                    return points[i - GameConstants.PREVIOUS_INDEX_OFFSET];
                 }
                 //If the item hits something, return that position
-                else if (map[(int)item.X, (int)item.Y, (int)item.Z] != "")
+                else if (map[(int)item.X, (int)item.Y, (int)item.Z] != GameConstants.EMPTY_TILE)
                 {
                     return item;
                 }

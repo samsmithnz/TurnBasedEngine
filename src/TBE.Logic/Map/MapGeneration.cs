@@ -7,15 +7,15 @@ namespace TBE.Logic.Map
     {
         public static string[,,] GenerateRandomMap(string[,,] map, int probOfMapBeingBlocked)
         {
-            int width = map.GetLength(0);
-            int height = map.GetLength(1);
-            int breadth = map.GetLength(2);
-            int y = 0;
-            for (int z = 0; z < breadth; z++)
+            int width = map.GetLength(GameConstants.X_DIMENSION_INDEX);
+            int height = map.GetLength(GameConstants.Y_DIMENSION_INDEX);
+            int breadth = map.GetLength(GameConstants.Z_DIMENSION_INDEX);
+            int y = GameConstants.FLAT_MAP_Y_COORDINATE;
+            for (int z = GameConstants.FIRST_INDEX; z < breadth; z++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = GameConstants.FIRST_INDEX; x < width; x++)
                 {
-                    if (((x != 0 && z != 0) || (x != width - 1 && z != height - 1)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(1, 100))
+                    if (((x != GameConstants.FIRST_INDEX && z != GameConstants.FIRST_INDEX) || (x != width - GameConstants.LAST_INDEX_OFFSET && z != height - GameConstants.LAST_INDEX_OFFSET)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(GameConstants.MAP_GEN_RANDOM_MIN, GameConstants.MAP_GEN_RANDOM_MAX))
                     {
                         map[x, y, z] = CoverType.FullCover;
                     }
@@ -26,15 +26,15 @@ namespace TBE.Logic.Map
 
         public static void DebugPrintOutMap(string[,,] map)
         {
-            int width = map.GetLength(0);
+            int width = map.GetLength(GameConstants.X_DIMENSION_INDEX);
             //int height = map.GetLength(1);
-            int breadth = map.GetLength(2);
-            int y = 0;
-            for (int z = 0; z < breadth; z++)
+            int breadth = map.GetLength(GameConstants.Z_DIMENSION_INDEX);
+            int y = GameConstants.FLAT_MAP_Y_COORDINATE;
+            for (int z = GameConstants.FIRST_INDEX; z < breadth; z++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = GameConstants.FIRST_INDEX; x < width; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, y, z] != GameConstants.EMPTY_TILE)
                     {
                         Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, y, z] + ";");
                     }

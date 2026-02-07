@@ -17,15 +17,15 @@ namespace TBE.Logic.Map
         /// <param name="zMax">z size</param>
         /// <param name="initialString">The initial string to initialize the map with - usually ""</param>
         /// <returns>The populated map/array</returns>
-        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = "")
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = GameConstants.EMPTY_TILE)
         {
             string[,,] map = new string[xMax, yMax, zMax];
 
             //Initialize the map
-            int y = 0;
-            for (int z = 0; z < zMax; z++)
+            int y = GameConstants.FLAT_MAP_Y_COORDINATE;
+            for (int z = GameConstants.FIRST_INDEX; z < zMax; z++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = GameConstants.FIRST_INDEX; x < xMax; x++)
                 {
                     map[x, y, z] = initialString;
                 }
@@ -42,24 +42,24 @@ namespace TBE.Logic.Map
 
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
-            if (minX < 0)
+            if (minX < GameConstants.FIRST_INDEX)
             {
-                minX = 0;
+                minX = GameConstants.FIRST_INDEX;
             }
             int maxX = startingX + range;
-            if (maxX > map.GetLength(0) - 1)
+            if (maxX > map.GetLength(GameConstants.X_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET)
             {
-                maxX = map.GetLength(0) - 1;
+                maxX = map.GetLength(GameConstants.X_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET;
             }
             int minZ = startingZ - range;
-            if (minZ < 0)
+            if (minZ < GameConstants.FIRST_INDEX)
             {
-                minZ = 0;
+                minZ = GameConstants.FIRST_INDEX;
             }
             int maxZ = startingZ + range;
-            if (maxZ > map.GetLength(2) - 1)
+            if (maxZ > map.GetLength(GameConstants.Z_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET)
             {
-                maxZ = map.GetLength(2) - 1;
+                maxZ = map.GetLength(GameConstants.Z_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET;
             }
 
             //Get a list of all border squares
@@ -67,36 +67,36 @@ namespace TBE.Logic.Map
             //Add the top and bottom rows
             for (int x = minX; x <= maxX; x++)
             {
-                borderTiles.Add(new Vector3(x, 0, minZ));
-                borderTiles.Add(new Vector3(x, 0, maxZ));
+                borderTiles.Add(new Vector3(x, GameConstants.FLAT_MAP_Y_COORDINATE, minZ));
+                borderTiles.Add(new Vector3(x, GameConstants.FLAT_MAP_Y_COORDINATE, maxZ));
             }
             //Add the left and right sides
             for (int z = minZ; z < maxZ; z++)
             {
-                borderTiles.Add(new Vector3(minX, 0, z));
-                borderTiles.Add(new Vector3(maxX, 0, z));
+                borderTiles.Add(new Vector3(minX, GameConstants.FLAT_MAP_Y_COORDINATE, z));
+                borderTiles.Add(new Vector3(maxX, GameConstants.FLAT_MAP_Y_COORDINATE, z));
             }
 
             //For each border tile, draw a line from the starting point to the border
             HashSet<Vector3> results = new HashSet<Vector3>();
             foreach (Vector3 borderItem in borderTiles)
             {
-                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
-                if (singleLineCheck.Count > 0 &&
-                    singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
-                    singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
+                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, GameConstants.FLAT_MAP_Y_COORDINATE, startingZ), borderItem);
+                if (singleLineCheck.Count > GameConstants.DEAD_HITPOINTS &&
+                    singleLineCheck[singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET].X == startingX &&
+                    singleLineCheck[singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET].Z == startingZ)
                 {
                     //Reverse the list, so that items are in order from source to destination
                     singleLineCheck.Reverse();
                 }
-                double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
+                double lineLength = GetLengthOfLine(singleLineCheck[GameConstants.FIRST_INDEX], singleLineCheck[singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET], GameConstants.ONE_DECIMAL_PLACE);
                 double lineSegment = lineLength / singleLineCheck.Count;
                 double currentLength = 0;
-                for (int i = 0; i < singleLineCheck.Count; i++)
+                for (int i = GameConstants.FIRST_INDEX; i < singleLineCheck.Count; i++)
                 {
                     currentLength += lineSegment;
                     Vector3 fovItem = singleLineCheck[i];
-                    if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
+                    if (fovItem.X >= GameConstants.FIRST_INDEX && fovItem.Y >= GameConstants.FIRST_INDEX && fovItem.Z >= GameConstants.FIRST_INDEX)
                     {
                         //If we find an object, stop adding tiles
                         if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
@@ -130,26 +130,26 @@ namespace TBE.Logic.Map
             return results.ToList();
         }
 
-        public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = 0)
+        public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = GameConstants.FIRST_INDEX)
         {
-            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Z - start.Z), 2));
+            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), GameConstants.SQUARE_POWER) + Math.Pow((end.Z - start.Z), GameConstants.SQUARE_POWER));
             return Math.Round(lineLength, decimals);
         }
 
         public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
-            int xMax = map.GetLength(0);
+            int xMax = map.GetLength(GameConstants.X_DIMENSION_INDEX);
             //int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
+            int zMax = map.GetLength(GameConstants.Z_DIMENSION_INDEX);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
-            int y = 0;
-            for (int z = zMax - 1; z >= 0; z--)
+            int y = GameConstants.FLAT_MAP_Y_COORDINATE;
+            for (int z = zMax - GameConstants.LAST_INDEX_OFFSET; z >= GameConstants.FIRST_INDEX; z--)
             {
                 StringBuilder sbLine = new StringBuilder();
-                for (int x = 0; x < xMax; x++)
+                for (int x = GameConstants.FIRST_INDEX; x < xMax; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, y, z] != GameConstants.EMPTY_TILE)
                     {
                         sbLine.Append(map[x, y, z]);
                         sbLine.Append(" ");
@@ -164,7 +164,7 @@ namespace TBE.Logic.Map
                 //This optimizes the ASCII maps to remove white space
                 if (stripOutBlanks)
                 {
-                    int dotCount = sbLine.ToString().Split('.').Count() - 1;
+                    int dotCount = sbLine.ToString().Split('.').Count() - GameConstants.LAST_INDEX_OFFSET;
                     if (dotCount < xMax)
                     {
                         sb.Append(sbLine.ToString());
@@ -183,7 +183,7 @@ namespace TBE.Logic.Map
             foreach (Vector3 item in list)
             {
                 //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == GameConstants.EMPTY_TILE)
                 {
                     map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
                 }

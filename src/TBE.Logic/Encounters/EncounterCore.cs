@@ -28,11 +28,11 @@ namespace TBE.Logic.Encounters
                 if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
-                    toHit -= 40;
+                    toHit -= GameConstants.HUNKERED_HALF_COVER_PENALTY;
                 }
                 else
                 {
-                    toHit -= 20;
+                    toHit -= GameConstants.HALF_COVER_PENALTY;
                 }
             }
             else if (targetCharacter.CoverState.InFullCover)
@@ -40,11 +40,11 @@ namespace TBE.Logic.Encounters
                 if (targetCharacter.HunkeredDown)
                 {
                     //When hunkered down, cover is worth double
-                    toHit -= 80;
+                    toHit -= GameConstants.HUNKERED_FULL_COVER_PENALTY;
                 }
                 else
                 {
-                    toHit -= 40;
+                    toHit -= GameConstants.FULL_COVER_PENALTY;
                 }
             }
 
@@ -57,14 +57,14 @@ namespace TBE.Logic.Encounters
 
             //Overwatch
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
+            if (overwatchPenaltyRemoved == GameConstants.DEAD_HITPOINTS && sourceCharacter.InOverwatch)
             {
                 //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
-                toHit = (int)((float)toHit * 0.7f);
+                toHit = (int)((float)toHit * GameConstants.OVERWATCH_AIM_MULTIPLIER);
             }
-            if (toHit > 100)
+            if (toHit > GameConstants.PERCENTAGE_MAX)
             {
-                toHit = 100;
+                toHit = GameConstants.PERCENTAGE_MAX;
             }
 
             return toHit;
@@ -77,14 +77,14 @@ namespace TBE.Logic.Encounters
             if (!isAreaEffectAttack && coverState.IsFlanked)
             {
                 //Add 50% for a flank
-                chanceToCrit += 50;
+                chanceToCrit += GameConstants.FLANKING_CRITICAL_BONUS;
             }
             chanceToCrit += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
+            if (overwatchPenaltyRemoved == GameConstants.DEAD_HITPOINTS && sourceCharacter.InOverwatch)
             {
-                chanceToCrit = 0;
+                chanceToCrit = GameConstants.OVERWATCH_CRITICAL_CHANCE;
             }
             return chanceToCrit;
         }

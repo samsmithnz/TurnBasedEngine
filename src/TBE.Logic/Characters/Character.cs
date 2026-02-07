@@ -15,7 +15,7 @@ namespace TBE.Logic.Characters
             FOVHistory = new HashSet<Vector3>();
             CoverState = new CoverState();
             TargetCharacters = new List<string>();
-            TargetCharacterIndex = -1;
+            TargetCharacterIndex = GameConstants.NO_TARGET_SELECTED;
         }
 
         public string Name { get; set; }
@@ -67,12 +67,12 @@ namespace TBE.Logic.Characters
             Vector3 previousLocation = _location;
             _location = characterLocation; //set the location before we start the fov recalculation
             //Only update the map if the character is still alive
-            if (map != null && HitpointsCurrent > 0)
+            if (map != null && HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
             {
                 //Set the previous location on the map to blank (the character is no longer there)
-                map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] = "";
+                map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] = GameConstants.EMPTY_TILE;
                 //Place the player in the new location on the map
-                map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = "P";
+                map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = GameConstants.PLAYER_MAP_MARKER;
                 UpdateCharacterFOV(map);
                 //Get targets 
                 List<Character> targetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
@@ -81,9 +81,9 @@ namespace TBE.Logic.Characters
                 {
                     TargetCharacters.Add(item.Name);
                 }
-                if (targetCharacters.Count > 0)
+                if (targetCharacters.Count > GameConstants.DEAD_HITPOINTS)
                 {
-                    TargetCharacterIndex = 0;
+                    TargetCharacterIndex = GameConstants.FIRST_TARGET_INDEX;
                 }
                 //Update cover
                 CoverState = CharacterCover.CalculateCover(map, Location, opponentCharacters);
@@ -117,7 +117,7 @@ namespace TBE.Logic.Characters
         public List<string> TargetCharacters { get; set; }
         public string GetTargetCharacter()
         {
-            if (TargetCharacterIndex >= 0)
+            if (TargetCharacterIndex >= GameConstants.FIRST_TARGET_INDEX)
             {
                 return TargetCharacters[TargetCharacterIndex];
             }
@@ -130,9 +130,9 @@ namespace TBE.Logic.Characters
         public void NextTarget()
         {
             TargetCharacterIndex++;
-            if (TargetCharacterIndex > TargetCharacters.Count - 1)
+            if (TargetCharacterIndex > TargetCharacters.Count - GameConstants.LAST_INDEX_OFFSET)
             {
-                TargetCharacterIndex = 0;
+                TargetCharacterIndex = GameConstants.FIRST_TARGET_INDEX;
             }
 
             //int targetTeamIndex = 0;
@@ -191,11 +191,11 @@ namespace TBE.Logic.Characters
         public List<CharacterAction> GetCurrentActions(string[,,] map = null)
         {
             List<CharacterAction> options = new List<CharacterAction>();
-            if (ActionPointsCurrent > 0)
+            if (ActionPointsCurrent > GameConstants.DEAD_HITPOINTS)
             {
-                if (WeaponEquipped.AmmoCurrent > 0)
+                if (WeaponEquipped.AmmoCurrent > GameConstants.DEAD_HITPOINTS)
                 {
-                    if (TargetCharacters.Count > 0)
+                    if (TargetCharacters.Count > GameConstants.DEAD_HITPOINTS)
                     {
                         options.Add(new CharacterAction() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
                     }
@@ -209,7 +209,7 @@ namespace TBE.Logic.Characters
                 {
                     options.Add(new CharacterAction() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
                 }
-                if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
+                if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > GameConstants.DEAD_HITPOINTS)
                 {
                     options.Add(new CharacterAction() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
@@ -233,7 +233,7 @@ namespace TBE.Logic.Characters
 
         public void UseItem(Item item)
         {
-            if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > 0)
+            if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > GameConstants.DEAD_HITPOINTS)
             {
                 HitpointsCurrent += item.Adjustment;
                 item.ClipRemaining--;
@@ -270,7 +270,7 @@ namespace TBE.Logic.Characters
                 FOVHistory.Add(item);
                 FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanSee;
             }
-            FOVMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = "P";
+            FOVMap[(int)Location.X, (int)Location.Y, (int)Location.Z] = GameConstants.PLAYER_MAP_MARKER;
 
             //foreach (Vector3 item in fov)
             //{
@@ -285,11 +285,11 @@ namespace TBE.Logic.Characters
             ////    inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanNotSee;
             ////}
             ////Now that we have the inverse map, reverse it to show areas that are not visible
-            //for (int y = 0; y < 1; y++)
-            //{
-            //    for (int x = 0; x < xMax; x++)
-            //    {
-            //        for (int z = 0; z < zMax; z++)
+                //for (int y = GameConstants.FIRST_INDEX; y < GameConstants.STANDARD_Y_DIMENSION; y++)
+                //{
+                //    for (int x = GameConstants.FIRST_INDEX; x < xMax; x++)
+                //    {
+                //        for (int z = GameConstants.FIRST_INDEX; z < zMax; z++)
             //        {
             //            if (inverseMap[x, y, z] != "")
             //            {
