@@ -141,7 +141,7 @@ namespace TBE.Logic.Game
         /// <summary>
         /// Start the mission, ensuring all data objects are configured correctly
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public void StartMission()
         {
             if (Teams.Count != 2)
