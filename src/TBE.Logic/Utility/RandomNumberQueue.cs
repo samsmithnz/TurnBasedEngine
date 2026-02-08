@@ -46,7 +46,7 @@ namespace TBE.Logic.Utility
 
         public void ReplaceFirstValue(int value)
         {
-            if (_queue.Count > GameConstants.DEAD_HITPOINTS)
+            if (_queue.Count > 0)
             {
                 _queue.Dequeue();
                 List<int> tempList = new List<int>(_queue);
