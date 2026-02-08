@@ -40,7 +40,7 @@ namespace TBE.Logic.Utility
         public static int ScaleRandomNumber(int minValue, int maxValue, int value)
         {
             //The scale formula is: =(value - minValue) / (maxValue - minValue);
-            int result = (value - 0) * (maxValue - minValue) / (100 - 0) + minValue;
+            int result = (value - GameConstants.PERCENTAGE_MIN) * (maxValue - minValue) / (GameConstants.PERCENTAGE_SCALE - GameConstants.PERCENTAGE_MIN) + minValue;
 
             return result;
         }

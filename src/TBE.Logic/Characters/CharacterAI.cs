@@ -38,7 +38,7 @@ namespace TBE.Logic.Characters
             //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
             AIAction aiActionResult = null;
-            if ((100 - character.Intelligence) <= randomInt)
+            if ((GameConstants.PERCENTAGE_MAX - character.Intelligence) <= randomInt)
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
                 //roll successful
@@ -98,32 +98,32 @@ namespace TBE.Logic.Characters
                 Vector3 location = item.Key;
                 string targetName = "";
                 Vector3 targetLocation = Vector3.Zero;
-                int baseScore = 0;
-                int moveScore = 0;
-                int moveLongScore = 0;
-                int moveThenShootScore = 0;
+                int baseScore = GameConstants.AI_BASE_SCORE;
+                int moveScore = GameConstants.AI_BASE_SCORE;
+                int moveLongScore = GameConstants.AI_BASE_SCORE;
+                int moveThenShootScore = GameConstants.AI_BASE_SCORE;
                 //int moveWithAllActionPointsbaseScore = 0;
                 //int moveThenHunkerScore = 0;
                 //int shootFromCurrentLocationScore = 0;
 
                 //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
-                fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = "";
-                fovMap[(int)location.X, (int)location.Y, (int)location.Z] = "P";
+                fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = GameConstants.EMPTY_TILE;
+                fovMap[(int)location.X, (int)location.Y, (int)location.Z] = GameConstants.PLAYER_MAP_MARKER;
 
                 //Cover calculation
                 CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
                 if (coverStateResult.IsFlanked)
                 {
-                    baseScore -= 5;
+                    baseScore += GameConstants.AI_FLANKED_PENALTY;
                 }
                 else if (coverStateResult.InFullCover)
                 {
-                    baseScore += 8;
+                    baseScore += GameConstants.AI_FULL_COVER_BONUS;
                 }
                 else if (coverStateResult.InHalfCover)
                 {
-                    baseScore += 4;
+                    baseScore += GameConstants.AI_HALF_COVER_BONUS;
                 }
 
                 //Upgrade positions that would flank opponents
@@ -134,7 +134,7 @@ namespace TBE.Logic.Characters
                     if (coverStateResultOpponent.IsFlanked)
                     {
                         //Position flanks enemy
-                        baseScore += 5;
+                        baseScore += GameConstants.AI_FLANKING_ENEMY_BONUS;
                     }
 
                     //Do a reverse FOV from the perspective of the character
@@ -142,22 +142,22 @@ namespace TBE.Logic.Characters
                     //reduce the score for those tiles - they are more dangerous to move into
                     if (fovCharacterVisibleTiles.Contains(location))
                     {
-                        baseScore -= 2;
+                        baseScore += GameConstants.AI_VISIBLE_TILE_PENALTY;
                     }
                 }
 
                 //If there are movement points left, consider shooting options.
-                if (item.Value == 1)
+                if (item.Value == GameConstants.SINGLE_MOVE_ACTION_POINT_COST)
                 {
                     //If there are no opponents in view, just return a walk
-                    if (opponentCharacters.Count == 0)
+                    if (opponentCharacters.Count == GameConstants.DEAD_HITPOINTS)
                     {
                         moveScore = baseScore;
-                        moveScore += 3;
+                        moveScore += GameConstants.AI_SINGLE_MOVE_BONUS;
                         //Normalize and record the score + target
-                        if (moveScore < 0)
+                        if (moveScore < GameConstants.AI_MINIMUM_SCORE)
                         {
-                            moveScore = 0;
+                            moveScore = GameConstants.AI_MINIMUM_SCORE;
                         }
                         possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                         {
@@ -175,13 +175,13 @@ namespace TBE.Logic.Characters
 
                         //Calculate chance to hit
                         List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
-                        if (characters.Count == 0)
+                        if (characters.Count == GameConstants.DEAD_HITPOINTS)
                         {
                             //No characters in view, deduct some more points - this move achieves very little
-                            moveThenShootScore -= 2;
-                            if (moveThenShootScore < 0)
+                            moveThenShootScore += GameConstants.AI_NO_CHARACTERS_IN_VIEW_PENALTY;
+                            if (moveThenShootScore < GameConstants.AI_MINIMUM_SCORE)
                             {
-                                moveThenShootScore = 0;
+                                moveThenShootScore = GameConstants.AI_MINIMUM_SCORE;
                             }
                             possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                             {
@@ -196,40 +196,40 @@ namespace TBE.Logic.Characters
                         {
                             foreach (Character opponentCharacter in characters)
                             {
-                                if (sourceCharacter.HitpointsCurrent > 0)
+                                if (sourceCharacter.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
                                 {
                                     int chanceToHit = EncounterCore.GetChanceToHit(sourceCharacter, sourceCharacter.WeaponEquipped, opponentCharacter);
                                     targetName = opponentCharacter.Name;
                                     targetLocation = opponentCharacter.Location;
-                                    if (chanceToHit >= 95)
+                                    if (chanceToHit >= GameConstants.AI_HIT_CHANCE_EXCELLENT_THRESHOLD)
                                     {
-                                        moveThenShootScore += 5;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_EXCELLENT_BONUS;
                                     }
-                                    else if (chanceToHit >= 90)
+                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_VERY_GOOD_THRESHOLD)
                                     {
-                                        moveThenShootScore += 4;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_VERY_GOOD_BONUS;
                                     }
-                                    else if (chanceToHit >= 80)
+                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_GOOD_THRESHOLD)
                                     {
-                                        moveThenShootScore += 3;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_GOOD_BONUS;
                                     }
-                                    else if (chanceToHit >= 65)
+                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_DECENT_THRESHOLD)
                                     {
-                                        moveThenShootScore += 2;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_DECENT_BONUS;
                                     }
-                                    else if (chanceToHit >= 50)
+                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_FAIR_THRESHOLD)
                                     {
-                                        moveThenShootScore += 1;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_FAIR_BONUS;
                                     }
                                     else //(chanceToHit < 50)
                                     {
-                                        moveThenShootScore += 0;
+                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_POOR_BONUS;
                                     }
 
                                     //Normalize and record the score + target
-                                    if (moveThenShootScore < 0)
+                                    if (moveThenShootScore < GameConstants.AI_MINIMUM_SCORE)
                                     {
-                                        moveThenShootScore = 0;
+                                        moveThenShootScore = GameConstants.AI_MINIMUM_SCORE;
                                     }
                                     possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
                                     {
@@ -244,16 +244,16 @@ namespace TBE.Logic.Characters
                         }
                     }
                 }
-                else if (item.Value == 2)
+                else if (item.Value == GameConstants.DOUBLE_MOVE_ACTION_POINT_COST)
                 {
                     //double move - no bonuses
                     moveLongScore = baseScore;
-                    moveLongScore += 2;
+                    moveLongScore += GameConstants.AI_DOUBLE_MOVE_BONUS;
 
                     //Normalize and record the score + target
-                    if (moveLongScore < 0)
+                    if (moveLongScore < GameConstants.AI_MINIMUM_SCORE)
                     {
-                        moveLongScore = 0;
+                        moveLongScore = GameConstants.AI_MINIMUM_SCORE;
                     }
                     possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                     {
@@ -266,7 +266,7 @@ namespace TBE.Logic.Characters
                 //Order the final options
                 possibleOptions = possibleOptions.OrderByDescending(x => x.Score).ToList();
                 //Get the best first option
-                KeyValuePair<Vector3, AIAction> newItem = new KeyValuePair<Vector3, AIAction>(location, possibleOptions[0]);
+                KeyValuePair<Vector3, AIAction> newItem = new KeyValuePair<Vector3, AIAction>(location, possibleOptions[GameConstants.FIRST_INDEX]);
                 results.Add(newItem);
             }
 
