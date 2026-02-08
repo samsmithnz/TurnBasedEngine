@@ -44,7 +44,7 @@ TurnBasedEngine is a tactical turn-based combat engine inspired by XCOM mechanic
 
 3. **Use named constants instead of magic numbers**
    - ? `if (targetCharacterIndex >= 0)`
-   - ? `if (targetCharacterIndex >= NO_TARGET_SELECTED)`
+   - ? `if (targetCharacterIndex >= FIRST_TARGET_INDEX)`
    - Create constants in a `GameConstants.cs` file or as private consts in the class
 
 4. **Use compound assignment operators**
