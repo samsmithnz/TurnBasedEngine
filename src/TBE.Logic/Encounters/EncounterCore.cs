@@ -57,7 +57,7 @@ namespace TBE.Logic.Encounters
 
             //Overwatch
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == GameConstants.DEAD_HITPOINTS && sourceCharacter.InOverwatch)
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 //reaction shots has a 0% Critical chance and reduced Aim, reduced to 70% of normal
                 toHit = (int)((float)toHit * GameConstants.OVERWATCH_AIM_MULTIPLIER);
