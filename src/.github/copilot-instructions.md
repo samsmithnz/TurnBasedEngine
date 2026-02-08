@@ -188,9 +188,9 @@ When generating AI code:
 ## Map Tiles
 
 Common tile types in `CoverType` class:
-- `NoCover = ""`
-- `HalfCover = "?"`
-- `FullCover = "?"`
+- `NoCover = "."`
+- `HalfCover = "□"`
+- `FullCover = "■"`
 - `ToggleSwitchOn` / `ToggleSwitchOff` - Interactive elements
 
 ## Weapon Range Modifiers
