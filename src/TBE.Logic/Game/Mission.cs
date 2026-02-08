@@ -141,12 +141,12 @@ namespace TBE.Logic.Game
         /// <summary>
         /// Start the mission, ensuring all data objects are configured correctly
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public void StartMission()
         {
             if (Teams.Count != 2)
             {
-                throw new Exception("Unexpected number of teams: " + Teams.Count.ToString());
+                throw new InvalidOperationException("Need at least 2 teams, currently have: " + Teams.Count);
             }
             else
             {

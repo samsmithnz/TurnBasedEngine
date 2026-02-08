@@ -44,9 +44,9 @@ namespace TBE.Logic.Encounters
                 names.Append(item.Name);
                 names.Append(", ");
             }
-            if (names.Length > 1)
+            if (names.Length > GameConstants.SUBSTRING_SKIP_FIRST_CHAR)
             {
-                log.Add("Characters in affected area: " + names.ToString().Substring(1, names.ToString().Length - 3));//remove the first " " and last two characters: ", "
+                log.Add("Characters in affected area: " + names.ToString().Substring(GameConstants.SUBSTRING_SKIP_FIRST_CHAR, names.ToString().Length - GameConstants.SUBSTRING_REMOVE_TRAILING_COMMA));//remove the first " " and last two characters: ", "
             }
             else
             {
@@ -82,13 +82,13 @@ namespace TBE.Logic.Encounters
                     //Full cover becomes low cover
                     case CoverType.FullCover:
                         map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.HalfCover;
-                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, 1));
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, GameConstants.AFFECTED_MAP_VALUE));
                         log.Add("High cover downgraded to low cover at " + item.ToString());
                         break;
                     //Low cover becomes no cover
                     case CoverType.HalfCover:
                         map[(int)item.X, (int)item.Y, (int)item.Z] = CoverType.NoCover;
-                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, 1));
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(item, GameConstants.AFFECTED_MAP_VALUE));
                         log.Add("Low cover downgraded to no cover at " + item.ToString());
                         break;
                 }
@@ -145,14 +145,14 @@ namespace TBE.Logic.Encounters
             };
 
             //Don't attack if the clip is empty
-            if (weapon.AmmoCurrent > 0)
+            if (weapon.AmmoCurrent > GameConstants.DEAD_HITPOINTS)
             {
                 sourceCharacter.TotalShots++;
                 int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
 
                 //If the number rolled is higher than the chance to hit, the attack was successful!
                 int randomToHit = diceRolls.Dequeue();
-                if ((100 - toHitPercent) <= randomToHit)
+                if ((GameConstants.PERCENTAGE_MAX - toHitPercent) <= randomToHit)
                 {
                     log.Add("Hit: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
@@ -165,9 +165,9 @@ namespace TBE.Logic.Encounters
                     isCriticalHit = tempResult.IsCriticalHit;
                     isHit = true;
                     log = tempResult.Log;
-                    if (targetCharacter.HitpointsCurrent <= 0)
+                    if (targetCharacter.HitpointsCurrent <= GameConstants.DEAD_HITPOINTS)
                     {
-                        affectedMap.Add(new KeyValuePair<Vector3, int>(targetCharacter.Location, 1));
+                        affectedMap.Add(new KeyValuePair<Vector3, int>(targetCharacter.Location, GameConstants.AFFECTED_MAP_VALUE));
                     }
                 }
                 else
@@ -175,7 +175,7 @@ namespace TBE.Logic.Encounters
                     log.Add("Missed: Chance to hit: " + toHitPercent.ToString() + ", (dice roll: " + randomToHit.ToString() + ")");
 
                     //How badly did we miss?
-                    int missedByPercent = (100 - toHitPercent) - randomToHit;
+                    int missedByPercent = (GameConstants.PERCENTAGE_MAX - toHitPercent) - randomToHit;
 
                     //Work out where the shot goes
                     //get the percentage miss
@@ -185,20 +185,20 @@ namespace TBE.Logic.Encounters
                     missedLocation = FieldOfView.MissedShot(map, sourceCharacter.Location, targetCharacter.Location, missedByPercent);
 
                     //Remove cover at this location
-                    if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != "")
+                    if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != GameConstants.EMPTY_TILE)
                     {
                         switch (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z])
                         {
                             //Full cover becomes low cover
                             case CoverType.FullCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.HalfCover;
-                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
+                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, GameConstants.AFFECTED_MAP_VALUE));
                                 log.Add("High cover downgraded to low cover at " + missedLocation.ToString());
                                 break;
                             //Low cover becomes no cover
                             case CoverType.HalfCover:
                                 map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] = CoverType.NoCover;
-                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, 1));
+                                affectedMap.Add(new KeyValuePair<Vector3, int>(missedLocation, GameConstants.AFFECTED_MAP_VALUE));
                                 log.Add("Low cover downgraded to no cover at " + missedLocation.ToString());
                                 break;
                         }
@@ -211,7 +211,7 @@ namespace TBE.Logic.Encounters
                 }
 
                 //Consume source characters action points
-                sourceCharacter.ActionPointsCurrent = 0;
+                sourceCharacter.ActionPointsCurrent = GameConstants.ACTION_POINTS_AFTER_ATTACK;
                 //Consume weapon ammo
                 weapon.AmmoCurrent--;
 
@@ -256,13 +256,13 @@ namespace TBE.Logic.Encounters
             // player can't be critically hit if hunkered down
             if (targetCharacter.HunkeredDown)
             {
-                log.Add("Critical chance: 0, hunkered down");
+                log.Add("Critical chance: " + GameConstants.OVERWATCH_CRITICAL_CHANCE.ToString() + ", hunkered down");
             }
             else
             {
                 int randomToCrit = diceRolls.Dequeue();
                 int chanceToCrit = EncounterCore.GetChanceToCrit(map, sourceCharacter, weapon, targetCharacter, isAreaEffectAttack);
-                if ((100 - chanceToCrit) <= randomToCrit)
+                if ((GameConstants.PERCENTAGE_MAX - chanceToCrit) <= randomToCrit)
                 {
                     isCriticalHit = true;
                     lowDamage = damageOptions.CriticalDamageLow;
@@ -287,7 +287,7 @@ namespace TBE.Logic.Encounters
             //Now process any other damage with armor
             int armorAbsorbed = 0;
             int armorPiercing = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
-            if (armorPiercing > 0)
+            if (armorPiercing > GameConstants.DEAD_HITPOINTS)
             {
                 log.Add("Armor was ignored due to 'armor piercing' ability");
             }
@@ -295,9 +295,9 @@ namespace TBE.Logic.Encounters
             {
                 int damageAfterArmor = damageDealt - targetCharacter.ArmorPointsCurrent;
                 //If the armor points are higher than the damage, we have -ve damage, we don't want to heal characters, set to 
-                if (damageAfterArmor < 0)
+                if (damageAfterArmor < GameConstants.MINIMUM_DAMAGE_AFTER_ARMOR)
                 {
-                    damageAfterArmor = 0;
+                    damageAfterArmor = GameConstants.MINIMUM_DAMAGE_AFTER_ARMOR;
                 }
                 armorAbsorbed = damageDealt - damageAfterArmor;
                 damageDealt = damageAfterArmor;
@@ -308,11 +308,11 @@ namespace TBE.Logic.Encounters
             sourceCharacter.TotalDamage += damageDealt;
 
             //Update log
-            if (armorShredded > 0)
+            if (armorShredded > GameConstants.DEAD_HITPOINTS)
             {
                 log.Add(armorShredded.ToString() + " armor points shredded");
             }
-            if (armorAbsorbed > 0)
+            if (armorAbsorbed > GameConstants.DEAD_HITPOINTS)
             {
                 log.Add("Armor prevented " + armorAbsorbed.ToString() + " damage to character " + targetCharacter.Name);
             }
@@ -320,13 +320,13 @@ namespace TBE.Logic.Encounters
 
             //process experience
             int xp;
-            if (targetCharacter.HitpointsCurrent <= 0)
+            if (targetCharacter.HitpointsCurrent <= GameConstants.DEAD_HITPOINTS)
             {
                 log.Add(targetCharacter.Name + " is killed");
                 xp = Experience.GetExperience(true, true);
                 sourceCharacter.TotalKills++;
                 //Update map to remove character - this square is now clear and can be tranversed/used
-                map[(int)targetCharacter.Location.X, (int)targetCharacter.Location.Y, (int)targetCharacter.Location.Z] = "";
+                map[(int)targetCharacter.Location.X, (int)targetCharacter.Location.Y, (int)targetCharacter.Location.Z] = GameConstants.EMPTY_TILE;
             }
             else
             {

@@ -10,7 +10,7 @@ namespace TBE.Logic.Map
             List<KeyValuePair<Vector3, int>> results = new List<KeyValuePair<Vector3, int>>();
             List<Vector3> verifiedTiles = new List<Vector3>();
             //Loop through the action points from 1 to n
-            for (int i = 1; i <= actionPoints; i++)
+            for (int i = GameConstants.MOVEMENT_START_INDEX; i <= actionPoints; i++)
             {
                 //Get a list of possible tiles for this range
                 List<Vector3> possibleTiles = MapCore.GetMapArea(map, sourceLocation, range * i, false);
@@ -19,7 +19,7 @@ namespace TBE.Logic.Map
                     //Find a path to this target location
                     PathFindingResult result = PathFinding.FindPath(map, sourceLocation, item);
                     //If we could find a path, the cost of the path is within the range, and we haven't already identified a route to this tile, add it
-                    if (result.Tiles.Count > 0 && result.Tiles[result.Tiles.Count - 1].TraversalCost <= range * i && !verifiedTiles.Contains(item))
+                    if (result.Tiles.Count > GameConstants.DEAD_HITPOINTS && result.Tiles[result.Tiles.Count - GameConstants.LAST_INDEX_OFFSET].TraversalCost <= range * i && !verifiedTiles.Contains(item))
                     {
                         //The current tile isn't tracked, add it as a verified tile
                         verifiedTiles.Add(item);
@@ -37,7 +37,7 @@ namespace TBE.Logic.Map
             List<Vector3> results = new List<Vector3>();
             foreach (KeyValuePair<Vector3, int> item in list)
             {
-                if (filter == 0)
+                if (filter == GameConstants.FIRST_INDEX)
                 {
                     results.Add(item.Key);
                 }

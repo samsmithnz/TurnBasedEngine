@@ -27,12 +27,12 @@ namespace TBE.Logic.Utility
         public int Dequeue()
         {
             //If there are less than 100 items left in the queue, generate 100 more
-            if (_queue.Count <= 100)
+            if (_queue.Count <= GameConstants.RANDOM_QUEUE_THRESHOLD)
             {
                 //Generate random numbers without a fixed seed for better randomness
-                for (int i = 0; i < 100; i++)
+                for (int i = GameConstants.FIRST_INDEX; i < GameConstants.RANDOM_BATCH_SIZE; i++)
                 {
-                    _queue.Enqueue(RandomNumber.GenerateRandomNumber(0, 100));
+                    _queue.Enqueue(RandomNumber.GenerateRandomNumber(GameConstants.PERCENTAGE_MIN, GameConstants.PERCENTAGE_MAX));
                 }
             }
 
@@ -50,7 +50,7 @@ namespace TBE.Logic.Utility
             {
                 _queue.Dequeue();
                 List<int> tempList = new List<int>(_queue);
-                tempList.Insert(0, value);
+                tempList.Insert(GameConstants.FIRST_INDEX, value);
                 _queue.Clear();
                 foreach (int item in tempList)
                 {

@@ -1,8 +1,9 @@
-using TBE.Logic.Characters;
-using TBE.Logic.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
+using TBE.Logic.Characters;
+using TBE.Logic.Game;
 
 namespace TBE.Tests.GameController
 {
@@ -174,7 +175,7 @@ namespace TBE.Tests.GameController
             }
             catch (Exception ex)
             {
-                Assert.AreEqual("Unexpected number of teams: 0", ex.Message);
+                Assert.AreEqual("Need at least 2 teams, currently have: 0", ex.Message);
             }
         }
 
@@ -190,7 +191,7 @@ namespace TBE.Tests.GameController
             }
             catch (Exception ex)
             {
-                Assert.AreEqual("Unexpected number of teams: 1", ex.Message);
+                Assert.AreEqual("Need at least 2 teams, currently have: 1", ex.Message);
             }
         }
 
