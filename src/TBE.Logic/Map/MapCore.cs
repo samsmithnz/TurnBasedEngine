@@ -82,9 +82,10 @@ namespace TBE.Logic.Map
             foreach (Vector3 borderItem in borderTiles)
             {
                 List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, GameConstants.FLAT_MAP_Y_COORDINATE, startingZ), borderItem);
+                int lastIndex = singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET;
                 if (singleLineCheck.Count > GameConstants.DEAD_HITPOINTS &&
-                    singleLineCheck[singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET].X == startingX &&
-                    singleLineCheck[singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET].Z == startingZ)
+                    (int)singleLineCheck[lastIndex].X == startingX &&
+                    (int)singleLineCheck[lastIndex].Z == startingZ)
                 {
                     //Reverse the list, so that items are in order from source to destination
                     singleLineCheck.Reverse();
