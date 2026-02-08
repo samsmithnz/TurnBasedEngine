@@ -76,19 +76,19 @@ namespace TBE.Logic.Map
             {
                 if (map[(int)item.X, (int)item.Y, (int)item.Z] == GameConstants.EMPTY_TILE)
                 {
-                    if (item.X - GameConstants.ADJACENT_TILE_OFFSET == location.X && item.Z == location.Z)
+                    if ((int)item.X - GameConstants.ADJACENT_TILE_OFFSET == (int)location.X && (int)item.Z == (int)location.Z)
                     {
                         return true;
                     }
-                    else if (item.X + GameConstants.ADJACENT_TILE_OFFSET == location.X && item.Z == location.Z)
+                    else if ((int)item.X + GameConstants.ADJACENT_TILE_OFFSET == (int)location.X && (int)item.Z == (int)location.Z)
                     {
                         return true;
                     }
-                    else if (item.X == location.X && item.Z - GameConstants.ADJACENT_TILE_OFFSET == location.Z)
+                    else if ((int)item.X == (int)location.X && (int)item.Z - GameConstants.ADJACENT_TILE_OFFSET == (int)location.Z)
                     {
                         return true;
                     }
-                    else if (item.X == location.X && item.Z + GameConstants.ADJACENT_TILE_OFFSET == location.Z)
+                    else if ((int)item.X == (int)location.X && (int)item.Z + GameConstants.ADJACENT_TILE_OFFSET == (int)location.Z)
                     {
                         return true;
                     }
