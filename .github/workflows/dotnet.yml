@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v6
       with:
         name: package
-        path: src/TBE.Logic/bin/Debug/netstandard2.0 
+        path: src/TBE.Logic/bin/Debug/netstandard2.1 
     - name: Upload nuget package to GitHub
       uses: actions/upload-artifact@v6
       with:
