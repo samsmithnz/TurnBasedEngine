@@ -76,7 +76,7 @@ namespace TBE.Logic.Characters
                 UpdateCharacterFOV(map);
                 //Get targets 
                 List<Character> targetCharacters = FieldOfView.GetCharactersInView(map, Location, ShootingRange, opponentCharacters);
-                TargetCharacters = new List<string>();
+                TargetCharacters.Clear();
                 foreach (Character item in targetCharacters)
                 {
                     TargetCharacters.Add(item.Name);
@@ -256,12 +256,11 @@ namespace TBE.Logic.Characters
 
         private void UpdateCharacterFOV(string[,,] map)
         {
-            int xMax = map.GetLength(0);
-            int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
-
             if (FOVMap == null)
             {
+                int xMax = map.GetLength(0);
+                int yMax = map.GetLength(1);
+                int zMax = map.GetLength(2);
                 FOVMap = MapCore.InitializeMap(xMax, yMax, zMax, FieldOfView.FOV_Unknown);
             }
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, Location, FOVRange);

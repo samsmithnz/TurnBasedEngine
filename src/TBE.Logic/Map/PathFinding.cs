@@ -5,9 +5,15 @@ namespace TBE.Logic.Map
 {
     public static class PathFinding
     {
+        private const int NEIGHBOR_COUNT = 8;
+
+        private static readonly int[] _adjacentXOffsets = new int[NEIGHBOR_COUNT] { -1, -1, -1, 0, 1, 1, 1, 0 };
+        private static readonly int[] _adjacentZOffsets = new int[NEIGHBOR_COUNT] { -1, 0, 1, 1, 1, 0, -1, -1 };
+
         private static int _width;
         private static int _height;
         private static int _breadth;
+        private static string[,,] _map;
         private static MapTile[,,] _tiles;
         private static Vector3 _endLocation;
 
@@ -19,12 +25,17 @@ namespace TBE.Logic.Map
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
+            MapTile startTile = GetOrCreateTile((int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z);
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
+            MapTile endTile = GetOrCreateTile((int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z);
 
             // The start tile is the first entry in the 'open' list
             PathFindingResult result = new PathFindingResult();
+            if (startLocation != endLocation && endTile.TileType != string.Empty)
+            {
+                return result;
+            }
+
             bool success = Search(startTile, endTile);
             if (success)
             {
@@ -51,18 +62,23 @@ namespace TBE.Logic.Map
         /// <param name="map">A boolean representation of a grid in which true = walkable and false = not walkable</param>
         private static void InitializeTiles(string[,,] map)
         {
+            _map = map;
             _width = map.GetLength(0);
             _height = map.GetLength(1);
             _breadth = map.GetLength(2);
             _tiles = new MapTile[_width, _height, _breadth];
-            int y = 0;
-            for (int z = 0; z < _breadth; z++)
+        }
+
+        private static MapTile GetOrCreateTile(int x, int y, int z)
+        {
+            MapTile tile = _tiles[x, y, z];
+            if (tile == null)
             {
-                for (int x = 0; x < _width; x++)
-                {
-                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
-                }
+                tile = new MapTile(x, y, z, _map[x, y, z], _endLocation);
+                _tiles[x, y, z] = tile;
             }
+
+            return tile;
         }
 
         /// <summary>
@@ -75,13 +91,10 @@ namespace TBE.Logic.Map
             // Set the current tile to Closed since it cannot be traversed more than once
             currentTile.State = TileState.Closed;
             List<MapTile> nextTiles = GetAdjacentWalkableTiles(currentTile);
-
-            // Sort by F-value so that the shortest possible routes are considered first
-            nextTiles.Sort((tile1, tile2) => tile1.F.CompareTo(tile2.F));
-            foreach (var nextTile in nextTiles)
+            foreach (MapTile nextTile in nextTiles)
             {
                 // Check whether the end tile has been reached
-                if (nextTile.Location == endTile.Location)
+                if (nextTile == endTile)
                 {
                     return true;
                 }
@@ -106,14 +119,12 @@ namespace TBE.Logic.Map
         /// <returns>A list of next possible tiles in the path</returns>
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
-            List<MapTile> walkableTiles = new List<MapTile>();
-            IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
-
-            foreach (var location in nextLocations)
+            List<MapTile> walkableTiles = new List<MapTile>(NEIGHBOR_COUNT);
+            int y = (int)fromTile.Location.Y;
+            for (int i = 0; i < NEIGHBOR_COUNT; i++)
             {
-                int x = (int)location.X;
-                int y = (int)location.Y;
-                int z = (int)location.Z;
+                int x = (int)fromTile.Location.X + _adjacentXOffsets[i];
+                int z = (int)fromTile.Location.Z + _adjacentZOffsets[i];
 
                 // Stay within the grid's boundaries
                 if (x < 0 || x >= _width || z < 0 || z >= _breadth)
@@ -121,7 +132,12 @@ namespace TBE.Logic.Map
                     continue;
                 }
 
-                MapTile tile = _tiles[x, y, z];
+                if (_map[x, y, z] != string.Empty)
+                {
+                    continue;
+                }
+
+                MapTile tile = GetOrCreateTile(x, y, z);
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
@@ -150,31 +166,26 @@ namespace TBE.Logic.Map
                     // If it's untested, set the parent and flag it as 'Open' for consideration
                     tile.ParentTile = fromTile;
                     tile.State = TileState.Open;
-                    walkableTiles.Add(tile);
+                    InsertTileByFValue(walkableTiles, tile);
                 }
             }
 
             return walkableTiles;
         }
 
-        /// <summary>
-        /// Returns the eight locations immediately adjacent (orthogonally and diagonally) to <paramref name="fromLocation"/>
-        /// </summary>
-        /// <param name="fromLocation">The location from which to return all adjacent points</param>
-        /// <returns>The locations as an IEnumerable of Points</returns>
-        private static IEnumerable<Vector3> GetAdjacentLocations(Vector3 fromLocation)
+        private static void InsertTileByFValue(List<MapTile> walkableTiles, MapTile tile)
         {
-            return new Vector3[]
+            int insertIndex = walkableTiles.Count;
+            for (int i = 0; i < walkableTiles.Count; i++)
             {
-                new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
-                new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
-                new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
-            };
+                if (tile.F < walkableTiles[i].F)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            walkableTiles.Insert(insertIndex, tile);
         }
     }
 }
