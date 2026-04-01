@@ -41,21 +41,21 @@ namespace TBE.Logic.Map
             List<Character> results = new List<Character>();
 
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, location, shootingRange);
+            HashSet<Vector3> fovLocations = new HashSet<Vector3>(fov);
             if (opponentCharacters != null)
             {
                 foreach (Character character in opponentCharacters)
                 {
-                    bool addedCharacter = false;
-                    foreach (Vector3 fovLocation in fov)
+                    if (character.HitpointsCurrent <= GameConstants.DEAD_HITPOINTS)
                     {
-                        if (character.Location == fovLocation && character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
-                        {
-                            addedCharacter = true;
-                            results.Add(character);
-                            break;
-                        }
+                        continue;
                     }
-                    if (!addedCharacter && character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS && CharacterLocationIsAdjacentToFOVList(map, character.Location, fov))
+
+                    if (fovLocations.Contains(character.Location))
+                    {
+                        results.Add(character);
+                    }
+                    else if (CharacterLocationIsAdjacentToFOVList(map, character.Location, fovLocations))
                     {
                         results.Add(character);
                     }
@@ -66,35 +66,49 @@ namespace TBE.Logic.Map
 
 
         //If a player is behind cover, but adjacent squares are open/in the players FOV, then the player is visible too
-        private static bool CharacterLocationIsAdjacentToFOVList(string[,,] map, Vector3 location, List<Vector3> list)
+        private static bool CharacterLocationIsAdjacentToFOVList(string[,,] map, Vector3 location, HashSet<Vector3> fovLocations)
         {
-            //Look at the location.
-            //Is the player in cover? 
-            //Are adjacent spots visible? 
+            int x = (int)location.X;
+            int y = (int)location.Y;
+            int z = (int)location.Z;
 
-            foreach (Vector3 item in list)
+            if (MapLocationIsVisibleAndEmpty(map, x - GameConstants.ADJACENT_TILE_OFFSET, y, z, fovLocations))
             {
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == GameConstants.EMPTY_TILE)
-                {
-                    if ((int)item.X - GameConstants.ADJACENT_TILE_OFFSET == (int)location.X && (int)item.Z == (int)location.Z)
-                    {
-                        return true;
-                    }
-                    else if ((int)item.X + GameConstants.ADJACENT_TILE_OFFSET == (int)location.X && (int)item.Z == (int)location.Z)
-                    {
-                        return true;
-                    }
-                    else if ((int)item.X == (int)location.X && (int)item.Z - GameConstants.ADJACENT_TILE_OFFSET == (int)location.Z)
-                    {
-                        return true;
-                    }
-                    else if ((int)item.X == (int)location.X && (int)item.Z + GameConstants.ADJACENT_TILE_OFFSET == (int)location.Z)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
+
+            if (MapLocationIsVisibleAndEmpty(map, x + GameConstants.ADJACENT_TILE_OFFSET, y, z, fovLocations))
+            {
+                return true;
+            }
+
+            if (MapLocationIsVisibleAndEmpty(map, x, y, z - GameConstants.ADJACENT_TILE_OFFSET, fovLocations))
+            {
+                return true;
+            }
+
+            if (MapLocationIsVisibleAndEmpty(map, x, y, z + GameConstants.ADJACENT_TILE_OFFSET, fovLocations))
+            {
+                return true;
+            }
+
             return false;
+        }
+
+        private static bool MapLocationIsVisibleAndEmpty(string[,,] map, int x, int y, int z, HashSet<Vector3> fovLocations)
+        {
+            if (x < GameConstants.FIRST_INDEX ||
+                y < GameConstants.FIRST_INDEX ||
+                z < GameConstants.FIRST_INDEX ||
+                x > map.GetLength(GameConstants.X_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET ||
+                y > map.GetLength(GameConstants.Y_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET ||
+                z > map.GetLength(GameConstants.Z_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET)
+            {
+                return false;
+            }
+
+            Vector3 adjacentLocation = new Vector3(x, y, z);
+            return map[x, y, z] == GameConstants.EMPTY_TILE && fovLocations.Contains(adjacentLocation);
         }
 
 
@@ -251,52 +265,24 @@ namespace TBE.Logic.Map
 
         public static Team UpdateTeamFOV(string[,,] map, Team team)
         {
-            int xMax = map.GetLength(0);
-            int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
-
-            if (team.FOVMap == null)
+            if (team.FOVMap == null || team.FOVHistory == null)
             {
+                int xMax = map.GetLength(0);
+                int yMax = map.GetLength(1);
+                int zMax = map.GetLength(2);
                 team.FOVMap = MapCore.InitializeMap(xMax, yMax, zMax, FOV_Unknown);
                 team.FOVHistory = new HashSet<Vector3>();
             }
+
             foreach (Character character in team.Characters)
             {
                 foreach (Vector3 item in character.FOVHistory)
                 {
-                    team.FOVHistory.Add(item);
+                    if (team.FOVHistory.Add(item))
+                    {
+                        team.FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_CanSee;
+                    }
                 }
-                //for (int y = 0; y < 1; y++)
-                //{
-                //    for (int x = 0; x < xMax; x++)
-                //    {
-                //        for (int z = 0; z < zMax; z++)
-                //        {
-                //            //Set the team FOV map if the character FOV is not set
-
-                //            //a character can see this tile, update the team tile
-                //            if (character.FOVMap[x, y, z] == FOV_CanSee && team.FOVMap[x, y, z] != FOV_CanSee)
-                //            {
-                //                team.FOVMap[x, y, z] = FOV_CanSee;
-                //            }
-                //            ////If the location has been visible in the past, but not now, set it as cannot see
-                //            //else if (character.FOVMap[x, y, z] == FOV_CanNotSee && team.FOVMap[x, y, z] != FOV_CanNotSee)
-                //            //{
-                //            //    team.FOVMap[x, y, z] = FOV_CanNotSee;
-                //            //}
-                //            else if (character.FOVMap[x, y, z] == FOV_Unknown && team.FOVMap[x, y, z] != FOV_Unknown && team.FOVMap[x, y, z] != FOV_CanSee) // && team.FOVMap[x, y, z] != FOV_CanNotSee
-                //            {
-                //                //Otherwise it's never been visible and is unknown
-                //                team.FOVMap[x, y, z] = FOV_Unknown;
-                //            }
-                //        }
-                //    }
-                //}
-                foreach (Vector3 item in team.FOVHistory)
-                {
-                    team.FOVMap[(int)item.X, (int)item.Y, (int)item.Z] = FOV_CanSee;
-                }
-
             }
             return team;
         }
