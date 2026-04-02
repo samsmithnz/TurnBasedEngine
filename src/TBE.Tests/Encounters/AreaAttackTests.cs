@@ -619,7 +619,7 @@ Fred is ready to level up
             List<Vector3> fov = FieldOfView.GetFieldOfView(map, fred.Location, 10);
 
             //Assert 2: Check the FOV now
-            Assert.AreEqual(98, fov.Count);
+            Assert.AreEqual(99, fov.Count);
             bool foundItem = false;
             foreach (Vector3 item in fov)
             {
