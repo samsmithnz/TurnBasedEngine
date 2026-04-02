@@ -16,7 +16,7 @@ namespace TBE.Logic.Map
 
         public static List<Vector3> GetFieldOfView(string[,,] map, Vector3 location, int range)
         {
-            return MapCore.GetMapArea(map, location, range, true);
+            return MapCore.GetMapArea(map, location, range, true, true);
         }
 
         public static List<Character> GetCharactersInArea(string[,,] map, List<Character> characters, Vector3 location, int range)

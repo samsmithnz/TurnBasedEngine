@@ -103,7 +103,7 @@ namespace TBE.Tests.Map
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(8, results.Count);
+            Assert.AreEqual(9, results.Count);
         }
 
 
@@ -139,7 +139,7 @@ namespace TBE.Tests.Map
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(8, results.Count);
+            Assert.AreEqual(9, results.Count);
         }
 
         [TestMethod]
@@ -168,7 +168,7 @@ namespace TBE.Tests.Map
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(99, results.Count);
+            Assert.AreEqual(100, results.Count);
         }
 
         [TestMethod]
@@ -198,7 +198,7 @@ namespace TBE.Tests.Map
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.AreEqual(14, results.Count);
+            Assert.AreEqual(15, results.Count);
             //foreach (Vector3 item in results)
             //{
             //    Assert.AreNotEqual(0, item.Z);
