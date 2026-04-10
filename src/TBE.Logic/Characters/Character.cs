@@ -21,6 +21,7 @@ namespace TBE.Logic.Characters
         public string ID { get; set; }
         public string Name { get; set; }
         public string Background { get; set; }
+        public CharacterClass CharacterClass { get; set; }
         public int HitpointsMax { get; set; }
         public int HitpointsCurrent { get; set; }
         public int ArmorPointsMax { get; set; }
