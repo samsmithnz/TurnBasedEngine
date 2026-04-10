@@ -18,6 +18,7 @@ namespace TBE.Logic.Characters
             TargetCharacterIndex = GameConstants.NO_TARGET_SELECTED;
         }
 
+        public string ID { get; set; }
         public string Name { get; set; }
         public string Background { get; set; }
         public int HitpointsMax { get; set; }
@@ -103,6 +104,12 @@ namespace TBE.Logic.Characters
         public CoverState CoverState { get; set; }
         public bool InOverwatch { get; set; }
         public bool HunkeredDown { get; set; }
+        public CharacterStatus Status { get; set; }
+        /// <summary>
+        /// Number of days until the character recovers from Injured or Unavailable status.
+        /// When this reaches 0, the character returns to Normal status.
+        /// </summary>
+        public int StatusRecoveryTime { get; set; }
 
         //Records & statistics
         public int MissionsCompleted { get; set; }
@@ -317,6 +324,64 @@ namespace TBE.Logic.Characters
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns true if the character is available for missions (Normal status)
+        /// </summary>
+        public bool IsAvailable
+        {
+            get
+            {
+                return Status == CharacterStatus.Normal;
+            }
+        }
+
+        /// <summary>
+        /// Sets the character to injured status with a specified recovery time in days
+        /// </summary>
+        /// <param name="recoveryDays">Number of days until recovery</param>
+        public void SetInjured(int recoveryDays)
+        {
+            Status = CharacterStatus.Injured;
+            StatusRecoveryTime = recoveryDays;
+        }
+
+        /// <summary>
+        /// Sets the character to unavailable status with a specified recovery time in days
+        /// </summary>
+        /// <param name="recoveryDays">Number of days until available</param>
+        public void SetUnavailable(int recoveryDays)
+        {
+            Status = CharacterStatus.Unavailable;
+            StatusRecoveryTime = recoveryDays;
+        }
+
+        /// <summary>
+        /// Advances one day of recovery. If the recovery time reaches 0,
+        /// the character returns to Normal status.
+        /// </summary>
+        /// <returns>True if the character recovered to Normal status this day</returns>
+        public bool ProcessDayOfRecovery()
+        {
+            if (Status == CharacterStatus.Normal)
+            {
+                return false;
+            }
+
+            if (StatusRecoveryTime > GameConstants.DEAD_HITPOINTS)
+            {
+                StatusRecoveryTime--;
+            }
+
+            if (StatusRecoveryTime <= GameConstants.DEAD_HITPOINTS)
+            {
+                Status = CharacterStatus.Normal;
+                StatusRecoveryTime = GameConstants.DEAD_HITPOINTS;
+                return true;
+            }
+
+            return false;
         }
 
     }
