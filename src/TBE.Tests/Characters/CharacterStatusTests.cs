@@ -8,7 +8,7 @@ namespace TBE.Tests.Characters
     public class CharacterStatusTests
     {
         [TestMethod]
-        public void Character_NewCharacter_HasNormalStatus()
+        public void Character_NewCharacter_HasAvailableStatus()
         {
             //Arrange
             Character character = new Character();
@@ -16,9 +16,23 @@ namespace TBE.Tests.Characters
             //Act
 
             //Assert
-            Assert.AreEqual(CharacterStatus.Normal, character.Status);
+            Assert.AreEqual(CharacterStatus.Available, character.Status);
             Assert.AreEqual(0, character.StatusRecoveryTime);
             Assert.IsTrue(character.IsAvailable);
+        }
+
+        [TestMethod]
+        public void Character_SetOnMission_StatusIsOnMission()
+        {
+            //Arrange
+            Character character = new Character();
+
+            //Act
+            character.SetOnMission();
+
+            //Assert
+            Assert.AreEqual(CharacterStatus.OnMission, character.Status);
+            Assert.IsFalse(character.IsAvailable);
         }
 
         [TestMethod]
@@ -38,18 +52,33 @@ namespace TBE.Tests.Characters
         }
 
         [TestMethod]
-        public void Character_SetUnavailable_StatusIsUnavailable()
+        public void Character_SetTraining_StatusIsTraining()
         {
             //Arrange
             Character character = new Character();
-            int recoveryDays = 3;
+            int trainingDays = 7;
 
             //Act
-            character.SetUnavailable(recoveryDays);
+            character.SetTraining(trainingDays);
 
             //Assert
-            Assert.AreEqual(CharacterStatus.Unavailable, character.Status);
-            Assert.AreEqual(3, character.StatusRecoveryTime);
+            Assert.AreEqual(CharacterStatus.Training, character.Status);
+            Assert.AreEqual(7, character.StatusRecoveryTime);
+            Assert.IsFalse(character.IsAvailable);
+        }
+
+        [TestMethod]
+        public void Character_SetDeceased_StatusIsDeceased()
+        {
+            //Arrange
+            Character character = new Character();
+
+            //Act
+            character.SetDeceased();
+
+            //Assert
+            Assert.AreEqual(CharacterStatus.Deceased, character.Status);
+            Assert.AreEqual(0, character.StatusRecoveryTime);
             Assert.IsFalse(character.IsAvailable);
         }
 
@@ -71,7 +100,7 @@ namespace TBE.Tests.Characters
         }
 
         [TestMethod]
-        public void Character_ProcessDayOfRecovery_RecoversToNormalWhenTimeReachesZero()
+        public void Character_ProcessDayOfRecovery_RecoversToAvailableWhenTimeReachesZero()
         {
             //Arrange
             Character character = new Character();
@@ -82,13 +111,13 @@ namespace TBE.Tests.Characters
 
             //Assert
             Assert.IsTrue(recovered);
-            Assert.AreEqual(CharacterStatus.Normal, character.Status);
+            Assert.AreEqual(CharacterStatus.Available, character.Status);
             Assert.AreEqual(0, character.StatusRecoveryTime);
             Assert.IsTrue(character.IsAvailable);
         }
 
         [TestMethod]
-        public void Character_ProcessDayOfRecovery_NormalCharacterReturnsFalse()
+        public void Character_ProcessDayOfRecovery_AvailableCharacterReturnsFalse()
         {
             //Arrange
             Character character = new Character();
@@ -98,15 +127,31 @@ namespace TBE.Tests.Characters
 
             //Assert
             Assert.IsFalse(recovered);
-            Assert.AreEqual(CharacterStatus.Normal, character.Status);
+            Assert.AreEqual(CharacterStatus.Available, character.Status);
         }
 
         [TestMethod]
-        public void Character_ProcessMultipleDaysOfRecovery_RecoversCorrectly()
+        public void Character_ProcessDayOfRecovery_DeceasedCharacterCannotRecover()
         {
             //Arrange
             Character character = new Character();
-            character.SetUnavailable(3);
+            character.SetDeceased();
+
+            //Act
+            bool recovered = character.ProcessDayOfRecovery();
+
+            //Assert
+            Assert.IsFalse(recovered);
+            Assert.AreEqual(CharacterStatus.Deceased, character.Status);
+            Assert.IsFalse(character.IsAvailable);
+        }
+
+        [TestMethod]
+        public void Character_ProcessMultipleDaysOfRecovery_TrainingRecoversCorrectly()
+        {
+            //Arrange
+            Character character = new Character();
+            character.SetTraining(3);
 
             //Act & Assert - Day 1
             bool recovered = character.ProcessDayOfRecovery();
@@ -121,7 +166,7 @@ namespace TBE.Tests.Characters
             //Act & Assert - Day 3
             recovered = character.ProcessDayOfRecovery();
             Assert.IsTrue(recovered);
-            Assert.AreEqual(CharacterStatus.Normal, character.Status);
+            Assert.AreEqual(CharacterStatus.Available, character.Status);
             Assert.AreEqual(0, character.StatusRecoveryTime);
             Assert.IsTrue(character.IsAvailable);
         }
@@ -133,7 +178,7 @@ namespace TBE.Tests.Characters
             Character character = new Character();
             character.SetInjured(1);
             character.ProcessDayOfRecovery();
-            Assert.AreEqual(CharacterStatus.Normal, character.Status);
+            Assert.AreEqual(CharacterStatus.Available, character.Status);
 
             //Act
             character.SetInjured(2);
@@ -145,7 +190,7 @@ namespace TBE.Tests.Characters
         }
 
         [TestMethod]
-        public void Character_FromPool_HasNormalStatus()
+        public void Character_FromPool_HasAvailableStatus()
         {
             //Arrange
             Character fred = CharacterPool.CreateFredHero(null, new(0, 0, 0));
@@ -153,7 +198,7 @@ namespace TBE.Tests.Characters
             //Act
 
             //Assert
-            Assert.AreEqual(CharacterStatus.Normal, fred.Status);
+            Assert.AreEqual(CharacterStatus.Available, fred.Status);
             Assert.AreEqual(0, fred.StatusRecoveryTime);
             Assert.IsTrue(fred.IsAvailable);
         }

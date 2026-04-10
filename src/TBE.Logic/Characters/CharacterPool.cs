@@ -33,7 +33,7 @@ namespace TBE.Logic.Characters
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             fred.SetLocationAndRange(map, startingLocation, fovRange, null);
@@ -77,7 +77,7 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             harry.SetLocationAndRange(map, startingLocation, fovRange, null);
@@ -110,7 +110,7 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             jeff.SetLocationAndRange(map, startingLocation, fovRange, null);
@@ -142,7 +142,7 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             jethro.SetLocationAndRange(map, startingLocation, fovRange, null);
@@ -175,7 +175,7 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             bart.SetLocationAndRange(map, startingLocation, fovRange, null);
@@ -208,7 +208,7 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
                 HunkeredDown = false,
-                Status = CharacterStatus.Normal,
+                Status = CharacterStatus.Available,
                 StatusRecoveryTime = 0
             };
             derek.SetLocationAndRange(map, startingLocation, fovRange, null);

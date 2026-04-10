@@ -122,8 +122,9 @@ namespace TBE.Logic.Characters
         public bool HunkeredDown { get; set; }
         public CharacterStatus Status { get; set; }
         /// <summary>
-        /// Number of days until the character recovers from Injured or Unavailable status.
-        /// When this reaches 0, the character returns to Normal status.
+        /// Number of days until the character recovers from Injured, Training, or OnMission status.
+        /// When this reaches 0, the character returns to Available status.
+        /// Does not apply to Deceased characters.
         /// </summary>
         public int StatusRecoveryTime { get; set; }
 
@@ -343,14 +344,22 @@ namespace TBE.Logic.Characters
         }
 
         /// <summary>
-        /// Returns true if the character is available for missions (Normal status)
+        /// Returns true if the character is available for missions (Available status)
         /// </summary>
         public bool IsAvailable
         {
             get
             {
-                return Status == CharacterStatus.Normal;
+                return Status == CharacterStatus.Available;
             }
+        }
+
+        /// <summary>
+        /// Sets the character to on mission status
+        /// </summary>
+        public void SetOnMission()
+        {
+            Status = CharacterStatus.OnMission;
         }
 
         /// <summary>
@@ -364,23 +373,33 @@ namespace TBE.Logic.Characters
         }
 
         /// <summary>
-        /// Sets the character to unavailable status with a specified recovery time in days
+        /// Sets the character to training status with a specified duration in days
         /// </summary>
-        /// <param name="recoveryDays">Number of days until available</param>
-        public void SetUnavailable(int recoveryDays)
+        /// <param name="trainingDays">Number of days until training completes</param>
+        public void SetTraining(int trainingDays)
         {
-            Status = CharacterStatus.Unavailable;
-            StatusRecoveryTime = recoveryDays;
+            Status = CharacterStatus.Training;
+            StatusRecoveryTime = trainingDays;
+        }
+
+        /// <summary>
+        /// Sets the character to deceased (killed in action) status. This is permanent.
+        /// </summary>
+        public void SetDeceased()
+        {
+            Status = CharacterStatus.Deceased;
+            StatusRecoveryTime = GameConstants.DEAD_HITPOINTS;
         }
 
         /// <summary>
         /// Advances one day of recovery. If the recovery time reaches 0,
-        /// the character returns to Normal status.
+        /// the character returns to Available status.
+        /// Deceased characters cannot recover.
         /// </summary>
-        /// <returns>True if the character recovered to Normal status this day</returns>
+        /// <returns>True if the character recovered to Available status this day</returns>
         public bool ProcessDayOfRecovery()
         {
-            if (Status == CharacterStatus.Normal)
+            if (Status == CharacterStatus.Available || Status == CharacterStatus.Deceased)
             {
                 return false;
             }
@@ -392,7 +411,7 @@ namespace TBE.Logic.Characters
 
             if (StatusRecoveryTime <= GameConstants.DEAD_HITPOINTS)
             {
-                Status = CharacterStatus.Normal;
+                Status = CharacterStatus.Available;
                 StatusRecoveryTime = GameConstants.DEAD_HITPOINTS;
                 return true;
             }
