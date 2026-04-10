@@ -8,16 +8,26 @@ namespace TBE.Logic.Characters
         /// <summary>
         /// Character is available for missions
         /// </summary>
-        Normal = 0,
+        Available = 0,
+
+        /// <summary>
+        /// Character is currently on a mission
+        /// </summary>
+        OnMission = 1,
 
         /// <summary>
         /// Character is injured and recovering for a number of days
         /// </summary>
-        Injured = 1,
+        Injured = 2,
 
         /// <summary>
-        /// Character is unavailable for a number of days
+        /// Character is in training for a number of days
         /// </summary>
-        Unavailable = 2
+        Training = 3,
+
+        /// <summary>
+        /// Character is killed in action (permanent)
+        /// </summary>
+        Deceased = 4
     }
 }
