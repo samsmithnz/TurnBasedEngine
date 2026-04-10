@@ -102,7 +102,22 @@ namespace TBE.Logic.Characters
         public Weapon UtilityWeaponEquipped { get; set; }
         public Item UtilityItemEquipped { get; set; }
         public CoverState CoverState { get; set; }
-        public bool InOverwatch { get; set; }
+        private bool _inOverwatch;
+        public bool InOverwatch
+        {
+            get
+            {
+                return _inOverwatch;
+            }
+            set
+            {
+                _inOverwatch = value;
+                if (_inOverwatch)
+                {
+                    ActionPointsCurrent = 0;
+                }
+            }
+        }
         public bool HunkeredDown { get; set; }
         public CharacterStatus Status { get; set; }
         /// <summary>
@@ -291,11 +306,11 @@ namespace TBE.Logic.Characters
             ////    inverseMap[(int)item.X, (int)item.Y, (int)item.Z] = FieldOfView.FOV_CanNotSee;
             ////}
             ////Now that we have the inverse map, reverse it to show areas that are not visible
-                //for (int y = GameConstants.FIRST_INDEX; y < GameConstants.STANDARD_Y_DIMENSION; y++)
-                //{
-                //    for (int x = GameConstants.FIRST_INDEX; x < xMax; x++)
-                //    {
-                //        for (int z = GameConstants.FIRST_INDEX; z < zMax; z++)
+            //for (int y = GameConstants.FIRST_INDEX; y < GameConstants.STANDARD_Y_DIMENSION; y++)
+            //{
+            //    for (int x = GameConstants.FIRST_INDEX; x < xMax; x++)
+            //    {
+            //        for (int z = GameConstants.FIRST_INDEX; z < zMax; z++)
             //        {
             //            if (inverseMap[x, y, z] != "")
             //            {

@@ -46,12 +46,12 @@ jobs:
     - name: Pack code into NuGet package in release
       run: dotnet pack src/TBE.Logic/TBE.Logic.csproj --configuration Debug -p:Version='${{ steps.gitversion.outputs.MajorMinorPatch }}'
     - name: Upload package to GitHub
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: package
         path: src/TBE.Logic/bin/Debug/netstandard2.1 
     - name: Upload nuget package to GitHub
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: nugetPackage
         path: src/TBE.Logic/bin/Debug/  
@@ -84,11 +84,11 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v7.0.0
+      uses: actions/download-artifact@v8.0.1
       with:
         name: package  
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v7.0.0
+      uses: actions/download-artifact@v8.0.1
       with:
         name: nugetPackage 
         path: nugetPackage 

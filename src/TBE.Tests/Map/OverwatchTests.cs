@@ -144,8 +144,10 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             Vector3 destination = new(6, 0, 0);
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.InOverwatch = true;
+            Assert.AreEqual(0, fred.ActionPointsCurrent);
             Character harry = CharacterPool.CreateHarryHero(map, new(5, 0, 5));
             harry.InOverwatch = true;
+            Assert.AreEqual(0, harry.ActionPointsCurrent);
             Team team1 = new(1);
             team1.Characters.Add(fred);
             team1.Characters.Add(harry);
@@ -167,6 +169,8 @@ Jethro is moving from <6, 0, 1> to <6, 0, 0>
             Assert.AreEqual(10, harry.XP);
             Assert.AreEqual(1, movementResults.Count);
             Assert.AreEqual(2, movementResults[0].OverwatchEncounterResults.Count);
+            Assert.AreEqual(0, fred.ActionPointsCurrent);
+            Assert.AreEqual(0, harry.ActionPointsCurrent);
             string log = @"
 Jethro is moving from <8, 0, 8> to <8, 0, 7>
 Harry is attacking with Sniper Rifle, targeted on Jethro

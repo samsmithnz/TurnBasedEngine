@@ -41,7 +41,7 @@ namespace TBE.Logic.Characters
             {
                 opponentCharacters = opponentTeam.Characters;
             }
-            int totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
+            int totalOverwatchCharacters = TotalOverwatchCharacterCount(opponentCharacters);
             int i = 0;
             foreach (Vector3 step in pathFindingResult.Path)
             {
@@ -76,7 +76,7 @@ namespace TBE.Logic.Characters
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (opponentCharacters != null && totalActionPoints > GameConstants.DEAD_HITPOINTS)
+                if (opponentCharacters != null && totalOverwatchCharacters > GameConstants.DEAD_HITPOINTS)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentCharacters);
                     encounters.AddRange(overWatchResult.Item1);
@@ -101,7 +101,7 @@ namespace TBE.Logic.Characters
                     }
                     else
                     {
-                        totalActionPoints = TotalOverwatchActionPoints(opponentCharacters);
+                        totalOverwatchCharacters = TotalOverwatchCharacterCount(opponentCharacters);
                     }
                 }
                 if (log.Count > GameConstants.DEAD_HITPOINTS)
@@ -142,7 +142,7 @@ namespace TBE.Logic.Characters
                     List<Vector3> fov = FieldOfView.GetFieldOfView(map, character.Location, character.FOVRange);
                     foreach (Vector3 fovLocation in fov)
                     {
-                        if (character.ActionPointsCurrent > GameConstants.DEAD_HITPOINTS && fovLocation == characterMoving.Location)
+                        if (fovLocation == characterMoving.Location)
                         {
                             //Act
                             result = Encounter.AttackCharacter(map, character, character.WeaponEquipped, characterMoving, diceRolls);
@@ -162,7 +162,7 @@ namespace TBE.Logic.Characters
             return (results, true);
         }
 
-        private static int TotalOverwatchActionPoints(List<Character> overWatchedCharacters)
+        private static int TotalOverwatchCharacterCount(List<Character> overWatchedCharacters)
         {
             int total = 0;
             if (overWatchedCharacters != null)
@@ -171,7 +171,7 @@ namespace TBE.Logic.Characters
                 {
                     if (item.InOverwatch == true)
                     {
-                        total += item.ActionPointsCurrent;
+                        total++;
                     }
                 }
             }
