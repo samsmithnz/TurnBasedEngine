@@ -4,6 +4,11 @@ namespace TBE.Logic.Game
 {
     public class MissionObjective
     {
+        public MissionObjective()
+        {
+            Location = Vector3.Zero;
+        }
+
         public MissionObjective(MissionObjectiveType type, bool objectiveComplete)
         {
             Type = type;

@@ -10,6 +10,7 @@ namespace TBE.Logic.Characters
         {
             Character fred = new Character()
             {
+                ID = "Fred01",
                 Name = "Fred",
                 Background = "Fred is from Canada and is a nice guy.",
                 HitpointsCurrent = 4,
@@ -30,7 +31,9 @@ namespace TBE.Logic.Characters
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 UtilityItemEquipped = ItemPool.CreateMedKit(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             fred.SetLocationAndRange(map, startingLocation, fovRange, null);
             fred.Abilities.Add(new Ability("Ability", AbilityType.Unknown, 0));
@@ -51,6 +54,7 @@ namespace TBE.Logic.Characters
         {
             Character harry = new Character()
             {
+                ID = "Harry01",
                 Name = "Harry",
                 Background = "Harry worships Clint Eastwood movies",
                 HitpointsCurrent = 12,
@@ -70,7 +74,9 @@ namespace TBE.Logic.Characters
                 WeaponEquipped = WeaponPool.CreateSniperRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             harry.SetLocationAndRange(map, startingLocation, fovRange, null);
             return harry;
@@ -80,6 +86,7 @@ namespace TBE.Logic.Characters
         {
             Character jeff = new Character()
             {
+                ID = "Jeff01",
                 Name = "Jeff",
                 Background = "Jeff is a great guy",
                 HitpointsCurrent = 12,
@@ -99,7 +106,9 @@ namespace TBE.Logic.Characters
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             jeff.SetLocationAndRange(map, startingLocation, fovRange, null);
             return jeff;
@@ -109,6 +118,7 @@ namespace TBE.Logic.Characters
         {
             Character jethro = new Character()
             {
+                ID = "Jethro01",
                 Name = "Jethro",
                 Background = "Jethro grew up on a farm, and likes ice cream",
                 HitpointsCurrent = 4,
@@ -127,7 +137,9 @@ namespace TBE.Logic.Characters
                 WeaponEquipped = WeaponPool.CreateShotgun(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             jethro.SetLocationAndRange(map, startingLocation, fovRange, null);
             return jethro;
@@ -137,6 +149,7 @@ namespace TBE.Logic.Characters
         {
             Character bart = new Character()
             {
+                ID = "Bart01",
                 Name = "Bart",
                 Background = "Bart is a naughty boy",
                 HitpointsCurrent = 4,
@@ -156,7 +169,9 @@ namespace TBE.Logic.Characters
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             bart.SetLocationAndRange(map, startingLocation, fovRange, null);
             return bart;
@@ -166,6 +181,7 @@ namespace TBE.Logic.Characters
         {
             Character derek = new Character()
             {
+                ID = "Derek01",
                 Name = "Derek",
                 Background = "Derek does not like rules",
                 HitpointsCurrent = 4,
@@ -185,7 +201,9 @@ namespace TBE.Logic.Characters
                 WeaponEquipped = WeaponPool.CreateRifle(),
                 UtilityWeaponEquipped = WeaponPool.CreateGrenade(),
                 InOverwatch = false,
-                HunkeredDown = false
+                HunkeredDown = false,
+                Status = CharacterStatus.Normal,
+                StatusRecoveryTime = 0
             };
             derek.SetLocationAndRange(map, startingLocation, fovRange, null);
             return derek;
