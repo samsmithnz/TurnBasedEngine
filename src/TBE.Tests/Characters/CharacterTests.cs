@@ -47,6 +47,37 @@ namespace TBE.Tests.Characters
             TestJethro(jethro);
         }
 
+        [TestMethod]
+        public void Character_NewCharacter_HasBlankUniformOptions()
+        {
+            //Arrange
+            Character character = new Character();
+
+            //Act
+
+            //Assert
+            Assert.AreEqual("", character.UniformHat);
+            Assert.AreEqual("", character.UniformShirt);
+            Assert.AreEqual("", character.UniformPants);
+        }
+
+        [TestMethod]
+        public void Character_SetUniformOptions_ValuesAreStored()
+        {
+            //Arrange
+            Character character = new Character();
+
+            //Act
+            character.UniformHat = "Beret";
+            character.UniformShirt = "Tactical Vest";
+            character.UniformPants = "Cargo Pants";
+
+            //Assert
+            Assert.AreEqual("Beret", character.UniformHat);
+            Assert.AreEqual("Tactical Vest", character.UniformShirt);
+            Assert.AreEqual("Cargo Pants", character.UniformPants);
+        }
+
         private static void TestFred(Character character, List<CharacterAction> actions)
         {
             Assert.IsNotNull(character);
@@ -72,6 +103,9 @@ namespace TBE.Tests.Characters
             Assert.AreEqual(false, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
+            Assert.AreEqual("", character.UniformHat);
+            Assert.AreEqual("", character.UniformShirt);
+            Assert.AreEqual("", character.UniformPants);
             Assert.IsNotNull(character.Abilities);
             Assert.AreEqual(1, character.Abilities.Count);
             Assert.AreEqual("Ability", character.Abilities[0].Name);
@@ -114,6 +148,9 @@ namespace TBE.Tests.Characters
             Assert.AreEqual(true, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
+            Assert.AreEqual("", character.UniformHat);
+            Assert.AreEqual("", character.UniformShirt);
+            Assert.AreEqual("", character.UniformPants);
         }
 
         private static void TestHarry(Character character)
@@ -137,6 +174,9 @@ namespace TBE.Tests.Characters
             Assert.AreEqual(false, character.CoverState.InFullCover);
             Assert.AreEqual(false, character.InOverwatch);
             Assert.AreEqual(false, character.HunkeredDown);
+            Assert.AreEqual("", character.UniformHat);
+            Assert.AreEqual("", character.UniformShirt);
+            Assert.AreEqual("", character.UniformPants);
         }
     }
 }
