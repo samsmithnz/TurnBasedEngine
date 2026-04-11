@@ -16,6 +16,9 @@ namespace TBE.Logic.Characters
             CoverState = new CoverState();
             TargetCharacters = new List<string>();
             TargetCharacterIndex = GameConstants.NO_TARGET_SELECTED;
+            UniformHat = "";
+            UniformShirt = "";
+            UniformPants = "";
         }
 
         public string ID { get; set; }
@@ -49,6 +52,9 @@ namespace TBE.Logic.Characters
         public int Intelligence { get; set; } //measured by percentage
         public List<Ability> Abilities { get; set; }
         public List<Effect> Effects { get; set; }
+        public string UniformHat { get; set; }
+        public string UniformShirt { get; set; }
+        public string UniformPants { get; set; }
         private Vector3 _location { get; set; }
         //TODO: Location should never be set here- but I need this for serialization. Need to figure this out later
         public Vector3 Location
