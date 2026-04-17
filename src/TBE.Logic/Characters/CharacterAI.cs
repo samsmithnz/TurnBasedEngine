@@ -150,7 +150,7 @@ namespace TBE.Logic.Characters
                 if (item.Value == GameConstants.SINGLE_MOVE_ACTION_POINT_COST)
                 {
                     //If there are no opponents in view, just return a walk
-                    if (opponentCharacters.Count == GameConstants.DEAD_HITPOINTS)
+                    if (opponentCharacters.Count == 0)
                     {
                         moveScore = baseScore;
                         moveScore += GameConstants.AI_SINGLE_MOVE_BONUS;
@@ -175,7 +175,7 @@ namespace TBE.Logic.Characters
 
                         //Calculate chance to hit
                         List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
-                        if (characters.Count == GameConstants.DEAD_HITPOINTS)
+                        if (characters.Count == 0)
                         {
                             //No characters in view, deduct some more points - this move achieves very little
                             moveThenShootScore += GameConstants.AI_NO_CHARACTERS_IN_VIEW_PENALTY;
