@@ -99,12 +99,13 @@ namespace TBE.Logic.Characters
                 string targetName = "";
                 Vector3 targetLocation = Vector3.Zero;
                 int baseScore = GameConstants.AI_BASE_SCORE;
-                int moveScore = GameConstants.AI_BASE_SCORE;
-                int moveLongScore = GameConstants.AI_BASE_SCORE;
+                int moveSingleAPScore = GameConstants.AI_BASE_SCORE;
+                int moveDoubleAPScore = GameConstants.AI_BASE_SCORE;
                 int moveThenShootScore = GameConstants.AI_BASE_SCORE;
-                //int moveWithAllActionPointsbaseScore = 0;
-                //int moveThenHunkerScore = 0;
-                //int shootFromCurrentLocationScore = 0;
+                int moveThenHunkerDownScore = GameConstants.AI_BASE_SCORE;
+                int shootFromCurrentLocationScore = GameConstants.AI_BASE_SCORE;
+                int moveThenOverwatchScore = GameConstants.AI_BASE_SCORE;
+                int moveThenThrowGrenadeScore = GameConstants.AI_BASE_SCORE;
 
                 //Create a temp FOV map to simulate the board for this situation
                 string[,,] fovMap = (string[,,])map.Clone();
@@ -152,16 +153,16 @@ namespace TBE.Logic.Characters
                     //If there are no opponents in view, just return a walk
                     if (opponentCharacters.Count == 0)
                     {
-                        moveScore = baseScore;
-                        moveScore += GameConstants.AI_SINGLE_MOVE_BONUS;
+                        moveSingleAPScore = baseScore;
+                        moveSingleAPScore += GameConstants.AI_SINGLE_MOVE_BONUS;
                         //Normalize and record the score + target
-                        if (moveScore < GameConstants.AI_MINIMUM_SCORE)
+                        if (moveSingleAPScore < GameConstants.AI_MINIMUM_SCORE)
                         {
-                            moveScore = GameConstants.AI_MINIMUM_SCORE;
+                            moveSingleAPScore = GameConstants.AI_MINIMUM_SCORE;
                         }
-                        possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
+                        possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenOverwatch)
                         {
-                            Score = moveScore,
+                            Score = moveSingleAPScore,
                             StartLocation = sourceCharacter.Location,
                             EndLocation = location,
                             TargetName = targetName,
@@ -174,8 +175,8 @@ namespace TBE.Logic.Characters
                         moveThenShootScore = baseScore;
 
                         //Calculate chance to hit
-                        List<Character> characters = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
-                        if (characters.Count == 0)
+                        List<Character> charactersInView = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
+                        if (charactersInView.Count == 0)
                         {
                             //No characters in view, deduct some more points - this move achieves very little
                             moveThenShootScore += GameConstants.AI_NO_CHARACTERS_IN_VIEW_PENALTY;
@@ -183,18 +184,17 @@ namespace TBE.Logic.Characters
                             {
                                 moveThenShootScore = GameConstants.AI_MINIMUM_SCORE;
                             }
-                            possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
+                            possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenOverwatch)
                             {
                                 Score = moveThenShootScore,
                                 StartLocation = sourceCharacter.Location,
-                                EndLocation = location,
-                                TargetName = targetName,
-                                TargetLocation = targetLocation
+                                EndLocation = location
+                                //no target, as none in view
                             });
                         }
                         else
                         {
-                            foreach (Character opponentCharacter in characters)
+                            foreach (Character opponentCharacter in charactersInView)
                             {
                                 if (sourceCharacter.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
                                 {
@@ -247,17 +247,17 @@ namespace TBE.Logic.Characters
                 else if (item.Value == GameConstants.DOUBLE_MOVE_ACTION_POINT_COST)
                 {
                     //double move - no bonuses
-                    moveLongScore = baseScore;
-                    moveLongScore += GameConstants.AI_DOUBLE_MOVE_BONUS;
+                    moveDoubleAPScore = baseScore;
+                    moveDoubleAPScore += GameConstants.AI_DOUBLE_MOVE_BONUS;
 
                     //Normalize and record the score + target
-                    if (moveLongScore < GameConstants.AI_MINIMUM_SCORE)
+                    if (moveDoubleAPScore < GameConstants.AI_MINIMUM_SCORE)
                     {
-                        moveLongScore = GameConstants.AI_MINIMUM_SCORE;
+                        moveDoubleAPScore = GameConstants.AI_MINIMUM_SCORE;
                     }
                     possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
                     {
-                        Score = moveLongScore,
+                        Score = moveDoubleAPScore,
                         StartLocation = sourceCharacter.Location,
                         EndLocation = location
                     });

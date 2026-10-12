@@ -43,6 +43,7 @@ namespace TBE.Logic.Encounters
         Unknown = 0,
         DoubleMove = 1,
         MoveThenAttack = 2,
-        StayInPositionThenAttack = 3
+        StayInPositionThenAttack = 3,
+        MoveThenOverwatch = 4,
     }
 }
