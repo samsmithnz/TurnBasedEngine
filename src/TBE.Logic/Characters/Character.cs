@@ -89,7 +89,7 @@ namespace TBE.Logic.Characters
                 {
                     TargetCharacters.Add(item.Name);
                 }
-                if (targetCharacters.Count > GameConstants.DEAD_HITPOINTS)
+                if (targetCharacters.Count > 0)
                 {
                     TargetCharacterIndex = GameConstants.FIRST_TARGET_INDEX;
                 }
@@ -221,11 +221,11 @@ namespace TBE.Logic.Characters
         public List<CharacterAction> GetCurrentActions(string[,,] map = null)
         {
             List<CharacterAction> options = new List<CharacterAction>();
-            if (ActionPointsCurrent > GameConstants.DEAD_HITPOINTS)
+            if (ActionPointsCurrent > 0)
             {
-                if (WeaponEquipped.AmmoCurrent > GameConstants.DEAD_HITPOINTS)
+                if (WeaponEquipped.AmmoCurrent > 0)
                 {
-                    if (TargetCharacters.Count > GameConstants.DEAD_HITPOINTS)
+                    if (TargetCharacters.Count > 0)
                     {
                         options.Add(new CharacterAction() { Name = "_shoot", Caption = "Shoot", KeyBinding = "1" });
                     }
@@ -239,7 +239,7 @@ namespace TBE.Logic.Characters
                 {
                     options.Add(new CharacterAction() { Name = "_throw_grenade", Caption = "Throw grenade", KeyBinding = "3" });
                 }
-                if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > GameConstants.DEAD_HITPOINTS)
+                if (UtilityItemEquipped != null && UtilityItemEquipped.Type == ItemType.MedKit && UtilityItemEquipped.ClipRemaining > 0)
                 {
                     options.Add(new CharacterAction() { Name = "_use_medkit", Caption = "Use medkit", KeyBinding = "4" });
                 }
@@ -263,7 +263,7 @@ namespace TBE.Logic.Characters
 
         public void UseItem(Item item)
         {
-            if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > GameConstants.DEAD_HITPOINTS)
+            if (item != null && item.Type == ItemType.MedKit && item.ClipRemaining > 0)
             {
                 HitpointsCurrent += item.Adjustment;
                 item.ClipRemaining--;
@@ -394,7 +394,7 @@ namespace TBE.Logic.Characters
         public void SetDeceased()
         {
             Status = CharacterStatus.Deceased;
-            StatusRecoveryTime = GameConstants.DEAD_HITPOINTS;
+            StatusRecoveryTime = 0;
         }
 
         /// <summary>
@@ -410,15 +410,15 @@ namespace TBE.Logic.Characters
                 return false;
             }
 
-            if (StatusRecoveryTime > GameConstants.DEAD_HITPOINTS)
+            if (StatusRecoveryTime > 0)
             {
                 StatusRecoveryTime--;
             }
 
-            if (StatusRecoveryTime <= GameConstants.DEAD_HITPOINTS)
+            if (StatusRecoveryTime <= 0)
             {
                 Status = CharacterStatus.Available;
-                StatusRecoveryTime = GameConstants.DEAD_HITPOINTS;
+                StatusRecoveryTime = 0;
                 return true;
             }
 

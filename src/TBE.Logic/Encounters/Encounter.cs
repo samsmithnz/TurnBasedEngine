@@ -95,7 +95,7 @@ namespace TBE.Logic.Encounters
             }
 
             //Consume source characters action points
-            sourceCharacter.ActionPointsCurrent = 0;
+            sourceCharacter.ActionPointsCurrent = GameConstants.ACTION_POINTS_AFTER_ATTACK;
 
             if (sourceCharacter.LevelUpIsReady)
             {
@@ -145,7 +145,7 @@ namespace TBE.Logic.Encounters
             };
 
             //Don't attack if the clip is empty
-            if (weapon.AmmoCurrent > GameConstants.DEAD_HITPOINTS)
+            if (weapon.AmmoCurrent > 0)
             {
                 sourceCharacter.TotalShots++;
                 int toHitPercent = EncounterCore.GetChanceToHit(sourceCharacter, weapon, targetCharacter);
@@ -287,7 +287,7 @@ namespace TBE.Logic.Encounters
             //Now process any other damage with armor
             int armorAbsorbed = 0;
             int armorPiercing = EncounterCore.AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.ArmorPiercing);
-            if (armorPiercing > GameConstants.DEAD_HITPOINTS)
+            if (armorPiercing > 0)
             {
                 log.Add("Armor was ignored due to 'armor piercing' ability");
             }
@@ -308,11 +308,11 @@ namespace TBE.Logic.Encounters
             sourceCharacter.TotalDamage += damageDealt;
 
             //Update log
-            if (armorShredded > GameConstants.DEAD_HITPOINTS)
+            if (armorShredded > 0)
             {
                 log.Add(armorShredded.ToString() + " armor points shredded");
             }
-            if (armorAbsorbed > GameConstants.DEAD_HITPOINTS)
+            if (armorAbsorbed > 0)
             {
                 log.Add("Armor prevented " + armorAbsorbed.ToString() + " damage to character " + targetCharacter.Name);
             }
