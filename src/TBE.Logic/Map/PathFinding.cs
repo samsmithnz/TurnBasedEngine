@@ -137,6 +137,13 @@ namespace TBE.Logic.Map
                     continue;
                 }
 
+                if (_adjacentXOffsets[i] != 0 && _adjacentZOffsets[i] != 0 &&
+                    _map[x, y, (int)fromTile.Location.Z] != string.Empty &&
+                    _map[(int)fromTile.Location.X, y, z] != string.Empty)
+                {
+                    continue;
+                }
+
                 MapTile tile = GetOrCreateTile(x, y, z);
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
