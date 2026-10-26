@@ -19,6 +19,7 @@ namespace TBE.Logic.Encounters
         public Vector3 TargetLocation { get; set; }
         public Vector3 StartLocation { get; set; }
         public Vector3 EndLocation { get; set; }
+        public int ActionPointsCost { get; set; }
         public string MapString { get; set; }
         public List<string> Log { get; set; }
         public string LogString
@@ -45,5 +46,7 @@ namespace TBE.Logic.Encounters
         MoveThenAttack = 2,
         StayInPositionThenAttack = 3,
         MoveThenOverwatch = 4,
+        Move = 5,
+        Overwatch = 6,
     }
 }

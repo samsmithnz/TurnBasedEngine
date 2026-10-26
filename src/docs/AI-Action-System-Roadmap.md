@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes all combat actions available to characters in TurnBasedEngine, their AP costs, turn-ending behavior, current AI support status, and next-step enhancement prompts.
+This document describes all combat actions available to characters in TurnBasedEngine, their AP costs, turn-ending behavior, current AI support status, and next-step enhancement prompts. The AI returns one action at a time; movement spends its listed AP and the AI can be evaluated again with any AP left. Attacks and overwatch consume all remaining AP and end the turn.
 
 ---
 
@@ -10,13 +10,13 @@ This document describes all combat actions available to characters in TurnBasedE
 
 | # | Action | AP Cost | Ends Turn? | Currently in AI | `ActionTypeEnum` Value |
 |---|--------|---------|-----------|-----------------|----------------------|
-| 1 | **Move** | 1 | ❌ No | ✅ Yes (`MoveThenAttack`, `DoubleMove`) | `DoubleMove = 1` |
-| 2 | **Shoot** | 1 | ✅ Yes | ✅ Yes (`MoveThenAttack`) | `MoveThenAttack = 2` |
-| 3 | **Overwatch** | 1 | ✅ Yes | ⚠️ Partial (`MoveThenOverwatch` used as fallback only) | `MoveThenOverwatch = 4` |
-| 4 | **Hunker Down** | 1 | ✅ Yes | ❌ No (commented out in code) | ❌ Missing |
-| 5 | **Grenade** | 1 | ❌ No | ❌ No | ❌ Missing |
+| 1 | **Move** | 1 (or 2 for a long move) | ❌ No | ✅ Yes (`Move`, `DoubleMove`) | `Move = 5`, `DoubleMove = 1` |
+| 2 | **Shoot** | Remaining AP | ✅ Yes | ✅ Yes (`StayInPositionThenAttack`) | `StayInPositionThenAttack = 3` |
+| 3 | **Overwatch** | Remaining AP | ✅ Yes | ⚠️ Partial (fallback when no enemies are visible) | `Overwatch = 6` |
+| 4 | **Hunker Down** | 1 | ✅ Yes | ❌ No | ❌ Missing |
+| 5 | **Grenade** | Ends turn | ✅ Yes | ❌ No | ❌ Missing |
 | 6 | **MediKit** | 1 | ❌ No | ❌ No | ❌ Missing |
-| 7 | **Reload** | 1 | ❌ No | ❌ No (no ammo check exists) | ❌ Missing |
+| 7 | **Reload** | 1 | ❌ No | ❌ No (no reload action) | ❌ Missing |
 | 8 | **Special Ability** | 1 | ✅ Yes | ❌ No | ❌ Missing |
 
 ---
@@ -28,10 +28,9 @@ This document describes all combat actions available to characters in TurnBasedE
 ### 1. 🚶 Move
 **AP Cost:** 1 | **Ends Turn:** No
 
-**Current State:** Implemented. Single move (1 AP) considered alongside a shoot action. Double move (2 AP) scored with `AI_DOUBLE_MOVE_BONUS`.
+**Current State:** Implemented as an independent action. A single move costs 1 AP; a long move costs 2 AP. The AI scores each affordable move and returns one action, allowing it to be evaluated again with the remaining AP.
 
 **Gaps:**
-- Double move scoring ignores cover at the destination
 - No bonus for moving toward objectives or enemies when out of range
 - No penalty for moving into overwatch zones
 
@@ -40,9 +39,6 @@ This document describes all combat actions available to characters in TurnBasedE
 "Add overwatch zone avoidance to AI movement scoring - apply a larger penalty 
 when a tile is within an enemy's active overwatch coverage area"
 
-"Score double-move destinations using the same cover/flanking logic as 
-single-move tiles, rather than applying a flat AI_DOUBLE_MOVE_BONUS"
-
 "Add an 'advance toward nearest enemy' bonus when no enemies are visible - 
 score tiles closer to known/last-seen enemy positions higher"
 ```
@@ -50,27 +46,16 @@ score tiles closer to known/last-seen enemy positions higher"
 ---
 
 ### 2. 🔫 Shoot
-**AP Cost:** 1 | **Ends Turn:** Yes
+**AP Cost:** Remaining AP | **Ends Turn:** Yes
 
-**Current State:** Implemented via `MoveThenAttack`. Hit-chance scoring uses 6-tier threshold system (50%-95%). Target selection picks first character in view rather than the best target.
+**Current State:** Implemented as an independent `StayInPositionThenAttack` action. The AI scores each visible target separately using a 6-tier hit-chance system; attacks consume all remaining AP and end the turn.
 
 **Gaps:**
-- No ammo check before scoring an attack action
-- All visible enemies scored independently — no target prioritization (e.g. lowest HP, highest threat)
-- `moveThenShootScore` is accumulated across multiple targets in the same loop, causing score inflation
-- No `StayInPositionThenAttack` scoring (character shoots from current tile)
+- No target prioritization (e.g. lowest HP, highest threat)
+- The AI does not evaluate a move followed by a later attack as one plan; it returns one action and re-evaluates after movement
 
 **Enhancement Prompts:**
 ```
-"Add ammo validation before scoring MoveThenAttack actions - skip attack 
-scoring entirely if WeaponEquipped.AmmoCurrent <= 0"
-
-"Fix score accumulation bug in the per-target loop in AssignPointsToEachTile - 
-moveThenShootScore should reset for each target, not accumulate across targets"
-
-"Add StayInPositionThenAttack evaluation - score shooting from the current 
-location as an alternative to moving first, using ActionTypeEnum.StayInPositionThenAttack"
-
 "Create an AITargetPrioritizer class that ranks enemy targets by: 
   1. Lowest HP (finish them off), 
   2. Highest threat (most damage potential), 
@@ -80,9 +65,9 @@ location as an alternative to moving first, using ActionTypeEnum.StayInPositionT
 ---
 
 ### 3. 👁️ Overwatch
-**AP Cost:** 1 | **Ends Turn:** Yes
+**AP Cost:** Remaining AP | **Ends Turn:** Yes
 
-**Current State:** `MoveThenOverwatch` exists in `ActionTypeEnum` and is used as a fallback when no enemies are in sight. Not scored as a deliberate defensive choice.
+**Current State:** `Overwatch` is scored as a fallback when no enemies are visible and ammunition is available. It is an independent turn-ending action, not bundled with movement.
 
 **Gaps:**
 - Overwatch is never chosen when enemies are visible
@@ -132,7 +117,7 @@ HitpointsCurrent < (HitpointsMax * 0.33) for use in AI defensive decisions"
 ---
 
 ### 5. 💣 Grenade
-**AP Cost:** 1 | **Ends Turn:** No
+**AP Cost:** Ends turn | **Ends Turn:** Yes
 
 **Current State:** Grenades are stored in `UtilityWeaponEquipped`. `Character.GetCurrentActions()` exposes a `_throw_grenade` action when `UtilityWeaponEquipped != null`. Grenades have area-effect damage (via `AreaEffectRadius`). AI has **no implementation**.
 
@@ -141,7 +126,7 @@ HitpointsCurrent < (HitpointsMax * 0.33) for use in AI defensive decisions"
 - No AI awareness of `UtilityWeaponEquipped` or its ammo
 - No scoring based on enemy clustering (grenades are powerful against grouped enemies)
 - No line-of-sight validation for grenade throws
-- Grenade does not end the turn — AI should chain it with move/attack/reload
+- `AttackCharacterWithAreaOfEffect` consumes all remaining AP, so grenade actions end the turn
 
 **Enhancement Prompts:**
 ```
@@ -158,8 +143,8 @@ AI_GRENADE_SCORE constants to GameConstants"
 "Add grenade line-of-sight validation - ensure the throw path is not 
 completely blocked by terrain (grenades arc over low cover)"
 
-"Create a combined action type MoveUseMediKitThenThrowGrenade or 
-MoveThrowGrenadeThenAttack to represent non-turn-ending grenade chains"
+"Only consider grenade chaining after the combat rules are changed so a grenade
+does not consume all remaining AP; under current rules, a grenade ends the turn"
 ```
 
 ---
@@ -173,7 +158,7 @@ MoveThrowGrenadeThenAttack to represent non-turn-ending grenade chains"
 - No `ActionTypeEnum` value for `UseMediKit`
 - No AI awareness of `UtilityItemEquipped` 
 - No HP threshold logic for deciding when to heal
-- MediKit does not end the turn — AI could chain it with a move or attack
+- The AI does not yet score the medkit as an independent action
 
 **Enhancement Prompts:**
 ```
@@ -184,33 +169,28 @@ AI_MEDKIT_SCORE constants to GameConstants"
   - Only consider it when UtilityItemEquipped is a MedKit with ClipRemaining > 0
   - Score it when HitpointsCurrent is below AI_MEDKIT_HP_THRESHOLD
   - Score it higher as HP gets lower (inverse relationship)
-  - Because it does not end the turn, add its score on top of a move/attack score"
+  - Score it as an independent action using the character's current state"
 
-"Create a combined action type UseMediKitThenAttack where the AI heals 
-mid-turn, then continues to move or attack in the same turn"
+"Return the medkit action independently, then re-evaluate available actions"
 ```
 
 ---
 
-### 6. 🔄 Reload
+### 7. 🔄 Reload
 **AP Cost:** 1 | **Ends Turn:** No
 
-**Current State:** `Weapon.Reload()` sets `AmmoCurrent = AmmoMax`. `GetCurrentActions()` shows reload when `AmmoCurrent == 0`. AI **never checks ammo** and will attempt to score attack actions on an empty weapon.
+**Current State:** `Weapon.Reload()` sets `AmmoCurrent = AmmoMax`. `GetCurrentActions()` shows reload when `AmmoCurrent == 0`. The AI does not yet score reload; attack scoring is skipped when the weapon is empty.
 
 **Gaps:**
 - No `ActionTypeEnum` for `Reload`
-- AI currently scores `MoveThenAttack` even when the gun is empty
+- AI does not yet score a reload action when the gun is empty
 - No logic for deciding whether to reload vs. use a fallback action
-- Like MediKit, reload does not end the turn — AI could chain reload + overwatch
+- Reload is an independent action; the AI can re-evaluate the remaining options afterward
 
 **Enhancement Prompts:**
 ```
-"Add Reload = 7 to ActionTypeEnum. Add AI ammo guard at the top of 
-AssignPointsToEachTile - when AmmoCurrent == 0, skip all attack scoring 
-and score Reload + Overwatch or Reload + Move as the best options"
-
-"Score ReloadThenOverwatch as a combined action type - the AI reloads 
-(1 AP) then goes into overwatch with no remaining AP"
+"Add Reload to ActionTypeEnum and score it as an independent action when
+the weapon is empty, then re-evaluate available actions"
 
 "Add an AI_LOW_AMMO_THRESHOLD constant (e.g. 1 round remaining) to 
 GameConstants - score a tactical retreat/reload more highly when 
@@ -219,7 +199,7 @@ approaching empty rather than waiting for fully empty"
 
 ---
 
-### 7. ⚡ Special Ability
+### 8. ⚡ Special Ability
 **AP Cost:** 1 | **Ends Turn:** Yes
 
 **Current State:** `AbilityPool` defines passive abilities (`ArmorPiercing`, `Shredder`, `CriticalDamage` etc.) that modify combat calculations. These are **passive stat modifiers**, not active abilities the AI explicitly chooses. No active ability action type exists. AI has **no implementation**.
@@ -228,12 +208,11 @@ approaching empty rather than waiting for fully empty"
 - No active-use ability distinction vs. passive modifiers
 - No `ActionTypeEnum` for `UseAbility`
 - No AI scoring for when/how to use an active ability
-- Abilities are not yet per-character — they are drawn from a pool
 
 **Enhancement Prompts:**
 ```
-"Distinguish passive vs. active abilities: add IsActiveAbility bool to 
-the Ability class, and add Abilities list to Character"
+"Distinguish passive vs. active abilities by adding an IsActiveAbility bool
+to the existing Ability class"
 
 "Add UseSpecialAbility = 8 to ActionTypeEnum. Implement AI ability 
 scoring based on ability type:
@@ -251,13 +230,13 @@ active ability, callable from AssignPointsToEachTile"
 ## Suggested Implementation Order
 
 ```
-1. Fix shoot score accumulation bug
+1. Add independent movement and attack actions
         |
         v
-2. Add ammo check / Reload action
+2. Add Reload action scoring
         |
         v
-3. Add StayInPositionThenAttack
+3. Add MediKit action scoring
         |
         v
 4. Improve Overwatch scoring
@@ -269,20 +248,17 @@ active ability, callable from AssignPointsToEachTile"
 6. Add Grenade clustering detection and scoring
         |
         v
-7. Add MediKit chained action
+7. Target prioritization system
         |
         v
-8. Target prioritization system
-        |
-        v
-9. Active Special Abilities
+8. Active Special Abilities
 ```
 
 ---
 
 ## New `ActionTypeEnum` Target State
 
-The following is the target state for `ActionTypeEnum` once all actions are implemented:
+The legacy compound values remain in the enum for compatibility but are no longer returned by the AI. Independent action values planned for the remaining work are:
 
 ```csharp
 public enum ActionTypeEnum
@@ -292,14 +268,13 @@ public enum ActionTypeEnum
     MoveThenAttack = 2,
     StayInPositionThenAttack = 3,
     MoveThenOverwatch = 4,
-    HunkerDown = 5,
-    UseMediKit = 6,
-    Reload = 7,
-    UseSpecialAbility = 8,
-    ThrowGrenade = 9,
-    ReloadThenOverwatch = 10,
-    UseMediKitThenAttack = 11,
-    MoveThrowGrenadeThenAttack = 12,
+    Move = 5,
+    Overwatch = 6,
+    HunkerDown = 7,
+    UseMediKit = 8,
+    Reload = 9,
+    UseSpecialAbility = 10,
+    ThrowGrenade = 11,
 }
 ```
 

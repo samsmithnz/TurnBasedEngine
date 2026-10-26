@@ -1,4 +1,4 @@
-﻿using TBE.Logic.Encounters;
+using TBE.Logic.Encounters;
 using TBE.Logic.Game;
 using TBE.Logic.Map;
 using TBE.Logic.Utility;
@@ -24,263 +24,200 @@ namespace TBE.Logic.Characters
                 character.Name + " is processing AI, with intelligence " + character.Intelligence
             };
 
-            //1. Start with a list of all possible moves, a location, and number of movement points to that location
             List<KeyValuePair<Vector3, int>> movementPossibileTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, character.Location, character.MobilityRange, character.ActionPointsCurrent);
-
-            //2. Assign values to each possible tile
-            aiValues = AssignPointsToEachTile(map, character, sourceTeam, opponentTeam, movementPossibileTiles);
+            aiValues = AssignPointsToEachTile(map, character, opponentTeam, movementPossibileTiles);
             if (aiValues.Count == 0)
             {
                 throw new System.Exception("AssignPointsToEachTile returned no results");
             }
 
-            //3. Assign an action based on the intelligence check
-            //If the number rolled is higher than the chance to hit, the attack was successful!
             int randomInt = diceRolls.Dequeue();
-            AIAction aiActionResult = null;
+            AIAction aiActionResult;
             if ((GameConstants.PERCENTAGE_MAX - character.Intelligence) <= randomInt)
             {
                 log.Add("Successful intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
-                //roll successful
                 aiActionResult = aiValues[0].Value;
                 aiActionResult.IntelligenceCheckSuccessful = true;
             }
             else
             {
                 log.Add("Failed intelligence check: " + character.Intelligence.ToString() + ", (dice roll: " + randomInt.ToString() + ")");
-                //roll failed, make a sub-optimal move (the next highest ranked score)
                 int highestScore = aiValues[0].Value.Score;
-                for (int i = 0; i < aiValues.Count; i++)
+                aiActionResult = null;
+                for (int i = 1; i < aiValues.Count; i++)
                 {
-                    //Find the next highest ranking score
                     if (aiValues[i].Value.Score < highestScore)
                     {
                         aiActionResult = aiValues[i].Value;
                         break;
                     }
                 }
-                ////Double check - if it's still not assigned, assign the last value
-                //if (aiActionResult == null)
-                //{
-                //    aiActionResult = aiValues[aiValues.Count - 1].Value;
-                //}
+                if (aiActionResult == null)
+                {
+                    aiActionResult = aiValues[aiValues.Count > 1 ? 1 : 0].Value;
+                }
             }
 
-            if (aiActionResult != null)
-            {
-                aiActionResult.MapString = CreateAIMap(map);
-                aiActionResult.Log = log;
-            }
+            aiActionResult.MapString = CreateAIMap(map);
+            aiActionResult.Log = log;
             return aiActionResult;
         }
 
-        private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, Character sourceCharacter, Team sourceTeam, Team opponentTeam, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
+        private List<KeyValuePair<Vector3, AIAction>> AssignPointsToEachTile(string[,,] map, Character sourceCharacter, Team opponentTeam, List<KeyValuePair<Vector3, int>> movementPossibileTiles)
         {
             List<KeyValuePair<Vector3, AIAction>> results = new List<KeyValuePair<Vector3, AIAction>>();
-
-            //Preprocess a list of opponent characters and a list of character locations
             List<Character> opponentCharacters = new List<Character>();
             List<Vector3> opponentLocations = new List<Vector3>();
-            foreach (Character item in opponentTeam.Characters)
+            foreach (Character opponent in opponentTeam.Characters)
             {
-                if (item.HitpointsCurrent > 0)
+                if (opponent.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
                 {
-                    opponentCharacters.Add(item);
-                    opponentLocations.Add(item.Location);
+                    opponentCharacters.Add(opponent);
+                    opponentLocations.Add(opponent.Location);
                 }
             }
 
-            //Loop through each movement possibility, assigning scores and then choosing the best one
-            for (int i = 0; i < movementPossibileTiles.Count; i++)
+            foreach (KeyValuePair<Vector3, int> movement in movementPossibileTiles)
             {
-                List<AIAction> possibleOptions = new List<AIAction>();
-                KeyValuePair<Vector3, int> item = movementPossibileTiles[i];
-                Vector3 location = item.Key;
-                string targetName = "";
-                Vector3 targetLocation = Vector3.Zero;
-                int baseScore = GameConstants.AI_BASE_SCORE;
-                int moveSingleAPScore = GameConstants.AI_BASE_SCORE;
-                int moveDoubleAPScore = GameConstants.AI_BASE_SCORE;
-                int moveThenShootScore = GameConstants.AI_BASE_SCORE;
-                int moveThenHunkerDownScore = GameConstants.AI_BASE_SCORE;
-                int shootFromCurrentLocationScore = GameConstants.AI_BASE_SCORE;
-                int moveThenOverwatchScore = GameConstants.AI_BASE_SCORE;
-                int moveThenThrowGrenadeScore = GameConstants.AI_BASE_SCORE;
-
-                //Create a temp FOV map to simulate the board for this situation
-                string[,,] fovMap = (string[,,])map.Clone();
-                fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = GameConstants.EMPTY_TILE;
-                fovMap[(int)location.X, (int)location.Y, (int)location.Z] = GameConstants.PLAYER_MAP_MARKER;
-
-                //Cover calculation
-                CoverState coverStateResult = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
-                if (coverStateResult.IsFlanked)
+                int score = GetPositionScore(map, movement.Key, sourceCharacter, opponentCharacters, opponentLocations);
+                bool isSingleMove = movement.Value == GameConstants.SINGLE_MOVE_ACTION_POINT_COST;
+                score += isSingleMove ? GameConstants.AI_SINGLE_MOVE_BONUS : GameConstants.AI_DOUBLE_MOVE_BONUS;
+                if (score < GameConstants.AI_MINIMUM_SCORE)
                 {
-                    baseScore += GameConstants.AI_FLANKED_PENALTY;
-                }
-                else if (coverStateResult.InFullCover)
-                {
-                    baseScore += GameConstants.AI_FULL_COVER_BONUS;
-                }
-                else if (coverStateResult.InHalfCover)
-                {
-                    baseScore += GameConstants.AI_HALF_COVER_BONUS;
+                    score = GameConstants.AI_MINIMUM_SCORE;
                 }
 
-                //Upgrade positions that would flank opponents
-                List<Character> fovCharacters = FieldOfView.GetCharactersInArea(fovMap, opponentCharacters, location, sourceCharacter.ShootingRange);
-                foreach (Character fovCharacter in fovCharacters)
+                AIAction moveAction = new AIAction(isSingleMove ? ActionTypeEnum.Move : ActionTypeEnum.DoubleMove)
                 {
-                    CoverState coverStateResultOpponent = CharacterCover.CalculateCover(fovMap, fovCharacter.Location, new List<Vector3>() { location });
-                    if (coverStateResultOpponent.IsFlanked)
+                    Score = score,
+                    StartLocation = sourceCharacter.Location,
+                    EndLocation = movement.Key,
+                    ActionPointsCost = movement.Value
+                };
+                results.Add(new KeyValuePair<Vector3, AIAction>(movement.Key, moveAction));
+            }
+
+            if (sourceCharacter.ActionPointsCurrent > 0 && sourceCharacter.WeaponEquipped != null)
+            {
+                string[,,] currentMap = (string[,,])map.Clone();
+                List<Character> charactersInView = FieldOfView.GetCharactersInView(
+                    currentMap,
+                    sourceCharacter.Location,
+                    sourceCharacter.ShootingRange,
+                    opponentCharacters);
+
+                if (sourceCharacter.WeaponEquipped.AmmoCurrent > 0)
+                {
+                    foreach (Character target in charactersInView)
                     {
-                        //Position flanks enemy
-                        baseScore += GameConstants.AI_FLANKING_ENEMY_BONUS;
-                    }
-
-                    //Do a reverse FOV from the perspective of the character
-                    List<Vector3> fovCharacterVisibleTiles = FieldOfView.GetFieldOfView(fovMap, fovCharacter.Location, fovCharacter.FOVRange);
-                    //reduce the score for those tiles - they are more dangerous to move into
-                    if (fovCharacterVisibleTiles.Contains(location))
-                    {
-                        baseScore += GameConstants.AI_VISIBLE_TILE_PENALTY;
-                    }
-                }
-
-                //If there are movement points left, consider shooting options.
-                if (item.Value == GameConstants.SINGLE_MOVE_ACTION_POINT_COST)
-                {
-                    //If there are no opponents in view, just return a walk
-                    if (opponentCharacters.Count == 0)
-                    {
-                        moveSingleAPScore = baseScore;
-                        moveSingleAPScore += GameConstants.AI_SINGLE_MOVE_BONUS;
-                        //Normalize and record the score + target
-                        if (moveSingleAPScore < GameConstants.AI_MINIMUM_SCORE)
+                        int score = GetPositionScore(map, sourceCharacter.Location, sourceCharacter, opponentCharacters, opponentLocations);
+                        int chanceToHit = EncounterCore.GetChanceToHit(sourceCharacter, sourceCharacter.WeaponEquipped, target);
+                        score += GetHitChanceScore(chanceToHit);
+                        if (score < GameConstants.AI_MINIMUM_SCORE)
                         {
-                            moveSingleAPScore = GameConstants.AI_MINIMUM_SCORE;
+                            score = GameConstants.AI_MINIMUM_SCORE;
                         }
-                        possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenOverwatch)
+
+                        AIAction attackAction = new AIAction(ActionTypeEnum.StayInPositionThenAttack)
                         {
-                            Score = moveSingleAPScore,
+                            Score = score,
                             StartLocation = sourceCharacter.Location,
-                            EndLocation = location,
-                            TargetName = targetName,
-                            TargetLocation = targetLocation
-                        });
-
+                            EndLocation = sourceCharacter.Location,
+                            TargetName = target.Name,
+                            TargetLocation = target.Location,
+                            ActionPointsCost = sourceCharacter.ActionPointsCurrent
+                        };
+                        results.Add(new KeyValuePair<Vector3, AIAction>(sourceCharacter.Location, attackAction));
                     }
-                    else
+
+                    if (charactersInView.Count == 0)
                     {
-                        moveThenShootScore = baseScore;
-
-                        //Calculate chance to hit
-                        List<Character> charactersInView = FieldOfView.GetCharactersInView(fovMap, location, sourceCharacter.ShootingRange, opponentTeam.Characters);
-                        if (charactersInView.Count == 0)
+                        int score = GetPositionScore(map, sourceCharacter.Location, sourceCharacter, opponentCharacters, opponentLocations)
+                            + GameConstants.AI_NO_CHARACTERS_IN_VIEW_PENALTY;
+                        AIAction overwatchAction = new AIAction(ActionTypeEnum.Overwatch)
                         {
-                            //No characters in view, deduct some more points - this move achieves very little
-                            moveThenShootScore += GameConstants.AI_NO_CHARACTERS_IN_VIEW_PENALTY;
-                            if (moveThenShootScore < GameConstants.AI_MINIMUM_SCORE)
-                            {
-                                moveThenShootScore = GameConstants.AI_MINIMUM_SCORE;
-                            }
-                            possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenOverwatch)
-                            {
-                                Score = moveThenShootScore,
-                                StartLocation = sourceCharacter.Location,
-                                EndLocation = location
-                                //no target, as none in view
-                            });
-                        }
-                        else
-                        {
-                            foreach (Character opponentCharacter in charactersInView)
-                            {
-                                if (sourceCharacter.HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
-                                {
-                                    int chanceToHit = EncounterCore.GetChanceToHit(sourceCharacter, sourceCharacter.WeaponEquipped, opponentCharacter);
-                                    targetName = opponentCharacter.Name;
-                                    targetLocation = opponentCharacter.Location;
-                                    if (chanceToHit >= GameConstants.AI_HIT_CHANCE_EXCELLENT_THRESHOLD)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_EXCELLENT_BONUS;
-                                    }
-                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_VERY_GOOD_THRESHOLD)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_VERY_GOOD_BONUS;
-                                    }
-                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_GOOD_THRESHOLD)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_GOOD_BONUS;
-                                    }
-                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_DECENT_THRESHOLD)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_DECENT_BONUS;
-                                    }
-                                    else if (chanceToHit >= GameConstants.AI_HIT_CHANCE_FAIR_THRESHOLD)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_FAIR_BONUS;
-                                    }
-                                    else //(chanceToHit < 50)
-                                    {
-                                        moveThenShootScore += GameConstants.AI_HIT_CHANCE_POOR_BONUS;
-                                    }
-
-                                    //Normalize and record the score + target
-                                    if (moveThenShootScore < GameConstants.AI_MINIMUM_SCORE)
-                                    {
-                                        moveThenShootScore = GameConstants.AI_MINIMUM_SCORE;
-                                    }
-                                    possibleOptions.Add(new AIAction(ActionTypeEnum.MoveThenAttack)
-                                    {
-                                        Score = moveThenShootScore,
-                                        StartLocation = sourceCharacter.Location,
-                                        EndLocation = location,
-                                        TargetName = targetName,
-                                        TargetLocation = targetLocation
-                                    });
-                                }
-                            }
-                        }
+                            Score = System.Math.Max(score, GameConstants.AI_MINIMUM_SCORE),
+                            StartLocation = sourceCharacter.Location,
+                            EndLocation = sourceCharacter.Location,
+                            ActionPointsCost = sourceCharacter.ActionPointsCurrent
+                        };
+                        results.Add(new KeyValuePair<Vector3, AIAction>(sourceCharacter.Location, overwatchAction));
                     }
                 }
-                else if (item.Value == GameConstants.DOUBLE_MOVE_ACTION_POINT_COST)
-                {
-                    //double move - no bonuses
-                    moveDoubleAPScore = baseScore;
-                    moveDoubleAPScore += GameConstants.AI_DOUBLE_MOVE_BONUS;
-
-                    //Normalize and record the score + target
-                    if (moveDoubleAPScore < GameConstants.AI_MINIMUM_SCORE)
-                    {
-                        moveDoubleAPScore = GameConstants.AI_MINIMUM_SCORE;
-                    }
-                    possibleOptions.Add(new AIAction(ActionTypeEnum.DoubleMove)
-                    {
-                        Score = moveDoubleAPScore,
-                        StartLocation = sourceCharacter.Location,
-                        EndLocation = location
-                    });
-                }
-
-                //Order the final options
-                possibleOptions = possibleOptions.OrderByDescending(x => x.Score).ToList();
-                //Get the best first option
-                KeyValuePair<Vector3, AIAction> newItem = new KeyValuePair<Vector3, AIAction>(location, possibleOptions[GameConstants.FIRST_INDEX]);
-                results.Add(newItem);
             }
 
-            // Sort the values, highest first
-            results = results.OrderByDescending(x => x.Value.Score).ToList();
-
-            return results;
+            return results.OrderByDescending(x => x.Value.Score).ToList();
         }
 
+        private int GetPositionScore(string[,,] map, Vector3 location, Character sourceCharacter, List<Character> opponentCharacters, List<Vector3> opponentLocations)
+        {
+            string[,,] fovMap = (string[,,])map.Clone();
+            fovMap[(int)sourceCharacter.Location.X, (int)sourceCharacter.Location.Y, (int)sourceCharacter.Location.Z] = GameConstants.EMPTY_TILE;
+            fovMap[(int)location.X, (int)location.Y, (int)location.Z] = GameConstants.PLAYER_MAP_MARKER;
+
+            int score = GameConstants.AI_BASE_SCORE;
+            CoverState coverState = CharacterCover.CalculateCover(fovMap, location, opponentLocations);
+            if (coverState.IsFlanked)
+            {
+                score += GameConstants.AI_FLANKED_PENALTY;
+            }
+            else if (coverState.InFullCover)
+            {
+                score += GameConstants.AI_FULL_COVER_BONUS;
+            }
+            else if (coverState.InHalfCover)
+            {
+                score += GameConstants.AI_HALF_COVER_BONUS;
+            }
+
+            List<Character> charactersInArea = FieldOfView.GetCharactersInArea(fovMap, opponentCharacters, location, sourceCharacter.ShootingRange);
+            foreach (Character opponent in charactersInArea)
+            {
+                CoverState opponentCoverState = CharacterCover.CalculateCover(fovMap, opponent.Location, new List<Vector3>() { location });
+                if (opponentCoverState.IsFlanked)
+                {
+                    score += GameConstants.AI_FLANKING_ENEMY_BONUS;
+                }
+
+                List<Vector3> visibleTiles = FieldOfView.GetFieldOfView(fovMap, opponent.Location, opponent.FOVRange);
+                if (visibleTiles.Contains(location))
+                {
+                    score += GameConstants.AI_VISIBLE_TILE_PENALTY;
+                }
+            }
+
+            return score;
+        }
+
+        private int GetHitChanceScore(int chanceToHit)
+        {
+            if (chanceToHit >= GameConstants.AI_HIT_CHANCE_EXCELLENT_THRESHOLD)
+            {
+                return GameConstants.AI_HIT_CHANCE_EXCELLENT_BONUS;
+            }
+            if (chanceToHit >= GameConstants.AI_HIT_CHANCE_VERY_GOOD_THRESHOLD)
+            {
+                return GameConstants.AI_HIT_CHANCE_VERY_GOOD_BONUS;
+            }
+            if (chanceToHit >= GameConstants.AI_HIT_CHANCE_GOOD_THRESHOLD)
+            {
+                return GameConstants.AI_HIT_CHANCE_GOOD_BONUS;
+            }
+            if (chanceToHit >= GameConstants.AI_HIT_CHANCE_DECENT_THRESHOLD)
+            {
+                return GameConstants.AI_HIT_CHANCE_DECENT_BONUS;
+            }
+            if (chanceToHit >= GameConstants.AI_HIT_CHANCE_FAIR_THRESHOLD)
+            {
+                return GameConstants.AI_HIT_CHANCE_FAIR_BONUS;
+            }
+
+            return GameConstants.AI_HIT_CHANCE_POOR_BONUS;
+        }
 
         private string CreateAIMap(string[,,] map)
         {
             return MapCore.GetMapStringWithAIValuesSecond(map, aiValues);
         }
-
     }
 }

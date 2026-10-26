@@ -1,8 +1,10 @@
-﻿using TBE.Logic.Characters;
+using TBE.Logic;
+using TBE.Logic.Characters;
 using TBE.Logic.Encounters;
 using TBE.Logic.Game;
 using TBE.Logic.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace TBE.Tests.Characters
 {
@@ -10,181 +12,75 @@ namespace TBE.Tests.Characters
     [TestCategory("L1")]
     public class CharacterAITests
     {
+        [TestMethod]
+        public void CharacterAIChoosesAnAffordableSingleMove()
+        {
+            Mission mission = CreateMission(1, false, out Character character, out Team opponentTeam);
+
+            AIAction action = mission.CalculateAIAction(character, mission.Teams[0], opponentTeam);
+
+            Assert.AreEqual(ActionTypeEnum.Move, action.ActionType);
+            Assert.AreEqual(GameConstants.SINGLE_MOVE_ACTION_POINT_COST, action.ActionPointsCost);
+            Assert.AreNotEqual(character.Location, action.EndLocation);
+        }
 
         [TestMethod]
-        public void CharacterJethroAIMovesIntoFullCoverNoOpponentsTest()
+        public void CharacterAIAttacksFromCurrentPositionAndEndsTurn()
         {
-            //Arrange
-            Mission mission = new()
+            Mission mission = CreateMission(2, true, out Character character, out Team opponentTeam);
+
+            AIAction action = mission.CalculateAIAction(character, mission.Teams[0], opponentTeam);
+
+            Assert.AreEqual(ActionTypeEnum.StayInPositionThenAttack, action.ActionType);
+            Assert.AreEqual(character.Location, action.StartLocation);
+            Assert.AreEqual(character.Location, action.EndLocation);
+            Assert.AreEqual(character.ActionPointsCurrent, action.ActionPointsCost);
+            Assert.AreEqual(opponentTeam.Characters[0].Name, action.TargetName);
+        }
+
+        [TestMethod]
+        public void CharacterAIWithEmptyWeaponChoosesMovementInsteadOfAnAttack()
+        {
+            Mission mission = CreateMission(1, true, out Character character, out Team opponentTeam);
+            character.WeaponEquipped.AmmoCurrent = 0;
+
+            AIAction action = mission.CalculateAIAction(character, mission.Teams[0], opponentTeam);
+
+            Assert.AreEqual(ActionTypeEnum.Move, action.ActionType);
+            Assert.AreEqual(GameConstants.SINGLE_MOVE_ACTION_POINT_COST, action.ActionPointsCost);
+        }
+
+        private static Mission CreateMission(int actionPoints, bool addOpponent, out Character character, out Team opponentTeam)
+        {
+            Mission mission = new Mission
             {
                 Map = MapCore.InitializeMap(50, 1, 50)
             };
-            mission.Map[20, 0, 20] = CoverType.FullCover;
-            mission.Map[18, 0, 18] = CoverType.HalfCover;
-            Team team1 = new(1)
+            character = CharacterPool.CreateJethroBaddie(mission.Map, new Vector3(15, 0, 15));
+            character.Intelligence = GameConstants.PERCENTAGE_MAX;
+            character.ActionPointsCurrent = actionPoints;
+
+            Team sourceTeam = new Team(0)
             {
-                Name = "Good guys",
-                Characters = new() { },
-                Color = "Blue"
-            };
-            mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(15, 0, 15));
-            jethro.ActionPointsCurrent = 2;
-            Team team2 = new(0)
-            {
-                Name = "Bad guys",
-                Characters = new() { jethro },
+                Name = "Source team",
+                Characters = new() { character },
                 Color = "Red"
             };
-            mission.Teams.Add(team2);
+            opponentTeam = new Team(1)
+            {
+                Name = "Opponent team",
+                Characters = new(),
+                Color = "Blue"
+            };
 
-            //Act            
-            //Scenario 1: Failure
-            AIAction actionResult1 = mission.CalculateAIAction(jethro, team2, team1);
-            //Scenario 2: Success
-            AIAction actionResult2 = mission.CalculateAIAction(jethro, team2, team1);
-            string mapString = actionResult2.MapString;
+            if (addOpponent)
+            {
+                opponentTeam.Characters.Add(CharacterPool.CreateFredHero(mission.Map, new Vector3(16, 0, 15)));
+            }
 
-            //Assert
-            string mapStringExpected = @"
-. . . . . . . . . . . . . . . 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-. . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11 ■ 10 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 11 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 □ 7 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 P 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-";
-            Assert.AreEqual(mapStringExpected, mapString);
-            string log1 = @"
-Jethro is processing AI, with intelligence 25
-Failed intelligence check: 25, (dice roll: 8)
-";
-            Assert.AreEqual(log1, actionResult1.LogString);
-            Assert.AreEqual(10, actionResult1.Score);
-            Assert.AreEqual(new(15, 0, 15), actionResult1.StartLocation);
-            Assert.AreEqual(new(20, 0, 21), actionResult1.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult1.ActionType);
-
-            string log2 = @"
-Jethro is processing AI, with intelligence 25
-Successful intelligence check: 25, (dice roll: 81)
-";
-            Assert.AreEqual(log2, actionResult2.LogString);
-            Assert.AreEqual(new(15, 0, 15), actionResult2.StartLocation);
-            Assert.AreEqual(new(19, 0, 20), actionResult2.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.DoubleMove, actionResult2.ActionType);
+            mission.Teams.Add(sourceTeam);
+            mission.Teams.Add(opponentTeam);
+            return mission;
         }
-
-
-        [TestMethod]
-        public void CharacterJethroAIMovesIntoFullCoverWithOpponentTest()
-        {
-            //Arrange
-            Mission mission = new()
-            {
-                Map = MapCore.InitializeMap(50, 1, 50)
-            };
-            mission.Map[5, 0, 6] = CoverType.FullCover;
-            mission.Map[14, 0, 5] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 6] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 7] = CoverType.HalfCover; //half cover here!
-            mission.Map[14, 0, 8] = CoverType.FullCover;
-            mission.Map[14, 0, 9] = CoverType.FullCover;
-            mission.Map[14, 0, 10] = CoverType.FullCover;
-            mission.Map[14, 0, 11] = CoverType.FullCover;
-            mission.Map[14, 0, 12] = CoverType.FullCover;
-            mission.Map[14, 0, 13] = CoverType.FullCover;
-            mission.Map[14, 0, 14] = CoverType.FullCover;
-            Character fred = CharacterPool.CreateFredHero(mission.Map, new(5, 0, 5));
-            Team team1 = new(1)
-            {
-                Name = "Good guys",
-                Characters = new() { fred }
-            };
-            mission.Teams.Add(team1);
-            Character jethro = CharacterPool.CreateJethroBaddie(mission.Map, new(15, 0, 10));
-            jethro.HitpointsCurrent = 5;
-            Team team2 = new(0)
-            {
-                Name = "Bad guys",
-                Characters = new() { jethro }
-            };
-            mission.Teams.Add(team2);
-            //Remove the 8, so that the 81 is primed and ready
-            mission.RandomNumbers.Dequeue();
-
-            //Act            
-            AIAction actionResult = mission.CalculateAIAction(jethro, team2, team1);
-            string mapString = actionResult.MapString;
-
-            //Assert         
-            string mapStringExpected = @"
-. . . . . . . . . . . . . . . 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . 0 0 0 0 0 0 0 0 0 0 ■ 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 ■ 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 ■ 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 . ■ 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 . ■ P 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 . ■ 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 . ■ 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 □ 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . . . . ■ 0 0 0 0 0 0 0 0 □ 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . 
-. . . . . P 0 0 0 0 0 0 0 0 □ 7 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 . . . . . . . . . . . . . . . . . . . . . . . 
-";
-            Assert.AreEqual(mapStringExpected, mapString);
-            string log1 = @"
-Jethro is processing AI, with intelligence 25
-Successful intelligence check: 25, (dice roll: 81)
-";
-            Assert.AreEqual(log1, actionResult.LogString);
-            Assert.AreEqual(new(15, 0, 10), actionResult.StartLocation);
-            Assert.AreEqual(new(15, 0, 6), actionResult.EndLocation);
-            Assert.AreEqual(ActionTypeEnum.MoveThenAttack, actionResult.ActionType);
-            Assert.AreEqual(true, actionResult.IntelligenceCheckSuccessful);
-            Assert.AreEqual(new(5, 0, 5), actionResult.TargetLocation);
-        }
-
     }
 }
