@@ -56,17 +56,38 @@ Critical chance: 70, (dice roll: 0)
         }
 
         [TestMethod]
+        [DataRow(0, 9, 7)]
+        [DataRow(49, 9, 7)]
+        [DataRow(50, 7, 9)]
+        [DataRow(100, 7, 9)]
+        public void MissUsesNextQueuedRollForDirectionTest(int directionRoll, int impactX, int impactZ)
+        {
+            string[,,] map = MapCore.InitializeMap(10, 1, 10);
+            Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
+            fred.ChanceToHit = 45;
+            Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
+            RandomNumberQueue diceRolls = new(new int[] { 44, directionRoll, 17 });
+
+            EncounterResult result = Encounter.AttackCharacter(map, fred, fred.WeaponEquipped, jethro, diceRolls);
+
+            Assert.IsFalse(result.IsHit);
+            Assert.AreEqual(new(impactX, 0, impactZ), result.MissedLocation);
+            Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
+            Assert.AreEqual(17, diceRolls.Peek());
+        }
+
+        [TestMethod]
         public void FredAttacksJethroWithRifleAndMissesHittingHighCoverTest()
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[8, 0, 9] = CoverType.FullCover;
+            map[7, 0, 9] = CoverType.FullCover;
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.CoverState.InFullCover = false;
-            RandomNumberQueue diceRolls = new(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 44, 100 }); //Chance to hit roll, miss direction roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -76,12 +97,12 @@ Critical chance: 70, (dice roll: 0)
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
-            Assert.AreEqual(new(8, 0, 9), result.MissedLocation);
-            Assert.AreEqual(CoverType.HalfCover, map[8, 0, 9]);
+            Assert.AreEqual(new(7, 0, 9), result.MissedLocation);
+            Assert.AreEqual(CoverType.HalfCover, map[7, 0, 9]);
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 55, (dice roll: 44)
-High cover downgraded to low cover at <8, 0, 9>
+High cover downgraded to low cover at <7, 0, 9>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -92,13 +113,13 @@ High cover downgraded to low cover at <8, 0, 9>
         {
             //Arrange
             string[,,] map = MapCore.InitializeMap(10, 1, 10);
-            map[8, 0, 9] = CoverType.HalfCover;
+            map[7, 0, 9] = CoverType.HalfCover;
             Character fred = CharacterPool.CreateFredHero(map, new(0, 0, 0));
             fred.ChanceToHit = 45;
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.CoverState.InFullCover = false;
-            RandomNumberQueue diceRolls = new(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 44, 100 }); //Chance to hit roll, miss direction roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -108,12 +129,12 @@ High cover downgraded to low cover at <8, 0, 9>
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
-            Assert.AreEqual(new(8, 0, 9), result.MissedLocation);
-            Assert.AreEqual(CoverType.NoCover, map[8, 0, 9]);
+            Assert.AreEqual(new(7, 0, 9), result.MissedLocation);
+            Assert.AreEqual(CoverType.NoCover, map[7, 0, 9]);
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
-Missed: Chance to hit: 35, (dice roll: 44)
-Low cover downgraded to no cover at <8, 0, 9>
+Missed: Chance to hit: 55, (dice roll: 44)
+Low cover downgraded to no cover at <7, 0, 9>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -129,7 +150,7 @@ Low cover downgraded to no cover at <8, 0, 9>
             Weapon rifle = fred.WeaponEquipped;
             Character jethro = CharacterPool.CreateJethroBaddie(map, new(8, 0, 8));
             jethro.CoverState.InFullCover = false;
-            RandomNumberQueue diceRolls = new(new List<int> { 44 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 44, 100 }); //Chance to hit roll, miss direction roll
 
             //Act
             EncounterResult result = Encounter.AttackCharacter(map, fred, rifle, jethro, diceRolls);
@@ -139,8 +160,8 @@ Low cover downgraded to no cover at <8, 0, 9>
             Assert.AreEqual(4, result.TargetCharacter.HitpointsCurrent);
             Assert.AreEqual(0, result.SourceCharacter.XP);
             Assert.AreEqual(false, result.IsHit);
-            Assert.AreEqual(new(8, 0, 9), result.MissedLocation);
-            Assert.AreEqual("", map[8, 0, 9]);
+            Assert.AreEqual(new(7, 0, 9), result.MissedLocation);
+            Assert.AreEqual("", map[7, 0, 9]);
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 55, (dice roll: 44)
@@ -794,6 +815,7 @@ Fred is ready to level up
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 24, (dice roll: 65)
+High cover downgraded to low cover at <2, 0, 3>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);
@@ -835,6 +857,7 @@ Missed: Chance to hit: 24, (dice roll: 65)
             string log = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 64, (dice roll: 35)
+Low cover downgraded to no cover at <2, 0, 3>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log, result.LogString);

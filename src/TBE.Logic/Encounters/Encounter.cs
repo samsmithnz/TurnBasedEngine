@@ -178,11 +178,7 @@ namespace TBE.Logic.Encounters
                     int missedByPercent = (GameConstants.PERCENTAGE_MAX - toHitPercent) - randomToHit;
 
                     //Work out where the shot goes
-                    //get the percentage miss
-                    //Randomize x,y,z coordinates.
-                    //Aim and shoot at that new target and see if we hit anything
-                    //do this by doubling the lines. 
-                    missedLocation = FieldOfView.MissedShot(map, sourceCharacter.Location, targetCharacter.Location, missedByPercent);
+                    missedLocation = FieldOfView.MissedShot(map, sourceCharacter.Location, targetCharacter.Location, missedByPercent, diceRolls);
 
                     //Remove cover at this location
                     if (map[(int)missedLocation.X, (int)missedLocation.Y, (int)missedLocation.Z] != GameConstants.EMPTY_TILE)

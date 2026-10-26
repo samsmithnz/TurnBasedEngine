@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using TBE.Logic.Utility;
 
 namespace TBE.Logic.Map
 {
@@ -113,10 +114,10 @@ namespace TBE.Logic.Map
 
 
         //Follow the missed shot to find the target
-        public static Vector3 MissedShot(string[,,] map, Vector3 source, Vector3 target, int missedByPercent)
+        public static Vector3 MissedShot(string[,,] map, Vector3 source, Vector3 target, int missedByPercent, RandomNumberQueue diceRolls)
         {
             //Get the final missed location the projectile is heading down
-            Vector3 finalLocation = GetMissedLocation(map, source, target, missedByPercent);
+            Vector3 finalLocation = GetMissedLocation(map, source, target, missedByPercent, diceRolls);
 
             //Get all of the points along this line to the final location
             List<Vector3> points = GetPointsOnLine(source, finalLocation);
@@ -145,64 +146,27 @@ namespace TBE.Logic.Map
         }
 
         //Get the final location - which will usually be just off the map
-        public static Vector3 GetMissedLocation(string[,,] map, Vector3 source, Vector3 target, int missedByPercent = 0)
+        public static Vector3 GetMissedLocation(string[,,] map, Vector3 source, Vector3 target, int missedByPercent, RandomNumberQueue diceRolls)
         {
-            int xMax = map.GetLength(0);
-            int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
+            Vector2 direction = new Vector2(target.X - source.X, target.Z - source.Z);
+            direction = direction == Vector2.Zero ? Vector2.UnitX : Vector2.Normalize(direction);
 
-            int xDifference = (int)(target.X - source.X);
-            int yDifference = (int)(target.Y - source.Y);
-            int zDifference = (int)(target.Z - source.Z);
-
-            int xAdjustment = 1;
-            if (xDifference < 0)
+            //Near misses deviate by 5 degrees; the worst misses deviate by 45 degrees.
+            double angle = (5 + 40 * Math.Clamp(missedByPercent, 0, 100) / 100.0) * Math.PI / 180;
+            if (diceRolls.Dequeue() < GameConstants.PERCENTAGE_MAX / 2)
             {
-                xAdjustment = -1;
-            }
-            int yAdjustment = 1;
-            if (yDifference < 0)
-            {
-                yAdjustment = -1;
-            }
-            int zAdjustment = 1;
-            if (zDifference < 0)
-            {
-                zAdjustment = -1;
-            }
-            if (xDifference == 0)
-            {
-                xDifference = 1;
-            }
-            if (yDifference == 0)
-            {
-                yDifference = 1;
-            }
-            if (zDifference == 0)
-            {
-                zDifference = 1;
+                angle = -angle;
             }
 
-            int xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference);
-            if (xDifference < 0)
-            {
-                xMultiplier = (int)Math.Ceiling((xMax - target.X) / xDifference * xAdjustment);
-            }
-            int yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference);
-            if (yDifference < 0)
-            {
-                yMultiplier = (int)Math.Ceiling((yMax - target.Y) / yDifference * yAdjustment);
-            }
-            int zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference);
-            if (zDifference < 0)
-            {
-                zMultiplier = (int)Math.Ceiling((zMax - target.Z) / zDifference * zAdjustment);
-            }
+            double xDirection = direction.X * Math.Cos(angle) - direction.Y * Math.Sin(angle);
+            double zDirection = direction.X * Math.Sin(angle) + direction.Y * Math.Cos(angle);
 
-            int xFinal = ((int)target.X + (xDifference * xMultiplier));
-            int yFinal = ((int)target.Y + (yDifference * yMultiplier));
-            int zFinal = ((int)target.Z + (zDifference * zMultiplier)) + 2; //TODO: Fix this - but for now, it will work for missed shots
-            return new Vector3(xFinal, yFinal, zFinal);
+            //One common scale preserves the rotated direction and extends it beyond any map edge.
+            double distance = Math.Sqrt(Math.Pow(map.GetLength(0), 2) + Math.Pow(map.GetLength(2), 2)) + 1;
+            return new Vector3(
+                (float)Math.Round(source.X + xDirection * distance),
+                source.Y,
+                (float)Math.Round(source.Z + zDirection * distance));
         }
 
         //http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html
