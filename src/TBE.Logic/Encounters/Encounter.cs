@@ -322,7 +322,7 @@ namespace TBE.Logic.Encounters
                 xp = Experience.GetExperience(true, true);
                 sourceCharacter.TotalKills++;
                 //Update map to remove character - this square is now clear and can be tranversed/used
-                map[(int)targetCharacter.Location.X, (int)targetCharacter.Location.Y, (int)targetCharacter.Location.Z] = GameConstants.EMPTY_TILE;
+                map[(int)targetCharacter.Location.X, (int)targetCharacter.Location.Y, (int)targetCharacter.Location.Z] = targetCharacter.TileUnderCharacter;
             }
             else
             {
