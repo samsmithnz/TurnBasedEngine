@@ -212,7 +212,7 @@ Fred is ready to level up
             team2.Characters.Add(jethro);
             team1.UpdateTargets(map, team2.Characters);
             team2.UpdateTargets(map, team1.Characters);
-            RandomNumberQueue diceRolls = new(new List<int> { 0, 1, 2, 3, 4, 5, 0, 1 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 0, 100, 1, 100, 2, 3, 4, 5, 0, 1 }); //Each miss consumes a hit roll and a direction roll
 
             //Act
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, jethro.Location, destination);
