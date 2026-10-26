@@ -317,5 +317,83 @@ namespace TBE.Logic.Game
             }
             return false;
         }
+
+        public bool OpenDoor(Character sourceCharacter)
+        {
+            if (sourceCharacter == null)
+            {
+                return false;
+            }
+
+            List<Vector3> doors = MapCore.FindAdjacentTile(Map, sourceCharacter.Location, CoverType.DoorClosed);
+            if (doors.Count == 0)
+            {
+                return false;
+            }
+
+            Vector3 doorLocation = doors[0];
+            Map[(int)doorLocation.X, (int)doorLocation.Y, (int)doorLocation.Z] = CoverType.DoorOpen;
+            UpdateTeamTargets();
+            return true;
+        }
+
+        public bool CloseDoor(Character sourceCharacter)
+        {
+            if (sourceCharacter == null)
+            {
+                return false;
+            }
+
+            List<Vector3> doors = MapCore.FindAdjacentTile(Map, sourceCharacter.Location, CoverType.DoorOpen);
+            foreach (Team team in Teams)
+            {
+                foreach (Character character in team.Characters)
+                {
+                    if (character.TileUnderCharacter == CoverType.DoorOpen &&
+                        Math.Abs(character.Location.X - sourceCharacter.Location.X) +
+                        Math.Abs(character.Location.Z - sourceCharacter.Location.Z) == 1)
+                    {
+                        doors.Add(character.Location);
+                    }
+                }
+            }
+
+            foreach (Vector3 doorLocation in doors)
+            {
+                bool isOccupied = Map[(int)doorLocation.X, (int)doorLocation.Y, (int)doorLocation.Z] == GameConstants.PLAYER_MAP_MARKER;
+                foreach (Team team in Teams)
+                {
+                    foreach (Character character in team.Characters)
+                    {
+                        if (character.HitpointsCurrent > GameConstants.DEAD_HITPOINTS && character.Location == doorLocation)
+                        {
+                            isOccupied = true;
+                            break;
+                        }
+                    }
+                    if (isOccupied)
+                    {
+                        break;
+                    }
+                }
+
+                if (!isOccupied)
+                {
+                    Map[(int)doorLocation.X, (int)doorLocation.Y, (int)doorLocation.Z] = CoverType.DoorClosed;
+                    UpdateTeamTargets();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void UpdateTeamTargets()
+        {
+            if (Teams.Count == 2)
+            {
+                Teams[0].UpdateTargets(Map, Teams[1].Characters);
+                Teams[1].UpdateTargets(Map, Teams[0].Characters);
+            }
+        }
     }
 }

@@ -61,6 +61,10 @@ namespace TBE.Logic.Characters
                 result.EndLocation = step;
 
                 //Move to the next step
+                if (map[(int)step.X, (int)step.Y, (int)step.Z] == CoverType.DoorClosed)
+                {
+                    map[(int)step.X, (int)step.Y, (int)step.Z] = CoverType.DoorOpen;
+                }
                 characterMoving.SetLocationAndRange(map, step, characterMoving.FOVRange, opponentCharacters);
                 if (characterTeam != null)
                 {
