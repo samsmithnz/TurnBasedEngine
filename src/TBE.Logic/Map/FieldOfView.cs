@@ -131,7 +131,7 @@ namespace TBE.Logic.Map
                 if (((int)item.X > map.GetLength(GameConstants.X_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.X < GameConstants.FIRST_INDEX ||
                     (int)item.Y > map.GetLength(GameConstants.Y_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.Y < GameConstants.FIRST_INDEX ||
                     (int)item.Z > map.GetLength(GameConstants.Z_DIMENSION_INDEX) - GameConstants.LAST_INDEX_OFFSET || (int)item.Z < GameConstants.FIRST_INDEX) &&
-                    points.Count > GameConstants.DEAD_HITPOINTS)
+                    points.Count > 0)
                 {
                     return points[i - GameConstants.PREVIOUS_INDEX_OFFSET];
                 }
