@@ -100,7 +100,9 @@ namespace TBE.Logic.Map
                     if (fovItem.X >= GameConstants.FIRST_INDEX && fovItem.Y >= GameConstants.FIRST_INDEX && fovItem.Z >= GameConstants.FIRST_INDEX)
                     {
                         //If we find an object, stop adding tiles
-                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+                        if (lookingForFOV &&
+                            (map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover ||
+                             map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.DoorClosed))
                         {
                             //Add the wall
                             results.Add(fovItem);

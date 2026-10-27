@@ -43,7 +43,7 @@ namespace TBE.Tests.Scenarios
                 Color = "Red"
             };
             mission.Teams.Add(team2);
-            RandomNumberQueue diceRolls = new(new List<int> { 100, 100, 0, 0, 100, 100, 100 }); //Chance to hit roll, damage roll, critical chance roll
+            RandomNumberQueue diceRolls = new(new List<int> { 100, 100, 0, 0, 100, 100, 100, 100 }); //Hit/damage/critical rolls, with a direction roll after the miss
             mission.RandomNumbers = diceRolls;
             mission.StartMission();
 

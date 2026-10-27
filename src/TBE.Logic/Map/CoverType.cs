@@ -8,5 +8,7 @@
         //▫
         public const string ToggleSwitchOn = "T";
         public const string ToggleSwitchOff = "Y";
+        public const string DoorClosed = "D";
+        public const string DoorOpen = "○";
     }
 }

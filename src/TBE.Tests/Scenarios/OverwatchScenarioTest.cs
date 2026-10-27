@@ -125,13 +125,13 @@ namespace TBE.Tests.Scenarios
 o o o o . . . . . . . . . . . . . . . . . . . . □ . . . . . . . . □ . . . . . . . . . . . □ . . . . 
 o o o o o o . . . . . . □ . . . . . . . . . . . . . ■ . . . . . . ■ . . . ■ . . . . □ . . . . . . . 
 o o o o o o o . o . . . . . . . ■ . . . . . . . . . . □ . . . . . . . . . . . . . . . . □ ■ . . . . 
-o o o o o □ o o o o o . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . . □ ■ . . 
-o o o ■ o o o o o □ o o □ . . □ . . . . . . . . . . . . . ■ . □ . . . . . . . . . . . . . . . . . . 
-o o o o o o o o o o o o o . . . . . . . . . . . . . . . □ . . . . . . . □ . . . . . □ . . . . . . . 
+o o o o o □ o o o . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . . . . . . . . □ ■ . . 
+o o o ■ o o o o o □ . . □ . . □ . . . . . . . . . . . . . ■ . □ . . . . . . . . . . . . . . . . . . 
+o o o o o o o o o o . o o . . . . . . . . . . . . . . . □ . . . . . . . □ . . . . . □ . . . . . . . 
 o o o o o o o ■ o o o o o o . . . . . . . . . . . . . . . . ■ . □ . . . . . . . ■ . □ . . . . . . . 
 o o o o □ □ o o ■ o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . ■ . . . . . . □ . . . 
-o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . 
-o o o □ o □ o o o □ o ■ o o o . . . . . . . . . ■ □ . . . . . . . . . . . . . . . . . . . . . . . . 
+o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . . . . . . 
+o o o □ o □ o o o □ o ■ . o . . . . . . . . . . ■ □ . . . . . . . . . . . . . . . . . . . . . . . . 
 o o o o o o o o □ o o o □ o o . . . . . . . . . . . □ . . . . . . . . . . . . . . . . . . . . . . . 
 o o o □ o □ o ■ o o o o o o o o . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . □ . 
 o o o o o o o o o o o o o o o o . . . . . . . . . . . . . . . . . ■ . □ . . . ■ . . . . . . . . . . 
@@ -154,6 +154,7 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             Assert.AreEqual(5, damageOptions.DamageHigh);
 
             //Fred shoots at Jethro, and misses 
+            mission.RandomNumbers = new RandomNumberQueue(new int[] { 8, 100, 81, 76, 55 });
             EncounterResult encounter1 = mission.AttackCharacter(fred,
                    fred.WeaponEquipped,
                    jethro,
@@ -162,11 +163,11 @@ o o o o o o o o o o o o o o o o o . . . . . . . . . . . . □ . □ . . . . . . 
             string log1 = @"
 Fred is attacking with Rifle, targeted on Jethro
 Missed: Chance to hit: 80, (dice roll: 8)
-Low cover downgraded to no cover at <5, 0, 5>
+Low cover downgraded to no cover at <5, 0, 7>
 0 XP added to character Fred, for a total of 0 XP
 ";
             Assert.AreEqual(log1, encounter1.LogString);
-            Assert.AreEqual(new(5, 0, 5), encounter1.MissedLocation);
+            Assert.AreEqual(new(5, 0, 7), encounter1.MissedLocation);
 
             //Fred shoots at Jethro, and hits him. 
             EncounterResult encounter2 = mission.AttackCharacter(fred,

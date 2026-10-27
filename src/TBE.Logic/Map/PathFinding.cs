@@ -31,7 +31,7 @@ namespace TBE.Logic.Map
 
             // The start tile is the first entry in the 'open' list
             PathFindingResult result = new PathFindingResult();
-            if (startLocation != endLocation && endTile.TileType != string.Empty)
+            if (startLocation != endLocation && !IsWalkable(endTile.TileType))
             {
                 return result;
             }
@@ -132,18 +132,19 @@ namespace TBE.Logic.Map
                     continue;
                 }
 
-                if (_map[x, y, z] != string.Empty)
+                if (!IsWalkable(_map[x, y, z]))
+                {
+                    continue;
+                }
+
+                if (_adjacentXOffsets[i] != 0 && _adjacentZOffsets[i] != 0 &&
+                    !IsWalkable(_map[x, y, (int)fromTile.Location.Z]) &&
+                    !IsWalkable(_map[(int)fromTile.Location.X, y, z]))
                 {
                     continue;
                 }
 
                 MapTile tile = GetOrCreateTile(x, y, z);
-                // Ignore non-walkable tiles
-                if (tile.TileType != "")
-                {
-                    continue;
-                }
-
                 // Ignore already-closed tiles
                 if (tile.State == TileState.Closed)
                 {
@@ -171,6 +172,11 @@ namespace TBE.Logic.Map
             }
 
             return walkableTiles;
+        }
+
+        private static bool IsWalkable(string tileType)
+        {
+            return tileType == string.Empty || tileType == CoverType.DoorClosed || tileType == CoverType.DoorOpen;
         }
 
         private static void InsertTileByFValue(List<MapTile> walkableTiles, MapTile tile)

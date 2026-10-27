@@ -32,6 +32,74 @@ namespace TBE.Tests.Map
         }
 
         [TestMethod]
+        [DataRow(0, 0, 1, 1)]
+        [DataRow(0, 1, 1, 0)]
+        [DataRow(1, 0, 0, 1)]
+        [DataRow(1, 1, 0, 0)]
+        public void Test_DiagonalBetweenTwoBlockedTiles_CannotFindPath(int startX, int startZ, int endX, int endZ)
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(2, 1, 2);
+            map[endX, 0, startZ] = CoverType.FullCover;
+            map[startX, 0, endZ] = CoverType.HalfCover;
+            Vector3 startLocation = new(startX, 0, startZ);
+            Vector3 endLocation = new(endX, 0, endZ);
+
+            //Act
+            PathFindingResult result = PathFinding.FindPath(map, startLocation, endLocation);
+            List<KeyValuePair<Vector3, int>> reachableTiles = MovementPossibileTiles.GetMovementPossibileTiles(map, startLocation, 2, 1);
+
+            //Assert
+            Assert.AreEqual(0, result.Path.Count);
+            Assert.AreEqual(0, result.Tiles.Count);
+            Assert.AreEqual(0, reachableTiles.Count);
+        }
+
+        [TestMethod]
+        [DataRow(0, 0, 1, 1, true)]
+        [DataRow(0, 0, 1, 1, false)]
+        [DataRow(0, 1, 1, 0, true)]
+        [DataRow(0, 1, 1, 0, false)]
+        [DataRow(1, 0, 0, 1, true)]
+        [DataRow(1, 0, 0, 1, false)]
+        [DataRow(1, 1, 0, 0, true)]
+        [DataRow(1, 1, 0, 0, false)]
+        public void Test_DiagonalBesideOneBlockedTile_CanFindDirectPath(int startX, int startZ, int endX, int endZ, bool blockX)
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(2, 1, 2);
+            map[blockX ? endX : startX, 0, blockX ? startZ : endZ] = CoverType.FullCover;
+            Vector3 startLocation = new(startX, 0, startZ);
+            Vector3 endLocation = new(endX, 0, endZ);
+
+            //Act
+            PathFindingResult result = PathFinding.FindPath(map, startLocation, endLocation);
+
+            //Assert
+            Assert.AreEqual(1, result.Path.Count);
+            Assert.AreEqual(endLocation, result.Path[0]);
+        }
+
+        [TestMethod]
+        public void Test_DiagonalBetweenTwoBlockedTiles_CanFindPathAroundCorner()
+        {
+            //Arrange
+            string[,,] map = MapCore.InitializeMap(4, 1, 4);
+            map[2, 0, 1] = CoverType.FullCover;
+            map[1, 0, 2] = CoverType.FullCover;
+            Vector3 startLocation = new(1, 0, 1);
+            Vector3 endLocation = new(2, 0, 2);
+
+            //Act
+            PathFindingResult result = PathFinding.FindPath(map, startLocation, endLocation);
+
+            //Assert
+            Assert.IsTrue(result.Path.Count > 1);
+            Assert.AreNotEqual(endLocation, result.Path[0]);
+            Assert.AreEqual(endLocation, result.Path[result.Path.Count - 1]);
+        }
+
+        [TestMethod]
         public void Test_WithOpenWall_CanFindPathAroundWall()
         {
             //Arrange
@@ -95,16 +163,16 @@ namespace TBE.Tests.Map
 
 
         [TestMethod]
-        public void Test_WithMazeWall()
+        public void Test_WithMazeWall_CannotFindPathThroughBlockedCorners()
         {
             //Arrange
             //  S ■ ■ . ■ ■ F
-            //  * ■ . ■ . ■ .
-            //  * ■ . ■ . ■ .
-            //  * ■ . ■ . ■ .
+            //  . ■ . ■ . ■ .
+            //  . ■ . ■ . ■ .
+            //  . ■ . ■ . ■ .
             //  ■ . ■ ■ ■ . ■
 
-            // long path
+            // No path without crossing blocked corners
             Vector3 startLocation = new(0, 0, 4);
             Vector3 endLocation = new(6, 0, 4);
             string[,,] map = MapCore.InitializeMap(7, 1, 5);
@@ -133,15 +201,14 @@ namespace TBE.Tests.Map
             //Assert
             Assert.IsNotNull(PathFindingResult);
             Assert.IsNotNull(PathFindingResult.Path);
-            Assert.IsTrue(PathFindingResult.Path.Any());
-            Assert.IsTrue(PathFindingResult.GetLastTile() != null);
-            Assert.AreEqual(19, PathFindingResult.GetLastTile().TraversalCost);
-            Assert.AreEqual(16, PathFindingResult.Path.Count);
+            Assert.IsFalse(PathFindingResult.Path.Any());
+            Assert.IsFalse(PathFindingResult.Tiles.Any());
+            Assert.IsNull(PathFindingResult.GetLastTile());
         }
 
 
         [TestMethod]
-        public void Test_GiantRandomMap_WithInefficentPath()
+        public void Test_GiantRandomMap_CannotFindPathThroughBlockedCorners()
         {
             //Arrange
             Vector3 startLocation = new(0, 0, 0);
@@ -154,8 +221,8 @@ namespace TBE.Tests.Map
             //Assert
             Assert.IsNotNull(PathFindingResult);
             Assert.IsNotNull(PathFindingResult.Path);
-            Assert.IsTrue(PathFindingResult.Path.Any());
-            Assert.AreEqual(97, PathFindingResult.Path.Count);
+            Assert.IsFalse(PathFindingResult.Path.Any());
+            Assert.IsFalse(PathFindingResult.Tiles.Any());
             CreateDebugPictureOfMapAndRoute(map, 70, 1, 40, PathFindingResult.Path);
         }
 

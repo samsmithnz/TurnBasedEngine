@@ -19,6 +19,7 @@ namespace TBE.Logic.Characters
             UniformHat = "";
             UniformShirt = "";
             UniformPants = "";
+            TileUnderCharacter = GameConstants.EMPTY_TILE;
         }
 
         public string ID { get; set; }
@@ -68,6 +69,7 @@ namespace TBE.Logic.Characters
                 _location = value;
             }
         }
+        public string TileUnderCharacter { get; set; }
         //This needs to be a separate function, as we want to include the current map to build the fov/field of view calcualtions
         public void SetLocationAndRange(string[,,] map, Vector3 characterLocation, int fovRange, List<Character> opponentCharacters)
         {
@@ -77,8 +79,12 @@ namespace TBE.Logic.Characters
             //Only update the map if the character is still alive
             if (map != null && HitpointsCurrent > GameConstants.DEAD_HITPOINTS)
             {
-                //Set the previous location on the map to blank (the character is no longer there)
-                map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] = GameConstants.EMPTY_TILE;
+                //Restore the tile beneath the character before moving away.
+                if (map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] == GameConstants.PLAYER_MAP_MARKER)
+                {
+                    map[(int)previousLocation.X, (int)previousLocation.Y, (int)previousLocation.Z] = TileUnderCharacter;
+                }
+                TileUnderCharacter = map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z];
                 //Place the player in the new location on the map
                 map[(int)characterLocation.X, (int)characterLocation.Y, (int)characterLocation.Z] = GameConstants.PLAYER_MAP_MARKER;
                 UpdateCharacterFOV(map);
@@ -255,6 +261,18 @@ namespace TBE.Logic.Characters
                     {
                         options.Add(new CharacterAction() { Name = "_toggle", Caption = "Toggle switch", KeyBinding = "0" });
                     }
+                }
+            }
+
+            if (map != null)
+            {
+                if (MapCore.FindAdjacentTile(map, Location, CoverType.DoorClosed).Count > 0)
+                {
+                    options.Add(new CharacterAction() { Name = "_open_door", Caption = "Open door", KeyBinding = "6" });
+                }
+                if (MapCore.FindAdjacentTile(map, Location, CoverType.DoorOpen).Count > 0)
+                {
+                    options.Add(new CharacterAction() { Name = "_close_door", Caption = "Close door", KeyBinding = "7" });
                 }
             }
 
