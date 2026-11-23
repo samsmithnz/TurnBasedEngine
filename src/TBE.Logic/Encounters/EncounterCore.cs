@@ -82,7 +82,7 @@ namespace TBE.Logic.Encounters
             chanceToCrit += AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.CriticalChance);
             //reaction shots has a 0% Critical chance
             int overwatchPenaltyRemoved = AggregateAbilitiesByType(sourceCharacter.Abilities, AbilityType.OverwatchPenaltyRemoved);
-            if (overwatchPenaltyRemoved == GameConstants.DEAD_HITPOINTS && sourceCharacter.InOverwatch)
+            if (overwatchPenaltyRemoved == 0 && sourceCharacter.InOverwatch)
             {
                 chanceToCrit = GameConstants.OVERWATCH_CRITICAL_CHANCE;
             }

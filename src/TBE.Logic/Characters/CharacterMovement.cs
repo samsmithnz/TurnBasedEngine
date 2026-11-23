@@ -80,11 +80,11 @@ namespace TBE.Logic.Characters
                     result.FOVMap = (string[,,])characterMoving.FOVMap.Clone();
                 }
                 result.FOVMapString = MapCore.GetMapStringWithMapMask(map, result.FOVMap);
-                if (opponentCharacters != null && totalOverwatchCharacters > GameConstants.DEAD_HITPOINTS)
+                if (opponentCharacters != null && totalOverwatchCharacters > 0)
                 {
                     (List<EncounterResult>, bool) overWatchResult = Overwatch(map, characterMoving, diceRolls, opponentCharacters);
                     encounters.AddRange(overWatchResult.Item1);
-                    if (encounters.Count > GameConstants.DEAD_HITPOINTS)
+                    if (encounters.Count > 0)
                     {
                         result.OverwatchEncounterResults = new List<EncounterResult>();
                         foreach (EncounterResult item in encounters)
@@ -96,7 +96,7 @@ namespace TBE.Logic.Characters
                     //is the character still alive?
                     if (!overWatchResult.Item2)
                     {
-                        if (log.Count > GameConstants.DEAD_HITPOINTS)
+                        if (log.Count > 0)
                         {
                             result.Log = log;
                         }
@@ -108,7 +108,7 @@ namespace TBE.Logic.Characters
                         totalOverwatchCharacters = TotalOverwatchCharacterCount(opponentCharacters);
                     }
                 }
-                if (log.Count > GameConstants.DEAD_HITPOINTS)
+                if (log.Count > 0)
                 {
                     result.Log = log;
                 }

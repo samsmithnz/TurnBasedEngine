@@ -83,7 +83,7 @@ namespace TBE.Logic.Map
             {
                 List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, GameConstants.FLAT_MAP_Y_COORDINATE, startingZ), borderItem);
                 int lastIndex = singleLineCheck.Count - GameConstants.LAST_INDEX_OFFSET;
-                if (singleLineCheck.Count > GameConstants.DEAD_HITPOINTS &&
+                if (singleLineCheck.Count > 0 &&
                     (int)singleLineCheck[lastIndex].X == startingX &&
                     (int)singleLineCheck[lastIndex].Z == startingZ)
                 {
